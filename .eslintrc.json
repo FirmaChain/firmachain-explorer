@@ -132,6 +132,7 @@
         "consistent": true,
         "minProperties": 2
       }
-    ]
+    ],
+    "linebreak-style": 0
   }
 }
