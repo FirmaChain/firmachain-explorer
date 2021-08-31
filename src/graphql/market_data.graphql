@@ -12,4 +12,8 @@ query MarketData ($denom: String) {
   supply {
     coins
   }
+  version {
+    chainVer: chainVer
+    sdkVer : sdkVer
+  }
 }

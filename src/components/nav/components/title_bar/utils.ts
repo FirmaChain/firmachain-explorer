@@ -5,15 +5,17 @@ export const formatMarket = (data: {
   communityPool: TokenUnit;
   supply: TokenUnit;
   inflation: number;
+  chainVer: string;
+  sdkVer: string;
 }) => {
   return ([
     {
-      key: 'marketCap',
-      data: `$${numeral(data.marketCap).format('0,0.[00]')}`,
+      key: 'chainName',
+      data: `${data.chainVer}`,
     },
     {
-      key: 'inflation',
-      data: `${numeral(data.inflation * 100).format('0')}%`,
+      key: 'sdkName',
+      data: `${data.sdkVer}`,
     },
     {
       key: 'supply',

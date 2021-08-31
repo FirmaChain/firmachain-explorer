@@ -9,6 +9,8 @@ export interface ChainState {
     marketCap: number;
     inflation: number;
     communityPool: TokenUnit;
+    chainVer: string,
+    sdkVer: string,
   }
   validatorsAddresses: {
     loading: boolean;

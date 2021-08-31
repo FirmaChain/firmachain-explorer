@@ -5,6 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { SingleBlock } from './components';
 import { useStyles } from './styles';
 import { useDataBlocks } from './hooks';
+import { getInflation } from '@src/contexts/chain/hooks';
 
 const DataBlocks: React.FC<{
   className?: string;
@@ -14,6 +15,7 @@ const DataBlocks: React.FC<{
   const { t } = useTranslation('home');
   const classes = useStyles();
   const { state } = useDataBlocks();
+  const inflation = getInflation();
   const data = [
     {
       key: t('latestBlock'),
@@ -26,8 +28,8 @@ const DataBlocks: React.FC<{
       className: classes.blockTime,
     },
     {
-      key: t('price'),
-      value: `$${numeral(state.price).format('0.00')}`,
+      key: t('inflationRate'),
+      value: `${numeral(Number(inflation) * 100).format('0.00')} %`,
       className: classes.price,
     },
     {

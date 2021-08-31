@@ -2,6 +2,7 @@
   "latestBlock": "Latest Block",
   "averageBlockTime": "Average Block Time",
   "price": "Price",
+  "inflationRate": "Inflation Rate",
   "activeValidators": "Active Validators",
   "outOfValidators": "out of {{count}} validators",
   "onlineVotingPower": "Online Voting Power",

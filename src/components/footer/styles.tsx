@@ -7,7 +7,7 @@ export const useStyles = () => {
       return ({
         root: {
           background: theme.palette.background.paper,
-          padding: theme.spacing(6, 3, 6),
+          padding: theme.spacing(1, 3, 1),
           color: theme.palette.custom.fonts.fontOne,
           '& .footer__closing--container': {
             '& a': {

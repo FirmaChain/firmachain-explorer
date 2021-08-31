@@ -53,6 +53,7 @@ const link = typeof window !== 'undefined' ? split(
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
+      "x-hasura-admin-secret" : "firmakey"
     },
   });
 

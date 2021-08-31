@@ -2,27 +2,28 @@ import React from 'react';
 import classnames from 'classnames';
 import Trans from 'next-translate/Trans';
 import useTranslation from 'next-translate/useTranslation';
-import FooterLogoLight from '@assets/big-dipper-red.svg';
-import FooterLogoDark from '@assets/big-dipper-white.svg';
+// import FooterLogoLight from '@assets/big-dipper-red.svg';
+// import FooterLogoDark from '@assets/big-dipper-white.svg';
 import {
-  Button,
-  Divider,
+  // Button,
+  // Divider,
   Typography,
 } from '@material-ui/core';
 import {
-  chainConfig, generalConfig,
+  // chainConfig,
+  generalConfig,
 } from '@src/configs';
-import { useSettingsContext } from '@contexts';
-import { SocialMedia } from './components';
-import {
-  footerLinks, donateLink,
-} from './utils';
+// import { useSettingsContext } from '@contexts';
+// import { SocialMedia } from './components';
+// import {
+//   footerLinks, donateLink,
+// } from './utils';
 import { useStyles } from './styles';
 
 const Footer: React.FC<{className?: string}> = ({ className }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { theme } = useSettingsContext();
+  // const { theme } = useSettingsContext();
 
   // ============================
   // Footer
@@ -31,69 +32,6 @@ const Footer: React.FC<{className?: string}> = ({ className }) => {
 
   return (
     <div className={classnames(className, classes.root)}>
-      <div className={classnames('footer')}>
-        {/* ============================= */}
-        {/* logo */}
-        {/* ============================= */}
-        <div className="footer__logo--container">
-          {theme === 'light' ? (
-            <FooterLogoLight className="footer__logo" />
-          ) : (
-            <FooterLogoDark className="footer__logo" />
-          )}
-          <p className="footer__slogan">{chainConfig.title}</p>
-        </div>
-        {/* ============================= */}
-        {/* links */}
-        {/* ============================= */}
-        <div className="footer__links">
-          {footerLinks.map((group) => {
-            return (
-              <div key={group.key} className={`${group.key} links__group`}>
-                <h3>{t(`common:${group.key}`)}</h3>
-                {
-                    group.links.map((x) => {
-                      return (
-                        <a
-                          key={x.url}
-                          href={x.url}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {t(`common:${x.key}`)}
-                        </a>
-                      );
-                    })
-                  }
-              </div>
-            );
-          })}
-          {/* ============================= */}
-          {/* social */}
-          {/* ============================= */}
-          <div className="footer__social">
-            <h3>{t('common:community')}</h3>
-            <SocialMedia />
-            <div>
-              <p className="footer__donate--excerpt">{t('common:donateExcerpt')}</p>
-              <a
-                href={donateLink.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button
-                  className="footer__donate-button"
-                  variant="contained"
-                  color="primary"
-                >
-                  {t('common:donate')}
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Divider />
       <div className="footer__closing--container">
         <Typography className="footer__closing--text">
           {t('common:copyright')}

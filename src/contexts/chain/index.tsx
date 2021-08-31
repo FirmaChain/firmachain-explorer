@@ -18,6 +18,8 @@ const initialState: ChainState = {
       value: 0,
       denom: '',
     },
+    chainVer: '',
+    sdkVer: '',
   },
   validatorsAddresses: {
     loading: true,

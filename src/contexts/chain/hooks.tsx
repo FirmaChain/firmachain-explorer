@@ -176,6 +176,31 @@ export const useValidatorsAddress = (initialstate:ChainState) => {
   };
 };
 
+export const getInflation = () => {
+  const [inflation, setInflation] = useState('');
+
+  useMarketDataQuery(
+    {
+      variables: {
+        denom: chainConfig.primaryTokenUnit,
+      },
+      onError: () => {
+      },
+      onCompleted: (data) => {
+        if (data) {
+          setInflation(formatUseChainIdQuery(data));
+        }
+      },
+    },
+  );
+  
+  const formatUseChainIdQuery = (data: MarketDataQuery) => {
+    return R.pathOr(0, ['inflation', 0, 'value'], data);
+  }
+
+  return inflation;
+};
+
 export const useMarket = (initalState: ChainState) => {
   const [state, setState] = useState(initalState.market);
 
@@ -211,6 +236,8 @@ export const useMarket = (initalState: ChainState) => {
     const marketCap = data.tokenPrice[0]?.marketCap ?? state.marketCap;
     const [communityPoolCoin] = R.pathOr([], ['communityPool', 0, 'coins'], data).filter((x) => x.denom === chainConfig.primaryTokenUnit);
     const inflation = R.pathOr(0, ['inflation', 0, 'value'], data);
+    const chainVer = data.version[0].chainVer ?? state.chainVer;
+    const sdkVer = data.version[0].sdkVer ?? state.sdkVer;
 
     const supply = formatDenom(
       numeral(getDenom(
@@ -229,6 +256,8 @@ export const useMarket = (initalState: ChainState) => {
       marketCap,
       inflation,
       communityPool,
+      chainVer,
+      sdkVer,
     });
   };
 

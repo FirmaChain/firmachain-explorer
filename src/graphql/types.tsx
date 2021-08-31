@@ -14153,6 +14153,12 @@ export type Subscription_RootValidator_Voting_Power_By_PkArgs = {
   validator_address: Scalars['String'];
 };
 
+export type Version = {
+  __typename?: 'version';
+  chainVer: Scalars['String'];
+  sdkVer: Scalars['String'];
+};
+
 /** columns and relationships of "supply" */
 export type Supply = {
   __typename?: 'supply';
@@ -18377,6 +18383,10 @@ export type MarketDataQuery = { communityPool: Array<(
   )>, supply: Array<(
     { __typename?: 'supply' }
     & Pick<Supply, 'coins'>
+  )>, version: Array<(
+    { __typename?: 'version' }
+    & {chainVer: Version['chainVer']}
+    & {sdkVer: Version['sdkVer']}
   )> };
 
 export type GetMessagesByAddressQueryVariables = Exact<{
@@ -19207,6 +19217,10 @@ export const MarketDataDocument = gql`
   }
   supply {
     coins
+  }
+  version {
+    chainVer: chainVer
+    sdkVer: sdkVer
   }
 }
     `;

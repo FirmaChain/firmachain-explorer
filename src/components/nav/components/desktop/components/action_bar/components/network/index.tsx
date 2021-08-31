@@ -1,9 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
-import { ExpandMore } from '@material-ui/icons';
+// import { ExpandMore } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 import { useNetworksContext } from '@src/contexts';
-import { chainConfig } from '@configs';
+// import { chainConfig } from '@configs';
 import { useStyles } from './styles';
 
 const Network:React.FC<{
@@ -22,11 +22,11 @@ const Network:React.FC<{
       onClick={toggleNetwork}
       role="button"
     >
-      <img src={chainConfig.icon} className={classes.icon} alt="icon" />
+      {/* <img src={chainConfig.icon} className={classes.icon} alt="icon" /> */}
       <Typography variant="body1">
         {selected}
       </Typography>
-      <ExpandMore />
+      {/* <ExpandMore /> */}
     </div>
   );
 };
