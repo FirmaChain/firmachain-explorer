@@ -2,9 +2,9 @@ import * as R from 'ramda';
 import { ThemeOptions } from '@material-ui/core/styles';
 
 import { darkThemeOverride } from './dark';
-import { lightThemeOverride } from './light';
-import { deuteranopiaThemeOverride } from './deuteranopia';
-import { tritanopiaThemeOverride } from './tritanopia';
+// import { lightThemeOverride } from './light';
+// import { deuteranopiaThemeOverride } from './deuteranopia';
+// import { tritanopiaThemeOverride } from './tritanopia';
 
 /** Common themes that don't change across light and dark theme */
 export const common = {
@@ -189,10 +189,10 @@ export const common = {
   },
 };
 
-export const lightTemplate:ThemeOptions = R.mergeDeepLeft(lightThemeOverride, common);
+// export const lightTemplate:ThemeOptions = R.mergeDeepLeft(lightThemeOverride, common);
 export const darkTemplate:ThemeOptions = R.mergeDeepLeft(darkThemeOverride, common);
-export const deuteranopiaTemplate:ThemeOptions = R.mergeDeepLeft(deuteranopiaThemeOverride, common);
-export const tritanopiaTemplate:ThemeOptions = R.mergeDeepLeft(tritanopiaThemeOverride, common);
+// export const deuteranopiaTemplate:ThemeOptions = R.mergeDeepLeft(deuteranopiaThemeOverride, common);
+// export const tritanopiaTemplate:ThemeOptions = R.mergeDeepLeft(tritanopiaThemeOverride, common);
 
 // export const lightTheme = createMuiTheme(lightTemplate);
 // export const darkTheme = createMuiTheme(darkTemplate);

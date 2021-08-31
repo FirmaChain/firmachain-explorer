@@ -1,18 +1,18 @@
 import {
-  lightTemplate,
+  // lightTemplate,
   darkTemplate,
-  deuteranopiaTemplate,
-  tritanopiaTemplate,
+  // deuteranopiaTemplate,
+  // tritanopiaTemplate,
   // lightTheme,
   // darkTheme,
   // deuteranopiaTheme,
 } from './theme';
 
 export {
-  lightTemplate,
+  // lightTemplate,
   darkTemplate,
-  deuteranopiaTemplate,
-  tritanopiaTemplate,
+  // deuteranopiaTemplate,
+  // tritanopiaTemplate,
   // lightTheme,
   // darkTheme,
   // deuteranopiaTheme,
