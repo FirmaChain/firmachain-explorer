@@ -27,6 +27,9 @@ export const useStyles = () => {
             },
           },
         },
+        toolTip: {
+          backgroundColor: Color(theme.palette.background.paper).lighten(0.5).string(),
+        },
       });
     }, { index: 1 },
   )();

@@ -79,7 +79,7 @@ const Desktop: React.FC<{
               role="button"
             />
           )}
-          <MenuItems />
+          <MenuItems isOpen={isMenu} />
         </Drawer>
       </div>
     </ClickAwayListener>

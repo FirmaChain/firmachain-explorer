@@ -7,12 +7,15 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Tooltip,
+  Typography,
 } from '@material-ui/core';
+import { Box } from '@src/components';
 import useTranslation from 'next-translate/useTranslation';
 import { useStyles } from './styles';
 import { getMenuItems } from './utils';
 
-const MenuItems = () => {
+const MenuItems = ({ isOpen = true }) => {
   const classes = useStyles();
   const router = useRouter();
   const { t } = useTranslation('common');
@@ -31,16 +34,27 @@ const MenuItems = () => {
 
         return (
           <Link href={x.url} key={x.key} passHref>
-            <ListItem
-              button
-              className={classnames(classes.root, {
-                active: isActive,
-              })}
-              component="a"
+            <Tooltip
+              title={
+                !isOpen && (
+                <Box className={classes.toolTip}>
+                  <Typography variant="h4" className="label">{t(x.key)}</Typography>
+                </Box>
+                )
+              }
+              placement="right"
             >
-              <ListItemIcon>{x.icon}</ListItemIcon>
-              <ListItemText primary={t(x.key)} />
-            </ListItem>
+              <ListItem
+                button
+                className={classnames(classes.root, {
+                  active: isActive,
+                })}
+                component="a"
+              >
+                <ListItemIcon>{x.icon}</ListItemIcon>
+                <ListItemText primary={t(x.key)} />
+              </ListItem>
+            </Tooltip>
           </Link>
         );
       })}
