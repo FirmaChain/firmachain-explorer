@@ -55,6 +55,8 @@ import Transfer from './msg/ibc_transfer/transfer';
 
 //firmachain
 import NFTMint from './msg/nft/mint';
+import NFTTransfer from './msg/nft/transfer';
+import NFTBurn from './msg/nft/burn';
 
 export {
   Overview,
@@ -116,4 +118,6 @@ export {
   Version,
   Transfer,
   NFTMint,
+  NFTTransfer,
+  NFTBurn
 };

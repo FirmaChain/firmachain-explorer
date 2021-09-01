@@ -49,5 +49,7 @@
   "txConnectionEndLabel": "IBC Connection End",
   "txVersionLabel": "IBC Version",
   "txTransferLabel": "IBC Transfer",
-  "txNFTMintLabel": "NFT Mint"
+  "txNFTMintLabel": "NFT Mint",
+  "txNFTTransferLabel": "NFT Transfer",
+  "txNFTBurnLabel": "NFT Burn"
 }

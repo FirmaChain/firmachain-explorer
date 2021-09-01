@@ -66,6 +66,8 @@ import MsgTransfer from './msg/ibc_transfer/msg_transfer';
 
 //FirmaChain
 import MsgNFTMint from './msg/nft/msg_nft_mint';
+import MsgNFTTransfer from './msg/nft/msg_nft_transfer';
+import MsgNFTBurn from './msg/nft/msg_nft_burn';
 
 export {
   BigDipperNetwork,
@@ -133,5 +135,7 @@ export {
   MsgCounterpartyConnection,
   MsgVersion,
   MsgTransfer,
-  MsgNFTMint
+  MsgNFTMint,
+  MsgNFTTransfer,
+  MsgNFTBurn,
 };
