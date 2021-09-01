@@ -374,6 +374,18 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txNFTBurnLabel',
     },
+    '/firmachain.firmachain.contract.MsgAddContractLog': {
+      model: MODELS.MsgAddContractLog,
+      content: COMPONENTS.AddContractLog,
+      tagTheme: 'four',
+      tagDisplay: 'txAddContractLogLabel',
+    },
+    '/firmachain.firmachain.contract.MsgCreateContractFile': {
+      model: MODELS.MsgCreateContractFile,
+      content: COMPONENTS.CreateContractFile,
+      tagTheme: 'four',
+      tagDisplay: 'txCreateContractFileLabel',
+    },
 
   };
 

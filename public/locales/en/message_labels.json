@@ -51,5 +51,7 @@
   "txTransferLabel": "IBC Transfer",
   "txNFTMintLabel": "NFT Mint",
   "txNFTTransferLabel": "NFT Transfer",
-  "txNFTBurnLabel": "NFT Burn"
+  "txNFTBurnLabel": "NFT Burn",
+  "txAddContractLogLabel": "Add Contract Log",
+  "txCreateContractFileLabel": "Create Contract File"
 }

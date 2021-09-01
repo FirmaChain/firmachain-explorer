@@ -68,6 +68,8 @@ import MsgTransfer from './msg/ibc_transfer/msg_transfer';
 import MsgNFTMint from './msg/nft/msg_nft_mint';
 import MsgNFTTransfer from './msg/nft/msg_nft_transfer';
 import MsgNFTBurn from './msg/nft/msg_nft_burn';
+import MsgAddContractLog from './msg/contract/msg_add_contract_log';
+import MsgCreateContractFile from './msg/contract/msg_create_contract_file';
 
 export {
   BigDipperNetwork,
@@ -138,4 +140,6 @@ export {
   MsgNFTMint,
   MsgNFTTransfer,
   MsgNFTBurn,
+  MsgAddContractLog,
+  MsgCreateContractFile,
 };

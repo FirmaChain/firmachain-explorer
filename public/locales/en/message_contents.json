@@ -52,5 +52,7 @@
   "txTimeoutOnCloseContent": "<0>{{signer}}</0> IBC timeout on close",
   "txNFTMintContent": "Mint NFT [ ID #<1>{{nftId}}</1> ] From 0x0000... To <0>{{owner}}</0>",
   "txNFTTransferContent": "Transfer NFT [ ID #<2>{{nftId}}</2> ] From <0>{{owner}}</0> To <1>{{to}}</1>",
-  "txNFTBurnContent": "Burn NFT [ ID #<1>{{nftId}}</1> ] From <0>{{owner}}</0> To 0x000..."
+  "txNFTBurnContent": "Burn NFT [ ID #<1>{{nftId}}</1> ] From <0>{{owner}}</0> To 0x000...",
+  "txAddContractLogContent": "",
+  "txCreateContractFileContent": ""
 }

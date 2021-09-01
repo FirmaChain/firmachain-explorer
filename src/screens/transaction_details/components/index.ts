@@ -57,6 +57,8 @@ import Transfer from './msg/ibc_transfer/transfer';
 import NFTMint from './msg/nft/mint';
 import NFTTransfer from './msg/nft/transfer';
 import NFTBurn from './msg/nft/burn';
+import AddContractLog from './msg/contract/add_contract_log';
+import CreateContractFile from './msg/contract/create_contract_file';
 
 export {
   Overview,
@@ -119,5 +121,7 @@ export {
   Transfer,
   NFTMint,
   NFTTransfer,
-  NFTBurn
+  NFTBurn,
+  AddContractLog,
+  CreateContractFile,
 };
