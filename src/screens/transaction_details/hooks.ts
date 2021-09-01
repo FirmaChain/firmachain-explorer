@@ -8,6 +8,7 @@ import {
   TransactionDetailsQuery,
 } from '@graphql/types';
 import {
+  MsgNFTMint,
   MsgWithdrawDelegatorReward,
   MsgWithdrawValidatorCommission,
 } from '@models';
@@ -111,7 +112,7 @@ export const useTransactionDetails = () => {
     const formatMessages = () => {
       const messages = data.transaction[0].messages.map((x, i) => {
         const model = getMessageModelByType(x?.['@type']);
-        if (model === MsgWithdrawDelegatorReward || model === MsgWithdrawValidatorCommission) {
+        if (model === MsgWithdrawDelegatorReward || model === MsgWithdrawValidatorCommission || model === MsgNFTMint) {
           const log = R.pathOr(null, ['logs', i], data.transaction[0]);
           return model.fromJson(x, log);
         }

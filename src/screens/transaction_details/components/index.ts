@@ -53,6 +53,9 @@ import CounterpartyConnection from './msg/ibc/connection_counterparty';
 import Version from './msg/ibc/connection_version';
 import Transfer from './msg/ibc_transfer/transfer';
 
+//firmachain
+import NFTMint from './msg/nft/mint';
+
 export {
   Overview,
   Messages,
@@ -112,4 +115,5 @@ export {
   CounterpartyConnection,
   Version,
   Transfer,
+  NFTMint,
 };

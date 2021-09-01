@@ -64,6 +64,9 @@ import MsgCounterpartyConnection from './msg/ibc/msg_connection_counterparty';
 import MsgVersion from './msg/ibc/msg_connection_version';
 import MsgTransfer from './msg/ibc_transfer/msg_transfer';
 
+//FirmaChain
+import MsgNFTMint from './msg/nft/msg_nft_mint';
+
 export {
   BigDipperNetwork,
   StakingParams,
@@ -130,4 +133,5 @@ export {
   MsgCounterpartyConnection,
   MsgVersion,
   MsgTransfer,
+  MsgNFTMint
 };

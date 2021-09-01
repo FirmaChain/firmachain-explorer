@@ -356,6 +356,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txUnblockUserLabel',
     },
+    '/firmachain.firmachain.nft.MsgMint': {
+      model: MODELS.MsgNFTMint,
+      content: COMPONENTS.NFTMint,
+      tagTheme: 'four',
+      tagDisplay: 'txNFTMintLabel',
+    },
 
   };
 
