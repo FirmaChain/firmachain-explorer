@@ -6,7 +6,6 @@ import {
 } from '@contexts';
 import useTranslation from 'next-translate/useTranslation';
 import { Typography } from '@material-ui/core';
-import getFirmaTitle from '@src/utils/get_firma_title';
 // import { chainConfig } from '@configs';
 import { useStyles } from './styles';
 import { formatMarket } from './utils';
@@ -31,7 +30,8 @@ const TitleBar:React.FC<{
       {
       title
         ? <Typography variant="h1">{title}</Typography>
-        : getFirmaTitle('title')
+        // : getFirmaTitle('title')
+        : <Typography variant="h1">Block Explorer</Typography>
       }
       <div className={classes.content}>
         {market.map((x) => (

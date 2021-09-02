@@ -18,6 +18,7 @@ import {
 } from '@components';
 import { useGrid } from '@hooks';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
+import { getMessageByType } from '@src/screens/transaction_details/utils';
 import { TransactionsListState } from '../../types';
 import { columns } from './utils';
 import { useStyles } from './styles';
@@ -40,29 +41,38 @@ const Desktop: React.FC<TransactionsListState> = ({
   const classes = useStyles();
   const { t } = useTranslation('transactions');
 
-  const items = transactions.map((x) => ({
-    block: (
-      <Link href={BLOCK_DETAILS(x.height)} passHref>
+  const items = transactions.map((x) => {
+    x.type[0].type = x.type[0]['@type'];
+    const tag = getMessageByType(x.type[0], true, t);
+    return ({
+      block: (
+        <Link href={BLOCK_DETAILS(x.height)} passHref>
+          <Typography variant="body1" component="a">
+            {numeral(x.height).format('0,0')}
+          </Typography>
+        </Link>
+      ),
+      type: (
         <Typography variant="body1" component="a">
-          {numeral(x.height).format('0,0')}
+          {tag.type}
         </Typography>
-      </Link>
-    ),
-    hash: (
-      <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
-        <Typography variant="body1" component="a">
-          {getMiddleEllipsis(x.hash, {
-            beginning: 20, ending: 15,
-          })}
-        </Typography>
-      </Link>
-    ),
-    result: (
-      <Result success={x.success} />
-    ),
-    time: dayjs.utc(x.timestamp).fromNow(),
-    messages: numeral(x.messages).format('0,0'),
-  }));
+      ),
+      hash: (
+        <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
+          <Typography variant="body1" component="a">
+            {getMiddleEllipsis(x.hash, {
+              beginning: 20, ending: 15,
+            })}
+          </Typography>
+        </Link>
+      ),
+      result: (
+        <Result success={x.success} />
+      ),
+      time: dayjs.utc(x.timestamp).fromNow(),
+      messages: numeral(x.messages).format('0,0'),
+    });
+  });
   return (
     <div className={classnames(className, classes.root)}>
       <AutoSizer onResize={onResize}>

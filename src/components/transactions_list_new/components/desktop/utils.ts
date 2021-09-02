@@ -8,22 +8,26 @@ export const columns:{
     width: 15,
   },
   {
+    key: 'type',
+    width: 15,
+  },
+  {
     key: 'hash',
     width: 30,
   },
   {
     key: 'messages',
     align: 'right',
-    width: 15,
+    width: 10,
   },
   {
     key: 'result',
     align: 'right',
-    width: 20,
+    width: 15,
   },
   {
     key: 'time',
     align: 'right',
-    width: 20,
+    width: 15,
   },
 ];

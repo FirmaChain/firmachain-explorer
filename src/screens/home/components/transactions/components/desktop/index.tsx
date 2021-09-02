@@ -20,6 +20,7 @@ import { Result } from '@components';
 import { useStyles } from './styles';
 import { columns } from './utils';
 import { TransactionType } from '../../types';
+import { getMessageByType } from '@src/screens/transaction_details/utils';
 
 const Desktop: React.FC<{
   className?: string;
@@ -31,6 +32,9 @@ const Desktop: React.FC<{
   const { t } = useTranslation('transactions');
 
   const formattedData = items.map((x) => {
+    x.type[0].type = x.type[0]['@type'];
+    const tag = getMessageByType(x.type[0], true, t);
+
     return ({
       block: (
         <Link href={BLOCK_DETAILS(x.height)} passHref>
@@ -38,6 +42,11 @@ const Desktop: React.FC<{
             {numeral(x.height).format('0,0')}
           </Typography>
         </Link>
+      ),
+      type: (
+        <Typography variant="body1" component="a">
+          {tag.type}
+        </Typography>
       ),
       hash: (
         <Link href={TRANSACTION_DETAILS(x.hash)} passHref>

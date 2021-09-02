@@ -13,7 +13,7 @@ import {
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import AutoSizer from 'react-virtualized-auto-sizer';
-
+import useTranslation from 'next-translate/useTranslation';
 import { mergeRefs } from '@utils/merge_refs';
 import {
   SingleTransactionMobile,
@@ -25,6 +25,7 @@ import {
   useListRow,
 } from '@hooks';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
+import { getMessageByType } from '@src/screens/transaction_details/utils';
 import { useStyles } from './styles';
 import { TransactionsListState } from '../../types';
 
@@ -43,29 +44,41 @@ const Mobile: React.FC<TransactionsListState> = ({
     setRowHeight,
   } = useList();
 
-  const items = transactions.map((x) => ({
-    block: (
-      <Link href={BLOCK_DETAILS(x.height)} passHref>
+  const { t } = useTranslation('transactions');
+
+  const items = transactions.map((x) => {
+    x.type[0].type = x.type[0]['@type'];
+    const tag = getMessageByType(x.type[0], true, t);
+
+    return ({
+      block: (
+        <Link href={BLOCK_DETAILS(x.height)} passHref>
+          <Typography variant="body1" component="a">
+            {numeral(x.height).format('0,0')}
+          </Typography>
+        </Link>
+      ),
+      type: (
         <Typography variant="body1" component="a">
-          {numeral(x.height).format('0,0')}
+          {tag.type}
         </Typography>
-      </Link>
-    ),
-    hash: (
-      <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
-        <Typography variant="body1" component="a">
-          {getMiddleEllipsis(x.hash, {
-            beginning: 15, ending: 5,
-          })}
-        </Typography>
-      </Link>
-    ),
-    result: (
-      <Result success={x.success} />
-    ),
-    time: dayjs.utc(x.timestamp).fromNow(),
-    messages: numeral(x.messages).format('0,0'),
-  }));
+      ),
+      hash: (
+        <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
+          <Typography variant="body1" component="a">
+            {getMiddleEllipsis(x.hash, {
+              beginning: 15, ending: 5,
+            })}
+          </Typography>
+        </Link>
+      ),
+      result: (
+        <Result success={x.success} />
+      ),
+      time: dayjs.utc(x.timestamp).fromNow(),
+      messages: numeral(x.messages).format('0,0'),
+    });
+  });
 
   return (
     <div className={classnames(className, classes.root)}>

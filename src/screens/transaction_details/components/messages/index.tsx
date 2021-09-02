@@ -39,6 +39,8 @@ const Messages: React.FC<{
   } = useList();
 
   const formattedItems = props.messages.map((x) => {
+    console.log(x);
+    
     return getMessageByType(x, props.viewRaw, t);
   });
 

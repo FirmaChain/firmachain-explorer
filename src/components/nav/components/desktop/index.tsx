@@ -5,9 +5,10 @@ import {
   AppBar,
   ClickAwayListener,
 } from '@material-ui/core';
-import { useSettingsContext } from '@contexts';
-import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
-import BigDipperLogoRed from '@assets/big-dipper-red.svg';
+// import { useSettingsContext } from '@contexts';
+// import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
+// import BigDipperLogoRed from '@assets/big-dipper-red.svg';
+import FirmachainTitle from '@public/firmachain/firma_chain_title.svg';
 import { useStyles } from './styles';
 import { useDesktop } from './hooks';
 import {
@@ -23,7 +24,7 @@ const Desktop: React.FC<{
   className, title,
 }) => {
   const classes = useStyles();
-  const { theme } = useSettingsContext();
+  // const { theme } = useSettingsContext();
   const {
     isMenu,
     toggleMenu,
@@ -66,19 +67,16 @@ const Desktop: React.FC<{
             }),
           }}
         >
-          {theme === 'light' ? (
-            <BigDipperLogoRed
-              className={classes.logo}
-              onClick={toggleMenu}
-              role="button"
-            />
-          ) : (
-            <BigDipperLogoWhite
-              className={classes.logo}
-              onClick={toggleMenu}
-              role="button"
-            />
-          )}
+          {/* <BigDipperLogoWhite
+            className={classes.logo}
+            onClick={toggleMenu}
+            role="button"
+          /> */}
+          <FirmachainTitle
+            className={classes.logo}
+            onClick={toggleMenu}
+            role="button"
+          />
           <MenuItems isOpen={isMenu} />
         </Drawer>
       </div>

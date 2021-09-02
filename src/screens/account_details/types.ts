@@ -25,6 +25,7 @@ export type TransactionType = {
   success: boolean;
   timestamp: string;
   messages: number;
+  type: any;
 }
 
 export type DelegationType = {

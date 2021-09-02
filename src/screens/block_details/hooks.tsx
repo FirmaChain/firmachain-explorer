@@ -116,6 +116,7 @@ export const useBlockDetails = () => {
           success: x.success,
           timestamp: stateChange.overview.timestamp,
           messages: x.messages.length,
+          type: x.messages,
         });
       });
 

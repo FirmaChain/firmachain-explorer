@@ -192,9 +192,9 @@ export const useValidatorDetails = () => {
   // ==========================
   const formatTransactions = (data: GetMessagesByAddressQuery) => {
     let formattedData = data.messagesByAddress;
-    if (data.messagesByAddress.length === 51) {
-      formattedData = data.messagesByAddress.slice(0, 51);
-    }
+    // if (data.messagesByAddress.length === 51) {
+    //   formattedData = data.messagesByAddress.slice(0, 51);
+    // }
     return formattedData.map((x) => {
       const { transaction } = x;
       return ({
@@ -203,6 +203,7 @@ export const useValidatorDetails = () => {
         messages: transaction.messages.length,
         success: transaction.success,
         timestamp: transaction.block.timestamp,
+        type: transaction.messages,
       });
     });
   };

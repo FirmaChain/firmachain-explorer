@@ -22,6 +22,7 @@ type Transactions = {
   success: boolean;
   timestamp: string;
   messages: number;
+  type: any;
 }
 
 type TokenUnit = {

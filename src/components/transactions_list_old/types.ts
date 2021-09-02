@@ -15,5 +15,6 @@ export type TransactionsListState = {
     messages: string;
     result?: React.ReactNode;
     time: string;
+    type: any;
   }[]
 }

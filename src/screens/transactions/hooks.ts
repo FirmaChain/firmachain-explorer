@@ -97,6 +97,7 @@ export const useTransactions = () => {
         messages: x.messages.length,
         success: x.success,
         timestamp: x.block.timestamp,
+        type: x.messages,
       });
     });
   };

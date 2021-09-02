@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import Link from 'next/link';
 import numeral from 'numeral';
 import dayjs from '@utils/dayjs';
+import useTranslation from 'next-translate/useTranslation';
 import {
   Typography,
   Divider,
@@ -11,6 +12,7 @@ import {
   SingleTransactionMobile, Result,
 } from '@components';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
+import { getMessageByType } from '@src/screens/transaction_details/utils';
 import {
   BLOCK_DETAILS, TRANSACTION_DETAILS,
 } from '@utils/go_to_page';
@@ -23,7 +25,13 @@ const Mobile:React.FC<{
 }> = ({
   className, items,
 }) => {
+  
+  const { t } = useTranslation('transactions');
+  
   const formattedData = items.map((x) => {
+    x.type[0].type = x.type[0]['@type'];
+    const tag = getMessageByType(x.type[0], true, t);
+
     return ({
       block: (
         <Link href={BLOCK_DETAILS(x.height)} passHref>
@@ -31,6 +39,11 @@ const Mobile:React.FC<{
             {numeral(x.height).format('0,0')}
           </Typography>
         </Link>
+      ),
+      type: (
+        <Typography variant="body1" component="a">
+          {tag.type}
+        </Typography>
       ),
       hash: (
         <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
