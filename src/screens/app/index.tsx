@@ -39,14 +39,14 @@ function App(props: AppProps) {
         openGraph={{
           title: `${t('common:chainName')} | ${chainConfig.title}`,
           type: 'website',
-          site_name: 'Big Dipper',
+          site_name: 'FirmaChain Block Explorer',
           url: process.env.NEXT_PUBLIC_URL,
           description: t('common:description'),
           images: [
             {
-              url: 'https://bigdipper.live/images/big-dipper-social-media.png',
-              width: 800,
-              height: 600,
+              url: 'https://s3.ap-northeast-2.amazonaws.com/file.firmachain.org/ogimage.png',
+              width: 1100,
+              height: 640,
               alt: 'Preview Photo',
             },
           ],
@@ -79,7 +79,7 @@ function App(props: AppProps) {
           {
             rel: 'mask-icon',
             href: '/icons/safari-pinned-tab.svg',
-            color: '#5bbad5',
+            color: '#000000',
           },
           {
             rel: 'shortcut icon',
@@ -93,7 +93,7 @@ function App(props: AppProps) {
           },
           {
             property: 'msapplication-TileColor',
-            content: '#da532c',
+            content: '#000000',
           },
           {
             name: 'msapplication-config',
@@ -101,7 +101,7 @@ function App(props: AppProps) {
           },
           {
             name: 'theme-color',
-            content: '#ffffff',
+            content: '#000000',
           },
         ]}
       />

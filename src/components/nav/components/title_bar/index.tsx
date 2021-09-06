@@ -30,7 +30,6 @@ const TitleBar:React.FC<{
       {
       title
         ? <Typography variant="h1">{title}</Typography>
-        // : getFirmaTitle('title')
         : <Typography variant="h1">Block Explorer</Typography>
       }
       <div className={classes.content}>
