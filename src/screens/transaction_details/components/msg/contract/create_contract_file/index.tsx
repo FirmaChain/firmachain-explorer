@@ -33,7 +33,7 @@ const CreateContrMsgCreateContractFile = (props: {
                                 message.json[key].map((value) => {
                                   const ownerAddress = findAddress(value);
                                   const ownerMoniker = ownerAddress ? ownerAddress?.moniker : value;
-                                  return (<>{`\t\t"`}<Name address={message.creatorAddress} name={ownerMoniker}/>{`"\n`}</>)
+                                  return (<>{`\t\t"`}<Name address={value} name={ownerMoniker}/>{`"\n`}</>)
                                 })
                               }
                               {'\t]\n'}
