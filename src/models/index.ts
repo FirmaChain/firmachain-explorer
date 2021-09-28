@@ -70,6 +70,8 @@ import MsgNFTTransfer from './msg/nft/msg_nft_transfer';
 import MsgNFTBurn from './msg/nft/msg_nft_burn';
 import MsgAddContractLog from './msg/contract/msg_add_contract_log';
 import MsgCreateContractFile from './msg/contract/msg_create_contract_file';
+import MsgFeegrantGrant from './msg/feegrant/msg_feegrant_grant';
+import MsgFeegrantRevoke from './msg/feegrant/msg_feegrant_revoke';
 
 export {
   BigDipperNetwork,
@@ -142,4 +144,6 @@ export {
   MsgNFTBurn,
   MsgAddContractLog,
   MsgCreateContractFile,
+  MsgFeegrantGrant,
+  MsgFeegrantRevoke,
 };

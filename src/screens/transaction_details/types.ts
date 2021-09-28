@@ -3,6 +3,7 @@ export type OverviewType = {
   height: number;
   timestamp: string;
   fee: TokenUnit;
+  feeGrant: string;
   gasUsed: number;
   gasWanted: number;
   success: boolean;

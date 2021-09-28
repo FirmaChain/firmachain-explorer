@@ -59,6 +59,8 @@ import NFTTransfer from './msg/nft/transfer';
 import NFTBurn from './msg/nft/burn';
 import AddContractLog from './msg/contract/add_contract_log';
 import CreateContractFile from './msg/contract/create_contract_file';
+import FeegrantGrant from "./msg/feegrant/grant";
+import FeegrantRevoke from "./msg/feegrant/revoke";
 
 export {
   Overview,
@@ -124,4 +126,6 @@ export {
   NFTBurn,
   AddContractLog,
   CreateContractFile,
+  FeegrantGrant,
+  FeegrantRevoke
 };

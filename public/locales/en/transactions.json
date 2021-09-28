@@ -8,6 +8,7 @@
   "transactionDetails": "Transaction Details",
   "overview": "Overview",
   "fee": "Fee",
+  "feegrant": "Fee Granter",
   "height": "Height",
   "gas": "Gas (used / wanted)",
   "result": "Result",

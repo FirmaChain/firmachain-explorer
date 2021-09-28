@@ -386,6 +386,18 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txCreateContractFileLabel',
     },
+    '/cosmos.feegrant.v1beta1.MsgGrantAllowance': {
+      model: MODELS.MsgFeegrantGrant,
+      content: COMPONENTS.FeegrantGrant,
+      tagTheme: 'two',
+      tagDisplay: 'txFeegrantGrantLabel',
+    },
+    '/cosmos.feegrant.v1beta1.MsgRevokeAllowance': {
+      model: MODELS.MsgFeegrantRevoke,
+      content: COMPONENTS.FeegrantRevoke,
+      tagTheme: 'three',
+      tagDisplay: 'txFeegrantRevokeLabel',
+    },
 
   };
 

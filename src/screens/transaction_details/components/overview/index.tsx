@@ -5,7 +5,7 @@ import Link from 'next/link';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { Typography } from '@material-ui/core';
 import useTranslation from 'next-translate/useTranslation';
-import { BLOCK_DETAILS } from '@utils/go_to_page';
+import { BLOCK_DETAILS, ACCOUNT_DETAILS } from '@utils/go_to_page';
 import { useSettingsContext } from '@contexts';
 import {
   BoxDetails, Result,
@@ -47,6 +47,16 @@ const Overview: React.FC<{
     {
       label: t('fee'),
       detail: `${numeral(data.fee.value).format('0,0.[0000]')} ${data?.fee?.denom?.toUpperCase()}`,
+    },
+    {
+      label: t('feegrant'),
+      detail: (
+        <Link href={ACCOUNT_DETAILS(data.feeGrant)} passHref>
+          <Typography variant="body1" className="value" component="a">
+            {data.feeGrant}
+          </Typography>
+        </Link>
+      ),
     },
     {
       label: t('gas'),

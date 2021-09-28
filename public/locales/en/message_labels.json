@@ -53,5 +53,7 @@
   "txNFTTransferLabel": "NFT Transfer",
   "txNFTBurnLabel": "NFT Burn",
   "txAddContractLogLabel": "Add Contract Log",
-  "txCreateContractFileLabel": "Create Contract File"
+  "txCreateContractFileLabel": "Create Contract File",
+  "txFeegrantGrantLabel" : "Grant Allowance",
+  "txFeegrantRevokeLabel" : "Revoke Allowance"
 }
