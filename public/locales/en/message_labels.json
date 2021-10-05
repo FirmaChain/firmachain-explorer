@@ -55,5 +55,6 @@
   "txAddContractLogLabel": "Add Contract Log",
   "txCreateContractFileLabel": "Create Contract File",
   "txFeegrantGrantLabel" : "Grant Allowance",
-  "txFeegrantRevokeLabel" : "Revoke Allowance"
+  "txFeegrantRevokeLabel" : "Revoke Allowance",
+  "txAuthzGrantLabel" : "Grant"
 }

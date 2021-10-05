@@ -398,6 +398,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'three',
       tagDisplay: 'txFeegrantRevokeLabel',
     },
+    '/cosmos.authz.v1beta1.MsgGrant': {
+      model: MODELS.MsgAuthzGrant,
+      content: COMPONENTS.AuthzGrant,
+      tagTheme: 'two',
+      tagDisplay: 'txAuthzGrantLabel',
+    },
 
   };
 

@@ -72,6 +72,7 @@ import MsgAddContractLog from './msg/contract/msg_add_contract_log';
 import MsgCreateContractFile from './msg/contract/msg_create_contract_file';
 import MsgFeegrantGrant from './msg/feegrant/msg_feegrant_grant';
 import MsgFeegrantRevoke from './msg/feegrant/msg_feegrant_revoke';
+import MsgAuthzGrant from './msg/authz/msg_authz_grant';
 
 export {
   BigDipperNetwork,
@@ -146,4 +147,5 @@ export {
   MsgCreateContractFile,
   MsgFeegrantGrant,
   MsgFeegrantRevoke,
+  MsgAuthzGrant,
 };

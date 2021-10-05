@@ -61,6 +61,7 @@ import AddContractLog from './msg/contract/add_contract_log';
 import CreateContractFile from './msg/contract/create_contract_file';
 import FeegrantGrant from "./msg/feegrant/grant";
 import FeegrantRevoke from "./msg/feegrant/revoke";
+import AuthzGrant from "./msg/authz/grant";
 
 export {
   Overview,
@@ -127,5 +128,6 @@ export {
   AddContractLog,
   CreateContractFile,
   FeegrantGrant,
-  FeegrantRevoke
+  FeegrantRevoke,
+  AuthzGrant,
 };
