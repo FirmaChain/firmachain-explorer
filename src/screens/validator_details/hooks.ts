@@ -329,12 +329,12 @@ export const useValidatorDetails = () => {
 
           return ({
             to: {
-              address: x.to,
+              address: findOperator(x.to),
               imageUrl: to.imageUrl,
               name: to.moniker,
             },
             from: {
-              address: x.from,
+              address: findOperator(x.from),
               imageUrl: from.imageUrl,
               name: from.moniker,
             },
@@ -353,12 +353,12 @@ export const useValidatorDetails = () => {
           const delegator = findAddress(x.delegatorAddress);
           return ({
             to: {
-              address: x.to,
+              address: findOperator(x.to),
               imageUrl: to.imageUrl,
               name: to.moniker,
             },
             from: {
-              address: x.from,
+              address: findOperator(x.from),
               imageUrl: from.imageUrl,
               name: from.moniker,
             },
