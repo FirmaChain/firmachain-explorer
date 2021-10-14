@@ -22,7 +22,7 @@ class MsgWithdrawValidatorCommission {
   }
 
   static getWithdrawalAmount(log: any) {
-    if(log === null) return 0;
+    if(log === null) return [formatDenom(0)];
     const [withdrawEvent] = log?.events?.filter((x) => x.type === 'withdraw_commission');
     const [withdrawAmount] = R.pathOr([], ['attributes'], withdrawEvent).filter((x) => x.key === 'amount');
 
