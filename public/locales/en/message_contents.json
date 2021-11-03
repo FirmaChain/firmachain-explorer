@@ -58,8 +58,8 @@
   "txFeegrantGrantContent" : "<0>{{granter}}</0> granted allownace for <1>{{grantee}}</1>",
   "txFeegrantRevokeContent" : "<0>{{granter}}</0> revoked allownace for <1>{{grantee}}</1>",
   "txAuthzGrantContent" : "<0>{{granter}}</0> granted send authorization for <1>{{grantee}}</1>",
-  "txTokenCreateContent" : "{{tokenName}} ({{tokenSymbol}}) token was created by <0>{{owner}}</0>.",
-  "txTokenMintContent" : "{{amount}} {{tokenID}} token was minted by <0>{{owner}}</0>.",
-  "txTokenBurnContent" : "{{amount}} {{tokenID}} token was burned by <0>{{owner}}</0>.",
-  "txTokenUpdateURIContent" : "The {{tokenID}} token URI has been updated."
+  "txTokenCreateContent" : "{{tokenName}} ({{tokenSymbol}}) token was created by <0>{{owner}}</0>",
+  "txTokenMintContent" : "{{amount}} {{tokenID}} token was minted by <0>{{owner}}</0> and sent to <1>{{toAddress}}</1>",
+  "txTokenBurnContent" : "{{amount}} {{tokenID}} token was burned by <0>{{owner}}</0>",
+  "txTokenUpdateURIContent" : "The {{tokenID}} token URI has been updated"
 }

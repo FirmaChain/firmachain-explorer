@@ -14,6 +14,8 @@ const TokenMint = (props: {
   const ownerAddress = findAddress(message.ownerAddress);
   const ownerMoniker = ownerAddress ? ownerAddress?.moniker : message.ownerAddress;
 
+  const toAddress = findAddress(message.toAddress);
+  const toMoniker = toAddress ? toAddress?.moniker : message.toAddress;
 
   return (
     <Typography>
@@ -24,6 +26,12 @@ const TokenMint = (props: {
             <Name
               address={message.ownerAddress}
               name={ownerMoniker}
+            />
+          ),
+          (
+            <Name
+              address={message.toAddress}
+              name={toMoniker}
             />
           ),
         ]}
