@@ -13,7 +13,7 @@ const TokenCreate = (props: {
       <Trans
         i18nKey="message_contents:txTokenCreateContent"
         values={{
-            tokenNmae: message.name,
+            tokenName: message.name,
             tokenSymbol: message.symbol,
         }}
       />
