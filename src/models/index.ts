@@ -74,6 +74,11 @@ import MsgFeegrantGrant from './msg/feegrant/msg_feegrant_grant';
 import MsgFeegrantRevoke from './msg/feegrant/msg_feegrant_revoke';
 import MsgAuthzGrant from './msg/authz/msg_authz_grant';
 
+import MsgTokenCreate from './msg/token/msg_token_create';
+import MsgTokenMint from './msg/token/msg_token_mint';
+import MsgTokenBurn from './msg/token/msg_token_burn';
+import MsgTokenUpdateURI from './msg/token/msg_token_updateURI';
+
 export {
   BigDipperNetwork,
   StakingParams,
@@ -148,4 +153,8 @@ export {
   MsgFeegrantGrant,
   MsgFeegrantRevoke,
   MsgAuthzGrant,
+  MsgTokenCreate,
+  MsgTokenMint,
+  MsgTokenBurn,
+  MsgTokenUpdateURI,
 };

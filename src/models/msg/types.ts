@@ -9,5 +9,5 @@ export type BaseCategories =
   | "ibc"
   | "ibc-transfer"
   | "others";
-export type CustomCategories = "nft" | "authz" | "feegrant" | "contract"; // custom modules
+export type CustomCategories = "nft" | "authz" | "feegrant" | "contract" | "token"; // custom modules
 export type Categories = BaseCategories | CustomCategories;

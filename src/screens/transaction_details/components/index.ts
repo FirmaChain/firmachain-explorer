@@ -63,6 +63,11 @@ import FeegrantGrant from "./msg/feegrant/grant";
 import FeegrantRevoke from "./msg/feegrant/revoke";
 import AuthzGrant from "./msg/authz/grant";
 
+import TokenCreate from "./msg/token/create";
+import TokenMint from "./msg/token/mint";
+import TokenBurn from "./msg/token/burn";
+import TokenUpdateURI from "./msg/token/updateURI";
+
 export {
   Overview,
   Messages,
@@ -130,4 +135,8 @@ export {
   FeegrantGrant,
   FeegrantRevoke,
   AuthzGrant,
+  TokenCreate,
+  TokenMint,
+  TokenBurn,
+  TokenUpdateURI,
 };

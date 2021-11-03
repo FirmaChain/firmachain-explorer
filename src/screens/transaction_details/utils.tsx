@@ -405,6 +405,34 @@ const getDataByType = (type: string) => {
       tagDisplay: 'txAuthzGrantLabel',
     },
 
+    '/firmachain.firmachain.token.MsgCreateToken': {
+      model: MODELS.MsgTokenCreate,
+      content: COMPONENTS.TokenCreate,
+      tagTheme: 'two',
+      tagDisplay: 'txTokenCreateLabel',
+    },
+    
+    '/firmachain.firmachain.token.MsgMint': {
+      model: MODELS.MsgTokenMint,
+      content: COMPONENTS.TokenMint,
+      tagTheme: 'two',
+      tagDisplay: 'txTokenMintLabel',
+    },
+    
+    '/firmachain.firmachain.token.MsgBurn': {
+      model: MODELS.MsgTokenBurn,
+      content: COMPONENTS.TokenBurn,
+      tagTheme: 'four',
+      tagDisplay: 'txTokenBurnLabel',
+    },
+    
+    '/firmachain.firmachain.token.MsgUpdateTokenURI': {
+      model: MODELS.MsgTokenUpdateURI,
+      content: COMPONENTS.TokenUpdateURI,
+      tagTheme: 'three',
+      tagDisplay: 'txTokenUpdateURILabel',
+    },
+
   };
 
   if (defaultTypeToModel[type]) return defaultTypeToModel[type];

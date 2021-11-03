@@ -37,6 +37,10 @@ export const getFilterLabels = () => {
       display: 'nft',
     },
     {
+      key: 'token',
+      display: 'token',
+    },
+    {
       key: 'others',
       display: 'others',
     },
