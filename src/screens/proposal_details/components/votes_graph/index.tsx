@@ -105,7 +105,7 @@ const VotesGraph: React.FC<{
           );
         })}
         <div>
-          <div>The current percentage simply represents the percentage of people who voted.</div>
+          <div>* The current percentage simply represents the percentage of people who voted.</div>
           <div>(You can check the percentage of Quorum criteria through Firma Station.)</div>
         </div>
       </div>
