@@ -30,7 +30,7 @@ const Desktop: React.FC<{
     toggleMenu,
     turnOffAll,
     toggleNetwork,
-    // isNetwork,
+    isNetwork,
   } = useDesktop();
   return (
     <ClickAwayListener onClickAway={turnOffAll}>
@@ -43,11 +43,11 @@ const Desktop: React.FC<{
             open: isMenu,
           })}
         >
-          {/* <ActionBar
+          <ActionBar
             toggleNetwork={toggleNetwork}
             isNetwork={isNetwork}
-          /> */}
-          <ActionBar toggleNetwork={toggleNetwork} />
+          />
+          {/* <ActionBar toggleNetwork={toggleNetwork} /> */}
           <TitleBar title={title} />
         </AppBar>
         <Drawer

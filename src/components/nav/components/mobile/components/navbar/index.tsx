@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import Link from 'next/link';
-// import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore } from '@material-ui/icons';
 import {
   // useSettingsContext,
   useNetworksContext,
@@ -19,7 +19,7 @@ const Navbar = (props:NavbarProps) => {
   const { selected } = useNetworksContext();
   const {
     isOpen,
-    // openNetwork,
+    openNetwork,
     toggleNavMenus,
   } = props;
 
@@ -41,13 +41,13 @@ const Navbar = (props:NavbarProps) => {
         {/* =================================== */}
         <div
           className={classes.network}
-          // onClick={openNetwork}
-          // role="button"
+          onClick={openNetwork}
+          role="button"
         >
           <p className="text">
             {selected}
           </p>
-          {/* <ExpandMore fontSize="small" /> */}
+          <ExpandMore fontSize="small" />
         </div>
         {/* =================================== */}
         {/* Hamburger */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-// import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 import { useNetworksContext } from '@src/contexts';
 // import { chainConfig } from '@configs';
@@ -26,7 +26,7 @@ const Network:React.FC<{
       <Typography variant="body1">
         {selected}
       </Typography>
-      {/* <ExpandMore /> */}
+      <ExpandMore />
     </div>
   );
 };
