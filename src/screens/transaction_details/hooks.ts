@@ -61,7 +61,7 @@ export const useTransactionDetails = () => {
   // ===============================
   useTransactionDetailsQuery({
     variables: {
-      hash: router.query.tx as string,
+      hash: (router.query.tx as string).toUpperCase(),
     },
     onCompleted: (data) => {
       handleSetState(formatTransactionDetails(data));
