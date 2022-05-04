@@ -52,6 +52,7 @@ const Mobile: React.FC<{
           content={numeral(x.votingPower).format('0,0')}
         />
       ),
+      active : x.active
     });
   });
 

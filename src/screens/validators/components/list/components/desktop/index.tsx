@@ -1,6 +1,6 @@
 import React from 'react';
-import classnames from 'classnames';
 import numeral from 'numeral';
+import classnames from 'classnames';
 import useTranslation from 'next-translate/useTranslation';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeGrid as Grid } from 'react-window';
@@ -9,6 +9,7 @@ import { useGrid } from '@hooks';
 import {
   SortArrows,
   AvatarName,
+  Tag,
 } from '@components';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { useStyles } from './styles';
@@ -61,6 +62,13 @@ const Desktop: React.FC<{
           content={numeral(x.votingPower).format('0,0')}
         />
       ),
+      active : (
+        <Tag
+        value={t(x.active.toLowerCase())}
+        theme={x.activeColor as any}
+        className={classnames(classes.activeBox)}
+      />
+      )
     });
   });
 

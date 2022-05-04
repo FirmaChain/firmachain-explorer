@@ -66,14 +66,10 @@ const VotingPower: React.FC<{
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('selfDelegatedTokens')}
+          {t('votingPowerPercent')}
         </Typography>
         <Typography variant="body1" className="value">
-          {numeral(data.selfDelegate.value).format('0,0')}
-          {' '}
-          (
-          {`${numeral(data.selfDelegatePercent).format('0.[00]')}%`}
-          )
+          {`${votingPowerPercent.format('0,0.00')}%`}
         </Typography>
       </div>
     </Box>

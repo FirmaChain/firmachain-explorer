@@ -32,6 +32,9 @@ export const useStyles = () => {
         body: {
           color: theme.palette.custom.fonts.fontTwo,
         },
+        activeBox: {
+          background:'none !important'
+        }
       });
     },
   )();

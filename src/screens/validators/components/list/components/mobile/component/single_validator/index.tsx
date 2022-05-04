@@ -13,12 +13,14 @@ const SingleValidator: React.FC<{
   commission: string;
   self: string;
   votingPower: React.ReactNode;
+  active: string;
 }> = ({
   className,
   validator,
   self,
   commission,
   votingPower,
+  active,
   idx,
 }) => {
   const { t } = useTranslation('validators');
@@ -50,10 +52,10 @@ const SingleValidator: React.FC<{
       <div className={classes.flex}>
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('self')}
+            {t('active')}
           </Typography>
           <Typography variant="body1" className="value">
-            {self}
+            {active}
           </Typography>
         </div>
         <div className={classes.item}>

@@ -279,9 +279,11 @@ export const useValidatorDetails = () => {
       );
       const selfDelegatePercent = (numeral(R.pathOr(0, ['amount', 'amount'], selfDelegate)).value() / totalDelegations) * 100;
 
+      const status = R.pathOr(3, ['validatorStatuses', 0, 'status'], data.validator[0]);
+
       const stakingParams = StakingParams.fromJson(R.pathOr({}, ['stakingParams', 0, 'params'], data));
       const votingPower = {
-        self,
+        self:status===3?self:0,
         selfDelegate: selfDelegateAmount,
         selfDelegatePercent,
         overall: formatDenom(

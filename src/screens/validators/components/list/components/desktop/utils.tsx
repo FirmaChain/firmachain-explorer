@@ -3,7 +3,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import {
-  InfoPopover, ConditionExplanation,
+  InfoPopover, ConditionExplanation, Tag,
 } from '@components';
 
 export const fetchColumns = (t): {
@@ -22,32 +22,18 @@ export const fetchColumns = (t): {
     {
       key: 'validator',
       sortKey: 'validator.name',
-      width: 20,
+      width: 20 + 5,
       sort: true,
     },
     {
       key: 'votingPower',
       sortKey: 'votingPower',
-      width: 20,
+      width: 20 + 25 - 10 - 5,
       sort: true,
     },
     {
       key: 'commission',
       sortKey: 'commission',
-      align: 'right',
-      width: 15,
-      sort: true,
-    },
-    {
-      key: 'self',
-      sortKey: 'selfPercent',
-      align: 'right',
-      width: 10,
-      sort: true,
-    },
-    {
-      key: 'delegators',
-      sortKey: 'delegators',
       align: 'right',
       width: 15,
       sort: true,
@@ -64,6 +50,12 @@ export const fetchColumns = (t): {
           />
         </Typography>
       ),
+    },
+    {
+      key: 'active',
+      align: 'center',
+      width: 10,
+      sort: false,
     },
   ]);
 };

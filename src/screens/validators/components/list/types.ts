@@ -8,6 +8,8 @@ export type ValidatorType = {
   status: number;
   jailed: boolean;
   delegators: number;
+  active:string;
+  activeColor:string;
 }
 
 export type ValidatorsState = {

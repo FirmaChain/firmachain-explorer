@@ -18734,7 +18734,7 @@ export type ValidatorsQuery = { stakingParams: Array<(
       & Pick<Validator_Status, 'status' | 'jailed' | 'height'>
     )>, validatorSigningInfos: Array<(
       { __typename?: 'validator_signing_info' }
-      & { missedBlocksCounter: Validator_Signing_Info['missed_blocks_counter'] }
+      & { missedBlocksCounter: Validator_Signing_Info['missed_blocks_counter'], tombstoned: Validator_Signing_Info['tombstoned'] }
     )>, validatorInfo?: Maybe<(
       { __typename?: 'validator_info' }
       & { operatorAddress: Validator_Info['operator_address'], selfDelegateAddress: Validator_Info['self_delegate_address'] }
@@ -20104,6 +20104,7 @@ export const ValidatorsDocument = gql`
       limit: 1
     ) {
       missedBlocksCounter: missed_blocks_counter
+      tombstoned
     }
     validatorInfo: validator_info {
       operatorAddress: operator_address

@@ -60,8 +60,10 @@ export const useValidators = () => {
 
     const formattedItems = data.validator.filter((x) => x.validatorInfo).map((x) => {
       const validator = findAddress(x.validatorInfo.operatorAddress);
-      const votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
-      const votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
+      
+      let votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
+      let votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
+
       const totalDelegations = x.delegations.reduce((a, b) => {
         return a + numeral(R.pathOr(0, ['amount', 'amount'], b)).value();
       }, 0);
@@ -77,6 +79,40 @@ export const useValidators = () => {
       const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
       const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
+      const status = R.pathOr(0, ['validatorStatuses', 0, 'status'], x);
+      const jailed = R.pathOr(false, ['validatorStatuses', 0, 'jailed'], x);
+      const tombstoned = R.pathOr(0, ['validatorSigningInfos', 0, 'tombstoned'], x);
+
+      let activeText = 'unknown';
+      let activeColor = 'zero';
+
+      if (status === 3) {
+        activeText = 'Active';
+        activeColor = 'one';
+      } else if (status === 2 && jailed) {
+        activeText = 'Jailed';
+        activeColor = 'two';
+      } else if (status === 2 && !jailed) {
+        activeText = 'Unbonding';
+        activeColor = 'three';
+      } else if (status === 1) {
+        activeText = 'Unbonded';
+        activeColor = 'zero';
+      } else {
+        activeText = 'Unknown';
+        activeColor = 'zero';
+      }
+
+      if(tombstoned){
+        activeText = 'Tombstoned';
+        activeColor = 'two';
+      }
+
+      if(activeText !== 'Active') {
+        votingPower = 0;
+        votingPowerPercent = 0;
+      }
+
       return ({
         validator: {
           address: x.validatorInfo.operatorAddress,
@@ -89,9 +125,12 @@ export const useValidators = () => {
         self,
         selfPercent,
         condition,
-        status: R.pathOr(0, ['validatorStatuses', 0, 'status'], x),
-        jailed: R.pathOr(false, ['validatorStatuses', 0, 'jailed'], x),
+        status,
+        tombstoned,
+        jailed,
         delegators: x.delegations.length,
+        active: activeText,
+        activeColor
       });
     });
 
