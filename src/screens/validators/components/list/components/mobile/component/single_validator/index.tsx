@@ -52,7 +52,7 @@ const SingleValidator: React.FC<{
       <div className={classes.flex}>
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('active')}
+            {t('status')}
           </Typography>
           <Typography variant="body1" className="value">
             {active}

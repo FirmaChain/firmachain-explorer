@@ -62,7 +62,7 @@ const Desktop: React.FC<{
           content={numeral(x.votingPower).format('0,0')}
         />
       ),
-      active : (
+      status : (
         <Tag
         value={t(x.active.toLowerCase())}
         theme={x.activeColor as any}

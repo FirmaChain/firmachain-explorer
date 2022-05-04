@@ -52,7 +52,7 @@ export const fetchColumns = (t): {
       ),
     },
     {
-      key: 'active',
+      key: 'status',
       align: 'center',
       width: 10,
       sort: false,

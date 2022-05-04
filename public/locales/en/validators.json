@@ -2,6 +2,7 @@
   "validators": "Validators",
   "allValidators": "All Validators",
   "active": "Active",
+  "status":"Status",
   "idx": "Idx",
   "validator": "Validator",
   "self": "Self",
