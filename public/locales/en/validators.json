@@ -48,6 +48,7 @@
   "unbonding": "Unbonding",
   "jailed": "Jailed",
   "unbonded": "Unbonded",
+  "tombstoned":"Tombstoned",
   "unknown": "Unknown",
   "na": "N/A",
   "txs": "Txs",
