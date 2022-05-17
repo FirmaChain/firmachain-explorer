@@ -86,21 +86,26 @@ export const useValidators = () => {
       let activeText = 'unknown';
       let activeColor = 'zero';
 
+      let isUnknown = false;
+
       if (status === 3) {
-        activeText = 'Active';
+        activeText = 'active';
         activeColor = 'one';
-      } else if (status === 2 && jailed) {
-        activeText = 'Jailed';
-        activeColor = 'two';
-      } else if (status === 2 && !jailed) {
-        activeText = 'Unbonding';
+      } else if (status === 2) {
+        activeText = 'unbonding';
         activeColor = 'three';
       } else if (status === 1) {
-        activeText = 'Unbonded';
+        activeText = 'unbonded';
         activeColor = 'zero';
       } else {
-        activeText = 'Unknown';
+        activeText = 'unknown';
         activeColor = 'zero';
+        isUnknown = true;
+      }
+      
+      if(isUnknown === false && jailed === true){
+        activeText = 'jailed';
+        activeColor = 'two';
       }
 
       if(tombstoned){
