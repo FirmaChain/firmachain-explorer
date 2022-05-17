@@ -34,7 +34,7 @@ const Desktop: React.FC<{
           }) : x.delegator.name}
         />
       ),
-      amount: `${numeral(x.amount.value).format('0,0.[0000]')} ${x.amount.denom.toUpperCase()}`,
+      amount: `${numeral(x.amount.value).format('0,0.[000000]')} ${x.amount.denom.toUpperCase()}`,
     });
   });
 

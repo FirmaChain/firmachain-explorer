@@ -34,8 +34,8 @@ const Desktop: React.FC<{
         />
       ),
       commission: `${numeral(x.commission * 100).format('0.00')}%`,
-      amount: `${numeral(x.amount.value).format('0,0.[0000]')} ${x.amount.denom.toUpperCase()}`,
-      reward: `${numeral(x.reward.value).format('0,0.[0000]')} ${x.reward.denom.toUpperCase()}`,
+      amount: `${numeral(x.amount.value).format('0,0.[000000]')} ${x.amount.denom.toUpperCase()}`,
+      reward: `${numeral(x.reward.value).format('0,0.[000000]')} ${x.reward.denom.toUpperCase()}`,
     });
   });
 
