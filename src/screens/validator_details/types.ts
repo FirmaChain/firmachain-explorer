@@ -6,6 +6,7 @@ export type OverviewType = {
   operatorAddress: string;
   selfDelegateAddress: string;
   description: string;
+  tomstoned: boolean;
   status: number;
   jailed: boolean;
   website: string;

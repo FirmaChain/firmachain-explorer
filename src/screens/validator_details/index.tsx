@@ -76,6 +76,7 @@ const ValidatorDetails = () => {
                 operatorAddress={overview.operatorAddress}
                 selfDelegateAddress={overview.selfDelegateAddress}
                 description={overview.description}
+                tomstoned={overview.tomstoned}
                 status={overview.status}
                 jailed={overview.jailed}
                 website={overview.website}

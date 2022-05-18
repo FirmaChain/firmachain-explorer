@@ -31,7 +31,7 @@ const Profile: React.FC<OverviewType & {
   const classes = useStyles();
   const { t } = useTranslation('validators');
 
-  const statusTheme = getStatusTheme(data.status, data.jailed);
+  const statusTheme = getStatusTheme(data.status, data.jailed, data.tomstoned);
   const condition = getCondition(data.condition, data.status);
   const pattern = /^((http|https|ftp):\/\/)/;
   let { website } = data;

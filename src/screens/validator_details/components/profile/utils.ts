@@ -1,10 +1,20 @@
-export const getStatusTheme = (status: number, jailed: boolean) => {
+export const getStatusTheme = (status: number, jailed: boolean, tombstoned:boolean) => {
   const results = {
     status: 'na',
     theme: 'zero',
   };
+  
+  if (tombstoned) {
+    results.status = 'tombstoned';
+    results.theme = 'two';
+    return results;
+  }
 
-  let isUnknown = false;
+  if (jailed) {
+    results.status = 'jailed';
+    results.theme = 'two';
+    return results;
+  }
 
   if (status === 3) {
     results.status = 'active';
@@ -18,12 +28,6 @@ export const getStatusTheme = (status: number, jailed: boolean) => {
   } else {
     results.status = 'unknown';
     results.theme = 'zero';
-    isUnknown = true;
-  }
-  
-  if(isUnknown === false && jailed === true){
-    results.status = 'jailed';
-    results.theme = 'two';
   }
 
   return results;

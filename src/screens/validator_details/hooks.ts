@@ -43,6 +43,7 @@ export const useValidatorDetails = () => {
       operatorAddress: '',
       selfDelegateAddress: '',
       description: '',
+      tomstoned:false,
       status: 0,
       jailed: false,
       website: '',
@@ -241,10 +242,13 @@ export const useValidatorDetails = () => {
       const selfDelegateAddress = R.pathOr('', ['validator', 0, 'validatorInfo', 'selfDelegateAddress'], data);
       const validator = findAddress(operatorAddress);
 
+      const tombstoned = R.pathOr(0, ['validatorSigningInfos', 0, 'tombstoned'], data.validator[0]);
+
       const profile = {
         validator,
         operatorAddress,
         selfDelegateAddress,
+        tombstoned,
         description: R.pathOr('', ['validatorDescriptions', 0, 'details'], data.validator[0]),
         status: R.pathOr(3, ['validatorStatuses', 0, 'status'], data.validator[0]),
         jailed: R.pathOr(false, ['validatorStatuses', 0, 'jailed'], data.validator[0]),

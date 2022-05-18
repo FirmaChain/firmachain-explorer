@@ -113,7 +113,7 @@ export const useValidators = () => {
         activeColor = 'two';
       }
 
-      if(activeText !== 'Active') {
+      if(activeText !== 'active') {
         votingPower = 0;
         votingPowerPercent = 0;
       }
