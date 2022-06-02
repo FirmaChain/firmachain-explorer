@@ -29,7 +29,7 @@ export const useTransactions = () => {
         success: x.success,
         timestamp: x.block.timestamp,
         messages: x.messages.length,
-        type: x.messages
+        type: x.messages,
       });
     });
   };

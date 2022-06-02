@@ -16,11 +16,11 @@ import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import {
   BLOCK_DETAILS, TRANSACTION_DETAILS,
 } from '@utils/go_to_page';
+import { getMessageByType } from '@src/components/msg';
 import { Result } from '@components';
 import { useStyles } from './styles';
 import { columns } from './utils';
 import { TransactionType } from '../../types';
-import { getMessageByType } from '@src/screens/transaction_details/utils';
 
 const Desktop: React.FC<{
   className?: string;
@@ -43,11 +43,6 @@ const Desktop: React.FC<{
           </Typography>
         </Link>
       ),
-      type: (
-        <Typography variant="body1" component="a">
-          {tag.type}
-        </Typography>
-      ),
       hash: (
         <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
           <Typography variant="body1" component="a">
@@ -62,6 +57,11 @@ const Desktop: React.FC<{
       ),
       time: dayjs.utc(x.timestamp).fromNow(),
       messages: numeral(x.messages).format('0,0'),
+      type : (
+        <Typography variant='body1' component='a'>
+          {tag.type}
+        </Typography>
+      ),
     });
   });
 

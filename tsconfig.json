@@ -17,6 +17,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "downlevelIteration": true,
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
@@ -25,6 +26,9 @@
       ],
       "@components": [
         "src/components"
+      ],
+      "@msg": [
+        "src/components/msg"
       ],
       "@icons": [
         "src/components/icons"
@@ -53,6 +57,9 @@
       "@contexts": [
         "src/contexts"
       ],
+      "@recoil/*": [
+        "src/recoil/*"
+      ],
       "@graphql": [
         "src/graphql"
       ],
@@ -64,12 +71,6 @@
       ],
       "@graphql/types": [
         "src/graphql/types"
-      ],
-      "@graphql/queries": [
-        "src/graphql/queries"
-      ],
-      "@graphql/mutations": [
-        "src/graphql/mutations"
       ],
       "@tests/utils": [
         "tests/utils"
@@ -84,6 +85,7 @@
     "tests/utils/mock_apollo_provider.tss"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "cypress"
   ]
 }

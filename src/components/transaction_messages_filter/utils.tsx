@@ -29,8 +29,24 @@ export const getFilterLabels = () => {
       display: 'staking',
     },
     {
+      key: 'authz',
+      display: 'authz',
+    },
+    {
+      key: 'feegrant',
+      display: 'feegrant',
+    },
+    {
+      key: 'vesting',
+      display: 'vesting',
+    },
+    {
       key: 'profiles',
       display: 'profiles',
+    },
+    {
+      key: 'others',
+      display: 'others',
     },
     {
       key: 'nft',
@@ -41,8 +57,8 @@ export const getFilterLabels = () => {
       display: 'token',
     },
     {
-      key: 'others',
-      display: 'others',
+      key: 'contract',
+      display: 'contract',
     },
   ]);
 };

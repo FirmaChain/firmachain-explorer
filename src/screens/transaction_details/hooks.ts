@@ -7,16 +7,11 @@ import {
   useTransactionDetailsQuery,
   TransactionDetailsQuery,
 } from '@graphql/types';
-import {
-  MsgNFTMint,
-  MsgWithdrawDelegatorReward,
-  MsgWithdrawValidatorCommission,
-} from '@models';
-import { formatDenom } from '@utils/format_denom';
+import { formatToken } from '@utils/format_token';
+import { convertMsgsToModels } from '@msg';
 import {
   TransactionState,
 } from './types';
-import { getMessageModelByType } from './utils';
 
 export const useTransactionDetails = () => {
   const router = useRouter();
@@ -28,8 +23,10 @@ export const useTransactionDetails = () => {
       height: 0,
       timestamp: '',
       fee: {
-        value: 0,
-        denom: '',
+        value: '0',
+        displayDenom: '',
+        baseDenom: '',
+        exponent: 0,
       },
       feeGrant:'',
       gasUsed: 0,
@@ -38,6 +35,7 @@ export const useTransactionDetails = () => {
       memo: '',
       error: '',
     },
+    logs: null,
     messages: {
       filterBy: 'none',
       viewRaw: false,
@@ -95,7 +93,7 @@ export const useTransactionDetails = () => {
         hash: data.transaction[0].hash,
         height: data.transaction[0].height,
         timestamp: data.transaction[0].block.timestamp,
-        fee: formatDenom(feeAmount.amount, feeAmount.denom),
+        fee: formatToken(feeAmount.amount, feeAmount.denom),
         feeGrant: fee.granter,
         gasUsed: data.transaction[0].gasUsed,
         gasWanted: data.transaction[0].gasWanted,
@@ -109,18 +107,19 @@ export const useTransactionDetails = () => {
     stateChange.overview = formatOverview();
 
     // =============================
+    // logs
+    // =============================
+    const formatLogs = () => {
+      const { logs } = data.transaction[0];
+      return logs;
+    };
+    stateChange.logs = formatLogs();
+
+    // =============================
     // messages
     // =============================
     const formatMessages = () => {
-      const messages = data.transaction[0].messages.map((x, i) => {
-        const model = getMessageModelByType(x?.['@type']);
-        if (model === MsgWithdrawDelegatorReward || model === MsgWithdrawValidatorCommission || model === MsgNFTMint) {
-          const log = R.pathOr(null, ['logs', i], data.transaction[0]);
-          return model.fromJson(x, log);
-        }
-        return model.fromJson(x);
-      });
-
+      const messages = convertMsgsToModels(data.transaction[0]);
       return {
         items: messages,
       };

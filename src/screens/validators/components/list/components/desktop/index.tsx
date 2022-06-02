@@ -1,6 +1,6 @@
 import React from 'react';
-import numeral from 'numeral';
 import classnames from 'classnames';
+import numeral from 'numeral';
 import useTranslation from 'next-translate/useTranslation';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeGrid as Grid } from 'react-window';
@@ -9,14 +9,17 @@ import { useGrid } from '@hooks';
 import {
   SortArrows,
   AvatarName,
-  Tag,
+  InfoPopover,
 } from '@components';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
+import { getValidatorStatus } from '@utils/get_validator_status';
 import { useStyles } from './styles';
 import { fetchColumns } from './utils';
-import { ValidatorType } from '../../types';
+import { ItemType } from '../../types';
 import {
-  Condition, VotingPower,
+  Condition,
+  VotingPower,
+  VotingPowerExplanation,
 } from '..';
 
 const Desktop: React.FC<{
@@ -24,7 +27,7 @@ const Desktop: React.FC<{
   sortDirection: 'desc' | 'asc';
   sortKey: string;
   handleSort: (key: string) => void;
-  items: ValidatorType[];
+  items: ItemType[];
 }> = (props) => {
   const { t } = useTranslation('validators');
   const classes = useStyles();
@@ -39,10 +42,12 @@ const Desktop: React.FC<{
   } = useGrid(columns);
 
   const formattedItems = props.items.map((x, i) => {
+    const status = getValidatorStatus(x.status, x.jailed, x.tombstoned);
     const condition = x.status === 3 ? getValidatorConditionClass(x.condition) : undefined;
+    const percentDisplay = x.status === 3 ? `${numeral(x.votingPowerPercent).format('0.[00]')}%` : '0%';
+    const votingPower = numeral(x.votingPower).format('0,0');
     return ({
       idx: `#${i + 1}`,
-      delegators: numeral(x.delegators).format('0,0'),
       validator: (
         <AvatarName
           address={x.validator.address}
@@ -51,24 +56,22 @@ const Desktop: React.FC<{
         />
       ),
       commission: `${numeral(x.commission).format('0.[00]')}%`,
-      self: `${numeral(x.selfPercent).format('0.[00]')}%`,
       condition: (
         <Condition className={condition} />
       ),
       votingPower: (
         <VotingPower
-          percentDisplay={`${numeral(x.votingPowerPercent).format('0.[00]')}%`}
+          percentDisplay={percentDisplay}
           percentage={x.votingPowerPercent}
-          content={numeral(x.votingPower).format('0,0')}
+          content={votingPower}
+          topVotingPower={x.topVotingPower}
         />
       ),
-      status : (
-        <Tag
-        value={t(x.active.toLowerCase())}
-        theme={x.activeColor as any}
-        className={classnames(classes.activeBox)}
-      />
-      )
+      status: (
+        <Typography variant="body1" className={classnames('status', status.theme)}>
+          {t(status.status)}
+        </Typography>
+      ),
     });
   });
 
@@ -103,6 +106,26 @@ const Desktop: React.FC<{
                     sortKey: sortingKey,
                   } = columns[columnIndex];
 
+                  let formattedComponent = component;
+
+                  if (key === 'votingPower') {
+                    formattedComponent = (
+                      <Typography variant="h4" className="label popover">
+                        {t('votingPower')}
+                        <InfoPopover
+                          content={<VotingPowerExplanation />}
+                        />
+                        {!!sort && (
+                          <SortArrows
+                            sort={props.sortKey === sortingKey
+                              ? props.sortDirection
+                              : undefined}
+                          />
+                        )}
+                      </Typography>
+                    );
+                  }
+
                   return (
                     <div
                       style={style}
@@ -117,7 +140,7 @@ const Desktop: React.FC<{
                       onClick={() => (sort ? props.handleSort(sortingKey) : null)}
                       role="button"
                     >
-                      {component || (
+                      {formattedComponent || (
                       <Typography
                         variant="h4"
                         align={align}

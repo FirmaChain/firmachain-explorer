@@ -1,20 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 import useTranslation from 'next-translate/useTranslation';
-import numeral from 'numeral';
 import {
   Divider,
   Typography,
 } from '@material-ui/core';
-import {
-  AvatarName,
-} from '@components';
-import { DelegationType } from '@src/screens/account_details/types';
+import { AvatarName } from '@components';
+import { formatNumber } from '@utils/format_token';
 import { useStyles } from './styles';
+import { ItemType } from '../../types';
 
 const Mobile: React.FC<{
   className?: string;
-  items?: DelegationType[];
+  items?: ItemType[];
 }> = ({
   className, items,
 }) => {
@@ -37,34 +35,27 @@ const Mobile: React.FC<{
                   imageUrl={x.validator.imageUrl}
                 />
               </div>
-              <div className={classes.item}>
-                <Typography variant="h4" className="label">
-                  {t('commission')}
-                </Typography>
-                <Typography variant="body1" className="value">
-                  {numeral(x.commission * 100).format('0.00')}
-                  %
-                </Typography>
-              </div>
-              <div className={classes.item}>
-                <Typography variant="h4" className="label">
-                  {t('amount')}
-                </Typography>
-                <Typography variant="body1" className="value">
-                  {numeral(x.amount.value).format('0,0.[000000]')}
-                  {' '}
-                  {x.amount.denom.toUpperCase()}
-                </Typography>
-              </div>
-              <div className={classes.item}>
-                <Typography variant="h4" className="label">
-                  {t('reward')}
-                </Typography>
-                <Typography variant="body1" className="value">
-                  {numeral(x.reward.value).format('0,0.[000000]')}
-                  {' '}
-                  {x.reward.denom.toUpperCase()}
-                </Typography>
+              <div className={classes.flex}>
+                <div className={classes.item}>
+                  <Typography variant="h4" className="label">
+                    {t('amount')}
+                  </Typography>
+                  <Typography variant="body1" className="value">
+                    {formatNumber(x.amount.value, x.amount.exponent)}
+                    {' '}
+                    {x.amount.displayDenom.toUpperCase()}
+                  </Typography>
+                </div>
+                <div className={classes.item}>
+                  <Typography variant="h4" className="label">
+                    {t('reward')}
+                  </Typography>
+                  <Typography variant="body1" className="value">
+                    {formatNumber(x.reward.value, x.reward.exponent)}
+                    {' '}
+                    {x.reward.displayDenom.toUpperCase()}
+                  </Typography>
+                </div>
               </div>
             </div>
             {i !== items.length - 1 && <Divider />}

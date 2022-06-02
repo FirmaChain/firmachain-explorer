@@ -1,4 +1,5 @@
-import numeral from 'numeral';
+import { formatNumber } from '@utils/format_token';
+import Big from 'big.js';
 
 export const formatBalanceData = (data: {
   available: TokenUnit;
@@ -6,35 +7,35 @@ export const formatBalanceData = (data: {
   unbonding: TokenUnit;
   reward: TokenUnit;
   commission?: TokenUnit;
-  total?: number;
+  total?: TokenUnit;
 }) => {
   const balanceChart = [
     {
       key: 'balanceAvailable',
-      display: `${numeral(data.available.value).format('0,0.[000000]')} ${data.available.denom.toUpperCase()}`,
+      display: `${formatNumber(data.available.value, data.available.exponent)} ${data.available.displayDenom.toUpperCase()}`,
       value: data.available.value,
     },
     {
       key: 'balanceDelegate',
-      display: `${numeral(data.delegate.value).format('0,0.[000000]')} ${data.delegate.denom.toUpperCase()}`,
+      display: `${formatNumber(data.delegate.value, data.delegate.exponent)} ${data.delegate.displayDenom.toUpperCase()}`,
       value: data.delegate.value,
     },
     {
       key: 'balanceUnbonding',
-      display: `${numeral(data.unbonding.value).format('0,0.[000000]')} ${data.unbonding.denom.toUpperCase()}`,
+      display: `${formatNumber(data.unbonding.value, data.unbonding.exponent)} ${data.unbonding.displayDenom.toUpperCase()}`,
       value: data.unbonding.value,
     },
     {
       key: 'balanceReward',
-      display: `${numeral(data.reward.value).format('0,0.[000000]')} ${data.reward.denom.toUpperCase()}`,
+      display: `${formatNumber(data.reward.value, data.reward.exponent)} ${data.reward.displayDenom.toUpperCase()}`,
       value: data.reward.value,
     },
   ];
 
-  if (data.commission && data.commission.value !== 0) {
+  if (data.commission && Big(data.commission.value).gt(0)) {
     balanceChart.push({
       key: 'balanceCommission',
-      display: `${numeral(data.commission.value).format('0,0.[000000]')} ${data.commission.denom.toUpperCase()}`,
+      display: `${formatNumber(data.commission.value, data.commission.exponent)} ${data.commission.displayDenom.toUpperCase()}`,
       value: data.commission.value,
     });
   }

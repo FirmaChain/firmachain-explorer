@@ -73,7 +73,11 @@
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "ignoreRestSiblings": true,
+      "varsIgnorePattern": "^_",
+      "argsIgnorePattern": "^_"
+    }],
     "no-param-reassign": "warn",
     "no-restricted-globals": "warn",
     "react/prop-types": "off",
@@ -88,6 +92,8 @@
     "lines-between-class-members": "off",
     "react/no-array-index-key": "off",
     "jsx-a11y/anchor-is-valid": "off",
+    "linebreak-style": 0,
+    "indent": "off",
     "react/jsx-first-prop-new-line": [
       "error",
       "multiline"
@@ -132,7 +138,6 @@
         "consistent": true,
         "minProperties": 2
       }
-    ],
-    "linebreak-style": 0
+    ]
   }
 }

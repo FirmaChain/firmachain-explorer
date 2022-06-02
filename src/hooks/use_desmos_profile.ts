@@ -4,15 +4,15 @@ import {
 import axios from 'axios';
 import { DesmosProfileQuery } from '@graphql/desmos_profile';
 import {
-  DesmosProfileDocument, DesmosProfileLinkDocument,
+  DesmosProfileDocument, DesmosProfileLinkDocument, DesmosProfileDtagDocument,
 } from '@graphql/desmos_profile_graphql';
 
 type Options = {
   address?: string;
-  onComplete: (data: DesmosProfileQuery) => void;
+  onComplete: (data: DesmosProfileQuery) => any;
 }
 
-const PROFILE_API = 'https://gql.morpheus.desmos.network/v1/graphql';
+const PROFILE_API = 'https://gql.mainnet.desmos.network/v1/graphql';
 
 export const useDesmosProfile = (options: Options) => {
   const [loading, setLoading] = useState(false);
@@ -51,19 +51,39 @@ export const useDesmosProfile = (options: Options) => {
     }
   };
 
-  const fetchDesmosProfile = async (address: string) => {
+  const fetchDtag = async (dtag: string) => {
+    try {
+      const { data } = await axios.post(PROFILE_API, {
+        variables: {
+          dtag,
+        },
+        query: DesmosProfileDtagDocument,
+      });
+
+      return data.data;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const fetchDesmosProfile = async (input: string) => {
     let data:DesmosProfileQuery = {
       profile: [],
     };
+
     try {
       setLoading(true);
-      if (address.includes('desmos')) {
-        data = await fetchDesmos(address);
+      if (input.startsWith('@')) {
+        data = await fetchDtag(input.substring(1));
+      }
+
+      if (input.startsWith('desmos')) {
+        data = await fetchDesmos(input);
       }
 
       // if the address is a link instead
       if (!data.profile.length) {
-        data = await fetchLink(address);
+        data = await fetchLink(input);
       }
       setLoading(false);
       return options.onComplete(data);
@@ -79,6 +99,12 @@ export const useDesmosProfile = (options: Options) => {
     }
 
     const profile = data.profile[0];
+
+    const nativeData = {
+      network: 'native',
+      identifier: profile.address,
+      creationTime: profile.creationTime,
+    };
 
     const applications = profile.applicationLinks.map((x) => {
       return ({
@@ -96,14 +122,17 @@ export const useDesmosProfile = (options: Options) => {
       });
     });
 
+    const connectionsWithoutNativeSorted = [...applications, ...chains].sort((a, b) => (
+      (a.network.toLowerCase() > b.network.toLowerCase()) ? 1 : -1
+    ));
+
     return ({
       dtag: profile.dtag,
       nickname: profile.nickname,
       imageUrl: profile.profilePic,
+      coverUrl: profile.coverPic,
       bio: profile.bio,
-      connections: [...applications, ...chains].sort((a, b) => (
-        (a.network.toLowerCase() > b.network.toLowerCase()) ? 1 : -1
-      )),
+      connections: [nativeData, ...connectionsWithoutNativeSorted],
     });
   };
 

@@ -5,6 +5,8 @@ declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.gif';
 
+type Override<T1, T2> = Omit<T1, keyof T2> & T2;
+
 type ComponentDefault = {
   className?: string;
 }
@@ -21,25 +23,31 @@ type Transactions = {
   hash: string;
   success: boolean;
   timestamp: string;
-  messages: number;
   type: any;
+  messages: {
+    count: number;
+    items: any[];
+  };
 }
 
 type TokenUnit = {
-  value: number;
-  denom: string;
+  displayDenom: string;
+  baseDenom: string;
+  exponent: number;
+  value: string;
 }
 
 type DesmosProfile = {
   dtag: string;
   nickname: string;
   imageUrl: string;
+  coverUrl: string;
   bio: string;
-  connections: ConnectionType[];
+  connections: ProfileConnectionType[];
   validator?: ValidatorProfile;
 }
 
-type ConnectionType = {
+type ProfileConnectionType = {
   network: string;
   identifier: string;
   creationTime: string;
@@ -76,3 +84,8 @@ type TagTheme = 'zero' |
 'eighteen' |
 'nineteen' |
 'twenty'
+
+type MsgCoin = {
+  denom: string;
+  amount: string;
+}

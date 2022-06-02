@@ -57,7 +57,7 @@ exports[`screen: Nav/Mobile it renders 1`] = `
         <p
           className="MuiTypography-root MuiTypography-body1"
         >
-          $0
+          N/A
         </p>
       </div>
       <div
@@ -67,6 +67,20 @@ exports[`screen: Nav/Mobile it renders 1`] = `
           className="MuiTypography-root label MuiTypography-body1"
         >
           common:inflation
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography-body1"
+        >
+          0%
+        </p>
+      </div>
+      <div
+        className="makeStyles-item"
+      >
+        <p
+          className="MuiTypography-root label MuiTypography-body1"
+        >
+          common:apr
         </p>
         <p
           className="MuiTypography-root MuiTypography-body1"
@@ -99,7 +113,7 @@ exports[`screen: Nav/Mobile it renders 1`] = `
         <p
           className="MuiTypography-root MuiTypography-body1"
         >
-          0.00 
+          0 
         </p>
       </div>
     </div>

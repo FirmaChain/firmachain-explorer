@@ -27,10 +27,8 @@ const ActionBar: React.FC<{
     <div className={classnames(className, classes.root)} ref={heightRef}>
       <div className={classes.actions}>
         <SearchBar className={classnames(classes.searchBar, { open: isNetwork })} />
-        {/* <SearchBar className={classnames(classes.searchBar, { open: false })} /> */}
         <Network
           className={classnames(classes.network, { open: isNetwork })}
-          // className={classnames(classes.network, { open: false })}
           toggleNetwork={toggleNetwork}
         />
         <SettingsList />

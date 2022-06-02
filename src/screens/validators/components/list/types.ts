@@ -1,15 +1,13 @@
 export type ValidatorType = {
-  validator: AvatarName;
+  validator: string;
   votingPower: number;
   votingPowerPercent: number;
   commission: number;
-  selfPercent: number;
   condition: number;
   status: number;
   jailed: boolean;
-  delegators: number;
-  active:string;
-  activeColor:string;
+  tombstoned: boolean;
+  topVotingPower?: boolean; // top 34% VP
 }
 
 export type ValidatorsState = {
@@ -21,3 +19,5 @@ export type ValidatorsState = {
   votingPowerOverall: number;
   items: ValidatorType[];
 }
+
+export type ItemType = Override<ValidatorType, { validator: AvatarName }>;

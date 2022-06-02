@@ -6,11 +6,15 @@ import {
   TransactionsList,
   Box,
   LoadAndExist,
+  TransactionListDetails,
 } from '@components';
+import { useRecoilValue } from 'recoil';
+import { readTx } from '@recoil/settings';
 import { useStyles } from './styles';
 import { useTransactions } from './hooks';
 
 const Transactions = () => {
+  const txListFormat = useRecoilValue(readTx);
   const { t } = useTranslation('transactions');
   const classes = useStyles();
   const {
@@ -37,15 +41,27 @@ const Transactions = () => {
           loading={state.loading}
         >
           <Box className={classes.box}>
-            <TransactionsList
-              transactions={state.items}
-              itemCount={itemCount}
-              hasNextPage={state.hasNextPage}
-              isNextPageLoading={state.isNextPageLoading}
-              loadNextPage={loadNextPage}
-              loadMoreItems={loadMoreItems}
-              isItemLoaded={isItemLoaded}
-            />
+            {txListFormat === 'compact' ? (
+              <TransactionsList
+                transactions={state.items}
+                itemCount={itemCount}
+                hasNextPage={state.hasNextPage}
+                isNextPageLoading={state.isNextPageLoading}
+                loadNextPage={loadNextPage}
+                loadMoreItems={loadMoreItems}
+                isItemLoaded={isItemLoaded}
+              />
+            ) : (
+              <TransactionListDetails
+                transactions={state.items}
+                itemCount={itemCount}
+                hasNextPage={state.hasNextPage}
+                isNextPageLoading={state.isNextPageLoading}
+                loadNextPage={loadNextPage}
+                loadMoreItems={loadMoreItems}
+                isItemLoaded={isItemLoaded}
+              />
+            )}
           </Box>
         </LoadAndExist>
       </Layout>

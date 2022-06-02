@@ -60,6 +60,9 @@ export const useStyles = () => {
           [theme.breakpoints.up('lg')]: {
             display: 'flex',
             padding: theme.spacing(0, 2),
+            '& .msg': {
+              marginTop: theme.spacing(0.5),
+            },
           },
         },
         tags: {
@@ -67,7 +70,7 @@ export const useStyles = () => {
           [theme.breakpoints.up('lg')]: {
             minWidth: '200px',
             marginBottom: 0,
-            PaddingRight: theme.spacing(2),
+            paddingRight: theme.spacing(2),
             alignSelf: 'flex-start',
           },
         },

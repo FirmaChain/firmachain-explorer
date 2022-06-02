@@ -15,103 +15,36 @@ exports[`screen: ProposalDetails matches snapshot 1`] = `
     >
       <div
         className="makeStyles-overview"
-        content={
+        id="Overview"
+        overview={
           Object {
-            "@type": "/cosmos.params.v1beta1.ParameterChangeProposal",
-            "changes": Array [
-              Object {
-                "key": "MaxValidators",
-                "subspace": "staking",
-                "value": "105",
-              },
-            ],
-            "description": "Update max validators",
-            "title": "Staking Param Change Part Two",
+            "content": Object {
+              "@type": "/cosmos.gov.v1beta1.TextProposal",
+              "description": "Set the minimum commission to 5%. This will help ensure network stability. It also ensures that validators earn enough to support secure and stable validation. We must create a healthier network. If this proposal is accepted, it will mean that the blockchain needs to be updated so that the fee of all validators can be changed automatically.",
+              "title": "Increase minimum commission rate to 5%",
+            },
+            "depositEndTime": "2022-02-22T19:03:14.969688",
+            "description": "Set the minimum commission to 5%. This will help ensure network stability. It also ensures that validators earn enough to support secure and stable validation. We must create a healthier network. If this proposal is accepted, it will mean that the blockchain needs to be updated so that the fee of all validators can be changed automatically.",
+            "id": 14,
+            "proposer": "desmos1e4g9807ephy5t7zzt6vu0kw7tryqh9k39w3gc2",
+            "status": "PROPOSAL_STATUS_PASSED",
+            "submitTime": "2022-02-19T19:03:14.969688",
+            "title": "Increase minimum commission rate to 5%",
+            "votingEndTime": "2022-02-26T19:03:14.969688",
+            "votingStartTime": "2022-02-19T19:03:14.969688",
           }
         }
-        depositEndTime="2021-05-19T05:15:17.990588"
-        description="Update max validators"
-        id={7}
-        status="PROPOSAL_STATUS_REJECTED"
-        submitTime="2021-05-17T05:15:17.990588"
-        title="Staking Param Change Part Two"
-        votingEndTime="2021-05-19T05:15:17.990588"
-        votingStartTime="2021-05-17T05:15:17.990588"
       />
       <div
         className="makeStyles-votesGraph"
-        data={
-          Object {
-            "abstain": 0,
-            "bondedTokens": 0,
-            "denom": "udaric",
-            "no": 0,
-            "quorum": 0,
-            "total": 170003.125372,
-            "veto": 0,
-            "yes": 170003.125372,
-          }
-        }
         id="VotesGraph"
       />
       <div
-        abstain={1}
         className="makeStyles-votes"
-        data={
-          Array [
-            Object {
-              "user": Object {
-                "address": "desmos15g8dfvn3m4lg9pdtpwp4gkygvwpfxywf2rzxly",
-                "imageUrl": null,
-                "name": "moniker",
-              },
-              "vote": "VOTE_OPTION_ABSTAIN",
-            },
-            Object {
-              "user": Object {
-                "address": "desmos1c2zkjtg5rhtux0x4gd0nq6q7x79uwnh96r8a4s",
-                "imageUrl": null,
-                "name": "moniker",
-              },
-              "vote": "VOTE_OPTION_NO",
-            },
-            Object {
-              "user": Object {
-                "address": "desmos124xa66ghhq5hrgv28slhmszgvcqa0skcfwphh3",
-                "imageUrl": null,
-                "name": "moniker",
-              },
-              "vote": "VOTE_OPTION_YES",
-            },
-          ]
-        }
-        handleTabChange={[Function]}
         id="Votes"
-        no={1}
-        notVoted={0}
-        notVotedData={Array []}
-        tab={0}
-        total={3}
-        veto={0}
-        yes={1}
       />
       <div
         className="makeStyles-deposits"
-        data={
-          Array [
-            Object {
-              "amount": Object {
-                "denom": "daric",
-                "value": 10,
-              },
-              "user": Object {
-                "address": "desmos124xa66ghhq5hrgv28slhmszgvcqa0skcfwphh3",
-                "imageUrl": null,
-                "name": "moniker",
-              },
-            },
-          ]
-        }
         id="Deposits"
       />
     </span>

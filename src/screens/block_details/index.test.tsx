@@ -21,15 +21,6 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-jest.mock('@contexts', () => ({
-  useChainContext: () => ({
-    findAddress: jest.fn(() => ({
-      moniker: 'moniker',
-      imageUrl: null,
-    })),
-  }),
-}));
-
 jest.mock('@components', () => ({
   Layout: (props) => <div id="Layout" {...props} />,
   LoadAndExist: (props) => <div id="LoadAndExist" {...props} />,
@@ -47,6 +38,7 @@ const mockAverageBlockTime = jest.fn().mockResolvedValue({
       {
         height: 999,
         hash: '393310C681CB39E09CD3AC16C600DBFDACB2DF5085277DA81E52698620C06136',
+        logs: [],
         messages: [
           {
             '@type': '/cosmos.staking.v1beta1.MsgDelegate',

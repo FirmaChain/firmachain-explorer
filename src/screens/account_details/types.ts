@@ -9,7 +9,7 @@ export type BalanceType = {
   unbonding: TokenUnit;
   reward: TokenUnit;
   commission?: TokenUnit;
-  total: number;
+  total: TokenUnit;
 }
 
 export type OtherTokenType = {
@@ -19,34 +19,8 @@ export type OtherTokenType = {
   commission: TokenUnit;
 }
 
-export type TransactionType = {
-  height: number;
-  hash: string;
-  success: boolean;
-  timestamp: string;
-  messages: number;
-  type: any;
-}
-
-export type DelegationType = {
-  validator: AvatarName;
-  commission: number;
-  amount: TokenUnit;
-  reward: TokenUnit;
-}
-
-export type RedelegationType = {
-  to: AvatarName;
-  from: AvatarName;
-  linkedUntil: string;
-  amount: TokenUnit;
-}
-
-export type UnbondingType = {
-  validator: AvatarName;
-  commission: number;
-  amount: TokenUnit;
-  linkedUntil: string;
+export type RewardsType = {
+  [value:string]: TokenUnit[];
 }
 
 export type AccountDetailState = {
@@ -59,22 +33,5 @@ export type AccountDetailState = {
     data: OtherTokenType[];
     count: number;
   };
-  delegations: {
-    data: DelegationType[];
-    count: number;
-  }
-  redelegations: {
-    data: RedelegationType[];
-    count: number;
-  }
-  unbondings: {
-    data: UnbondingType[];
-    count: number;
-  }
-  transactions: {
-    hasNextPage: boolean;
-    isNextPageLoading: boolean;
-    offsetCount: number;
-    data: TransactionType[];
-  };
+  rewards: RewardsType;
 }

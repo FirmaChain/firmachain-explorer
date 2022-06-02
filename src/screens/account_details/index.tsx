@@ -21,8 +21,8 @@ const AccountDetails = () => {
   const classes = useStyles();
   const {
     state,
-    loadNextPage,
   } = useAccountDetails();
+
   return (
     <>
       <NextSeo
@@ -37,11 +37,6 @@ const AccountDetails = () => {
           exists={state.exists}
         >
           <span className={classes.root}>
-            <Overview
-              className={classes.overview}
-              withdrawalAddress={state.overview.withdrawalAddress}
-              address={state.overview.address}
-            />
             {!!state.desmosProfile && (
             <DesmosProfile
               dtag={state.desmosProfile.dtag}
@@ -49,8 +44,14 @@ const AccountDetails = () => {
               imageUrl={state.desmosProfile.imageUrl}
               bio={state.desmosProfile.bio}
               connections={state.desmosProfile.connections}
+              coverUrl={state.desmosProfile.coverUrl}
             />
             )}
+            <Overview
+              className={classes.overview}
+              withdrawalAddress={state.overview.withdrawalAddress}
+              address={state.overview.address}
+            />
             <Balance
               className={classes.balance}
               available={state.balance.available}
@@ -66,16 +67,10 @@ const AccountDetails = () => {
             />
             <Staking
               className={classes.staking}
-              redelegations={state.redelegations}
-              delegations={state.delegations}
-              unbondings={state.unbondings}
+              rewards={state.rewards}
             />
             <Transactions
               className={classes.transactions}
-              loadNextPage={loadNextPage}
-              data={state.transactions.data}
-              hasNextPage={state.transactions.hasNextPage}
-              isNextPageLoading={state.transactions.isNextPageLoading}
             />
           </span>
         </LoadAndExist>

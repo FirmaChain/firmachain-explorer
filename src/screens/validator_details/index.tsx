@@ -13,7 +13,7 @@ import {
   Transactions,
   Staking,
   Blocks,
-  Address,
+  ValidatorOverview,
 } from './components';
 import { useValidatorDetails } from './hooks';
 
@@ -22,14 +22,10 @@ const ValidatorDetails = () => {
   const classes = useStyles();
   const {
     state,
-    loadNextPage,
   } = useValidatorDetails();
   const {
-    overview,
-    delegations,
-    redelegations,
-    undelegations,
     desmosProfile,
+    status,
   } = state;
 
   return (
@@ -46,64 +42,33 @@ const ValidatorDetails = () => {
           loading={state.loading}
         >
           <span className={classes.root}>
-            <Address
-              className={classes.address}
-              operatorAddress={overview.operatorAddress}
-              selfDelegateAddress={overview.selfDelegateAddress}
-            />
             {desmosProfile ? (
               <DesmosProfile
                 className={classes.profile}
-                dtag={desmosProfile.dtag}
-                nickname={desmosProfile.nickname}
-                imageUrl={desmosProfile.imageUrl}
-                bio={desmosProfile.bio}
-                connections={desmosProfile.connections}
-                validator={{
-                  status: overview.status,
-                  jailed: overview.jailed,
-                  condition: overview.condition,
-                  commission: overview.commission,
-                  signedBlockWindow: overview.signedBlockWindow,
-                  missedBlockCounter: overview.missedBlockCounter,
-                  lastSeen: overview.lastSeen,
-                }}
+                {...desmosProfile}
               />
             ) : (
               <Profile
                 className={classes.profile}
-                validator={overview.validator}
-                operatorAddress={overview.operatorAddress}
-                selfDelegateAddress={overview.selfDelegateAddress}
-                description={overview.description}
-                tomstoned={overview.tomstoned}
-                status={overview.status}
-                jailed={overview.jailed}
-                website={overview.website}
-                condition={overview.condition}
-                commission={overview.commission}
-                signedBlockWindow={overview.signedBlockWindow}
-                missedBlockCounter={overview.missedBlockCounter}
-                lastSeen={overview.lastSeen}
+                profile={state.overview}
               />
             )}
+            <ValidatorOverview
+              className={classes.address}
+              overview={state.overview}
+              status={state.status}
+            />
             <VotingPower
               className={classes.votingPower}
               data={state.votingPower}
+              status={status.status}
             />
             <Blocks className={classes.blocks} />
             <Staking
               className={classes.staking}
-              delegations={delegations}
-              redelegations={redelegations}
-              undelegations={undelegations}
             />
             <Transactions
               className={classes.transactions}
-              loadNextPage={loadNextPage}
-              data={state.transactions.data}
-              hasNextPage={state.transactions.hasNextPage}
-              isNextPageLoading={state.transactions.isNextPageLoading}
             />
           </span>
         </LoadAndExist>

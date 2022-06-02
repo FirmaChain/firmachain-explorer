@@ -8,11 +8,6 @@ export const columns:{
     width: 25,
   },
   {
-    key: 'commission',
-    width: 25,
-    align: 'right',
-  },
-  {
     key: 'amount',
     width: 25,
     align: 'right',

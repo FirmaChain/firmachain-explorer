@@ -5,7 +5,8 @@ import useTranslation from 'next-translate/useTranslation';
 import { SingleBlock } from './components';
 import { useStyles } from './styles';
 import { useDataBlocks } from './hooks';
-import { getInflation } from '@src/contexts/chain/hooks';
+import { useRecoilValue } from 'recoil';
+import { readMarket } from '@recoil/market';
 
 const DataBlocks: React.FC<{
   className?: string;
@@ -15,7 +16,8 @@ const DataBlocks: React.FC<{
   const { t } = useTranslation('home');
   const classes = useStyles();
   const { state } = useDataBlocks();
-  const inflation = getInflation();
+  const marketState = useRecoilValue(readMarket);
+  
   const data = [
     {
       key: t('latestBlock'),
@@ -27,9 +29,14 @@ const DataBlocks: React.FC<{
       value: `${numeral(state.blockTime).format('0.00')} s`,
       className: classes.blockTime,
     },
+    // {
+    //   key: t('price'),
+    //   value: state.price !== null ? `$${numeral(state.price).format('0.00')}` : 'N/A',
+    //   className: classes.price,
+    // },
     {
       key: t('inflationRate'),
-      value: `${numeral(Number(inflation) * 100).format('0.00')} %`,
+      value: `${numeral(Number(marketState.inflation) * 100).format('0.00')} %`,
       className: classes.price,
     },
     {

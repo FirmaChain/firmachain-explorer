@@ -17,8 +17,8 @@ import {
   Box,
   TransactionMessagesFilter,
 } from '@components';
+import { getMessageByType } from '@msg';
 import { useStyles } from './styles';
-import { getMessageByType } from '../../utils';
 
 const Messages: React.FC<{
   className?: string;
@@ -39,8 +39,6 @@ const Messages: React.FC<{
   } = useList();
 
   const formattedItems = props.messages.map((x) => {
-    console.log(x);
-    
     return getMessageByType(x, props.viewRaw, t);
   });
 
@@ -106,7 +104,9 @@ const Messages: React.FC<{
                           <div className={classes.tags}>
                             {selectedItem.type}
                           </div>
-                          {selectedItem.message}
+                          <span className="msg">
+                            {selectedItem.message}
+                          </span>
                         </div>
                         {index !== props.messages.length - 1 && <Divider />}
                       </div>

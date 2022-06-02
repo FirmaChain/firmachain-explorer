@@ -1,43 +1,31 @@
 import React from 'react';
-import numeral from 'numeral';
 import classnames from 'classnames';
-import dayjs, { formatDayJs } from '@utils/dayjs';
 import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import { useSettingsContext } from '@contexts';
 import useTranslation from 'next-translate/useTranslation';
 import {
   Box,
   Avatar,
-  Tag,
-  InfoPopover,
   Markdown,
-  ConditionExplanation,
 } from '@components';
+import { useProfileRecoil } from '@recoil/profiles';
 import { useStyles } from './styles';
-import {
-  getStatusTheme, getCondition,
-} from './utils';
 import { OverviewType } from '../../types';
 
-const Profile: React.FC<OverviewType & {
-  className?: string;
-}> = ({
-  className, ...data
+const Profile: React.FC<{profile: OverviewType} & ComponentDefault> = ({
+  className, profile,
 }) => {
-  const { dateFormat } = useSettingsContext();
   const classes = useStyles();
   const { t } = useTranslation('validators');
+  const validator = useProfileRecoil(profile.validator);
 
-  const statusTheme = getStatusTheme(data.status, data.jailed, data.tomstoned);
-  const condition = getCondition(data.condition, data.status);
   const pattern = /^((http|https|ftp):\/\/)/;
-  let { website } = data;
+  let { website } = profile;
 
-  if (!pattern.test(data.website)) {
-    website = `//${data.website}`;
+  if (!pattern.test(profile.website)) {
+    website = `//${profile.website}`;
   }
 
   const formattedItem = {
@@ -50,61 +38,8 @@ const Profile: React.FC<OverviewType & {
         target="_blank"
         rel="noreferrer"
       >
-        {data.website}
+        {profile.website}
       </Typography>
-    ),
-    commission: (
-      <Typography
-        variant="body1"
-        className="value"
-      >
-        {`${numeral(data.commission * 100).format('0.00')}%`}
-      </Typography>
-    ),
-    lastSeen: (
-      <Typography
-        variant="body1"
-        className="value"
-      >
-        {data.lastSeen ? formatDayJs(dayjs.utc(data.lastSeen), dateFormat) : t('na')}
-      </Typography>
-    ),
-    condition: (
-      data.status === 3 ? (
-        <div className="condition__body">
-          <InfoPopover
-            content={(
-              <>
-                <Typography variant="body1">
-                  {t('missedBlockCounter', {
-                    amount: numeral(data.missedBlockCounter).format('0,0'),
-                  })}
-                </Typography>
-                <Typography variant="body1">
-                  {t('signedBlockWindow', {
-                    amount: numeral(data.signedBlockWindow).format('0,0'),
-                  })}
-                </Typography>
-              </>
-            )}
-            display={(
-              <Typography
-                variant="body1"
-                className={classnames('value', condition)}
-              >
-                {t(condition)}
-              </Typography>
-        )}
-          />
-        </div>
-      ) : (
-        <Typography
-          variant="body1"
-          className={classnames('value', 'condition', condition)}
-        >
-          {t(condition)}
-        </Typography>
-      )
     ),
   };
 
@@ -112,8 +47,8 @@ const Profile: React.FC<OverviewType & {
     <Box className={classnames(className)}>
       <div className={classes.bio}>
         <Avatar
-          address={data.operatorAddress}
-          imageUrl={data.validator.imageUrl}
+          address={profile.operatorAddress}
+          imageUrl={validator.imageUrl}
           className={classnames(classes.avatar, classes.desktopAvatar)}
         />
         <div>
@@ -123,30 +58,23 @@ const Profile: React.FC<OverviewType & {
             {/* ======================== */}
             <div className={classes.header}>
               <Avatar
-                address={data.operatorAddress}
-                imageUrl={data.validator.imageUrl}
+                address={profile.operatorAddress}
+                imageUrl={validator.imageUrl}
                 className={classnames(classes.avatar, classes.mobile)}
               />
               <div className="header__content">
                 <Typography variant="h2">
-                  {data.validator.moniker}
+                  {validator.name}
                 </Typography>
-                <Tag
-                  value={t(statusTheme.status)}
-                  theme={statusTheme.theme as any}
-                  className={classes.tag}
-                />
               </div>
             </div>
           </div>
           {/* ======================== */}
           {/* bio */}
           {/* ======================== */}
-          {data.description && (
+          {profile.description && (
             <div className="bio__content">
-              <Markdown>
-                {data.description}
-              </Markdown>
+              <Markdown markdown={profile.description} />
             </div>
           )}
         </div>
@@ -159,27 +87,6 @@ const Profile: React.FC<OverviewType & {
             {t('website')}
           </Typography>
           {formattedItem.website}
-        </div>
-        <div className={classes.item}>
-          <Typography variant="h4" className="label">
-            {t('commission')}
-          </Typography>
-          {formattedItem.commission}
-        </div>
-        <div className={classes.item}>
-          <Typography variant="h4" className="label condition">
-            {t('condition')}
-            <InfoPopover
-              content={<ConditionExplanation />}
-            />
-          </Typography>
-          {formattedItem.condition}
-        </div>
-        <div className={classes.item}>
-          <Typography variant="h4" className="label">
-            {t('lastSeen')}
-          </Typography>
-          {formattedItem.lastSeen}
         </div>
       </div>
     </Box>

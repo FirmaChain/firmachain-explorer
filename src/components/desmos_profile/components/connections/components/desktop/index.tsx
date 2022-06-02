@@ -1,7 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import useTranslation from 'next-translate/useTranslation';
-import { useSettingsContext } from '@contexts';
+import { useRecoilValue } from 'recoil';
+import { readDate } from '@recoil/settings';
 import {
   Table,
   TableHead,
@@ -14,14 +15,12 @@ import { columns } from './utils';
 
 const Desktop: React.FC<{
   className?: string;
-  items?: ConnectionType[];
+  items?: ProfileConnectionType[];
 }> = ({
   className,
   items,
 }) => {
-  const {
-    dateFormat,
-  } = useSettingsContext();
+  const dateFormat = useRecoilValue(readDate);
   const { t } = useTranslation('accounts');
 
   const formattedItems = items.map((x) => {

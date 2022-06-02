@@ -7,6 +7,7 @@ subscription TransactionsListener($limit: Int = 7, $offset: Int = 0) {
       timestamp
     }
     messages
+    logs
   }
 }
 
@@ -19,10 +20,6 @@ query Transactions($limit: Int = 7, $offset: Int = 0) {
       timestamp
     }
     messages
-  }
-  total: transaction_aggregate {
-    aggregate {
-      count
-    }
+    logs
   }
 }

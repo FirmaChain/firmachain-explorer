@@ -2,21 +2,19 @@ import React from 'react';
 import classnames from 'classnames';
 import Link from 'next/link';
 import { ExpandMore } from '@material-ui/icons';
-import {
-  // useSettingsContext,
-  useNetworksContext,
-} from '@contexts';
-// import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
-// import BigDipperLogoRed from '@assets/big-dipper-red.svg';
-import FirmachainTitle from '@public/firmachain/firma_chain_title.svg';
+import { useRecoilValue } from 'recoil';
+import { readSelectedNetwork } from '@recoil/big_dipper_networks';
+import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
+import BigDipperLogoRed from '@assets/big-dipper-red.svg';
 import { HOME } from '@utils/go_to_page';
+import { readTheme } from '@recoil/settings';
 import { useStyles } from './styles';
 import { NavbarProps } from './types';
 
 const Navbar = (props:NavbarProps) => {
   const classes = useStyles();
-  // const { theme } = useSettingsContext();
-  const { selected } = useNetworksContext();
+  const theme = useRecoilValue(readTheme);
+  const selected = useRecoilValue(readSelectedNetwork);
   const {
     isOpen,
     openNetwork,
@@ -27,12 +25,11 @@ const Navbar = (props:NavbarProps) => {
     <div className={classes.root}>
       <Link href={HOME}>
         <a className={classes.a}>
-          <FirmachainTitle className={classes.logo} />
-          {/* {theme === 'light' ? (
+          {theme === 'light' ? (
             <BigDipperLogoRed className={classes.logo} />
           ) : (
             <BigDipperLogoWhite className={classes.logo} />
-          )} */}
+          )}
         </a>
       </Link>
       <div className={classes.actions}>

@@ -63,17 +63,18 @@ import MsgConnectionOpenTry from './msg/ibc/msg_connection_open_try';
 import MsgCounterpartyConnection from './msg/ibc/msg_connection_counterparty';
 import MsgVersion from './msg/ibc/msg_connection_version';
 import MsgTransfer from './msg/ibc_transfer/msg_transfer';
+import MsgGrant from './msg/authz/msg_grant';
+import MsgRevoke from './msg/authz/msg_revoke';
+import MsgGrantAllowance from './msg/feegrant/msg_grant_allowance';
+import MsgRevokeAllowance from './msg/feegrant/msg_revoke_allowance';
+import MsgCreateVestingAccount from './msg/vesting/msg_create_vesting_account';
+import MsgCreatePeriodicVestingAccount from './msg/vesting/msg_create_periodic_vesting_account';
 
-//FirmaChain
 import MsgNFTMint from './msg/nft/msg_nft_mint';
 import MsgNFTTransfer from './msg/nft/msg_nft_transfer';
 import MsgNFTBurn from './msg/nft/msg_nft_burn';
 import MsgAddContractLog from './msg/contract/msg_add_contract_log';
 import MsgCreateContractFile from './msg/contract/msg_create_contract_file';
-import MsgFeegrantGrant from './msg/feegrant/msg_feegrant_grant';
-import MsgFeegrantRevoke from './msg/feegrant/msg_feegrant_revoke';
-import MsgAuthzGrant from './msg/authz/msg_authz_grant';
-
 import MsgTokenCreate from './msg/token/msg_token_create';
 import MsgTokenMint from './msg/token/msg_token_mint';
 import MsgTokenBurn from './msg/token/msg_token_burn';
@@ -145,14 +146,17 @@ export {
   MsgCounterpartyConnection,
   MsgVersion,
   MsgTransfer,
+  MsgGrant,
+  MsgRevoke,
+  MsgGrantAllowance,
+  MsgRevokeAllowance,
+  MsgCreateVestingAccount,
+  MsgCreatePeriodicVestingAccount,
   MsgNFTMint,
   MsgNFTTransfer,
   MsgNFTBurn,
   MsgAddContractLog,
   MsgCreateContractFile,
-  MsgFeegrantGrant,
-  MsgFeegrantRevoke,
-  MsgAuthzGrant,
   MsgTokenCreate,
   MsgTokenMint,
   MsgTokenBurn,

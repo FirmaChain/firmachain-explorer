@@ -2,9 +2,9 @@
   "title": "FirmaChain Block Explorer",
   "network": "imperium-2",
   "chain": "FirmaChain",
-  "icon": "firmachain/white_logo.svg",
+  "icon": "https://s3.ap-southeast-1.amazonaws.com/firmachain.org/web/white_logo.svg",
   "logo": {
-    "default": "firmachain/white_logo.svg"
+    "default": "https://s3.ap-southeast-1.amazonaws.com/firmachain.org/web/white_logo.svg"
   },
   "prefix": {
     "consensus": "firmavalcons",
@@ -16,6 +16,7 @@
     "height": 1
   },
   "primaryTokenUnit": "ufct",
+  "votingPowerTokenUnit": "ufct",
   "tokenUnits": {
     "ufct": {
       "display": "fct",
@@ -23,6 +24,7 @@
     }
   },
   "extra": {
+    "profile": true,
     "desmosProfile": false,
     "forboleX": false
   }

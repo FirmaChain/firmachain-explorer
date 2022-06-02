@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import * as R from 'ramda';
+import numeral from 'numeral';
 import {
   useLatestBlockHeightListenerSubscription,
   useAverageBlockTimeQuery,
   AverageBlockTimeQuery,
+  useMarketDataQuery,
+  MarketDataQuery,
   useTokenPriceListenerSubscription,
   TokenPriceListenerSubscription,
   useActiveValidatorCountQuery,
@@ -15,7 +18,7 @@ export const useDataBlocks = () => {
   const [state, setState] = useState<{
     blockHeight: number;
     blockTime: number;
-    price: number;
+    price: number | null;
     validators: {
       active: number;
       total: number;
@@ -23,7 +26,7 @@ export const useDataBlocks = () => {
   }>({
     blockHeight: 0,
     blockTime: 0,
-    price: 0,
+    price: null,
     validators: {
       active: 0,
       total: 0,
@@ -59,24 +62,40 @@ export const useDataBlocks = () => {
     return data.averageBlockTime[0]?.averageTime ?? state.blockTime;
   };
 
+
+  useMarketDataQuery({
+    onCompleted: (data) => {
+      setState((prevState) => ({
+        ...prevState,
+        inflation: formaInflation(data),
+      }));
+    },
+  })
+
+  const formaInflation = (data:MarketDataQuery)=>{
+    const inflation = R.pathOr(0, ['inflation', 0, 'value'], data);
+  }
   // ====================================
   // token price
   // ====================================
-  useTokenPriceListenerSubscription({
-    variables: {
-      denom: chainConfig?.tokenUnits[chainConfig.primaryTokenUnit]?.display,
-    },
-    onSubscriptionData: (data) => {
-      setState((prevState) => ({
-        ...prevState,
-        price: formatTokenPrice(data.subscriptionData.data),
-      }));
-    },
-  });
+  // useTokenPriceListenerSubscription({
+  //   variables: {
+  //     denom: chainConfig?.tokenUnits[chainConfig.primaryTokenUnit]?.display,
+  //   },
+  //   onSubscriptionData: (data) => {
+  //     setState((prevState) => ({
+  //       ...prevState,
+  //       price: formatTokenPrice(data.subscriptionData.data),
+  //     }));
+  //   },
+  // });
 
-  const formatTokenPrice = (data: TokenPriceListenerSubscription) => {
-    return data?.tokenPrice[0]?.price ?? state.price;
-  };
+  // const formatTokenPrice = (data: TokenPriceListenerSubscription) => {
+  //   if (data?.tokenPrice[0]?.price) {
+  //     return numeral(numeral(data?.tokenPrice[0]?.price).format('0.[00]', Math.floor)).value();
+  //   }
+  //   return state.price;
+  // };
 
   // ====================================
   // validators

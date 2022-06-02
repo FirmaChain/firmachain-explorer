@@ -6,6 +6,7 @@ query DesmosProfile($address: String) {
     dtag
     nickname
     profilePic: profile_pic
+    coverPic: cover_pic
     chainLinks: chain_links {
       creationTime: creation_time
       externalAddress: external_address
@@ -19,6 +20,7 @@ query DesmosProfile($address: String) {
       creationTime: creation_time
       application
     }
+    creationTime: creation_time
   }
 }
 `;
@@ -32,6 +34,7 @@ query DesmosProfileLink($address: String) {
     dtag
     nickname
     profilePic: profile_pic
+    coverPic: cover_pic
     chainLinks: chain_links {
       creationTime: creation_time
       externalAddress: external_address
@@ -45,6 +48,35 @@ query DesmosProfileLink($address: String) {
       creationTime: creation_time
       application
     }
+    creationTime: creation_time
+  }
+}
+`;
+
+// use this query if using dtag
+export const DesmosProfileDtagDocument = /* GraphQL */`
+query DesmosProfileDtag($dtag: String) {
+  profile(where: {dtag: {_ilike: $dtag}}, limit: 1) {
+    address
+    bio
+    dtag
+    nickname
+    profilePic: profile_pic
+    coverPic: cover_pic
+    chainLinks: chain_links {
+      creationTime: creation_time
+      externalAddress: external_address
+      chainConfig: chain_config {
+        name
+        id
+      }
+    }
+    applicationLinks: application_links (where: {state: {_eq: "APPLICATION_LINK_STATE_VERIFICATION_SUCCESS"}}){
+      username
+      creationTime: creation_time
+      application
+    }
+    creationTime: creation_time
   }
 }
 `;
