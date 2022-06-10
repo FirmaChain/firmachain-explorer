@@ -64,6 +64,7 @@ import Version from './ibc/connection_version';
 import Transfer from './ibc_transfer/transfer';
 import Grant from './authz/grant';
 import Revoke from './authz/revoke';
+import Exec from './authz/exec';
 import GrantAllowance from './feegrant/grant_allowance';
 import RevokeAllowance from './feegrant/revoke_allowance';
 import CreateVestingAccount from './vesting/create_vesting_account';
@@ -78,6 +79,13 @@ import TokenCreate from './token/create';
 import TokenMint from './token/mint';
 import TokenBurn from './token/burn';
 import TokenUpdateURI from './token/updateURI';
+
+import CosmwasmStoreCode from './cosmwasm/storecode';
+import CosmwasmInstantiateContract from './cosmwasm/instantiate_contract';
+import CosmwasmExecuteContract from './cosmwasm/execute_contract';
+import CosmwasmMigrateContract from './cosmwasm/migrate_contract';
+import CosmwasmUpdateAdmin from './cosmwasm/update_admin';
+import CosmwasmClearAdmin from './cosmwasm/clear_admin';
 
 export {
   getMessageModelByType,
@@ -140,6 +148,7 @@ export {
   Transfer,
   Grant,
   Revoke,
+  Exec,
   GrantAllowance,
   RevokeAllowance,
   CreateVestingAccount,
@@ -153,4 +162,10 @@ export {
   TokenMint,
   TokenBurn,
   TokenUpdateURI,
+  CosmwasmStoreCode,
+  CosmwasmInstantiateContract,
+  CosmwasmExecuteContract,
+  CosmwasmMigrateContract,
+  CosmwasmUpdateAdmin,
+  CosmwasmClearAdmin,
 };

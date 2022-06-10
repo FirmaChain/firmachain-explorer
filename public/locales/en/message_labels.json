@@ -49,8 +49,9 @@
   "txConnectionEndLabel": "IBC Connection End",
   "txVersionLabel": "IBC Version",
   "txTransferLabel": "IBC Transfer",
-  "MsgGrant": "Grant",
-  "MsgRevoke": "Revoke",
+  "MsgGrant": "Authz Grant",
+  "MsgRevoke": "Authz Revoke",
+  "MsgExec": "Authz Exec",
   "MsgGrantAllowance": "Grant Allowance",
   "MsgRevokeAllowance": "Revoke Allowance",
   "MsgCreateVestingAccount": "Create Vesting Account",
@@ -63,5 +64,11 @@
   "txTokenCreateLabel" : "Token Create",
   "txTokenMintLabel" : "Token Mint",
   "txTokenBurnLabel" : "Token Burn",
-  "txTokenUpdateURILabel" : "Token Update"
+  "txTokenUpdateURILabel" : "Token Update",
+  "txCosmwasmStoreCodeLabel" : "CosmWasm StoreCode",
+  "txCosmwasmInstantiateContractLabel" : "CosmWasm InstantiateContract",
+  "txCosmwasmExecuteContractLabel" : "CosmWasm ExecuteContract",
+  "txCosmwasmMigrateContractLabel" : "CosmWasm MigrateContract",
+  "txCosmwasmUpdateAdminLabel" : "CosmWasm UpdateAdmin",
+  "txCosmwasmClearAdminLabel" : "CosmWasm ClearAdmin"
 }

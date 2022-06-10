@@ -65,6 +65,7 @@ import MsgVersion from './msg/ibc/msg_connection_version';
 import MsgTransfer from './msg/ibc_transfer/msg_transfer';
 import MsgGrant from './msg/authz/msg_grant';
 import MsgRevoke from './msg/authz/msg_revoke';
+import MsgExec from './msg/authz/msg_exec';
 import MsgGrantAllowance from './msg/feegrant/msg_grant_allowance';
 import MsgRevokeAllowance from './msg/feegrant/msg_revoke_allowance';
 import MsgCreateVestingAccount from './msg/vesting/msg_create_vesting_account';
@@ -79,6 +80,13 @@ import MsgTokenCreate from './msg/token/msg_token_create';
 import MsgTokenMint from './msg/token/msg_token_mint';
 import MsgTokenBurn from './msg/token/msg_token_burn';
 import MsgTokenUpdateURI from './msg/token/msg_token_updateURI';
+
+import MsgCosmwasmStoreCode from './msg/cosmwasm/msg_cosmwasm_storecode';
+import MsgCosmwasmInstantiateContract from './msg/cosmwasm/msg_cosmwasm_instantiate_contract';
+import MsgCosmwasmExecuteContract from './msg/cosmwasm/msg_cosmwasm_execute_contract';
+import MsgCosmwasmMigrateContract from './msg/cosmwasm/msg_cosmwasm_migrate_contract';
+import MsgCosmwasmUpdateAdmin from './msg/cosmwasm/msg_cosmwasm_update_admin';
+import MsgCosmwasmClearAdmin from './msg/cosmwasm/msg_cosmwasm_clear_admin';
 
 export {
   BigDipperNetwork,
@@ -148,6 +156,7 @@ export {
   MsgTransfer,
   MsgGrant,
   MsgRevoke,
+  MsgExec,
   MsgGrantAllowance,
   MsgRevokeAllowance,
   MsgCreateVestingAccount,
@@ -161,4 +170,10 @@ export {
   MsgTokenMint,
   MsgTokenBurn,
   MsgTokenUpdateURI,
+  MsgCosmwasmStoreCode,
+  MsgCosmwasmInstantiateContract,
+  MsgCosmwasmExecuteContract,
+  MsgCosmwasmMigrateContract,
+  MsgCosmwasmUpdateAdmin,
+  MsgCosmwasmClearAdmin,
 };

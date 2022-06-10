@@ -60,5 +60,9 @@ export const getFilterLabels = () => {
       key: 'contract',
       display: 'contract',
     },
+    {
+      key: 'cosmwasm',
+      display: 'cosmwasm',
+    },
   ]);
 };

@@ -52,6 +52,7 @@
   "txTimeoutOnCloseContent": "<0>{{signer}}</0> IBC timeout on close",
   "MsgGrant": "<0>{{granter}}</0> authorized a grant for <1>{{grantee}}</1>",
   "MsgRevoke": "<0>{{granter}}</0> revoked a grant for <1>{{grantee}}</1>",
+  "MsgExec": "<0>{{grantee}}</0> execute",
   "MsgGrantAllowance": "<0>{{granter}}</0> granted allowance for <1>{{grantee}}</1>",
   "MsgRevokeAllowance": "<0>{{granter}}</0> revoked allowance for <1>{{grantee}}</1>",
   "MsgCreateVestingAccount": "Vesting account created for <0>{{toAddress}}</0>",
@@ -64,5 +65,11 @@
   "txTokenCreateContent" : "{{tokenName}} ({{tokenSymbol}}) token was created by <0>{{owner}}</0>",
   "txTokenMintContent" : "{{amount}} {{tokenID}} token was minted by <0>{{owner}}</0> and sent to <1>{{toAddress}}</1>",
   "txTokenBurnContent" : "{{amount}} {{tokenID}} token was burned by <0>{{owner}}</0>",
-  "txTokenUpdateURIContent" : "The {{tokenID}} token URI has been updated"
+  "txTokenUpdateURIContent" : "The {{tokenID}} token URI has been updated",
+  "txCosmwasmStoreCodeContent" : "uploaded by <0>{{owner}}</0> [code_id : {{codeId}}]",
+  "txCosmwasmInstantiateContractContent" : "InstantiateContract <0>{{contract}}</0> [code_id : {{codeId}}]",
+  "txCosmwasmExecuteContractContent" : "ExecuteContract <0>{{contract}}</0>",
+  "txCosmwasmMigrateContractContent" : "MigrateContract <0>{{contract}}</0> [code_id : {{codeId}}]",
+  "txCosmwasmUpdateAdminContent" : "Updated new admin <0>{{newAdmin}}</0> for <1>{{contract}}</1>",
+  "txCosmwasmClearAdminContent" : "Clear admin <0>{{contract}}</0>"
 }

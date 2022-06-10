@@ -309,6 +309,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'thirteen',
       tagDisplay: 'MsgRevoke',
     },
+    '/cosmos.authz.v1beta1.MsgExec': {
+      model: MODELS.MsgExec,
+      content: COMPONENTS.Exec,
+      tagTheme: 'thirteen',
+      tagDisplay: 'MsgExec',
+    },
     // ========================
     // feegrant
     // ========================
@@ -456,6 +462,42 @@ const getDataByType = (type: string) => {
       tagTheme: 'three',
       tagDisplay: 'txTokenUpdateURILabel',
     },
+    '/cosmwasm.wasm.v1.MsgStoreCode': {
+      model: MODELS.MsgCosmwasmStoreCode,
+      content: COMPONENTS.CosmwasmStoreCode,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmStoreCodeLabel',
+    },
+    '/cosmwasm.wasm.v1.MsgInstantiateContract': {
+      model: MODELS.MsgCosmwasmInstantiateContract,
+      content: COMPONENTS.CosmwasmInstantiateContract,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmInstantiateContractLabel',
+    },
+    '/cosmwasm.wasm.v1.MsgExecuteContract': {
+      model: MODELS.MsgCosmwasmExecuteContract,
+      content: COMPONENTS.CosmwasmExecuteContract,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmExecuteContractLabel',
+    },
+    '/cosmwasm.wasm.v1.MsgMigrateContract': {
+      model: MODELS.MsgCosmwasmMigrateContract,
+      content: COMPONENTS.CosmwasmMigrateContract,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmMigrateContractLabel',
+    },
+    '/cosmwasm.wasm.v1.MsgUpdateAdmin': {
+      model: MODELS.MsgCosmwasmUpdateAdmin,
+      content: COMPONENTS.CosmwasmUpdateAdmin,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmUpdateAdminLabel',
+    },
+    '/cosmwasm.wasm.v1.MsgClearAdmin': {
+      model: MODELS.MsgCosmwasmClearAdmin,
+      content: COMPONENTS.CosmwasmClearAdmin,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmClearAdminLabel',
+    },
   };
 
   if (defaultTypeToModel[type]) return defaultTypeToModel[type];
@@ -521,7 +563,10 @@ export const convertMsgsToModels = (transaction: any) => {
   const messages = R.pathOr([], ['messages'], transaction).map((msg, i) => {
     const model = getMessageModelByType(msg?.['@type']);
     if (model === MODELS.MsgWithdrawDelegatorReward
-      || model === MODELS.MsgWithdrawValidatorCommission || model === MODELS.MsgNFTMint) {
+      || model === MODELS.MsgWithdrawValidatorCommission
+      || model === MODELS.MsgNFTMint
+      || model === MODELS.MsgCosmwasmInstantiateContract
+      || model === MODELS.MsgCosmwasmStoreCode) {
       const log = R.pathOr(null, ['logs', i], transaction);
       return model.fromJson(msg, log);
     }
