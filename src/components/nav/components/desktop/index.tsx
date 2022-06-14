@@ -5,10 +5,7 @@ import {
   AppBar,
   ClickAwayListener,
 } from '@material-ui/core';
-import { useRecoilValue } from 'recoil';
-import { readTheme } from '@recoil/settings/selectors';
-import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
-import BigDipperLogoRed from '@assets/big-dipper-red.svg';
+import FirmachainLogo from '@assets/firma_chain_title.svg';
 import { useStyles } from './styles';
 import { useDesktop } from './hooks';
 import {
@@ -24,7 +21,6 @@ const Desktop: React.FC<{
   className, title,
 }) => {
   const classes = useStyles();
-  const theme = useRecoilValue(readTheme);
   const {
     isMenu,
     toggleMenu,
@@ -32,6 +28,7 @@ const Desktop: React.FC<{
     toggleNetwork,
     isNetwork,
   } = useDesktop();
+
   return (
     <ClickAwayListener onClickAway={turnOffAll}>
       <div
@@ -66,19 +63,11 @@ const Desktop: React.FC<{
             }),
           }}
         >
-          {theme === 'light' ? (
-            <BigDipperLogoRed
-              className={classes.logo}
-              onClick={toggleMenu}
-              role="button"
-            />
-          ) : (
-            <BigDipperLogoWhite
-              className={classes.logo}
-              onClick={toggleMenu}
-              role="button"
-            />
-          )}
+          <FirmachainLogo
+            className={classes.logo}
+            onClick={toggleMenu}
+            role="button"
+          />
           <MenuItems />
         </Drawer>
       </div>
