@@ -154,7 +154,7 @@ export const useProposalDetails = () => {
       const overview = {
         title: data.proposal[0].title,
         id: data.proposal[0].proposalId,
-        description: data.proposal[0].description,
+        description: data.proposal[0].description.replace(/\n\n/gi, '\n\n&nbsp;&nbsp;\n\n'),
         status: data.proposal[0].status,
         submitTime: data.proposal[0].submitTime,
         depositEndTime: data.proposal[0].depositEndTime,
