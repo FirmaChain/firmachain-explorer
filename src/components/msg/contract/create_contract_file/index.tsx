@@ -26,24 +26,6 @@ const CreateContrMsgCreateContractFile = (props: { message: MsgCreateContractFil
                 {'"\n'}
               </>
             );
-          } else if (key === 'ownerList') {
-            result = (
-              <>
-                {`\t"${key}" : [\n`}
-                {message.json[key].map((value) => {
-                  const ownerAddress = useProfileRecoil(value);
-                  const ownerMoniker = ownerAddress ? ownerAddress?.name : value;
-                  return (
-                    <>
-                      {'\t\t"'}
-                      <Name address={value} name={ownerMoniker} />
-                      {'"\n'}
-                    </>
-                  );
-                })}
-                {'\t]\n'}
-              </>
-            );
           } else {
             result = `\t"${key}" : "${message.json[key]}"\n`;
           }
