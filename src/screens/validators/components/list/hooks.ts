@@ -1,20 +1,12 @@
 import { useState } from 'react';
 import * as R from 'ramda';
 import numeral from 'numeral';
-import {
-  useValidatorsQuery,
-  ValidatorsQuery,
-} from '@graphql/types';
+import { useValidatorsQuery, ValidatorsQuery } from '@graphql/types';
 import { formatDenom } from '@utils/format_denom';
 import { useChainContext } from '@contexts';
 import { getValidatorCondition } from '@utils/get_validator_condition';
-import {
-  StakingParams,
-  SlashingParams,
-} from '@models';
-import {
-  ValidatorsState, ValidatorType,
-} from './types';
+import { StakingParams, SlashingParams } from '@models';
+import { ValidatorsState, ValidatorType } from './types';
 
 export const useValidators = () => {
   const { findAddress } = useChainContext();
@@ -25,8 +17,8 @@ export const useValidators = () => {
     items: [],
     votingPowerOverall: 0,
     tab: 0,
-    sortKey: 'validator.name',
-    sortDirection: 'asc',
+    sortKey: 'votingPower',
+    sortDirection: 'desc',
   });
 
   const handleSetState = (stateChange: any) => {
@@ -53,91 +45,91 @@ export const useValidators = () => {
     const slashingParams = SlashingParams.fromJson(R.pathOr({}, ['slashingParams', 0, 'params'], data));
     const votingPowerOverall = formatDenom(
       R.pathOr(0, ['stakingPool', 0, 'bondedTokens'], data),
-      stakingParams.bondDenom,
+      stakingParams.bondDenom
     ).value;
 
     const { signedBlockWindow } = slashingParams;
 
-    const formattedItems = data.validator.filter((x) => x.validatorInfo).map((x) => {
-      const validator = findAddress(x.validatorInfo.operatorAddress);
-      
-      let votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
-      let votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
+    const formattedItems = data.validator
+      .filter((x) => x.validatorInfo)
+      .map((x) => {
+        const validator = findAddress(x.validatorInfo.operatorAddress);
 
-      const totalDelegations = x.delegations.reduce((a, b) => {
-        return a + numeral(R.pathOr(0, ['amount', 'amount'], b)).value();
-      }, 0);
+        let votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
+        let votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
 
-      const [selfDelegation] = x.delegations.filter(
-        (y) => {
+        const totalDelegations = x.delegations.reduce((a, b) => {
+          return a + numeral(R.pathOr(0, ['amount', 'amount'], b)).value();
+        }, 0);
+
+        const [selfDelegation] = x.delegations.filter((y) => {
           return y.delegatorAddress === x.validatorInfo.selfDelegateAddress;
-        },
-      );
-      const self = numeral(R.pathOr(0, ['amount', 'amount'], selfDelegation)).value();
-      const selfPercent = (self / (totalDelegations || 1)) * 100;
+        });
+        const self = numeral(R.pathOr(0, ['amount', 'amount'], selfDelegation)).value();
+        const selfPercent = (self / (totalDelegations || 1)) * 100;
 
-      const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
-      const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
+        const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
+        const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
-      const status = R.pathOr(0, ['validatorStatuses', 0, 'status'], x);
-      const jailed = R.pathOr(false, ['validatorStatuses', 0, 'jailed'], x);
-      const tombstoned = R.pathOr(0, ['validatorSigningInfos', 0, 'tombstoned'], x);
+        const status = R.pathOr(0, ['validatorStatuses', 0, 'status'], x);
+        const jailed = R.pathOr(false, ['validatorStatuses', 0, 'jailed'], x);
+        const tombstoned = R.pathOr(0, ['validatorSigningInfos', 0, 'tombstoned'], x);
 
-      let activeText = 'unknown';
-      let activeColor = 'zero';
+        let activeText = 'unknown';
+        let activeColor = 'zero';
 
-      let isUnknown = false;
+        let isUnknown = false;
 
-      if (status === 3) {
-        activeText = 'active';
-        activeColor = 'one';
-      } else if (status === 2) {
-        activeText = 'unbonding';
-        activeColor = 'three';
-      } else if (status === 1) {
-        activeText = 'unbonded';
-        activeColor = 'zero';
-      } else {
-        activeText = 'unknown';
-        activeColor = 'zero';
-        isUnknown = true;
-      }
-      
-      if(isUnknown === false && jailed === true){
-        activeText = 'jailed';
-        activeColor = 'two';
-      }
+        if (status === 3) {
+          activeText = 'active';
+          activeColor = 'one';
+        } else if (status === 2) {
+          activeText = 'unbonding';
+          activeColor = 'three';
+        } else if (status === 1) {
+          activeText = 'unbonded';
+          activeColor = 'zero';
+        } else {
+          activeText = 'unknown';
+          activeColor = 'zero';
+          isUnknown = true;
+        }
 
-      if(tombstoned){
-        activeText = 'Tombstoned';
-        activeColor = 'two';
-      }
+        if (isUnknown === false && jailed === true) {
+          activeText = 'jailed';
+          activeColor = 'two';
+        }
 
-      if(activeText !== 'active') {
-        votingPower = 0;
-        votingPowerPercent = 0;
-      }
+        if (tombstoned) {
+          activeText = 'Tombstoned';
+          activeColor = 'two';
+        }
 
-      return ({
-        validator: {
-          address: x.validatorInfo.operatorAddress,
-          imageUrl: validator.imageUrl,
-          name: validator.moniker,
-        },
-        votingPower,
-        votingPowerPercent,
-        commission: R.pathOr(0, ['validatorCommissions', 0, 'commission'], x) * 100,
-        self,
-        selfPercent,
-        condition,
-        status,
-        tombstoned,
-        jailed,
-        delegators: x.delegations.length,
-        active: activeText,
-        activeColor
+        if (activeText !== 'active') {
+          votingPower = 0;
+          votingPowerPercent = 0;
+        }
+
+        return {
+          validator: {
+            address: x.validatorInfo.operatorAddress,
+            imageUrl: validator.imageUrl,
+            name: validator.moniker,
+          },
+          votingPower,
+          votingPowerPercent,
+          commission: R.pathOr(0, ['validatorCommissions', 0, 'commission'], x) * 100,
+          self,
+          selfPercent,
+          condition,
+          status,
+          tombstoned,
+          jailed,
+          delegators: x.delegations.length,
+          active: activeText,
+          activeColor,
+        };
       });
-    });
 
     return {
       votingPowerOverall,
@@ -181,8 +173,8 @@ export const useValidators = () => {
     if (search) {
       sorted = sorted.filter((x) => {
         return (
-          x.validator.name.toLowerCase().replace(/ /g, '').includes(search.toLowerCase())
-          || x.validator.address.toLowerCase().includes(search.toLowerCase())
+          x.validator.name.toLowerCase().replace(/ /g, '').includes(search.toLowerCase()) ||
+          x.validator.address.toLowerCase().includes(search.toLowerCase())
         );
       });
     }
