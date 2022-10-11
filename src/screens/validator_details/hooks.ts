@@ -315,7 +315,7 @@ export const useValidatorDetails = () => {
             name: delegator.moniker,
           },
         });
-      }).sort((a, b) => (a.amount > b.amount ? 1 : -1));
+      }).sort((a, b) => (a.amount.value > b.amount.value ? -1 : -1));
       return {
         data: delegations,
         count: delegations.length,
@@ -377,7 +377,7 @@ export const useValidatorDetails = () => {
             },
           });
         }),
-      ].sort((a, b) => (a.amount > b.amount ? 1 : -1));
+      ].sort((a, b) => (a.amount.value > b.amount.value ? -1 : -1));
 
       return {
         data: redelegations,
@@ -402,7 +402,7 @@ export const useValidatorDetails = () => {
           linkedUntil: x.completionTimestamp,
           commission: R.pathOr(0, ['validator', 'validatorCommissions', 0, 'commission'], x),
         });
-      }).sort((a, b) => (a.amount > b.amount ? 1 : -1));
+      }).sort((a, b) => (a.amount.value > b.amount.value ? -1 : -1));
 
       return {
         data: undelegations,
