@@ -7,8 +7,6 @@ import { useGetStyles } from './styles';
 const AddContractLog = (props: { message: MsgAddContractLog }) => {
   const { message } = props;
 
-  const ownerAddress = useProfileRecoil(message.ownerAddress);
-
   const creatorAddress = useProfileRecoil(message.creatorAddress);
   const creatorMoniker = creatorAddress ? creatorAddress?.name : message.creatorAddress;
 
