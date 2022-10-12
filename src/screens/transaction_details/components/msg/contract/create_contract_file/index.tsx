@@ -25,20 +25,6 @@ const CreateContrMsgCreateContractFile = (props: {
                         return (
                             <>{`\t"${key}" : "`}<Name address={message.creatorAddress} name={creatorMoniker}/>{`"\n`}</>
                         )
-                    else if(key === "ownerList")
-                        return (
-                            <>
-                              {`\t"${key}" : [\n`}
-                              {
-                                message.json[key].map((value) => {
-                                  const ownerAddress = findAddress(value);
-                                  const ownerMoniker = ownerAddress ? ownerAddress?.moniker : value;
-                                  return (<>{`\t\t"`}<Name address={value} name={ownerMoniker}/>{`"\n`}</>)
-                                })
-                              }
-                              {'\t]\n'}
-                            </>
-                        )
                     else
                         return `\t"${key}" : "${message.json[key]}"\n`;
                 })

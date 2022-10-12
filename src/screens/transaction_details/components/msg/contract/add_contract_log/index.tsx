@@ -28,10 +28,6 @@ const AddContractLog = (props: {
                         return (
                             <>{`\t"${key}" : "`}<Name address={message.creatorAddress} name={creatorMoniker}/>{`"\n`}</>
                         )
-                    else if(key === "ownerAddress")
-                        return (
-                            <>{`\t"${key}" : "`}<Name address={message.ownerAddress} name={ownerMoniker}/>{`"\n`}</>
-                        )
                     else
                         return `\t"${key}" : "${message.json[key]}"\n`;
                 })
