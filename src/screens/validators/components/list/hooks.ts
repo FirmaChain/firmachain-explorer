@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Big from 'big.js';
+import axios from 'axios';
 import * as R from 'ramda';
 import numeral from 'numeral';
 import {
@@ -37,17 +38,27 @@ export const useValidators = () => {
   // ==========================
   useValidatorsQuery({
     onCompleted: (data) => {
-      handleSetState({
-        loading: false,
-        ...formatValidators(data),
+      axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`).then((response)=>{
+        const commissionRate = response.data.validator.commission.commission_rates.rate;
+        handleSetState({
+          loading: false,
+          ...formatValidators(data, commissionRate),
+        });
+      }).catch((error)=>{
+        handleSetState({
+          loading: false,
+          ...formatValidators(data),
+        });
       });
+
+
     },
   });
 
   // ==========================
   // Parse data
   // ==========================
-  const formatValidators = (data: ValidatorsQuery) => {
+  const formatValidators = (data: ValidatorsQuery, commissionRate = '') => {
     const slashingParams = SlashingParams.fromJson(R.pathOr({}, ['slashingParams', 0, 'params'], data));
     const votingPowerOverall = numeral(formatToken(
       R.pathOr(0, ['stakingPool', 0, 'bondedTokens'], data),
@@ -63,11 +74,18 @@ export const useValidators = () => {
       const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
       const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
+      let commission = 0;
+      if(commissionRate === '') {
+        commission = R.pathOr(0, ['validatorCommissions', 0, 'commission'], data.validator[0]) * 100;
+      } else {
+        commission = Number(commissionRate) * 100;
+      }
+
       return ({
         validator: x.validatorInfo.operatorAddress,
         votingPower,
         votingPowerPercent,
-        commission: R.pathOr(0, ['validatorCommissions', 0, 'commission'], x) * 100,
+        commission,
         condition,
         status: R.pathOr(0, ['validatorStatuses', 0, 'status'], x),
         jailed: R.pathOr(false, ['validatorStatuses', 0, 'jailed'], x),

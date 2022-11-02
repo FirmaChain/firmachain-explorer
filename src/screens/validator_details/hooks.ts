@@ -1,6 +1,7 @@
 import {
   useState, useEffect,
 } from 'react';
+import axios from 'axios';
 import * as R from 'ramda';
 import { useRouter } from 'next/router';
 import { formatToken } from '@utils/format_token';
@@ -92,11 +93,16 @@ export const useValidatorDetails = () => {
       address: router.query.address as string,
     },
     onCompleted: (data) => {
-      handleSetState(formatAccountQuery(data));
+      axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`).then((response)=>{
+        const commissionRate = response.data.validator.commission.commission_rates.rate;
+        handleSetState(formatAccountQuery(data, commissionRate));
+      }).catch((error)=>{
+        handleSetState(formatAccountQuery(data));
+      });
     },
   });
 
-  const formatAccountQuery = (data: ValidatorDetailsQuery) => {
+  const formatAccountQuery = (data: ValidatorDetailsQuery, commissionRate = '') => {
     const stateChange: any = {
       loading: false,
     };
@@ -134,11 +140,18 @@ export const useValidatorDetails = () => {
       const { signedBlockWindow } = slashingParams;
       const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
+      let commission = 0;
+      if(commissionRate === '') {
+        commission = R.pathOr(0, ['validatorCommissions', 0, 'commission'], data.validator[0]);
+      } else {
+        commission = Number(commissionRate);
+      }
+
       const profile = {
         status: R.pathOr(3, ['validatorStatuses', 0, 'status'], data.validator[0]),
         jailed: R.pathOr(false, ['validatorStatuses', 0, 'jailed'], data.validator[0]),
         tombstoned: R.pathOr(false, ['validatorSigningInfos', 0, 'tombstoned'], data.validator[0]),
-        commission: R.pathOr(0, ['validatorCommissions', 0, 'commission'], data.validator[0]),
+        commission,
         condition,
         missedBlockCounter,
         signedBlockWindow,
