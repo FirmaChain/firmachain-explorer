@@ -37,28 +37,20 @@ export const useValidators = () => {
   // Fetch Data
   // ==========================
   useValidatorsQuery({
-    onCompleted: (data) => {
-      axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`).then((response)=>{
-        const commissionRate = response.data.validator.commission.commission_rates.rate;
-        handleSetState({
-          loading: false,
-          ...formatValidators(data, commissionRate),
-        });
-      }).catch((error)=>{
-        handleSetState({
-          loading: false,
-          ...formatValidators(data),
-        });
+    onCompleted: async(data) => {
+      const state = await formatValidators(data);
+      
+      handleSetState({
+        loading: false,
+        ...state,
       });
-
-
     },
   });
 
   // ==========================
   // Parse data
   // ==========================
-  const formatValidators = (data: ValidatorsQuery, commissionRate = '') => {
+  const formatValidators = async (data: ValidatorsQuery) => {
     const slashingParams = SlashingParams.fromJson(R.pathOr({}, ['slashingParams', 0, 'params'], data));
     const votingPowerOverall = numeral(formatToken(
       R.pathOr(0, ['stakingPool', 0, 'bondedTokens'], data),
@@ -67,19 +59,16 @@ export const useValidators = () => {
 
     const { signedBlockWindow } = slashingParams;
 
-    let formattedItems: ValidatorType[] = data.validator.filter((x) => x.validatorInfo).map((x) => {
+    let formattedItems: ValidatorType[] = await Promise.all(data.validator.filter((x) => x.validatorInfo).map(async (x) => {
       const votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
       const votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
 
       const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
       const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
-      let commission = 0;
-      if(commissionRate === '') {
-        commission = R.pathOr(0, ['validatorCommissions', 0, 'commission'], data.validator[0]) * 100;
-      } else {
-        commission = Number(commissionRate) * 100;
-      }
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`)
+      const commissionRate = response.data.validator.commission.commission_rates.rate;
+      const commission = Number(commissionRate) * 100;
 
       return ({
         validator: x.validatorInfo.operatorAddress,
@@ -91,7 +80,7 @@ export const useValidators = () => {
         jailed: R.pathOr(false, ['validatorStatuses', 0, 'jailed'], x),
         tombstoned: R.pathOr(false, ['validatorSigningInfos', 0, 'tombstoned'], x),
       });
-    });
+    }));
 
     // get the top 34% validators
     formattedItems = formattedItems.sort((a, b) => {
