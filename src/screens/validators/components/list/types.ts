@@ -2,7 +2,7 @@ export type ValidatorType = {
   validator: string;
   votingPower: number;
   votingPowerPercent: number;
-  commission: number;
+  commission: number | null;
   condition: number;
   status: number;
   jailed: boolean;

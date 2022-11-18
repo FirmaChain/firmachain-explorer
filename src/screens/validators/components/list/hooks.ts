@@ -66,9 +66,14 @@ export const useValidators = () => {
       const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
       const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`)
-      const commissionRate = response.data.validator.commission.commission_rates.rate;
-      const commission = Number(commissionRate) * 100;
+      let commission = null;
+      try{
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`)
+        const commissionRate = response.data.validator.commission.commission_rates.rate;
+        commission = Number(commissionRate) * 100;
+      }catch(error){
+        console.log(error);
+      }
 
       return ({
         validator: x.validatorInfo.operatorAddress,

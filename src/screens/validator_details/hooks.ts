@@ -140,10 +140,8 @@ export const useValidatorDetails = () => {
       const { signedBlockWindow } = slashingParams;
       const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
-      let commission = 0;
-      if(commissionRate === '') {
-        commission = R.pathOr(0, ['validatorCommissions', 0, 'commission'], data.validator[0]);
-      } else {
+      let commission = null;
+      if(commissionRate !== '') {
         commission = Number(commissionRate);
       }
 

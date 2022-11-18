@@ -55,7 +55,7 @@ const Desktop: React.FC<{
           name={x.validator.name}
         />
       ),
-      commission: `${numeral(x.commission).format('0.[00]')}%`,
+      commission: x.commission === null ? 'N/A' : `${numeral(x.commission).format('0.[00]')}%`,
       condition: (
         <Condition className={condition} />
       ),

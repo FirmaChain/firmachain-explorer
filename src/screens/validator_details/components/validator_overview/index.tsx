@@ -65,7 +65,7 @@ const ValidatorOverview: React.FC<{
             variant="body1"
             className="value"
           >
-            {`${numeral(status.commission * 100).format('0.00')}%`}
+            {status.commission === null ? 'N/A' : `${numeral(status.commission).format('0.[00]')}%`}
           </Typography>
         ),
       },
