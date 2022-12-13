@@ -22,7 +22,7 @@ class MsgCosmwasmStoreCode {
         json,
         type: json['@type'],
         ownerAddress: json.sender,
-        codeId: log ? log.events[1].attributes[0].value : 'UNKNWON',
+        codeId: log ? log.events[1].attributes[1].value : 'UNKNWON',
       });
     }
 }

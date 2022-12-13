@@ -43,6 +43,12 @@ export type ActionBalance = {
 };
 
 
+export type ActionInflation = {
+  __typename?: 'ActionInflation';
+  amount: Scalars['String'];
+};
+
+
 
 export type ActionDelegationResponse = {
   __typename?: 'ActionDelegationResponse';
@@ -10198,6 +10204,8 @@ export type Query_Root = {
   account_balance_tokens_prices_aggregate: Token_Price_Aggregate;
   /** fetch data from the table: "account" using primary key columns */
   account_by_pk?: Maybe<Account>;
+  action_inflation?: Maybe<ActionInflation>;
+  action_total_supply?: Maybe<ActionBalance>;
   action_account_balance?: Maybe<ActionBalance>;
   action_delegation?: Maybe<ActionDelegationResponse>;
   action_delegation_reward?: Maybe<Array<Maybe<ActionDelegationReward>>>;
@@ -19753,10 +19761,6 @@ export type MarketDataQuery = { communityPool: Array<(
   )>, inflation: Array<(
     { __typename?: 'inflation' }
     & Pick<Inflation, 'value'>
-  )>, tokenPrice: Array<(
-    { __typename?: 'token_price' }
-    & Pick<Token_Price, 'price'>
-    & { marketCap: Token_Price['market_cap'] }
   )>, supply: Array<(
     { __typename?: 'supply' }
     & Pick<Supply, 'coins'>
@@ -19770,7 +19774,10 @@ export type MarketDataQuery = { communityPool: Array<(
   )>, distributionParams: Array<(
     { __typename?: 'distribution_params' }
     & Pick<Distribution_Params, 'params'>
-  )> };
+  )>, actionTotalSupply: Maybe<(
+    { __typename?: 'ActionBalance' }
+    & Pick<ActionBalance, 'coins'>
+  )>, actionInflation: Maybe<Scalars['String']> };
 
 export type GetMessagesByAddressQueryVariables = Exact<{
   address?: Maybe<Scalars['_text']>;
@@ -19953,7 +19960,11 @@ export type TokenomicsQuery = { stakingParams: Array<(
   )>, supply: Array<(
     { __typename?: 'supply' }
     & Pick<Supply, 'coins'>
-  )> };
+  )>, actionTotalSupply: Maybe<(
+    { __typename?: 'ActionBalance' }
+    & Pick<ActionBalance, 'coins'>
+  )>
+ };
 
 export type TransactionDetailsQueryVariables = Exact<{
   hash?: Maybe<Scalars['String']>;
@@ -20856,16 +20867,12 @@ export type ChainIdQueryHookResult = ReturnType<typeof useChainIdQuery>;
 export type ChainIdLazyQueryHookResult = ReturnType<typeof useChainIdLazyQuery>;
 export type ChainIdQueryResult = Apollo.QueryResult<ChainIdQuery, ChainIdQueryVariables>;
 export const MarketDataDocument = gql`
-    query MarketData($denom: String) {
+    query MarketData {
   communityPool: community_pool(order_by: {height: desc}, limit: 1) {
     coins
   }
   inflation: inflation(order_by: {height: desc}, limit: 1) {
     value
-  }
-  tokenPrice: token_price(where: {unit_name: {_eq: $denom}}) {
-    marketCap: market_cap
-    price
   }
   supply {
     coins
@@ -20879,6 +20886,12 @@ export const MarketDataDocument = gql`
   }
   distributionParams: distribution_params {
     params
+  }
+  actionTotalSupply: action_total_supply {
+    coins
+  }
+  actionInflation: action_inflation {
+    amount
   }
 }
     `;
@@ -21370,6 +21383,9 @@ export const TokenomicsDocument = gql`
     unbonded: not_bonded_tokens
   }
   supply: supply(order_by: {height: desc}, limit: 1) {
+    coins
+  }
+  actionTotalSupply: action_total_supply {
     coins
   }
 }

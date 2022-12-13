@@ -35,8 +35,7 @@ export const useTokenomics = () => {
     results.denom = stakingParams.bondDenom;
 
     const [total] = R.pathOr([], [
-      'supply',
-      0,
+      'actionTotalSupply',
       'coins',
     ], data)
       .filter((x) => x.denom === results.denom);

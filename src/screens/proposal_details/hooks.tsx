@@ -73,7 +73,7 @@ export const useProposalDetails = () => {
         content: R.pathOr('', ['proposal', 0, 'content'], data),
         title: R.pathOr('', ['proposal', 0, 'title'], data),
         id: R.pathOr('', ['proposal', 0, 'proposalId'], data),
-        description: R.pathOr('', ['proposal', 0, 'description'], data),
+        description: R.pathOr('', ['proposal', 0, 'description'], data).replace(/\n\n/gi, '\n\n&nbsp;&nbsp;\n\n'),
         status: R.pathOr('', ['proposal', 0, 'status'], data),
         submitTime: R.pathOr('', ['proposal', 0, 'submitTime'], data),
         depositEndTime: R.pathOr('', ['proposal', 0, 'depositEndTime'], data),

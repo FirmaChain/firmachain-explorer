@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import * as R from 'ramda';
-import numeral from 'numeral';
 import {
   useRecoilState,
   SetterOrUpdater,
@@ -23,9 +22,6 @@ export const useMarketRecoil = () => {
 
   useMarketDataQuery(
     {
-      variables: {
-        denom: chainConfig?.tokenUnits[chainConfig.primaryTokenUnit]?.display,
-      },
       onCompleted: (data) => {
         if (data) {
           setMarket(formatUseChainIdQuery(data));
@@ -39,18 +35,14 @@ export const useMarketRecoil = () => {
       communityPool, price, marketCap,
     } = market;
 
-    if (data?.tokenPrice?.length) {
-      price = numeral(numeral(data?.tokenPrice[0]?.price).format('0.[00]', Math.floor)).value();
-      marketCap = data.tokenPrice[0]?.marketCap;
-    }
-
     const [communityPoolCoin] = R.pathOr([], ['communityPool', 0, 'coins'], data).filter((x) => x.denom === chainConfig.primaryTokenUnit);
     const inflation = R.pathOr(0, ['inflation', 0, 'value'], data);
 
     const rawSupplyAmount = getDenom(
-      R.pathOr([], ['supply', 0, 'coins'], data),
+      R.pathOr([], ['actionTotalSupply', 'coins'], data),
       chainConfig.primaryTokenUnit,
     ).amount;
+
     const supply = formatToken(
       rawSupplyAmount,
       chainConfig.primaryTokenUnit,
