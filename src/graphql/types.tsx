@@ -14860,12 +14860,6 @@ export type Subscription_RootVesting_Period_AggregateArgs = {
   where?: Maybe<Vesting_Period_Bool_Exp>;
 };
 
-export type Version = {
-  __typename?: 'version';
-  chainVer: Scalars['String'];
-  sdkVer: Scalars['String'];
-};
-
 /** columns and relationships of "supply" */
 export type Supply = {
   __typename?: 'supply';
@@ -19764,10 +19758,6 @@ export type MarketDataQuery = { communityPool: Array<(
   )>, supply: Array<(
     { __typename?: 'supply' }
     & Pick<Supply, 'coins'>
-  )>, version: Array<(
-    { __typename?: 'version' }
-    & {chainVer: Version['chainVer']}
-    & {sdkVer: Version['sdkVer']}
   )>, bondedTokens: Array<(
     { __typename?: 'staking_pool' }
     & Pick<Staking_Pool, 'bonded_tokens'>
@@ -20876,10 +20866,6 @@ export const MarketDataDocument = gql`
   }
   supply {
     coins
-  }
-  version {
-    chainVer: chainVer
-    sdkVer: sdkVer
   }
   bondedTokens: staking_pool(order_by: {height: desc}, limit: 1) {
     bonded_tokens

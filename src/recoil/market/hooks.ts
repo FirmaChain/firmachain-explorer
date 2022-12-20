@@ -5,6 +5,8 @@ import {
   SetterOrUpdater,
 } from 'recoil';
 import Big from 'big.js';
+import Axios from 'axios';
+
 import {
   useMarketDataQuery,
   MarketDataQuery,
@@ -22,15 +24,48 @@ export const useMarketRecoil = () => {
 
   useMarketDataQuery(
     {
-      onCompleted: (data) => {
+      onCompleted: async(data) => {
         if (data) {
-          setMarket(formatUseChainIdQuery(data));
+          setMarket(await formatUseChainIdQuery(data));
         }
       },
     },
   );
 
-  const formatUseChainIdQuery = (data: MarketDataQuery): AtomState => {
+  const getChainVersion = async () => {
+    try {
+      const axios = Axios.create({
+        baseURL: process.env.NEXT_PUBLIC_REST_CHAIN_URL,
+        headers: {Accept: 'application/json'},
+        timeout: 15000,
+      });
+
+      const path = '/cosmos/base/tendermint/v1beta1/node_info';
+      const result = await axios.get(path);
+
+      const nodeInfo = result.data.default_node_info;
+      const appInfo = result.data.application_version;
+
+      const chainId: string = nodeInfo.network;
+      const appVersion: string = appInfo.version;
+      let cosmosVersion: string = '';
+
+      for (let i = 0; i < appInfo.build_deps.length; i++) {
+        const dep = appInfo.build_deps[i];
+
+        if (dep.path == 'github.com/cosmos/cosmos-sdk') {
+          cosmosVersion = dep.version;
+          break;
+        }
+      }
+
+      return { chainId, appVersion, cosmosVersion };
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const formatUseChainIdQuery = async(data: MarketDataQuery): Promise<AtomState> => {
     let {
       communityPool, price, marketCap,
     } = market;
@@ -58,8 +93,14 @@ export const useMarketRecoil = () => {
     const inflationWithCommunityTax = Big(1).minus(communityTax).times(inflation).toPrecision(2);
     const apr = Big(rawSupplyAmount).times(inflationWithCommunityTax).div(bondedTokens).toNumber();
 
-    const chainVer = R.pathOr(0, ['version', 0, 'chainVer'], data);
-    const sdkVer = R.pathOr(0, ['version', 0, 'sdkVer'], data);
+    let chainVer = 'N/A';
+    let sdkVer = 'N/A';
+    const version = await getChainVersion();
+
+    if(version !== null){
+      chainVer = version.appVersion;
+      sdkVer = version.cosmosVersion;
+    }
 
     return ({
       price,

@@ -1,6 +1,6 @@
 export const OPEN_GRAPH_SEO = {
   type: 'website',
-  site_name: 'FirmaChain Block Explorer',
+  site_name: 'FIRMACHAIN Block Explorer',
   images: [
     {
       url: 'https://s3.ap-northeast-2.amazonaws.com/file.firmachain.org/ogimage.png',

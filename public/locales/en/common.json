@@ -41,7 +41,7 @@
   "nothingToShow": "Nothing to show",
   "notFound": "Not Found",
   "useValidatorAddress": "Please use a validator address instead",
-  "description": "A BLOCKCHAIN BASED E-CONTRACT PLATFORM | FirmaChain adds a signing and verifying e-contract function to the blockchain.",
+  "description": "A BLOCKCHAIN BASED E-CONTRACT PLATFORM | FIRMACHAIN adds a signing and verifying e-contract function to the blockchain.",
   "supply": "Supply",
   "blockTimeAgo": "Latest block displayed was {{time}}",
   "settings": "Settings",
@@ -60,6 +60,6 @@
   "detailed": "Detailed",
   "profilesNotEnabled": "Profiles not enabled for this explorer",
   "insertValidDtag": "Please insert a valid dtag",
-  "chainName":"FirmaChain",
+  "chainName":"FIRMACHAIN",
   "sdkName":"Cosmos SDK"
 }
