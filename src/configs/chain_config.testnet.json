@@ -1,7 +1,7 @@
 {
-  "title": "FirmaChain Block Explorer",
-  "network": "imperium-2",
-  "chain": "FirmaChain",
+  "title": "FIRMACHAIN Block Explorer",
+  "network": "imperium-4",
+  "chain": "FIRMACHAIN",
   "icon": "https://s3.ap-southeast-1.amazonaws.com/firmachain.org/web/white_logo.svg",
   "logo": {
     "default": "https://s3.ap-southeast-1.amazonaws.com/firmachain.org/web/white_logo.svg"
@@ -24,7 +24,7 @@
     }
   },
   "extra": {
-    "profile": true,
+    "profile": false,
     "desmosProfile": false,
     "forboleX": false
   }

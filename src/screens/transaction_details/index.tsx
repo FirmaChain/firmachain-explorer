@@ -52,7 +52,7 @@ const TransactionDetails = () => {
               toggleMessageDisplay={toggleMessageDisplay}
               onMessageFilterCallback={onMessageFilterCallback}
             />
-            {!!logs && <Logs logs={logs} />}
+            {/* {!!logs && <Logs logs={logs} />} */}
           </span>
         </LoadAndExist>
       </Layout>
