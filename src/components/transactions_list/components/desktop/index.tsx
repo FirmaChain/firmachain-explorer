@@ -15,7 +15,7 @@ import { Typography } from '@material-ui/core';
 import useTranslation from 'next-translate/useTranslation';
 import { mergeRefs } from '@utils/merge_refs';
 import {
-  Result,
+  Loading, Result,
 } from '@components';
 import { useGrid } from '@hooks';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
@@ -72,6 +72,7 @@ const Desktop: React.FC<TransactionsListState> = ({
       ),
     };
   });
+
   return (
     <div className={classnames(className, classes.root)}>
       <AutoSizer onResize={onResize}>
@@ -152,18 +153,18 @@ const Desktop: React.FC<TransactionsListState> = ({
                       {({
                         columnIndex, rowIndex, style,
                       }) => {
-                        // if (!isItemLoaded(rowIndex) && columnIndex === 0) {
-                        //   return (
-                        //     <div
-                        //       style={{
-                        //         ...style,
-                        //         width,
-                        //       }}
-                        //     >
-                        //       <Loading />
-                        //     </div>
-                        //   );
-                        // }
+                        if (!isItemLoaded(rowIndex) && columnIndex === 0) {
+                          return (
+                            <div
+                              style={{
+                                ...style,
+                                width,
+                              }}
+                            >
+                              <Loading />
+                            </div>
+                          );
+                        }
 
                         if (!isItemLoaded(rowIndex)) {
                           return null;
