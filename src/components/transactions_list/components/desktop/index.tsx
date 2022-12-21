@@ -152,18 +152,18 @@ const Desktop: React.FC<TransactionsListState> = ({
                       {({
                         columnIndex, rowIndex, style,
                       }) => {
-                        if (!isItemLoaded(rowIndex) && columnIndex === 0) {
-                          return (
-                            <div
-                              style={{
-                                ...style,
-                                width,
-                              }}
-                            >
-                              <Loading />
-                            </div>
-                          );
-                        }
+                        // if (!isItemLoaded(rowIndex) && columnIndex === 0) {
+                        //   return (
+                        //     <div
+                        //       style={{
+                        //         ...style,
+                        //         width,
+                        //       }}
+                        //     >
+                        //       <Loading />
+                        //     </div>
+                        //   );
+                        // }
 
                         if (!isItemLoaded(rowIndex)) {
                           return null;
