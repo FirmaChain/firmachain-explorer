@@ -10,9 +10,9 @@ const VotingPower: React.FC<{
   content: string;
   topVotingPower: boolean;
 }> = ({
-  className, percentage, content, percentDisplay, topVotingPower,
+  className, percentage, content, percentDisplay,
 }) => {
-  const classes = useStyles(percentage, topVotingPower);
+  const classes = useStyles(percentage, true);
   return (
     <div className={classnames(className, classes.root)}>
       <div className={classes.content}>
