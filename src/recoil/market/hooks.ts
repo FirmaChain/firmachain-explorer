@@ -47,7 +47,7 @@ export const useMarketRecoil = () => {
       const appInfo = result.data.application_version;
 
       const chainId: string = nodeInfo.network;
-      const appVersion: string = appInfo.version;
+      const appVersion: string = 'v' + appInfo.version;
       let cosmosVersion: string = '';
 
       for (let i = 0; i < appInfo.build_deps.length; i++) {
