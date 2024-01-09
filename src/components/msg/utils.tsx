@@ -575,3 +575,24 @@ export const convertMsgsToModels = (transaction: any) => {
 
   return messages;
 };
+
+export const convertDefaultRaw = (transaction: any) => {
+  const isRaws = R.pathOr([], ['messages'], transaction).map((msg) => {
+    const model = getMessageModelByType(msg?.['@type']);
+    if (model === MODELS.MsgCosmwasmClearAdmin
+      || model === MODELS.MsgCosmwasmExecuteContract
+      || model === MODELS.MsgCosmwasmInstantiateContract
+      || model === MODELS.MsgCosmwasmMigrateContract
+      || model === MODELS.MsgCosmwasmStoreCode
+      || model === MODELS.MsgCosmwasmUpdateAdmin) {
+        return true;
+    }
+    return false;
+  });
+
+  if (isRaws.includes(true) === true) {
+    return true;
+  }
+
+  return false;
+};

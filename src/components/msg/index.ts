@@ -5,6 +5,7 @@ import {
   getMessageModelByType,
   getMessageByType,
   convertMsgsToModels,
+  convertDefaultRaw,
 } from './utils';
 
 // =========================
@@ -91,6 +92,7 @@ export {
   getMessageModelByType,
   getMessageByType,
   convertMsgsToModels,
+  convertDefaultRaw,
 };
 
 export {

@@ -8,7 +8,7 @@ import {
   TransactionDetailsQuery,
 } from '@graphql/types';
 import { formatToken } from '@utils/format_token';
-import { convertMsgsToModels } from '@msg';
+import { convertMsgsToModels, convertDefaultRaw } from '@msg';
 import {
   TransactionState,
 } from './types';
@@ -124,7 +124,14 @@ export const useTransactionDetails = () => {
         items: messages,
       };
     };
+
+    const formatViewRaw = () => {
+      return convertDefaultRaw(data.transaction[0]);
+    };
+
     stateChange.messages = formatMessages();
+    stateChange.messages.viewRaw = formatViewRaw();
+
     return stateChange;
   };
 
