@@ -15,8 +15,19 @@ const getChainConfig = () => {
 };
 
 const chainConfig = getChainConfig();
-
-export {
-  chainConfig,
-  generalConfig,
+const ibcConfig = {
+  'ibc/0471F1C4E7AFD3F07702BEF6DC365268D64570F7C1FDC98EA6098DD6DE59817B': {
+    display: 'osmo',
+    exponent: 6,
+    explorer: 'https://www.mintscan.io/osmosis/address'
+  },
 };
+
+const tokenConfig = {
+  uuet: {
+    display: 'uet',
+    exponent: 6,
+  },
+};
+
+export { chainConfig, generalConfig, ibcConfig, tokenConfig };
