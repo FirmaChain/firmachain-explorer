@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { convertMsgsToModels } from '@msg';
 import * as R from 'ramda';
-import {
-  useGetMessagesByAddressQuery,
-  GetMessagesByAddressQuery,
-} from '@graphql/types';
+import { useGetMessagesByAddressQuery, GetMessagesByAddressQuery } from '@graphql/types';
 import { TransactionState } from './types';
 
 const LIMIT = 50;
@@ -48,22 +45,24 @@ export const useTransactions = () => {
       isNextPageLoading: true,
     });
     // refetch query
-    await transactionQuery.fetchMore({
-      variables: {
-        offset: state.offsetCount,
-        limit: LIMIT + 1,
-      },
-    }).then(({ data }) => {
-      const itemsLength = data.messagesByAddress.length;
-      const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
-      const stateChange = {
-        data: newItems,
-        hasNextPage: itemsLength === 51,
-        isNextPageLoading: false,
-        offsetCount: state.offsetCount + LIMIT,
-      };
-      handleSetState(stateChange);
-    });
+    await transactionQuery
+      .fetchMore({
+        variables: {
+          offset: state.offsetCount,
+          limit: LIMIT + 1,
+        },
+      })
+      .then(({ data }) => {
+        const itemsLength = data.messagesByAddress.length;
+        const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
+        const stateChange = {
+          data: newItems,
+          hasNextPage: itemsLength === 51,
+          isNextPageLoading: false,
+          offsetCount: state.offsetCount + LIMIT,
+        };
+        handleSetState(stateChange);
+      });
   };
 
   const formatTransactions = (data: GetMessagesByAddressQuery) => {
@@ -79,9 +78,7 @@ export const useTransactions = () => {
       // =============================
       const messages = convertMsgsToModels(transaction);
 
-      console.log(transaction);
-      console.log(messages);
-      return ({
+      return {
         height: transaction.height,
         hash: transaction.hash,
         messages: {
@@ -91,12 +88,12 @@ export const useTransactions = () => {
         success: transaction.success,
         timestamp: transaction.block.timestamp,
         type: transaction.messages,
-      });
+      };
     });
   };
 
-  return ({
+  return {
     state,
     loadNextPage,
-  });
+  };
 };

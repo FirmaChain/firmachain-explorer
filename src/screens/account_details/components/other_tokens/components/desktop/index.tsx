@@ -20,15 +20,11 @@ const Desktop: React.FC<{
 
     if (tokenConfig[x.denom]) {
       token = tokenConfig[x.denom].display.toUpperCase();
-      available.value = Big(x.available.value)
-        .div(10 ** tokenConfig[x.denom].exponent)
-        .toFixed(tokenConfig[x.denom].exponent);
+      available.value = Big(x.available.value).toFixed(tokenConfig[x.denom].exponent);
       available.exponent = tokenConfig[x.denom].exponent;
     } else if (ibcConfig[x.denom]) {
       token = ibcConfig[x.denom].display.toUpperCase();
-      available.value = Big(x.available.value)
-        .div(10 ** ibcConfig[x.denom].exponent)
-        .toFixed(ibcConfig[x.denom].exponent);
+      available.value = Big(x.available.value).toFixed(ibcConfig[x.denom].exponent);
       available.exponent = ibcConfig[x.denom].exponent;
     }
     return {

@@ -20,18 +20,21 @@ const Mobile: React.FC<{
         let availables = { value: x.available.value, exponent: x.available.exponent };
         let token = x.denom.toUpperCase();
 
+        console.log(token);
+        console.log(x);
+
         if (tokenConfig[x.denom]) {
           token = tokenConfig[x.denom].display.toUpperCase();
-          availables.value = Big(x.available.value)
-            .div(10 ** tokenConfig[x.denom].exponent)
-            .toFixed(tokenConfig[x.denom].exponent);
+          availables.value = Big(x.available.value).toFixed(tokenConfig[x.denom].exponent);
           availables.exponent = tokenConfig[x.denom].exponent;
+
+          x.denom = tokenConfig[x.denom].display.toUpperCase();
         } else if (ibcConfig[x.denom]) {
           token = ibcConfig[x.denom].display.toUpperCase();
-          availables.value = Big(x.available.value)
-            .div(10 ** ibcConfig[x.denom].exponent)
-            .toFixed(ibcConfig[x.denom].exponent);
+          availables.value = Big(x.available.value).toFixed(ibcConfig[x.denom].exponent);
           availables.exponent = ibcConfig[x.denom].exponent;
+
+          x.denom = ibcConfig[x.denom].display.toUpperCase();
         }
 
         const available = formatNumber(availables.value, availables.exponent);
