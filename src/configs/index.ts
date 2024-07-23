@@ -21,6 +21,12 @@ const ibcConfig = {
     exponent: 6,
     explorer: 'https://www.mintscan.io/osmosis/address'
   },
+  'ibc/FA0006F056DB6719B8C16C551FC392B62F5729978FC0B125AC9A432DBB2AA1A5':{
+    display: 'atom',
+    exponent: 6,
+    explorer: 'https://www.mintscan.io/cosmos/address'
+  },
+  }
 };
 
 const tokenConfig = {
