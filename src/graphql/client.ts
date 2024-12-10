@@ -35,6 +35,7 @@ const wsLink = new WebSocketLink({
   uri: process.env.NEXT_PUBLIC_GRAPHQL_WS ?? 'wss://localhost:3000',
   options: {
     reconnect: true,
+    inactivityTimeout: 30000,
   },
   webSocketImpl: WebSocket,
 });

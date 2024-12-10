@@ -45,7 +45,6 @@ export const useProposals = () => {
           throw new Error(`Failed to load ignored proposals: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data.ignoreProposalIdList);
         setIgnoredProposals(data.ignoreProposalIdList || []);
       } catch (error) {
         // eslint-disable-next-line no-console
