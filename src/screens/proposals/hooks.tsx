@@ -1,5 +1,5 @@
 import {
- useEffect, useState,
+  useEffect, useState,
 } from 'react';
 import * as R from 'ramda';
 import DOMPurify from 'dompurify';
@@ -56,17 +56,17 @@ export const useProposals = () => {
 
     fetchIngnoreProposals();
   }, []);
+
   // ================================
   // proposals query
   // ================================
-
   const proposalQuery = useProposalsQuery({
     variables: {
       limit: 50,
       offset: 0,
     },
+    skip: !ignoredProposalsLoaded, // Wait until ignoredProposals are loaded
     onCompleted: (data) => {
-      if (!ignoredProposalsLoaded) return;
       const newItems = R.uniq([...state.items, ...formatProposals(data)]);
       handleSetState({
         items: newItems,
@@ -92,7 +92,6 @@ export const useProposals = () => {
         ...state.items,
         ...formatProposals(data),
       ]);
-      // set new state
       handleSetState({
         items: newItems,
         isNextPageLoading: false,
