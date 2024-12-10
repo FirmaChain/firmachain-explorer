@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import {
+ useEffect, useState,
+} from 'react';
 import * as R from 'ramda';
 import DOMPurify from 'dompurify';
 import {
@@ -17,10 +19,44 @@ export const useProposals = () => {
     rawDataTotal: 0,
   });
 
+  const [ignoredProposals, setIgnoredProposals] = useState<number[]>([]);
+  const [ignoredProposalsLoaded, setIgnoredProposalsLoaded] = useState(false);
+
   const handleSetState = (stateChange: any) => {
     setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
   };
 
+  // ================================
+  // Load ignored proposals
+  // ================================
+  useEffect(() => {
+    const fetchIngnoreProposals = async () => {
+      const ignoreListUrl = process.env.NEXT_PUBLIC_IGNORE_LIST_URL;
+
+      if (!ignoreListUrl) {
+        // eslint-disable-next-line no-console
+        console.error('Environment variable NEXT_PUBLIC_IGNORE_LIST_URL is not defined.');
+        return;
+      }
+
+      try {
+        const response = await fetch(ignoreListUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to load ignored proposals: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data.ignoreProposalIdList);
+        setIgnoredProposals(data.ignoreProposalIdList || []);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error fetching ignored proposals:', error);
+      } finally {
+        setIgnoredProposalsLoaded(true);
+      }
+    };
+
+    fetchIngnoreProposals();
+  }, []);
   // ================================
   // proposals query
   // ================================
@@ -31,12 +67,13 @@ export const useProposals = () => {
       offset: 0,
     },
     onCompleted: (data) => {
+      if (!ignoredProposalsLoaded) return;
       const newItems = R.uniq([...state.items, ...formatProposals(data)]);
       handleSetState({
         items: newItems,
-        hasNextPage: newItems.length < data.total.aggregate.count,
+        hasNextPage: newItems.length < (data.total.aggregate.count - ignoredProposals.length),
         isNextPageLoading: false,
-        rawDataTotal: data.total.aggregate.count,
+        rawDataTotal: (data.total.aggregate.count - ignoredProposals.length),
       });
     },
   });
@@ -67,15 +104,17 @@ export const useProposals = () => {
   };
 
   const formatProposals = (data: ProposalsQuery) => {
-    return data.proposals.map((x) => {
-      const description = DOMPurify.sanitize(x.description);
-      return ({
-        description,
-        id: x.proposalId,
-        title: x.title,
-        status: x.status,
+    return data.proposals
+      .filter((x) => !ignoredProposals.includes(x.proposalId))
+      .map((x) => {
+        const description = DOMPurify.sanitize(x.description);
+        return {
+          description,
+          id: x.proposalId,
+          title: x.title,
+          status: x.status,
+        };
       });
-    });
   };
 
   const itemCount = state.hasNextPage ? state.items.length + 1 : state.items.length;
