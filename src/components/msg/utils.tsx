@@ -414,7 +414,19 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txNFTMintLabel',
     },
+    /*'/firmachain.nft.MsgMint': {
+      model: MODELS.MsgNFTMint,
+      content: COMPONENTS.NFTMint,
+      tagTheme: 'four',
+      tagDisplay: 'txNFTMintLabel',
+    },*/
     '/firmachain.firmachain.nft.MsgTransfer': {
+      model: MODELS.MsgNFTTransfer,
+      content: COMPONENTS.NFTTransfer,
+      tagTheme: 'four',
+      tagDisplay: 'txNFTTransferLabel',
+    },
+    '/firmachain.nft.MsgTransfer': {
       model: MODELS.MsgNFTTransfer,
       content: COMPONENTS.NFTTransfer,
       tagTheme: 'four',
@@ -426,7 +438,19 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txNFTBurnLabel',
     },
+    '/firmachain.nft.MsgBurn': {
+      model: MODELS.MsgNFTBurn,
+      content: COMPONENTS.NFTBurn,
+      tagTheme: 'four',
+      tagDisplay: 'txNFTBurnLabel',
+    },
     '/firmachain.firmachain.contract.MsgAddContractLog': {
+      model: MODELS.MsgAddContractLog,
+      content: COMPONENTS.AddContractLog,
+      tagTheme: 'four',
+      tagDisplay: 'txAddContractLogLabel',
+    },
+    '/firmachain.contract.MsgAddContractLog': {
       model: MODELS.MsgAddContractLog,
       content: COMPONENTS.AddContractLog,
       tagTheme: 'four',
@@ -438,7 +462,19 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txCreateContractFileLabel',
     },
+    '/firmachain.contract.MsgCreateContractFile': {
+      model: MODELS.MsgCreateContractFile,
+      content: COMPONENTS.CreateContractFile,
+      tagTheme: 'four',
+      tagDisplay: 'txCreateContractFileLabel',
+    },
     '/firmachain.firmachain.token.MsgCreateToken': {
+      model: MODELS.MsgTokenCreate,
+      content: COMPONENTS.TokenCreate,
+      tagTheme: 'two',
+      tagDisplay: 'txTokenCreateLabel',
+    },
+    '/firmachain.token.MsgCreateToken': {
       model: MODELS.MsgTokenCreate,
       content: COMPONENTS.TokenCreate,
       tagTheme: 'two',
@@ -450,13 +486,31 @@ const getDataByType = (type: string) => {
       tagTheme: 'two',
       tagDisplay: 'txTokenMintLabel',
     },
+    '/firmachain.token.MsgMint': {
+      model: MODELS.MsgTokenMint,
+      content: COMPONENTS.TokenMint,
+      tagTheme: 'two',
+      tagDisplay: 'txTokenMintLabel',
+    },
     '/firmachain.firmachain.token.MsgBurn': {
       model: MODELS.MsgTokenBurn,
       content: COMPONENTS.TokenBurn,
       tagTheme: 'four',
       tagDisplay: 'txTokenBurnLabel',
     },
+    '/firmachain.token.MsgBurn': {
+      model: MODELS.MsgTokenBurn,
+      content: COMPONENTS.TokenBurn,
+      tagTheme: 'four',
+      tagDisplay: 'txTokenBurnLabel',
+    },
     '/firmachain.firmachain.token.MsgUpdateTokenURI': {
+      model: MODELS.MsgTokenUpdateURI,
+      content: COMPONENTS.TokenUpdateURI,
+      tagTheme: 'three',
+      tagDisplay: 'txTokenUpdateURILabel',
+    },
+    '/firmachain.token.MsgUpdateTokenURI': {
       model: MODELS.MsgTokenUpdateURI,
       content: COMPONENTS.TokenUpdateURI,
       tagTheme: 'three',
@@ -497,6 +551,18 @@ const getDataByType = (type: string) => {
       content: COMPONENTS.CosmwasmClearAdmin,
       tagTheme: 'nine',
       tagDisplay: 'txCosmwasmClearAdminLabel',
+    },
+    '/cosmos.gov.v1.MsgVote': {
+      model: MODELS.MsgVoteAnte050,
+      content: COMPONENTS.VoteAnte050,
+      tagTheme: 'seven',
+      tagDisplay: 'txVoteAnte050Label',
+    },
+    '/cosmos.gov.v1.MsgSubmitProposal': {
+      model: MODELS.MsgSubmitProposal,
+      content: COMPONENTS.SubmitProposalAnte050,
+      tagTheme: 'seven',
+      tagDisplay: 'txSubmitProposalAnte050Label',
     },
   };
 
