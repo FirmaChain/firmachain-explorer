@@ -60,7 +60,8 @@ export const useValidators = () => {
     const { signedBlockWindow } = slashingParams;
 
     let formattedItems: ValidatorType[] = await Promise.all(data.validator.filter((x) => x.validatorInfo).map(async (x) => {
-      const votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
+      let votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
+      votingPower = votingPower / 10**6
       const votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
 
       const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
