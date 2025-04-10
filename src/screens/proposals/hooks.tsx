@@ -87,6 +87,20 @@ export const useProposals = () => {
         offset: state.items.length,
         limit: 50,
       },
+      updateQuery: (
+        prev: ProposalsQuery,
+        { fetchMoreResult }: { fetchMoreResult?: ProposalsQuery; variables: { offset: number; limit: number } }
+      ) => {
+        if (!fetchMoreResult) return prev;
+        return {
+          ...prev,
+          proposals: [
+            ...prev.proposals,
+            ...fetchMoreResult.proposals,
+          ],
+          total: fetchMoreResult.total,
+        };
+      },
     }).then(({ data }) => {
       const newItems = R.uniq([
         ...state.items,

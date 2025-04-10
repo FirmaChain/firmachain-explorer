@@ -4,6 +4,7 @@ import {
   useTransactionsQuery,
   useTransactionsListenerSubscription,
   TransactionsListenerSubscription,
+  TransactionsQuery,
 } from '@graphql/types';
 import { convertMsgsToModels } from '@msg';
 import { TransactionsState } from './types';
@@ -85,19 +86,31 @@ export const useTransactions = () => {
     handleSetState({
       isNextPageLoading: true,
     });
-    // refetch query
+  
     await transactionQuery.fetchMore({
       variables: {
         offset: state.items.length,
         limit: LIMIT,
       },
+      updateQuery: (
+        prev: TransactionsQuery, 
+        { fetchMoreResult }: { fetchMoreResult?: TransactionsQuery; variables: { offset: number; limit: number } }
+      ) => {
+        if (!fetchMoreResult) return prev;
+        return {
+          transactions: [
+            ...prev.transactions,
+            ...fetchMoreResult.transactions,
+          ],
+        };
+      },
     }).then(({ data }) => {
       const itemsLength = data.transactions.length;
+      // Format the merged data and update your state
       const newItems = uniqueAndSort([
         ...state.items,
         ...formatTransactions(data),
       ]);
-      // set new state
       handleSetState({
         items: newItems,
         isNextPageLoading: false,
@@ -105,6 +118,7 @@ export const useTransactions = () => {
       });
     });
   };
+  
 
   const formatTransactions = (data: TransactionsListenerSubscription) => {
     let formattedData = data.transactions;
