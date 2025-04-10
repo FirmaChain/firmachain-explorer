@@ -414,12 +414,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txNFTMintLabel',
     },
-    /*'/firmachain.nft.MsgMint': {
+    '/firmachain.nft.MsgMint': {
       model: MODELS.MsgNFTMint,
       content: COMPONENTS.NFTMint,
       tagTheme: 'four',
       tagDisplay: 'txNFTMintLabel',
-    },*/
+    },
     '/firmachain.firmachain.nft.MsgTransfer': {
       model: MODELS.MsgNFTTransfer,
       content: COMPONENTS.NFTTransfer,

@@ -25,7 +25,7 @@ class MsgNFTMint {
         type: json['@type'],
         owner: json.owner,
         tokenURI: json.tokenURI,
-        nftId: log.events[0].attributes[2].value
+        nftId: 0
       });
     }
 }
