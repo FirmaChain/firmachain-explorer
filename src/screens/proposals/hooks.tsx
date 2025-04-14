@@ -31,7 +31,6 @@ export const useProposals = () => {
   // ================================
   useEffect(() => {
     const fetchIngnoreProposals = async () => {
-      //TODO: ADD AGAIN WHEN NEXT_PUBLIC_IGNORE_LIST_URL IS PROVIDED
       const ignoreListUrl = process.env.NEXT_PUBLIC_IGNORE_LIST_URL;
 
       if (!ignoreListUrl) {
