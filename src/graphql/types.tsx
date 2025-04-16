@@ -10205,7 +10205,6 @@ export type Query_Root = {
   /** fetch data from the table: "account" using primary key columns */
   account_by_pk?: Maybe<Account>;
   action_inflation?: Maybe<ActionInflation>;
-  action_total_supply?: Maybe<ActionBalance>;
   action_account_balance?: Maybe<ActionBalance>;
   action_delegation?: Maybe<ActionDelegationResponse>;
   action_delegation_reward?: Maybe<Array<Maybe<ActionDelegationReward>>>;
@@ -19764,9 +19763,6 @@ export type MarketDataQuery = { communityPool: Array<(
   )>, distributionParams: Array<(
     { __typename?: 'distribution_params' }
     & Pick<Distribution_Params, 'params'>
-  )>, actionTotalSupply: Maybe<(
-    { __typename?: 'ActionBalance' }
-    & Pick<ActionBalance, 'coins'>
   )>, actionInflation: Maybe<Scalars['String']> };
 
 export type GetMessagesByAddressQueryVariables = Exact<{
@@ -19950,9 +19946,6 @@ export type TokenomicsQuery = { stakingParams: Array<(
   )>, supply: Array<(
     { __typename?: 'supply' }
     & Pick<Supply, 'coins'>
-  )>, actionTotalSupply: Maybe<(
-    { __typename?: 'ActionBalance' }
-    & Pick<ActionBalance, 'coins'>
   )>
  };
 
@@ -20873,9 +20866,6 @@ export const MarketDataDocument = gql`
   distributionParams: distribution_params {
     params
   }
-  actionTotalSupply: action_total_supply {
-    coins
-  }
   actionInflation: action_inflation {
     amount
   }
@@ -21369,9 +21359,6 @@ export const TokenomicsDocument = gql`
     unbonded: not_bonded_tokens
   }
   supply: supply(order_by: {height: desc}, limit: 1) {
-    coins
-  }
-  actionTotalSupply: action_total_supply {
     coins
   }
 }

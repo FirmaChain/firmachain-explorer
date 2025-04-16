@@ -74,7 +74,7 @@ export const useMarketRecoil = () => {
     const inflation = R.pathOr(0, ['actionInflation', 'amount'], data);
 
     const rawSupplyAmount = getDenom(
-      R.pathOr([], ['actionTotalSupply', 'coins'], data),
+      R.pathOr([], ['supply', 0], data),
       chainConfig.primaryTokenUnit,
     ).amount;
 
