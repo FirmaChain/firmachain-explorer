@@ -42,14 +42,6 @@ export type ActionBalance = {
   coins?: Maybe<Array<Maybe<Scalars['ActionCoin']>>>;
 };
 
-
-export type ActionInflation = {
-  __typename?: 'ActionInflation';
-  amount: Scalars['String'];
-};
-
-
-
 export type ActionDelegationResponse = {
   __typename?: 'ActionDelegationResponse';
   delegations?: Maybe<Array<Maybe<Scalars['ActionDelegation']>>>;
@@ -10204,7 +10196,6 @@ export type Query_Root = {
   account_balance_tokens_prices_aggregate: Token_Price_Aggregate;
   /** fetch data from the table: "account" using primary key columns */
   account_by_pk?: Maybe<Account>;
-  action_inflation?: Maybe<ActionInflation>;
   action_account_balance?: Maybe<ActionBalance>;
   action_delegation?: Maybe<ActionDelegationResponse>;
   action_delegation_reward?: Maybe<Array<Maybe<ActionDelegationReward>>>;
@@ -19763,7 +19754,8 @@ export type MarketDataQuery = { communityPool: Array<(
   )>, distributionParams: Array<(
     { __typename?: 'distribution_params' }
     & Pick<Distribution_Params, 'params'>
-  )>, actionInflation: Maybe<Scalars['String']> };
+  )>,
+};
 
 export type GetMessagesByAddressQueryVariables = Exact<{
   address?: Maybe<Scalars['_text']>;
@@ -20865,9 +20857,6 @@ export const MarketDataDocument = gql`
   }
   distributionParams: distribution_params {
     params
-  }
-  actionInflation: action_inflation {
-    amount
   }
 }
     `;

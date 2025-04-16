@@ -73,7 +73,7 @@ export const useDataBlocks = () => {
   })
 
   const formaInflation = (data:MarketDataQuery)=>{
-    const inflation = R.pathOr(0, ['actionInflation', 'amount'], data);
+    const inflation = R.pathOr(0, ['inflation', 0, 'value'], data);
   }
   // ====================================
   // token price
