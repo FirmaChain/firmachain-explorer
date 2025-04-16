@@ -5,11 +5,11 @@ config:
 generates:
   ./src/graphql/types.tsx:
     documents:
-      - './src/**/*.graphql'
-      - './src/**/*_actions.ts'
-      - './src/**/*_documents.ts'
-      - '!./src/**/desmos_profile.graphql'
-    schema: https://gql.desmos.forbole.com/v1/graphql
+      - "./src/**/*.graphql"
+      - "./src/**/*_actions.ts"
+      - "./src/**/*_documents.ts"
+      - "!./src/**/desmos_profile.graphql"
+    schema: https://firmachain-devnet-hasura.kintsugi-nodes.com/v1/graphql
     plugins:
       - "typescript"
       - "typescript-operations"
@@ -17,7 +17,7 @@ generates:
   ./src/graphql/desmos_profile.ts:
     schema: https://gql.mainnet.desmos.network/v1/graphql
     documents:
-      - 'src/graphql/desmos_profile_graphql.ts'
+      - "src/graphql/desmos_profile_graphql.ts"
     plugins:
       - "typescript"
       - "typescript-operations"
