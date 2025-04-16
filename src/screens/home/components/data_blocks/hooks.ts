@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import * as R from 'ramda';
-import numeral from 'numeral';
+import { useState } from "react";
+import * as R from "ramda";
+import numeral from "numeral";
 import {
   useLatestBlockHeightListenerSubscription,
   useAverageBlockTimeQuery,
@@ -11,8 +11,8 @@ import {
   TokenPriceListenerSubscription,
   useActiveValidatorCountQuery,
   ActiveValidatorCountQuery,
-} from '@graphql/types';
-import { chainConfig } from '@configs';
+} from "@graphql/types";
+import { chainConfig } from "@configs";
 
 export const useDataBlocks = () => {
   const [state, setState] = useState<{
@@ -22,7 +22,7 @@ export const useDataBlocks = () => {
     validators: {
       active: number;
       total: number;
-    }
+    };
   }>({
     blockHeight: 0,
     blockTime: 0,
@@ -41,7 +41,11 @@ export const useDataBlocks = () => {
     onSubscriptionData: (data) => {
       setState((prevState) => ({
         ...prevState,
-        blockHeight: R.pathOr(0, ['height', 0, 'height'], data.subscriptionData.data),
+        blockHeight: R.pathOr(
+          0,
+          ["height", 0, "height"],
+          data.subscriptionData.data
+        ),
       }));
     },
   });
@@ -62,19 +66,18 @@ export const useDataBlocks = () => {
     return data.averageBlockTime[0]?.averageTime ?? state.blockTime;
   };
 
-
   useMarketDataQuery({
+    variables: {
+      denom: chainConfig?.primaryTokenUnit,
+    },
     onCompleted: (data) => {
       setState((prevState) => ({
         ...prevState,
-        inflation: formaInflation(data),
+        inflation: data,
       }));
     },
-  })
+  });
 
-  const formaInflation = (data:MarketDataQuery)=>{
-    const inflation = R.pathOr(0, ['inflation', 0, 'value'], data);
-  }
   // ====================================
   // token price
   // ====================================
