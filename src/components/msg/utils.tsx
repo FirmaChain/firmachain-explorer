@@ -114,13 +114,31 @@ const getDataByType = (type: string) => {
       tagTheme: 'seven',
       tagDisplay: 'txDepositLabel',
     },
+    '/cosmos.gov.v1.MsgDeposit': {
+      model: MODELS.MsgDeposit,
+      content: COMPONENTS.DepositProposal,
+      tagTheme: 'seven',
+      tagDisplay: 'txDepositLabel',
+    },
     '/cosmos.gov.v1beta1.MsgVote': {
       model: MODELS.MsgVote,
       content: COMPONENTS.Vote,
       tagTheme: 'seven',
       tagDisplay: 'txVoteLabel',
     },
+    '/cosmos.gov.v1.MsgVote': {
+      model: MODELS.MsgVote,
+      content: COMPONENTS.Vote,
+      tagTheme: 'seven',
+      tagDisplay: 'txVoteLabel',
+    },
     '/cosmos.gov.v1beta1.MsgSubmitProposal': {
+      model: MODELS.MsgSubmitProposal,
+      content: COMPONENTS.SubmitProposal,
+      tagTheme: 'seven',
+      tagDisplay: 'txSubmitProposalLabel',
+    },
+    '/cosmos.gov.v1.MsgSubmitProposal': {
       model: MODELS.MsgSubmitProposal,
       content: COMPONENTS.SubmitProposal,
       tagTheme: 'seven',
@@ -551,18 +569,6 @@ const getDataByType = (type: string) => {
       content: COMPONENTS.CosmwasmClearAdmin,
       tagTheme: 'nine',
       tagDisplay: 'txCosmwasmClearAdminLabel',
-    },
-    '/cosmos.gov.v1.MsgVote': {
-      model: MODELS.MsgVoteAnte050,
-      content: COMPONENTS.VoteAnte050,
-      tagTheme: 'seven',
-      tagDisplay: 'txVoteAnte050Label',
-    },
-    '/cosmos.gov.v1.MsgSubmitProposal': {
-      model: MODELS.MsgSubmitProposal,
-      content: COMPONENTS.SubmitProposalAnte050,
-      tagTheme: 'seven',
-      tagDisplay: 'txSubmitProposalAnte050Label',
     },
   };
 
