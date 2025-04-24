@@ -632,15 +632,15 @@ export const getMessageByType = (message: any, viewRaw: boolean, t:any) => {
 };
 
 export const convertMsgsToModels = (transaction: any) => {
-  const messages = R.pathOr([], ['messages'], transaction).map((msg, i) => {
+  const messages = R.pathOr([], ['messages'], transaction).map((msg) => {
     const model = getMessageModelByType(msg?.['@type']);
     if (model === MODELS.MsgWithdrawDelegatorReward
       || model === MODELS.MsgWithdrawValidatorCommission
       || model === MODELS.MsgNFTMint
       || model === MODELS.MsgCosmwasmInstantiateContract
       || model === MODELS.MsgCosmwasmStoreCode) {
-      const log = R.pathOr(null, ['logs', i], transaction);
-      return model.fromJson(msg, log);
+      const events = R.pathOr(null, ['events'], transaction);
+      return model.fromJson(msg, events);
     }
     return model.fromJson(msg);
   });

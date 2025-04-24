@@ -15188,6 +15188,7 @@ export type Transaction = {
   __typename?: 'transaction';
   /** An object relationship */
   block: Block;
+  events: Scalars['jsonb'];
   fee: Scalars['jsonb'];
   gas_used?: Maybe<Scalars['bigint']>;
   gas_wanted?: Maybe<Scalars['bigint']>;
@@ -15201,6 +15202,12 @@ export type Transaction = {
   signatures: Array<Scalars['String']>;
   signer_infos: Scalars['jsonb'];
   success: Scalars['Boolean'];
+};
+
+
+/** columns and relationships of "transaction" */
+export type TransactionEventsArgs = {
+  path?: Maybe<Scalars['String']>;
 };
 
 
@@ -15301,6 +15308,7 @@ export type Transaction_Aggregate_Order_By = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type Transaction_Append_Input = {
+  events?: Maybe<Scalars['jsonb']>;
   fee?: Maybe<Scalars['jsonb']>;
   logs?: Maybe<Scalars['jsonb']>;
   signer_infos?: Maybe<Scalars['jsonb']>;
@@ -15336,6 +15344,7 @@ export type Transaction_Bool_Exp = {
   _not?: Maybe<Transaction_Bool_Exp>;
   _or?: Maybe<Array<Transaction_Bool_Exp>>;
   block?: Maybe<Block_Bool_Exp>;
+  events?: Maybe<Jsonb_Comparison_Exp>;
   fee?: Maybe<Jsonb_Comparison_Exp>;
   gas_used?: Maybe<Bigint_Comparison_Exp>;
   gas_wanted?: Maybe<Bigint_Comparison_Exp>;
@@ -15359,6 +15368,7 @@ export enum Transaction_Constraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type Transaction_Delete_At_Path_Input = {
+  events?: Maybe<Array<Scalars['String']>>;
   fee?: Maybe<Array<Scalars['String']>>;
   logs?: Maybe<Array<Scalars['String']>>;
   signer_infos?: Maybe<Array<Scalars['String']>>;
@@ -15366,6 +15376,7 @@ export type Transaction_Delete_At_Path_Input = {
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type Transaction_Delete_Elem_Input = {
+  events?: Maybe<Scalars['Int']>;
   fee?: Maybe<Scalars['Int']>;
   logs?: Maybe<Scalars['Int']>;
   signer_infos?: Maybe<Scalars['Int']>;
@@ -15373,6 +15384,7 @@ export type Transaction_Delete_Elem_Input = {
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type Transaction_Delete_Key_Input = {
+  events?: Maybe<Scalars['String']>;
   fee?: Maybe<Scalars['String']>;
   logs?: Maybe<Scalars['String']>;
   signer_infos?: Maybe<Scalars['String']>;
@@ -15389,6 +15401,7 @@ export type Transaction_Inc_Input = {
 /** input type for inserting data into table "transaction" */
 export type Transaction_Insert_Input = {
   block?: Maybe<Block_Obj_Rel_Insert_Input>;
+  events?: Maybe<Scalars['jsonb']>;
   fee?: Maybe<Scalars['jsonb']>;
   gas_used?: Maybe<Scalars['bigint']>;
   gas_wanted?: Maybe<Scalars['bigint']>;
@@ -15480,6 +15493,7 @@ export type Transaction_On_Conflict = {
 /** Ordering options when selecting data from "transaction". */
 export type Transaction_Order_By = {
   block?: Maybe<Block_Order_By>;
+  events?: Maybe<Order_By>;
   fee?: Maybe<Order_By>;
   gas_used?: Maybe<Order_By>;
   gas_wanted?: Maybe<Order_By>;
@@ -15497,6 +15511,7 @@ export type Transaction_Order_By = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type Transaction_Prepend_Input = {
+  events?: Maybe<Scalars['jsonb']>;
   fee?: Maybe<Scalars['jsonb']>;
   logs?: Maybe<Scalars['jsonb']>;
   signer_infos?: Maybe<Scalars['jsonb']>;
@@ -15504,6 +15519,8 @@ export type Transaction_Prepend_Input = {
 
 /** select columns of table "transaction" */
 export enum Transaction_Select_Column {
+  /** column name */
+  Events = 'events',
   /** column name */
   Fee = 'fee',
   /** column name */
@@ -15546,6 +15563,7 @@ export enum Transaction_Select_Column_Transaction_Aggregate_Bool_Exp_Bool_Or_Arg
 
 /** input type for updating data in table "transaction" */
 export type Transaction_Set_Input = {
+  events?: Maybe<Scalars['jsonb']>;
   fee?: Maybe<Scalars['jsonb']>;
   gas_used?: Maybe<Scalars['bigint']>;
   gas_wanted?: Maybe<Scalars['bigint']>;
@@ -15622,6 +15640,7 @@ export type Transaction_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Transaction_Stream_Cursor_Value_Input = {
+  events?: Maybe<Scalars['jsonb']>;
   fee?: Maybe<Scalars['jsonb']>;
   gas_used?: Maybe<Scalars['bigint']>;
   gas_wanted?: Maybe<Scalars['bigint']>;
@@ -15656,6 +15675,8 @@ export type Transaction_Sum_Order_By = {
 
 /** update columns of table "transaction" */
 export enum Transaction_Update_Column {
+  /** column name */
+  Events = 'events',
   /** column name */
   Fee = 'fee',
   /** column name */
@@ -19526,7 +19547,7 @@ export type TransactionDetailsQueryVariables = Exact<{
 
 export type TransactionDetailsQuery = { transaction: Array<(
     { __typename?: 'transaction' }
-    & Pick<Transaction, 'logs'>
+    & Pick<Transaction, 'logs' | 'events'>
     & { hash: Transaction['hash'], height: Transaction['height'], fee: Transaction['fee'], gasUsed: Transaction['gas_used'], gasWanted: Transaction['gas_wanted'], success: Transaction['success'], memo: Transaction['memo'], messages: Transaction['messages'], rawLog: Transaction['raw_log'] }
     & { block: (
       { __typename?: 'block' }
@@ -19542,7 +19563,7 @@ export type TransactionsListenerSubscriptionVariables = Exact<{
 
 export type TransactionsListenerSubscription = { transactions: Array<(
     { __typename?: 'transaction' }
-    & Pick<Transaction, 'height' | 'hash' | 'success' | 'messages' | 'logs'>
+    & Pick<Transaction, 'height' | 'hash' | 'success' | 'messages' | 'logs' | 'events'>
     & { block: (
       { __typename?: 'block' }
       & Pick<Block, 'timestamp'>
@@ -19557,7 +19578,7 @@ export type TransactionsQueryVariables = Exact<{
 
 export type TransactionsQuery = { transactions: Array<(
     { __typename?: 'transaction' }
-    & Pick<Transaction, 'height' | 'hash' | 'success' | 'messages' | 'logs'>
+    & Pick<Transaction, 'height' | 'hash' | 'success' | 'messages' | 'logs' | 'events'>
     & { block: (
       { __typename?: 'block' }
       & Pick<Block, 'timestamp'>
@@ -20977,6 +20998,7 @@ export const TransactionDetailsDocument = gql`
     messages: messages
     logs
     rawLog: raw_log
+    events
   }
 }
     `;
@@ -21023,6 +21045,7 @@ export const TransactionsListenerDocument = gql`
     }
     messages
     logs
+    events
   }
 }
     `;
@@ -21065,6 +21088,7 @@ export const TransactionsDocument = gql`
     }
     messages
     logs
+    events
   }
 }
     `;
