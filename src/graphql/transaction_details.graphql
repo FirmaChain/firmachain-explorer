@@ -13,5 +13,6 @@ query TransactionDetails($hash: String) {
     messages: messages
     logs
     rawLog: raw_log
+    events
   }
 }
