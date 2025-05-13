@@ -20,6 +20,7 @@ import MsgSoftwareUpgradeProposal from './msg/governance/msg_software_upgrade_pr
 import MsgTextProposal from './msg/governance/msg_text_proposal';
 import MsgDeposit from './msg/governance/msg_deposit';
 import MsgVote from './msg/governance/msg_vote';
+import MsgVoteAnte050 from './msg/governance/msg_vote_ante_050';
 import MsgUnjail from './msg/slashing/msg_unjail';
 import MsgCreateValidator from './msg/staking/msg_create_validator';
 import MsgDelegate from './msg/staking/msg_delegate';
@@ -110,6 +111,7 @@ export {
   MsgTextProposal,
   MsgDeposit,
   MsgVote,
+  MsgVoteAnte050,
   MsgUnjail,
   MsgCreateValidator,
   MsgDelegate,

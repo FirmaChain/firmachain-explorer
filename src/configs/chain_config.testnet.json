@@ -15,11 +15,11 @@
     "time": "",
     "height": 1
   },
-  "primaryTokenUnit": "ufct",
-  "votingPowerTokenUnit": "ufct",
+  "primaryTokenUnit": "ufctx",
+  "votingPowerTokenUnit": "ufctx",
   "tokenUnits": {
-    "ufct": {
-      "display": "fct",
+    "ufctx": {
+      "display": "fctx",
       "exponent": 6
     }
   },

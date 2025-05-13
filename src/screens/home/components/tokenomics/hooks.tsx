@@ -31,35 +31,25 @@ export const useTokenomics = () => {
 
   const formatTokenomics = (data: TokenomicsQuery) => {
     const results = { ...state };
-    const stakingParams = StakingParams.fromJson(R.pathOr({}, ['stakingParams', 0, 'params'], data));
+    const stakingParams = StakingParams.fromJson(data?.stakingParams?.[0]?.params ?? {});
     results.denom = stakingParams.bondDenom;
-
-    const [total] = R.pathOr([], [
-      'actionTotalSupply',
-      'coins',
-    ], data)
-      .filter((x) => x.denom === results.denom);
+  
+    const [total] = ((data?.supply?.[0]?.coins as MsgCoin[]) ?? []).filter(
+      (x) => x.denom === results.denom
+    );
     if (total) {
-      results.total = numeral(formatToken(total.amount, total.denom).value).value();
+      results.total = numeral(formatToken(total.amount, total.denom).value).value() ?? 0;
     }
-
-    const bonded = R.pathOr(state.bonded, [
-      'stakingPool',
-      0,
-      'bonded',
-    ], data);
-    results.bonded = numeral(formatToken(bonded, results.denom).value).value();
-
-    const unbonding = R.pathOr(state.bonded, [
-      'stakingPool',
-      0,
-      'unbonded',
-    ], data);
-    results.unbonding = numeral(formatToken(unbonding, results.denom).value).value();
-
+  
+    const bonded = data?.stakingPool?.[0]?.bonded ?? state.bonded;
+  
+    results.bonded = numeral(formatToken(bonded, results.denom).value).value() ?? 0;
+  
+    const unbonding = data?.stakingPool?.[0]?.unbonded ?? state.bonded;
+    results.unbonding = numeral(formatToken(unbonding, results.denom).value).value() ?? 0;
+  
     const unbonded = results.total - results.unbonding - results.bonded;
     results.unbonded = unbonded;
-
     return results;
   };
 

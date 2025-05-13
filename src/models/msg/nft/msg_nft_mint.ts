@@ -19,15 +19,22 @@ class MsgNFTMint {
       this.nftId = payload.nftId;
     }
 
-    static fromJson(json: any, log: any) {
+    static fromJson(json: any, events: any[]) {
+      const nftEvent = events.find(event =>
+        event.type === 'message' &&
+        event.attributes?.some(attr => attr.key === 'nftID')
+      );
+    
+      const nftIdAttr = nftEvent?.attributes?.find(attr => attr.key === 'nftID');
+      const nftId = nftIdAttr?.value || 'Unknown'; 
+    
       return new MsgNFTMint({
         json,
         type: json['@type'],
         owner: json.owner,
         tokenURI: json.tokenURI,
-        nftId: log.events[0].attributes[2].value
+        nftId
       });
-    }
-}
-
+    };
+  };
 export default MsgNFTMint;

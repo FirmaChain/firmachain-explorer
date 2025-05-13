@@ -26,7 +26,9 @@ import SetWithdrawalAddress from './distribution/set_withdrawal_address';
 import WithdrawReward from './distribution/withdraw_reward';
 import DepositProposal from './governance/deposit_proposal';
 import Vote from './governance/vote';
+import VoteAnte050 from './governance/vote_ante_050';
 import SubmitProposal from './governance/submit_proposal';
+import SubmitProposalAnte050 from './governance/submit_proposal_ante_050';
 import WithdrawCommission from './distribution/withdraw_commission';
 import SaveProfile from './profiles/save_profile';
 import DeleteProfile from './profiles/delete_profile';
@@ -111,7 +113,9 @@ export {
   WithdrawReward,
   DepositProposal,
   Vote,
+  VoteAnte050,
   SubmitProposal,
+  SubmitProposalAnte050,
   WithdrawCommission,
   SaveProfile,
   DeleteProfile,

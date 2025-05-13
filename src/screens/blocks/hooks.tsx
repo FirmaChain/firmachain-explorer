@@ -4,6 +4,7 @@ import {
   useBlocksListenerSubscription,
   useBlocksQuery,
   BlocksListenerSubscription,
+  BlocksQuery,
 } from '@graphql/types';
 import {
   BlocksState, BlockType,
@@ -91,6 +92,19 @@ export const useBlocks = () => {
       variables: {
         offset: state.items.length,
         limit: LIMIT,
+      },
+      updateQuery: (
+        prev: BlocksQuery,
+        { fetchMoreResult }: { fetchMoreResult?: BlocksQuery; variables: { offset: number; limit: number } }
+      ) => {
+        if (!fetchMoreResult) return prev;
+        return {
+          ...prev,
+          blocks: [
+            ...prev.blocks,
+            ...fetchMoreResult.blocks,
+          ],
+        };
       },
     }).then(({ data }) => {
       const itemsLength = data.blocks.length;

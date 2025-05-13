@@ -45,14 +45,25 @@ export const useTransactions = () => {
       isNextPageLoading: true,
     });
     // refetch query
-    await transactionQuery
-      .fetchMore({
-        variables: {
-          offset: state.offsetCount,
-          limit: LIMIT + 1,
-        },
-      })
-      .then(({ data }) => {
+    await transactionQuery.fetchMore({
+      variables: {
+        offset: state.offsetCount,
+        limit: LIMIT + 1,
+      },
+      updateQuery: (
+        previousResult: GetMessagesByAddressQuery, 
+        { fetchMoreResult }: { fetchMoreResult?: GetMessagesByAddressQuery; variables: { offset: number; limit: number } }
+      ) => {
+        if (!fetchMoreResult) return previousResult;
+  
+        return {
+          messagesByAddress: [
+            ...previousResult.messagesByAddress,
+            ...fetchMoreResult.messagesByAddress,
+          ],
+        };
+      },
+    }).then(({ data }) => {
         const itemsLength = data.messagesByAddress.length;
         const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
         const stateChange = {

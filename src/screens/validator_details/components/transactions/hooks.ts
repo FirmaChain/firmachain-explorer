@@ -53,6 +53,19 @@ export const useTransactions = () => {
         offset: state.offsetCount,
         limit: LIMIT + 1,
       },
+      updateQuery: (
+        prev: GetMessagesByAddressQuery,
+        { fetchMoreResult }: { fetchMoreResult?: GetMessagesByAddressQuery; variables: { offset: number; limit: number } }
+      ) => {
+        if (!fetchMoreResult) return prev;
+        return {
+          ...prev,
+          messagesByAddress: [
+            ...prev.messagesByAddress,
+            ...fetchMoreResult.messagesByAddress,
+          ],
+        };
+      },
     }).then(({ data }) => {
       const itemsLength = data.messagesByAddress.length;
       const newItems = R.uniq([...state.data, ...formatTransactions(data)]);

@@ -20,11 +20,11 @@ class MsgWithdrawDelegatorReward {
     this.json = payload.json;
   }
 
-  static getWithdrawalAmount(log: any) {
-    if(log === null) {
+  static getWithdrawalAmount(events: any) {
+    if(events === null) {
       return [formatToken(0)];
     }
-    const withdrawEvents = R.pathOr([], ['events'], log).filter((x) => x.type === 'withdraw_rewards');
+    const withdrawEvents = events.filter((x) => x.type === 'withdraw_rewards');
     const withdrawAmounts = R.pathOr([], [0, 'attributes'], withdrawEvents).filter((x) => x.key === 'amount');
 
     const amounts = R.pathOr('0', [0, 'value'], withdrawAmounts).split(',').map((x) => {
@@ -35,8 +35,8 @@ class MsgWithdrawDelegatorReward {
     return amounts;
   }
 
-  static fromJson(json: any, log?: any) {
-    const amounts = this.getWithdrawalAmount(log);
+  static fromJson(json: any, events?: any) {
+    const amounts = this.getWithdrawalAmount(events);
 
     return new MsgWithdrawDelegatorReward({
       json,

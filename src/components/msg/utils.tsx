@@ -114,13 +114,31 @@ const getDataByType = (type: string) => {
       tagTheme: 'seven',
       tagDisplay: 'txDepositLabel',
     },
+    '/cosmos.gov.v1.MsgDeposit': {
+      model: MODELS.MsgDeposit,
+      content: COMPONENTS.DepositProposal,
+      tagTheme: 'seven',
+      tagDisplay: 'txDepositLabel',
+    },
     '/cosmos.gov.v1beta1.MsgVote': {
       model: MODELS.MsgVote,
       content: COMPONENTS.Vote,
       tagTheme: 'seven',
       tagDisplay: 'txVoteLabel',
     },
+    '/cosmos.gov.v1.MsgVote': {
+      model: MODELS.MsgVote,
+      content: COMPONENTS.Vote,
+      tagTheme: 'seven',
+      tagDisplay: 'txVoteLabel',
+    },
     '/cosmos.gov.v1beta1.MsgSubmitProposal': {
+      model: MODELS.MsgSubmitProposal,
+      content: COMPONENTS.SubmitProposal,
+      tagTheme: 'seven',
+      tagDisplay: 'txSubmitProposalLabel',
+    },
+    '/cosmos.gov.v1.MsgSubmitProposal': {
       model: MODELS.MsgSubmitProposal,
       content: COMPONENTS.SubmitProposal,
       tagTheme: 'seven',
@@ -414,7 +432,19 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txNFTMintLabel',
     },
+    '/firmachain.nft.MsgMint': {
+      model: MODELS.MsgNFTMint,
+      content: COMPONENTS.NFTMint,
+      tagTheme: 'four',
+      tagDisplay: 'txNFTMintLabel',
+    },
     '/firmachain.firmachain.nft.MsgTransfer': {
+      model: MODELS.MsgNFTTransfer,
+      content: COMPONENTS.NFTTransfer,
+      tagTheme: 'four',
+      tagDisplay: 'txNFTTransferLabel',
+    },
+    '/firmachain.nft.MsgTransfer': {
       model: MODELS.MsgNFTTransfer,
       content: COMPONENTS.NFTTransfer,
       tagTheme: 'four',
@@ -426,7 +456,19 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txNFTBurnLabel',
     },
+    '/firmachain.nft.MsgBurn': {
+      model: MODELS.MsgNFTBurn,
+      content: COMPONENTS.NFTBurn,
+      tagTheme: 'four',
+      tagDisplay: 'txNFTBurnLabel',
+    },
     '/firmachain.firmachain.contract.MsgAddContractLog': {
+      model: MODELS.MsgAddContractLog,
+      content: COMPONENTS.AddContractLog,
+      tagTheme: 'four',
+      tagDisplay: 'txAddContractLogLabel',
+    },
+    '/firmachain.contract.MsgAddContractLog': {
       model: MODELS.MsgAddContractLog,
       content: COMPONENTS.AddContractLog,
       tagTheme: 'four',
@@ -438,7 +480,19 @@ const getDataByType = (type: string) => {
       tagTheme: 'four',
       tagDisplay: 'txCreateContractFileLabel',
     },
+    '/firmachain.contract.MsgCreateContractFile': {
+      model: MODELS.MsgCreateContractFile,
+      content: COMPONENTS.CreateContractFile,
+      tagTheme: 'four',
+      tagDisplay: 'txCreateContractFileLabel',
+    },
     '/firmachain.firmachain.token.MsgCreateToken': {
+      model: MODELS.MsgTokenCreate,
+      content: COMPONENTS.TokenCreate,
+      tagTheme: 'two',
+      tagDisplay: 'txTokenCreateLabel',
+    },
+    '/firmachain.token.MsgCreateToken': {
       model: MODELS.MsgTokenCreate,
       content: COMPONENTS.TokenCreate,
       tagTheme: 'two',
@@ -450,13 +504,31 @@ const getDataByType = (type: string) => {
       tagTheme: 'two',
       tagDisplay: 'txTokenMintLabel',
     },
+    '/firmachain.token.MsgMint': {
+      model: MODELS.MsgTokenMint,
+      content: COMPONENTS.TokenMint,
+      tagTheme: 'two',
+      tagDisplay: 'txTokenMintLabel',
+    },
     '/firmachain.firmachain.token.MsgBurn': {
       model: MODELS.MsgTokenBurn,
       content: COMPONENTS.TokenBurn,
       tagTheme: 'four',
       tagDisplay: 'txTokenBurnLabel',
     },
+    '/firmachain.token.MsgBurn': {
+      model: MODELS.MsgTokenBurn,
+      content: COMPONENTS.TokenBurn,
+      tagTheme: 'four',
+      tagDisplay: 'txTokenBurnLabel',
+    },
     '/firmachain.firmachain.token.MsgUpdateTokenURI': {
+      model: MODELS.MsgTokenUpdateURI,
+      content: COMPONENTS.TokenUpdateURI,
+      tagTheme: 'three',
+      tagDisplay: 'txTokenUpdateURILabel',
+    },
+    '/firmachain.token.MsgUpdateTokenURI': {
       model: MODELS.MsgTokenUpdateURI,
       content: COMPONENTS.TokenUpdateURI,
       tagTheme: 'three',
@@ -560,15 +632,15 @@ export const getMessageByType = (message: any, viewRaw: boolean, t:any) => {
 };
 
 export const convertMsgsToModels = (transaction: any) => {
-  const messages = R.pathOr([], ['messages'], transaction).map((msg, i) => {
+  const messages = R.pathOr([], ['messages'], transaction).map((msg) => {
     const model = getMessageModelByType(msg?.['@type']);
     if (model === MODELS.MsgWithdrawDelegatorReward
       || model === MODELS.MsgWithdrawValidatorCommission
       || model === MODELS.MsgNFTMint
       || model === MODELS.MsgCosmwasmInstantiateContract
       || model === MODELS.MsgCosmwasmStoreCode) {
-      const log = R.pathOr(null, ['logs', i], transaction);
-      return model.fromJson(msg, log);
+      const events = R.pathOr(null, ['events'], transaction);
+      return model.fromJson(msg, events);
     }
     return model.fromJson(msg);
   });
