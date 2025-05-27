@@ -32,7 +32,11 @@ const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
   const classes = useStyles();
   const { t } = useTranslation('proposals');
 
-  const type = getProposalType(R.pathOr('', ['@type'], overview.content));
+const content = Array.isArray(overview.content)
+  ? overview.content[0] 
+  : overview.content;
+
+const type = getProposalType(R.pathOr('', ['@type'], content));
 
   const proposer = useProfileRecoil(overview.proposer);
   const proposerMoniker = proposer ? proposer?.name : overview.proposer;
