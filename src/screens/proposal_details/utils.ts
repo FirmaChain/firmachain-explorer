@@ -11,8 +11,11 @@ export const getProposalType = (proposalType: string) => {
     type = "parameterChangeProposal";
   }
 
-  if (proposalType === "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal") {
-    proposalType.endsWith(".MsgSoftwareUpgrade");
+  if (
+    proposalType === "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal" ||
+    proposalType.endsWith(".MsgSoftwareUpgrade")
+  ) {
+    type = "softwareUpgradeProposal";
   }
 
   if (
