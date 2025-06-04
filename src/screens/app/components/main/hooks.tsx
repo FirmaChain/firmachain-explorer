@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { createTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import {
   readTheme,
   getThemeTemplate,
@@ -12,7 +12,7 @@ export const useTheme = () => {
   const theme = useRecoilValue(readTheme);
 
   return ({
-    muiTheme: createTheme(getThemeTemplate(theme)),
+    muiTheme: createMuiTheme(getThemeTemplate(theme)),
   });
 };
 

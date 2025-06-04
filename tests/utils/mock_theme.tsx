@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ThemeProvider, createTheme,
+  ThemeProvider, createMuiTheme,
 } from '@material-ui/core/styles';
 
 import {
@@ -20,7 +20,7 @@ const MockTheme = ({ children }: {children: React.ReactNode}) => {
 
   return (
     <StylesProvider generateClassName={generateClassName}>
-      <ThemeProvider theme={createTheme(lightTemplate)}>
+      <ThemeProvider theme={createMuiTheme(lightTemplate)}>
         {children}
       </ThemeProvider>
     </StylesProvider>
