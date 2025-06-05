@@ -34,7 +34,7 @@ const ParamsChangeV5: React.FC<{
             <TableRow key={key}>
               <TableCell>{extractModuleName(content["@type"])}</TableCell>
               <TableCell>{key}</TableCell>
-              <TableCell>{value}</TableCell>
+              <TableCell>{value.toString()}</TableCell>
             </TableRow>
           ))}
         </TableBody>
