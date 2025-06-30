@@ -17,6 +17,7 @@
   "txDepositContent": "<0>{{user}}</0> deposited <1>{{amount}}</1> to proposal <2>{{proposal}}</2>",
   "txVoteContent": "<0>{{user}}</0> voted <1>{{vote}}</1> to proposal <2>{{proposal}}</2>",
   "txVoteAnte050Content": "<0>{{user}}</0> voted <1>{{vote}}</1> to proposal <2>{{proposal}}</2>",
+  "txCancelProposalContent": "<0>{{proposer}}</0> cancel a proposal",
   "txUnjailContent": "<0>{{validator}}</0> unjailed",
   "txSaveProfileContent": "<0>{{user}}</0> saved their profile",
   "txDeleteProfileContent": "<0>{{user}}</0> deleted their profile",
