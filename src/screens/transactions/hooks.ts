@@ -94,13 +94,13 @@ export const useTransactions = () => {
         limit: LIMIT,
       },
       updateQuery: (
-        prev: TransactionsQuery, 
-        { fetchMoreResult }: { fetchMoreResult?: TransactionsQuery; variables: { offset: number; limit: number } }
+        prev: TransactionsQuery,
+        { fetchMoreResult }: { fetchMoreResult?: TransactionsQuery; variables: { offset: number; limit: number } },
       ) => {
         if (!fetchMoreResult) return prev;
         return {
           transactions: [
-            ...prev.transactions,
+            ...(prev.transactions ?? []),
             ...fetchMoreResult.transactions,
           ],
         };
