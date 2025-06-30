@@ -29,6 +29,7 @@ import Vote from './governance/vote';
 import VoteAnte050 from './governance/vote_ante_050';
 import SubmitProposal from './governance/submit_proposal';
 import SubmitProposalAnte050 from './governance/submit_proposal_ante_050';
+import CancelProposal from './governance/cancel_proposal';
 import WithdrawCommission from './distribution/withdraw_commission';
 import SaveProfile from './profiles/save_profile';
 import DeleteProfile from './profiles/delete_profile';
@@ -116,6 +117,7 @@ export {
   VoteAnte050,
   SubmitProposal,
   SubmitProposalAnte050,
+  CancelProposal,
   WithdrawCommission,
   SaveProfile,
   DeleteProfile,

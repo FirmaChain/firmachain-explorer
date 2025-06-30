@@ -12,6 +12,7 @@ import MsgSend from './msg/bank/msg_send';
 import MsgVerifyInvariant from './msg/crisis/msg_verify_invariant';
 import MsgFundCommunityPool from './msg/distribution/msg_fund_community_pool';
 import MsgSubmitProposal from './msg/governance/msg_submit_proposal';
+import MsgCancelProposal from './msg/governance/msg_cancel_proposal';
 import MsgSetWithdrawAddress from './msg/distribution/msg_set_withdrawal_address';
 import MsgWithdrawDelegatorReward from './msg/distribution/msg_withdrawal_delegator_reward';
 import MsgCommunityPoolSpendProposal from './msg/governance/msg_community_pool_spend_proposal';
@@ -119,6 +120,7 @@ export {
   MsgRedelegate,
   MsgUndelegate,
   MsgSubmitProposal,
+  MsgCancelProposal,
   MsgUnknown,
   MsgWithdrawValidatorCommission,
   MsgUnblockUser,
