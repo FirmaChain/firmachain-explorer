@@ -40,9 +40,9 @@ const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
           <Typography variant="body1" className="label">
             {t("changes")}
           </Typography>
-          {R.pathOr([], ["changes"], overview.content).length > 0 ? (
+          {R.pathOr([], ["changes"], content).length > 0 ? (
             <ParamsChange
-              changes={R.pathOr(["changes"], overview.content)}
+              changes={R.pathOr(["changes"], content)}
             />
           ) : (
             <ParamsChangeV5 content={R.pathOr([], ["content"], overview)[0]} />
@@ -56,9 +56,9 @@ const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
             {t("plan")}
           </Typography>
           <SoftwareUpgrade
-            height={R.pathOr("0", ["plan", "height"], overview.content)}
-            info={R.pathOr("", ["plan", "info"], overview.content)}
-            name={R.pathOr("", ["plan", "name"], overview.content)}
+            height={R.pathOr("0", ["plan", "height"], content)}
+            info={R.pathOr("", ["plan", "info"], content)}
+            name={R.pathOr("", ["plan", "name"], content)}
           />
         </>
       );
