@@ -95,8 +95,8 @@ export const useProposals = () => {
         return {
           ...prev,
           proposals: [
-            ...prev.proposals,
-            ...fetchMoreResult.proposals,
+            ...(prev?.proposals ?? []),
+            ...(fetchMoreResult?.proposals ?? []),
           ],
           total: fetchMoreResult.total,
         };
