@@ -1,5 +1,4 @@
 export function extractModuleName(type?: string): string {
-    console.log(type);
   if (typeof type !== "string") {
     return "unknown";
   }
@@ -24,4 +23,9 @@ export function extractModuleName(type?: string): string {
   return "unknown";
 }
 
-
+export function safeToString(value: any): string {
+  if (value === null) return "null";
+  if (Array.isArray(value)) return JSON.stringify(value);
+  if (typeof value === "object") return JSON.stringify(value);
+  return value.toString();
+}
