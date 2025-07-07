@@ -10,6 +10,7 @@ query ProposalDetails($proposalId: Int) {
     depositEndTime: deposit_end_time
     votingStartTime: voting_start_time
     votingEndTime: voting_end_time
+    metadata
   }
 }
 
