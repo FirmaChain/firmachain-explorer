@@ -89,6 +89,7 @@ import CosmwasmExecuteContract from './cosmwasm/execute_contract';
 import CosmwasmMigrateContract from './cosmwasm/migrate_contract';
 import CosmwasmUpdateAdmin from './cosmwasm/update_admin';
 import CosmwasmClearAdmin from './cosmwasm/clear_admin';
+import CancelProposal from './governance/cancel_proposal';
 
 export {
   getMessageModelByType,
@@ -114,6 +115,7 @@ export {
   DepositProposal,
   Vote,
   VoteAnte050,
+  CancelProposal,
   SubmitProposal,
   SubmitProposalAnte050,
   WithdrawCommission,

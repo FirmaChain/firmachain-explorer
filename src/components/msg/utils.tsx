@@ -132,6 +132,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'seven',
       tagDisplay: 'txVoteLabel',
     },
+    '/cosmos.gov.v1.MsgCancelProposal': {
+      model: MODELS.MsgCancelProposal,
+      content: COMPONENTS.CancelProposal,
+      tagTheme: 'seven',
+      tagDisplay: 'txCancelProposalLabel',
+    },
     '/cosmos.gov.v1beta1.MsgSubmitProposal': {
       model: MODELS.MsgSubmitProposal,
       content: COMPONENTS.SubmitProposal,

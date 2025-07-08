@@ -12,6 +12,7 @@
   "txWithdrawRewardLabel": "Withdraw Reward",
   "txDepositLabel": "Deposit",
   "txVoteLabel": "Vote",
+  "txCancelProposalLabel": "Cancel Proposal",
   "txVoteAnte050Label": "Vote",
   "txSubmitProposalLabel": "Submit Proposal",
   "txSubmitProposalAnte050Label": "Submit Proposal",

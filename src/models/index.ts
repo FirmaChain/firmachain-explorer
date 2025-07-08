@@ -88,6 +88,7 @@ import MsgCosmwasmExecuteContract from './msg/cosmwasm/msg_cosmwasm_execute_cont
 import MsgCosmwasmMigrateContract from './msg/cosmwasm/msg_cosmwasm_migrate_contract';
 import MsgCosmwasmUpdateAdmin from './msg/cosmwasm/msg_cosmwasm_update_admin';
 import MsgCosmwasmClearAdmin from './msg/cosmwasm/msg_cosmwasm_clear_admin';
+import MsgCancelProposal from './msg/governance/msg_cancel_proposal';
 
 export {
   BigDipperNetwork,
@@ -178,4 +179,5 @@ export {
   MsgCosmwasmMigrateContract,
   MsgCosmwasmUpdateAdmin,
   MsgCosmwasmClearAdmin,
+  MsgCancelProposal,
 };
