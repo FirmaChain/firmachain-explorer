@@ -24,51 +24,51 @@ const SingleTransactionMobile:React.FC<{
     <div className={classnames(className, classes.root)}>
       <div className={classes.flex}>
         <div className={classes.item}>
-          <Typography variant="h4" className="label" component={'span'}>
+          <Typography variant="h4" className="label" component="span">
             {t('block')}
           </Typography>
           {block}
         </div>
         <div className={classes.item}>
-          <Typography variant="h4" className="label" component={'span'}>
+          <Typography variant="h4" className="label" component="span">
             {t('type')}
           </Typography>
-          <Typography variant="body1" className="value" component={'span'}>
+          <Typography variant="body1" className="value" component="span">
             {type}
           </Typography>
         </div>
       </div>
       <div className={classes.item}>
-        <Typography variant="h4" className="label" component={'span'}>
+        <Typography variant="h4" className="label" component="span">
           {t('hash')}
         </Typography>
-        <Typography variant="body1" className="value" component={'span'}>
+        <Typography variant="body1" className="value" component="span">
           {hash}
         </Typography>
       </div>
       <div className={classes.flex}>
         {!!messages && (
         <div className={classes.item}>
-          <Typography variant="h4" className="label" component={'span'}>
+          <Typography variant="h4" className="label" component="span">
             {t('messages')}
           </Typography>
-          <Typography variant="body1" className="value" component={'span'}>
+          <Typography variant="body1" className="value" component="span">
             {messages}
           </Typography>
         </div>
         )}
         <div className={classes.item}>
-          <Typography variant="h4" className="label" component={'span'}>
+          <Typography variant="h4" className="label" component="span">
             {t('result')}
           </Typography>
           {result}
         </div>
       </div>
       <div className={classes.item}>
-        <Typography variant="h4" className="label" component={'span'}>
+        <Typography variant="h4" className="label" component="span">
           {t('time')}
         </Typography>
-        <Typography variant="body1" className="value" component={'span'}>
+        <Typography variant="body1" className="value" component="span">
           {time}
         </Typography>
       </div>

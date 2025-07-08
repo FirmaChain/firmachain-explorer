@@ -16,6 +16,7 @@
   "txVoteAnte050Label": "Vote",
   "txSubmitProposalLabel": "Submit Proposal",
   "txSubmitProposalAnte050Label": "Submit Proposal",
+  "txCancelProposalLabel": "Cancel Proposal",
   "txUnjailLabel": "Unjail",
   "txUnknownLabel": "Unknown",
   "txWithdrawCommissionLabel": "Withdraw Commission",

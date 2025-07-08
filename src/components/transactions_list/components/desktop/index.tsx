@@ -41,7 +41,7 @@ const Desktop: React.FC<TransactionsListState> = ({
   const classes = useStyles();
   const { t } = useTranslation('transactions');
 
-  const items = transactions.map((x) => {
+  const items = transactions.map((x: any) => {
     x.type[0].type = x.type[0]['@type'];
     const tag = getMessageByType(x.type[0], true, t);
     return {

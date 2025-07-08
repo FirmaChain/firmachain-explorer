@@ -150,6 +150,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'seven',
       tagDisplay: 'txSubmitProposalLabel',
     },
+    '/cosmos.gov.v1.MsgCancelProposal': {
+      model: MODELS.MsgCancelProposal,
+      content: COMPONENTS.CancelProposal,
+      tagTheme: 'seven',
+      tagDisplay: 'txCancelProposalLabel',
+    },
     // ========================
     // ibc client
     // ========================

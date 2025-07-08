@@ -7,16 +7,22 @@ import {
   useProposalDetailsQuery,
   ProposalDetailsQuery,
 } from '@graphql/types';
-import { ProposalState } from './types';
+import { ContentType, ProposalState } from './types';
 
 export const useProposalDetails = () => {
   const router = useRouter();
+  const defaultContent: ContentType = {
+    '@type': '',
+    authority: '',
+    plan: null,
+  };
+
   const [state, setState] = useState<ProposalState>({
     loading: true,
     exists: true,
     overview: {
       proposer: '',
-      content: '',
+      content: defaultContent,
       title: '',
       id: 0,
       description: '',
@@ -25,6 +31,7 @@ export const useProposalDetails = () => {
       depositEndTime: '',
       votingStartTime: '',
       votingEndTime: '',
+      metadata: '',
     },
   });
 

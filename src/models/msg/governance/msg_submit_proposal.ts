@@ -33,6 +33,7 @@ class MsgSubmitProposal {
     let content = null;
 
     switch (contentType) {
+      case '/cosmos.gov.v1.MsgExecLegacyContent':
       case '/cosmos.gov.v1beta1.TextProposal': {
         content = MsgTextProposal.fromJson(contentDetailsRaw);
         break;

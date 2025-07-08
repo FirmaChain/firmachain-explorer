@@ -31,15 +31,14 @@ class MsgCosmwasmInstantiateContract {
         event.type === 'instantiate' &&
         event.attributes?.some(attr => attr.key === 'code_id')
       );
-    
       const codeIdAttr = WasmEvent?.attributes?.find(attr => attr.key === 'code_id');
       const codeId = codeIdAttr?.value || 'Unknown'; 
-      return codeId
+      return codeId;
     }
 
     static fromJson(json: any, events: any) {
       let contractAddress = 'NULL';
-      if(events !== null){
+      if(events !== null && events.length !== 0){
         contractAddress = events.filter((v:any) => {
           return v.type === "instantiate"
         })[0].attributes[0].value;
