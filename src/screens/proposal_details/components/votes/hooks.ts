@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import * as R from 'ramda';
+import * as lodash from 'lodash';
 import {
   useProposalDetailsVotesQuery, ProposalDetailsVotesQuery,
 } from '@graphql/types';
@@ -51,13 +52,18 @@ export const useVotes = (resetPagination:any) => {
       validatorDict[selfDelegateAddress] = false;
       return selfDelegateAddress;
     });
+    const latestVotesByVoter = lodash.chain(data.proposalVote)
+      .groupBy('voter_address')
+      .values()
+      .map((votes:any[]) => votes[0])
+      .value();
 
     let yes = 0;
     let no = 0;
     let abstain = 0;
     let veto = 0;
 
-    const votes = data.proposalVote.map((x) => {
+    const votes = latestVotesByVoter.map((x) => {
       if (x.option === 'VOTE_OPTION_YES') {
         yes += 1;
       }
