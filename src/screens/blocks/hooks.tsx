@@ -101,8 +101,8 @@ export const useBlocks = () => {
         return {
           ...prev,
           blocks: [
-            ...prev.blocks,
-            ...fetchMoreResult.blocks,
+            ...(prev?.blocks ?? []),
+            ...(fetchMoreResult?.blocks ?? []),
           ],
         };
       },
