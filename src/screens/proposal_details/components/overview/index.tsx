@@ -14,6 +14,7 @@ import { useStyles } from "./styles";
 import { getProposalType } from "../../utils";
 import { OverviewType } from "../../types";
 import ParamsChangeV5 from "./components/params_change_v5";
+import { formatNumber, formatTokenByExponent } from "@src/utils/format_token";
 
 const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
   className,
@@ -132,6 +133,28 @@ const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
           {t("description")}
         </Typography>
         <Markdown markdown={overview.description} />
+        {type === "communityPoolSpendProposal" && (() => {
+          const recipient = useProfileRecoil(content.recipient);
+          const recipientMoniker = recipient ? recipient?.name : content.recipient;
+
+          const contentAmount = content.amount[0];
+          const amount = formatNumber(formatTokenByExponent(contentAmount.amount, 6));
+          console.log(amount);
+          return (
+            <>
+              <Typography variant="body1" className="label">
+                {t("recipient")}
+              </Typography>
+              <Name name={recipientMoniker} address={content.recipient} />
+              <Typography variant="body1" className="label">
+                {t("amount")}
+              </Typography>
+              <Typography variant='body1' className='value'>
+                {`${amount} FCT`}
+              </Typography>
+            </>
+          );
+        })()}
         {extra}
       </div>
     </Box>
