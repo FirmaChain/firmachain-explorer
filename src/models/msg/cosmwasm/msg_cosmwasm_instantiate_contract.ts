@@ -38,21 +38,33 @@ class MsgCosmwasmInstantiateContract {
 
     static fromJson(json: any, events: any) {
       let contractAddress = 'NULL';
-      if(events !== null && events.length !== 0){
-        contractAddress = events.filter((v:any) => {
-          return v.type === "instantiate"
-        })[0].attributes[0].value;
+
+      try {
+        if(events !== null && events.length !== 0){
+          contractAddress = events.filter((v:any) => {
+            return v.type === "instantiate"
+          })[0].attributes[0].value;
+        }
+        const codeId = this.getInstantiateCodeId(events);
+  
+        return new MsgCosmwasmInstantiateContract({
+          json,
+          type: json['@type'],
+          ownerAddress: json.sender,
+          adminAddress: json.admin,
+          contractAddress,
+          codeId
+        });
+      } catch (error) {
+        return new MsgCosmwasmInstantiateContract({
+          json,
+          type: json['@type'],
+          ownerAddress: json.sender,
+          adminAddress: json.admin,
+          contractAddress,
+          codeId: json.code_id
+        });
       }
-      const codeId = this.getInstantiateCodeId(events);
-      
-      return new MsgCosmwasmInstantiateContract({
-        json,
-        type: json['@type'],
-        ownerAddress: json.sender,
-        adminAddress: json.admin,
-        contractAddress,
-        codeId
-      });
     }
 }
 
