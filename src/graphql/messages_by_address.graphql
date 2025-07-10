@@ -10,6 +10,7 @@ query GetMessagesByAddress($address: _text, $limit: bigint = 50, $offset: bigint
         height
         timestamp
       }
+      events
     }
   }
 }
