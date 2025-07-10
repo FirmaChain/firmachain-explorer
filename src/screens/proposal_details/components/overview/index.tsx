@@ -42,10 +42,10 @@ const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
           </Typography>
           {R.pathOr([], ["changes"], content).length > 0 ? (
             <ParamsChange
-              changes={R.pathOr(["changes"], content)}
+              changes={R.pathOr([], ["changes"], content)}
             />
           ) : (
-            <ParamsChangeV5 content={R.pathOr([], ["content"], overview)[0]} />
+            <ParamsChangeV5 content={content} />
           )}
         </>
       );
