@@ -4,23 +4,23 @@ import { Typography } from '@material-ui/core';
 import { Box } from '@components';
 import { useGetStyles } from './styles';
 
-const Logs: React.FC<{
-  logs: null | any[];
-} & ComponentDefault> = ({ logs }) => {
+const Events: React.FC<{
+  events: null | any[];
+} & ComponentDefault> = ({ events }) => {
   const { classes } = useGetStyles();
   const { t } = useTranslation('transactions');
   return (
     <Box className={classes.root}>
       <Typography variant="h2" className={classes.header}>
-        {t('logs')}
+        {t('events')}
       </Typography>
       <pre className={classes.pre}>
         <code>
-          {JSON.stringify(logs, null, 4)}
+          {JSON.stringify(events, null, 4)}
         </code>
       </pre>
     </Box>
   );
 };
 
-export default Logs;
+export default Events;

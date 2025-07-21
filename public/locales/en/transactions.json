@@ -33,5 +33,5 @@
   "authz": "Authz",
   "feegrant": "Feegrant",
   "vesting": "Vesting",
-  "logs": "Logs"
+  "events": "Events"
 }

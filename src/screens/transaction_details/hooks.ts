@@ -107,13 +107,13 @@ export const useTransactionDetails = () => {
     stateChange.overview = formatOverview();
 
     // =============================
-    // logs
+    // Events
     // =============================
-    const formatLogs = () => {
-      const { logs } = data.transaction[0];
-      return logs;
+    const formatEvents = () => {
+      const { events } = data.transaction[0];
+      return events;
     };
-    stateChange.logs = formatLogs();
+    stateChange.events = formatEvents();
 
     // =============================
     // messages
