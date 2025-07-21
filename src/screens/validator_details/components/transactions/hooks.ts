@@ -61,8 +61,8 @@ export const useTransactions = () => {
         return {
           ...prev,
           messagesByAddress: [
-            ...prev.messagesByAddress,
-            ...fetchMoreResult.messagesByAddress,
+            ...(prev.messagesByAddress ?? []),
+            ...(fetchMoreResult.messagesByAddress ?? []),
           ],
         };
       },
