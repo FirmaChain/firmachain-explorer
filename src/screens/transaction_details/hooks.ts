@@ -35,7 +35,7 @@ export const useTransactionDetails = () => {
       memo: '',
       error: '',
     },
-    logs: null,
+    events: null,
     messages: {
       filterBy: 'none',
       viewRaw: false,
