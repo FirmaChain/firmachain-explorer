@@ -55,11 +55,11 @@ export const useTransactions = () => {
         { fetchMoreResult }: { fetchMoreResult?: GetMessagesByAddressQuery; variables: { offset: number; limit: number } }
       ) => {
         if (!fetchMoreResult) return previousResult;
-  
+
         return {
           messagesByAddress: [
-            ...previousResult.messagesByAddress,
-            ...fetchMoreResult.messagesByAddress,
+            ...(previousResult.messagesByAddress ?? []),
+            ...(fetchMoreResult.messagesByAddress ?? []),
           ],
         };
       },
