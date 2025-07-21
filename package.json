@@ -4,6 +4,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "dev": "nodemon",
+    "dev:next": "next dev",
     "build": "npm run build:next && npm run build:server",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "next build",
