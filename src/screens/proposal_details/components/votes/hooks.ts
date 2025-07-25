@@ -53,7 +53,7 @@ export const useVotes = (resetPagination:any) => {
       return selfDelegateAddress;
     });
     const latestVotesByVoter = lodash.chain(data.proposalVote)
-      .groupBy('voter_address')
+      .groupBy('voterAddress')
       .values()
       .map((votes:any[]) => votes[0])
       .value();
