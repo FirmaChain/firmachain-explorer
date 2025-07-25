@@ -17,7 +17,6 @@ export const useTransactions = () => {
     isNextPageLoading: false,
     items: [],
   });
-  console.log("state1:", state);
 
   const handleSetState = (stateChange: any) => {
     setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
