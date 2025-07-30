@@ -18,11 +18,14 @@ class MsgUpdateClient {
     }
 
     static fromJson(json: any) {
+      const chainId = json.header?.signed_header?.header?.chain_id
+      || json.client_message?.signed_header?.header?.chain_id;
+
       return new MsgUpdateClient({
         json,
         type: json['@type'],
         signer: json.signer,
-        chainId: json.header?.signed_header?.header?.chain_id,
+        chainId,
         clientId: json.client_id,
       });
     }
