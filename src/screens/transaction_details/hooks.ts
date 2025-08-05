@@ -8,7 +8,10 @@ import {
   TransactionDetailsQuery,
 } from '@graphql/types';
 import { formatToken } from '@utils/format_token';
-import { convertMsgsToModels, convertDefaultRaw } from '@msg';
+import {
+  convertMsgsToModels,
+  convertDefaultRaw,
+} from '@msg';
 import {
   TransactionState,
 } from './types';
@@ -28,13 +31,14 @@ export const useTransactionDetails = () => {
         baseDenom: '',
         exponent: 0,
       },
-      feeGrant:'',
+      feeGrant: '',
       gasUsed: 0,
       gasWanted: 0,
       success: false,
       memo: '',
       error: '',
     },
+    logs: null,
     events: null,
     messages: {
       filterBy: 'none',
@@ -62,6 +66,7 @@ export const useTransactionDetails = () => {
       hash: (router.query.tx as string).toUpperCase(),
     },
     onCompleted: (data) => {
+      console.log('data', data);
       handleSetState(formatTransactionDetails(data));
     },
   });
@@ -114,6 +119,12 @@ export const useTransactionDetails = () => {
       return events;
     };
     stateChange.events = formatEvents();
+
+    const formatLogs = () => {
+      const { logs } = data.transaction[0];
+      return logs;
+    };
+    stateChange.logs = formatLogs();
 
     // =============================
     // messages

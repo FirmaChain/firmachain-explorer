@@ -9,9 +9,9 @@ import { useStyles } from './styles';
 import {
   Overview,
   Messages,
+  Logs,
 } from './components';
 import { useTransactionDetails } from './hooks';
-import Events from './components/logs';
 
 const TransactionDetails = () => {
   const { t } = useTranslation('transactions');
@@ -25,6 +25,7 @@ const TransactionDetails = () => {
   const {
     overview,
     events,
+    logs,
     messages,
   } = state;
 
@@ -52,7 +53,8 @@ const TransactionDetails = () => {
               toggleMessageDisplay={toggleMessageDisplay}
               onMessageFilterCallback={onMessageFilterCallback}
             />
-            {!!events && <Events events={events} />}
+            {!!logs && logs.length > 0 && <Logs datas={logs} isEvents={false} />}
+            {!!events && events.length > 0 && <Logs datas={events} isEvents />}
           </span>
         </LoadAndExist>
       </Layout>
