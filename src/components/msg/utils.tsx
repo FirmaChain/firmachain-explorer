@@ -600,7 +600,7 @@ export const getMessageModelByType = (type: string) => {
  * Helper function to correctly display the correct UI
  * @param type Model type
  */
-export const getMessageByType = (message: any, viewRaw: boolean, t:any) => {
+export const getMessageByType = (message: any, viewRaw: boolean, t: any) => {
   const { type } = message;
   let results: {
     content: any;
@@ -645,7 +645,12 @@ export const convertMsgsToModels = (transaction: any) => {
       || model === MODELS.MsgNFTMint
       || model === MODELS.MsgCosmwasmInstantiateContract
       || model === MODELS.MsgCosmwasmStoreCode) {
-      const events = R.pathOr(null, ['events'], transaction);
+      let events = R.pathOr(null, ['events'], transaction);
+      const isLegacy = transaction?.logs?.[0]?.events;
+      if (isLegacy) {
+        events = transaction.logs[0].events;
+      }
+
       return model.fromJson(msg, events);
     }
     return model.fromJson(msg);
@@ -663,7 +668,7 @@ export const convertDefaultRaw = (transaction: any) => {
       || model === MODELS.MsgCosmwasmMigrateContract
       || model === MODELS.MsgCosmwasmStoreCode
       || model === MODELS.MsgCosmwasmUpdateAdmin) {
-        return true;
+      return true;
     }
     return false;
   });
