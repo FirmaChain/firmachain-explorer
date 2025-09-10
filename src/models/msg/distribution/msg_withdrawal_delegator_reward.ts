@@ -26,7 +26,7 @@ class MsgWithdrawDelegatorReward {
     }
     const withdrawEvents = events.filter((x) => x.type === 'withdraw_rewards');
 
-    // 해당 validator에 맞는 withdraw_rewards 이벤트 찾기
+    // Find matching withdraw_rewards event for the specific validator
     const matchingEvent = withdrawEvents.find((event) => {
       const validatorAttr = event.attributes?.find((attr) => attr.key === 'validator');
       return validatorAttr?.value === validatorAddress;
@@ -38,6 +38,7 @@ class MsgWithdrawDelegatorReward {
 
     const withdrawAmounts = matchingEvent.attributes.filter((x) => x.key === 'amount');
 
+    // Parse amount string and format each token (e.g., "123456ufct" -> formatted token)
     const amounts = R.pathOr('0', [0, 'value'], withdrawAmounts).split(',').map((x) => {
       const [amount, denom = chainConfig.primaryTokenUnit] = x.match(/[a-z]+|[^a-z]+/gi);
       return formatToken(amount, denom);
@@ -46,7 +47,7 @@ class MsgWithdrawDelegatorReward {
     return amounts;
   }
 
-  static fromJson(json: any, events?: any, msgIndex?: number) {
+  static fromJson(json: any, events?: any) {
     const validatorAddress = json.validator_address;
     const amounts = this.getWithdrawalAmount(events, validatorAddress);
 
