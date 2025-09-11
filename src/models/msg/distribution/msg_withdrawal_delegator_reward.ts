@@ -20,13 +20,25 @@ class MsgWithdrawDelegatorReward {
     this.json = payload.json;
   }
 
-  static getWithdrawalAmount(events: any) {
-    if(events === null) {
+  static getWithdrawalAmount(events: any, validatorAddress: string) {
+    if (events === null) {
       return [formatToken(0)];
     }
     const withdrawEvents = events.filter((x) => x.type === 'withdraw_rewards');
-    const withdrawAmounts = R.pathOr([], [0, 'attributes'], withdrawEvents).filter((x) => x.key === 'amount');
 
+    // Find matching withdraw_rewards event for the specific validator
+    const matchingEvent = withdrawEvents.find((event) => {
+      const validatorAttr = event.attributes?.find((attr) => attr.key === 'validator');
+      return validatorAttr?.value === validatorAddress;
+    });
+
+    if (!matchingEvent) {
+      return [formatToken(0)];
+    }
+
+    const withdrawAmounts = matchingEvent.attributes.filter((x) => x.key === 'amount');
+
+    // Parse amount string and format each token (e.g., "123456ufct" -> formatted token)
     const amounts = R.pathOr('0', [0, 'value'], withdrawAmounts).split(',').map((x) => {
       const [amount, denom = chainConfig.primaryTokenUnit] = x.match(/[a-z]+|[^a-z]+/gi);
       return formatToken(amount, denom);
@@ -36,13 +48,14 @@ class MsgWithdrawDelegatorReward {
   }
 
   static fromJson(json: any, events?: any) {
-    const amounts = this.getWithdrawalAmount(events);
+    const validatorAddress = json.validator_address;
+    const amounts = this.getWithdrawalAmount(events, validatorAddress);
 
     return new MsgWithdrawDelegatorReward({
       json,
       type: json['@type'],
       delegatorAddress: json.delegator_address,
-      validatorAddress: json.validator_address,
+      validatorAddress,
       amounts,
     });
   }

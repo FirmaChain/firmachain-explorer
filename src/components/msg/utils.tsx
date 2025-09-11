@@ -638,7 +638,7 @@ export const getMessageByType = (message: any, viewRaw: boolean, t: any) => {
 };
 
 export const convertMsgsToModels = (transaction: any) => {
-  const messages = R.pathOr([], ['messages'], transaction).map((msg) => {
+  const messages = R.pathOr([], ['messages'], transaction).map((msg, index) => {
     const model = getMessageModelByType(msg?.['@type']);
     if (model === MODELS.MsgWithdrawDelegatorReward
       || model === MODELS.MsgWithdrawValidatorCommission
@@ -651,7 +651,7 @@ export const convertMsgsToModels = (transaction: any) => {
         events = transaction.logs[0].events;
       }
 
-      return model.fromJson(msg, events);
+      return model.fromJson(msg, events, index);
     }
     return model.fromJson(msg);
   });

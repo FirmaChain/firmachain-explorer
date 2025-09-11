@@ -19,7 +19,7 @@ class MsgWithdrawValidatorCommission {
   }
 
   static getWithdrawalAmount(events: any) {
-    if(events === null) {
+    if (events === null) {
       return [formatToken(0)];
     }
     const withdrawEvents = events.filter((x) => x.type === 'withdraw_commission');
