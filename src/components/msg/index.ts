@@ -92,6 +92,7 @@ import CosmwasmExecuteContract from './cosmwasm/execute_contract';
 import CosmwasmMigrateContract from './cosmwasm/migrate_contract';
 import CosmwasmUpdateAdmin from './cosmwasm/update_admin';
 import CosmwasmClearAdmin from './cosmwasm/clear_admin';
+import CosmwasmUpdateLabel from './cosmwasm/update_label';
 
 export {
   getMessageModelByType,
@@ -180,4 +181,5 @@ export {
   CosmwasmMigrateContract,
   CosmwasmUpdateAdmin,
   CosmwasmClearAdmin,
+  CosmwasmUpdateLabel,
 };

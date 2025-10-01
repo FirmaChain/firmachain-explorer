@@ -76,5 +76,6 @@
   "txCosmwasmExecuteContractContent" : "ExecuteContract <0>{{contract}}</0>",
   "txCosmwasmMigrateContractContent" : "MigrateContract <0>{{contract}}</0> [code_id : {{codeId}}]",
   "txCosmwasmUpdateAdminContent" : "Updated new admin <0>{{newAdmin}}</0> for <1>{{contract}}</1>",
-  "txCosmwasmClearAdminContent" : "Clear admin <0>{{contract}}</0>"
+  "txCosmwasmClearAdminContent" : "Clear admin <0>{{contract}}</0>",
+  "txCosmwasmUpdateLabelContent" : "Updated new label <0>{{newLabel}}</0> for <1>{{contract}}</1>"
 }

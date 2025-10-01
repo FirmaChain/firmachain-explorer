@@ -588,6 +588,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'nine',
       tagDisplay: 'txCosmwasmClearAdminLabel',
     },
+    '/cosmwasm.wasm.v1.MsgUpdateContractLabel': {
+      model: MODELS.MsgCosmwasmUpdateLabel,
+      content: COMPONENTS.CosmwasmUpdateLabel,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmUpdateLabelLabel',
+    },
   };
 
   if (defaultTypeToModel[type]) return defaultTypeToModel[type];

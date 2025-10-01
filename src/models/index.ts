@@ -91,6 +91,7 @@ import MsgCosmwasmExecuteContract from './msg/cosmwasm/msg_cosmwasm_execute_cont
 import MsgCosmwasmMigrateContract from './msg/cosmwasm/msg_cosmwasm_migrate_contract';
 import MsgCosmwasmUpdateAdmin from './msg/cosmwasm/msg_cosmwasm_update_admin';
 import MsgCosmwasmClearAdmin from './msg/cosmwasm/msg_cosmwasm_clear_admin';
+import MsgCosmwasmUpdateLabel from './msg/cosmwasm/msg_cosmwasm_update_label';
 
 export {
   BigDipperNetwork,
@@ -184,4 +185,5 @@ export {
   MsgCosmwasmMigrateContract,
   MsgCosmwasmUpdateAdmin,
   MsgCosmwasmClearAdmin,
+  MsgCosmwasmUpdateLabel,
 };

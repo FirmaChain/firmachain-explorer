@@ -75,5 +75,6 @@
   "txCosmwasmExecuteContractLabel" : "CosmWasm ExecuteContract",
   "txCosmwasmMigrateContractLabel" : "CosmWasm MigrateContract",
   "txCosmwasmUpdateAdminLabel" : "CosmWasm UpdateAdmin",
-  "txCosmwasmClearAdminLabel" : "CosmWasm ClearAdmin"
+  "txCosmwasmClearAdminLabel" : "CosmWasm ClearAdmin",
+  "txCosmwasmUpdateLabelLabel" : "CosmWasm UpdateLabel"
 }
