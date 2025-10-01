@@ -28,6 +28,7 @@ import MsgDelegate from './msg/staking/msg_delegate';
 import MsgEditValidator from './msg/staking/msg_edit_validator';
 import MsgRedelegate from './msg/staking/msg_redelegate';
 import MsgUndelegate from './msg/staking/msg_undelegate';
+import MsgCancelUndelegate from './msg/staking/msg_cancel_undelegate';
 import MsgUnknown from './msg/msg_unknown';
 import MsgWithdrawValidatorCommission from './msg/distribution/msg_withdraw_validator_commission';
 import MsgBlockUser from './msg/profiles/msg_block_user';
@@ -119,6 +120,7 @@ export {
   MsgEditValidator,
   MsgRedelegate,
   MsgUndelegate,
+  MsgCancelUndelegate,
   MsgSubmitProposal,
   MsgCancelProposal,
   MsgUnknown,

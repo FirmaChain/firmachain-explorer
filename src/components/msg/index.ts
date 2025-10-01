@@ -15,6 +15,7 @@ import Delegate from './staking/delegate';
 import Unknown from './unknown';
 import Redelegate from './staking/redelegate';
 import Undelegate from './staking/undelegate';
+import CancelUndelegate from './staking/cancel_undelegate';
 import CreateValidator from './staking/create_validator';
 import EditValidator from './staking/edit_validator';
 import Send from './bank/send';
@@ -103,6 +104,7 @@ export {
   Unknown,
   Redelegate,
   Undelegate,
+  CancelUndelegate,
   CreateValidator,
   EditValidator,
   Send,

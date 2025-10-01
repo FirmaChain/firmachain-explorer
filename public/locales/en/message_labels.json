@@ -2,6 +2,7 @@
   "txDelegateLabel": "Delegate",
   "txRedelegateLabel": "Redelegate",
   "txUndelegateLabel": "Undelegate",
+  "txCancelUndelegateLabel": "Cancel Undelegate",
   "txCreateValidatorLabel": "Create Validator",
   "txEditValidatorLabel": "Edit Validator",
   "txSendLabel": "Send",

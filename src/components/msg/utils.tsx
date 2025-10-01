@@ -33,6 +33,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'one',
       tagDisplay: 'txUndelegateLabel',
     },
+    '/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation': {
+      model: MODELS.MsgCancelUndelegate,
+      content: COMPONENTS.CancelUndelegate,
+      tagTheme: 'one',
+      tagDisplay: 'txCancelUndelegateLabel',
+    },
     '/cosmos.staking.v1beta1.MsgCreateValidator': {
       model: MODELS.MsgCreateValidator,
       content: COMPONENTS.CreateValidator,
