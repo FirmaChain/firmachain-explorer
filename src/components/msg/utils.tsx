@@ -662,6 +662,7 @@ export const convertMsgsToModels = (transaction: any) => {
       || model === MODELS.MsgWithdrawValidatorCommission
       || model === MODELS.MsgNFTMint
       || model === MODELS.MsgCosmwasmInstantiateContract
+      || model === MODELS.MsgCosmwasmInstantiateContract2
       || model === MODELS.MsgCosmwasmStoreCode) {
       let events = R.pathOr(null, ['events'], transaction);
       const isLegacy = transaction?.logs?.[0]?.events;
@@ -683,9 +684,11 @@ export const convertDefaultRaw = (transaction: any) => {
     if (model === MODELS.MsgCosmwasmClearAdmin
       || model === MODELS.MsgCosmwasmExecuteContract
       || model === MODELS.MsgCosmwasmInstantiateContract
+      || model === MODELS.MsgCosmwasmInstantiateContract2
       || model === MODELS.MsgCosmwasmMigrateContract
       || model === MODELS.MsgCosmwasmStoreCode
-      || model === MODELS.MsgCosmwasmUpdateAdmin) {
+      || model === MODELS.MsgCosmwasmUpdateAdmin
+      || model === MODELS.MsgCosmwasmUpdateLabel) {
       return true;
     }
     return false;
