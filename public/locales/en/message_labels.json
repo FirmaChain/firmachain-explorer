@@ -71,6 +71,7 @@
   "txTokenUpdateURILabel" : "Token Update",
   "txCosmwasmStoreCodeLabel" : "CosmWasm StoreCode",
   "txCosmwasmInstantiateContractLabel" : "CosmWasm InstantiateContract",
+  "txCosmwasmInstantiateContractLabel2" : "CosmWasm InstantiateContract2",
   "txCosmwasmExecuteContractLabel" : "CosmWasm ExecuteContract",
   "txCosmwasmMigrateContractLabel" : "CosmWasm MigrateContract",
   "txCosmwasmUpdateAdminLabel" : "CosmWasm UpdateAdmin",

@@ -558,6 +558,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'nine',
       tagDisplay: 'txCosmwasmInstantiateContractLabel',
     },
+    '/cosmwasm.wasm.v1.MsgInstantiateContract2': {
+      model: MODELS.MsgCosmwasmInstantiateContract2,
+      content: COMPONENTS.CosmwasmInstantiateContract2,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmInstantiateContractLabel2',
+    },
     '/cosmwasm.wasm.v1.MsgExecuteContract': {
       model: MODELS.MsgCosmwasmExecuteContract,
       content: COMPONENTS.CosmwasmExecuteContract,

@@ -72,6 +72,7 @@
   "txTokenUpdateURIContent" : "The {{tokenID}} token URI has been updated",
   "txCosmwasmStoreCodeContent" : "uploaded by <0>{{owner}}</0> [code_id : {{codeId}}]",
   "txCosmwasmInstantiateContractContent" : "InstantiateContract <0>{{contract}}</0> [code_id : {{codeId}}]",
+  "txCosmwasmInstantiateContractContent2" : "InstantiateContract2 <0>{{contract}}</0> [code_id : {{codeId}}]",
   "txCosmwasmExecuteContractContent" : "ExecuteContract <0>{{contract}}</0>",
   "txCosmwasmMigrateContractContent" : "MigrateContract <0>{{contract}}</0> [code_id : {{codeId}}]",
   "txCosmwasmUpdateAdminContent" : "Updated new admin <0>{{newAdmin}}</0> for <1>{{contract}}</1>",

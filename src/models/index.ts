@@ -86,6 +86,7 @@ import MsgTokenUpdateURI from './msg/token/msg_token_updateURI';
 
 import MsgCosmwasmStoreCode from './msg/cosmwasm/msg_cosmwasm_storecode';
 import MsgCosmwasmInstantiateContract from './msg/cosmwasm/msg_cosmwasm_instantiate_contract';
+import MsgCosmwasmInstantiateContract2 from './msg/cosmwasm/msg_cosmwasm_instantiate_contract2';
 import MsgCosmwasmExecuteContract from './msg/cosmwasm/msg_cosmwasm_execute_contract';
 import MsgCosmwasmMigrateContract from './msg/cosmwasm/msg_cosmwasm_migrate_contract';
 import MsgCosmwasmUpdateAdmin from './msg/cosmwasm/msg_cosmwasm_update_admin';
@@ -178,6 +179,7 @@ export {
   MsgTokenUpdateURI,
   MsgCosmwasmStoreCode,
   MsgCosmwasmInstantiateContract,
+  MsgCosmwasmInstantiateContract2,
   MsgCosmwasmExecuteContract,
   MsgCosmwasmMigrateContract,
   MsgCosmwasmUpdateAdmin,
