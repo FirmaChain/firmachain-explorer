@@ -33,6 +33,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'one',
       tagDisplay: 'txUndelegateLabel',
     },
+    '/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation': {
+      model: MODELS.MsgCancelUndelegate,
+      content: COMPONENTS.CancelUndelegate,
+      tagTheme: 'one',
+      tagDisplay: 'txCancelUndelegateLabel',
+    },
     '/cosmos.staking.v1beta1.MsgCreateValidator': {
       model: MODELS.MsgCreateValidator,
       content: COMPONENTS.CreateValidator,
@@ -552,6 +558,12 @@ const getDataByType = (type: string) => {
       tagTheme: 'nine',
       tagDisplay: 'txCosmwasmInstantiateContractLabel',
     },
+    '/cosmwasm.wasm.v1.MsgInstantiateContract2': {
+      model: MODELS.MsgCosmwasmInstantiateContract2,
+      content: COMPONENTS.CosmwasmInstantiateContract2,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmInstantiateContractLabel2',
+    },
     '/cosmwasm.wasm.v1.MsgExecuteContract': {
       model: MODELS.MsgCosmwasmExecuteContract,
       content: COMPONENTS.CosmwasmExecuteContract,
@@ -575,6 +587,12 @@ const getDataByType = (type: string) => {
       content: COMPONENTS.CosmwasmClearAdmin,
       tagTheme: 'nine',
       tagDisplay: 'txCosmwasmClearAdminLabel',
+    },
+    '/cosmwasm.wasm.v1.MsgUpdateContractLabel': {
+      model: MODELS.MsgCosmwasmUpdateLabel,
+      content: COMPONENTS.CosmwasmUpdateLabel,
+      tagTheme: 'nine',
+      tagDisplay: 'txCosmwasmUpdateLabelLabel',
     },
   };
 
@@ -644,6 +662,7 @@ export const convertMsgsToModels = (transaction: any) => {
       || model === MODELS.MsgWithdrawValidatorCommission
       || model === MODELS.MsgNFTMint
       || model === MODELS.MsgCosmwasmInstantiateContract
+      || model === MODELS.MsgCosmwasmInstantiateContract2
       || model === MODELS.MsgCosmwasmStoreCode) {
       let events = R.pathOr(null, ['events'], transaction);
       const isLegacy = transaction?.logs?.[0]?.events;
@@ -665,9 +684,11 @@ export const convertDefaultRaw = (transaction: any) => {
     if (model === MODELS.MsgCosmwasmClearAdmin
       || model === MODELS.MsgCosmwasmExecuteContract
       || model === MODELS.MsgCosmwasmInstantiateContract
+      || model === MODELS.MsgCosmwasmInstantiateContract2
       || model === MODELS.MsgCosmwasmMigrateContract
       || model === MODELS.MsgCosmwasmStoreCode
-      || model === MODELS.MsgCosmwasmUpdateAdmin) {
+      || model === MODELS.MsgCosmwasmUpdateAdmin
+      || model === MODELS.MsgCosmwasmUpdateLabel) {
       return true;
     }
     return false;

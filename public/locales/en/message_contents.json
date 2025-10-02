@@ -3,6 +3,7 @@
   "txDelegateContent": "<0>{{user}}</0> delegated <1>{{amount}}</1> to <2>{{to}}</2>",
   "txRedelegateContent": "<0>{{user}}</0> redelegated <1>{{amount}}</1> from <2>{{from}}</2> to <3>{{to}}</3>",
   "txUndelegateContent": "<0>{{user}}</0> undelegated <1>{{amount}}</1> from <2>{{from}}</2>",
+  "txCancelUndelegateContent": "<0>{{user}}</0> cancelled undelegation of <1>{{amount}}</1> from <2>{{from}}</2>",
   "txCreateValidatorContent": "<0>{{user}}</0> created validator <1>{{validator}}</1>",
   "txEditValidatorContent": "<0>{{validator}}</0> updated their validator details",
   "txSendContent": "<0>{{user}}</0> sent <1>{{amount}}</1> to <2>{{address}}</2>",
@@ -71,8 +72,10 @@
   "txTokenUpdateURIContent" : "The {{tokenID}} token URI has been updated",
   "txCosmwasmStoreCodeContent" : "uploaded by <0>{{owner}}</0> [code_id : {{codeId}}]",
   "txCosmwasmInstantiateContractContent" : "InstantiateContract <0>{{contract}}</0> [code_id : {{codeId}}]",
+  "txCosmwasmInstantiateContractContent2" : "InstantiateContract2 <0>{{contract}}</0> [code_id : {{codeId}}]",
   "txCosmwasmExecuteContractContent" : "ExecuteContract <0>{{contract}}</0>",
   "txCosmwasmMigrateContractContent" : "MigrateContract <0>{{contract}}</0> [code_id : {{codeId}}]",
   "txCosmwasmUpdateAdminContent" : "Updated new admin <0>{{newAdmin}}</0> for <1>{{contract}}</1>",
-  "txCosmwasmClearAdminContent" : "Clear admin <0>{{contract}}</0>"
+  "txCosmwasmClearAdminContent" : "Clear admin <0>{{contract}}</0>",
+  "txCosmwasmUpdateLabelContent" : "Updated new label <0>{{newLabel}}</0> for <1>{{contract}}</1>"
 }

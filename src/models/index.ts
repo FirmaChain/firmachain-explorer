@@ -28,6 +28,7 @@ import MsgDelegate from './msg/staking/msg_delegate';
 import MsgEditValidator from './msg/staking/msg_edit_validator';
 import MsgRedelegate from './msg/staking/msg_redelegate';
 import MsgUndelegate from './msg/staking/msg_undelegate';
+import MsgCancelUndelegate from './msg/staking/msg_cancel_undelegate';
 import MsgUnknown from './msg/msg_unknown';
 import MsgWithdrawValidatorCommission from './msg/distribution/msg_withdraw_validator_commission';
 import MsgBlockUser from './msg/profiles/msg_block_user';
@@ -85,10 +86,12 @@ import MsgTokenUpdateURI from './msg/token/msg_token_updateURI';
 
 import MsgCosmwasmStoreCode from './msg/cosmwasm/msg_cosmwasm_storecode';
 import MsgCosmwasmInstantiateContract from './msg/cosmwasm/msg_cosmwasm_instantiate_contract';
+import MsgCosmwasmInstantiateContract2 from './msg/cosmwasm/msg_cosmwasm_instantiate_contract2';
 import MsgCosmwasmExecuteContract from './msg/cosmwasm/msg_cosmwasm_execute_contract';
 import MsgCosmwasmMigrateContract from './msg/cosmwasm/msg_cosmwasm_migrate_contract';
 import MsgCosmwasmUpdateAdmin from './msg/cosmwasm/msg_cosmwasm_update_admin';
 import MsgCosmwasmClearAdmin from './msg/cosmwasm/msg_cosmwasm_clear_admin';
+import MsgCosmwasmUpdateLabel from './msg/cosmwasm/msg_cosmwasm_update_label';
 
 export {
   BigDipperNetwork,
@@ -119,6 +122,7 @@ export {
   MsgEditValidator,
   MsgRedelegate,
   MsgUndelegate,
+  MsgCancelUndelegate,
   MsgSubmitProposal,
   MsgCancelProposal,
   MsgUnknown,
@@ -176,8 +180,10 @@ export {
   MsgTokenUpdateURI,
   MsgCosmwasmStoreCode,
   MsgCosmwasmInstantiateContract,
+  MsgCosmwasmInstantiateContract2,
   MsgCosmwasmExecuteContract,
   MsgCosmwasmMigrateContract,
   MsgCosmwasmUpdateAdmin,
   MsgCosmwasmClearAdmin,
+  MsgCosmwasmUpdateLabel,
 };

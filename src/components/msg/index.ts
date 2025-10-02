@@ -15,6 +15,7 @@ import Delegate from './staking/delegate';
 import Unknown from './unknown';
 import Redelegate from './staking/redelegate';
 import Undelegate from './staking/undelegate';
+import CancelUndelegate from './staking/cancel_undelegate';
 import CreateValidator from './staking/create_validator';
 import EditValidator from './staking/edit_validator';
 import Send from './bank/send';
@@ -86,10 +87,12 @@ import TokenUpdateURI from './token/updateURI';
 
 import CosmwasmStoreCode from './cosmwasm/storecode';
 import CosmwasmInstantiateContract from './cosmwasm/instantiate_contract';
+import CosmwasmInstantiateContract2 from './cosmwasm/instantiate_contract2';
 import CosmwasmExecuteContract from './cosmwasm/execute_contract';
 import CosmwasmMigrateContract from './cosmwasm/migrate_contract';
 import CosmwasmUpdateAdmin from './cosmwasm/update_admin';
 import CosmwasmClearAdmin from './cosmwasm/clear_admin';
+import CosmwasmUpdateLabel from './cosmwasm/update_label';
 
 export {
   getMessageModelByType,
@@ -103,6 +106,7 @@ export {
   Unknown,
   Redelegate,
   Undelegate,
+  CancelUndelegate,
   CreateValidator,
   EditValidator,
   Send,
@@ -172,8 +176,10 @@ export {
   TokenUpdateURI,
   CosmwasmStoreCode,
   CosmwasmInstantiateContract,
+  CosmwasmInstantiateContract2,
   CosmwasmExecuteContract,
   CosmwasmMigrateContract,
   CosmwasmUpdateAdmin,
   CosmwasmClearAdmin,
+  CosmwasmUpdateLabel,
 };

@@ -2,6 +2,7 @@
   "txDelegateLabel": "Delegate",
   "txRedelegateLabel": "Redelegate",
   "txUndelegateLabel": "Undelegate",
+  "txCancelUndelegateLabel": "Cancel Undelegate",
   "txCreateValidatorLabel": "Create Validator",
   "txEditValidatorLabel": "Edit Validator",
   "txSendLabel": "Send",
@@ -70,8 +71,10 @@
   "txTokenUpdateURILabel" : "Token Update",
   "txCosmwasmStoreCodeLabel" : "CosmWasm StoreCode",
   "txCosmwasmInstantiateContractLabel" : "CosmWasm InstantiateContract",
+  "txCosmwasmInstantiateContractLabel2" : "CosmWasm InstantiateContract2",
   "txCosmwasmExecuteContractLabel" : "CosmWasm ExecuteContract",
   "txCosmwasmMigrateContractLabel" : "CosmWasm MigrateContract",
   "txCosmwasmUpdateAdminLabel" : "CosmWasm UpdateAdmin",
-  "txCosmwasmClearAdminLabel" : "CosmWasm ClearAdmin"
+  "txCosmwasmClearAdminLabel" : "CosmWasm ClearAdmin",
+  "txCosmwasmUpdateLabelLabel" : "CosmWasm UpdateLabel"
 }
