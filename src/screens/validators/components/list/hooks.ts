@@ -37,12 +37,12 @@ export const useValidators = () => {
   // Fetch Data
   // ==========================
   useValidatorsQuery({
-    onCompleted: async(data) => {
-      const state = await formatValidators(data);
-      
+    onCompleted: async (data) => {
+      const formattedState = await formatValidators(data);
+
       handleSetState({
         loading: false,
-        ...state,
+        ...formattedState,
       });
     },
   });
@@ -59,20 +59,24 @@ export const useValidators = () => {
 
     const { signedBlockWindow } = slashingParams;
 
-    let formattedItems: ValidatorType[] = await Promise.all(data.validator.filter((x) => x.validatorInfo).map(async (x) => {
+    const filteredValidators = data.validator.filter((x) => x.validatorInfo);
+    let formattedItems: ValidatorType[] = await Promise.all(filteredValidators.map(async (x) => {
       let votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
-      votingPower = votingPower / 10**6
+      votingPower /= 10 ** 6;
       const votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
 
       const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
       const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
 
       let commission = null;
-      try{
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`)
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`,
+        );
         const commissionRate = response.data.validator.commission.commission_rates.rate;
         commission = Number(commissionRate) * 100;
-      }catch(error){
+      } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error);
       }
 
