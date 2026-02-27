@@ -1,7 +1,7 @@
 export const getProposalType = (proposalType: string) => {
   let type = proposalType;
   if (proposalType === "/cosmos.gov.v1beta1.TextProposal" ||
-    proposalType === "/cosmos.gov.v1.MsgExecLegacyContent") {
+    proposalType === "/cosmos.gov.v1.MsgExecLegacyContent" || proposalType === "") {
     type = "textProposal";
   }
 
