@@ -24,7 +24,7 @@ exports[`screen: BlockDetails/Overview matches snapshot 1`] = `
     <p
       className="MuiTypography-root value MuiTypography-body1"
     >
-      proposals:
+      proposals:communityPoolSpendProposal
     </p>
     <p
       className="MuiTypography-root label MuiTypography-body1"
@@ -65,6 +65,659 @@ exports[`screen: BlockDetails/Overview matches snapshot 1`] = `
       id="Markdown"
       markdown="description"
     />
+  </div>
+  <hr
+    className="MuiDivider-root"
+  />
+  <div
+    className="makeStyles-content"
+  >
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:messages
+    </p>
+    <div
+      className="makeStyles-messageList"
+    >
+      <div
+        className="makeStyles-messageSection"
+      >
+        <div
+          className="makeStyles-messageHeader"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <span
+            className="makeStyles-messagePillTag"
+            id="Tag"
+            theme="seven"
+            value="proposals:communityPoolSpendProposal"
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root makeStyles-messageChevron"
+            color="#999999"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+        </div>
+        <div
+          className="MuiCollapse-container MuiCollapse-hidden"
+          style={
+            Object {
+              "minHeight": "0px",
+            }
+          }
+        >
+          <div
+            className="MuiCollapse-wrapper"
+          >
+            <div
+              className="MuiCollapse-wrapperInner"
+            >
+              <div
+                style={
+                  Object {
+                    "overflow": "auto",
+                  }
+                }
+              >
+                <table
+                  className="MuiTable-root"
+                  role={null}
+                  style={
+                    Object {
+                      "tableLayout": "fixed",
+                    }
+                  }
+                >
+                  <thead
+                    className="MuiTableHead-root"
+                    role={null}
+                  >
+                    <tr
+                      className="MuiTableRow-root MuiTableRow-head"
+                      role={null}
+                    >
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head"
+                        scope="col"
+                        style={
+                          Object {
+                            "width": "55%",
+                          }
+                        }
+                      >
+                        proposals:recipient
+                      </th>
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head"
+                        scope="col"
+                        style={
+                          Object {
+                            "width": "45%",
+                          }
+                        }
+                      >
+                        proposals:amount
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    className="MuiTableBody-root"
+                    role={null}
+                  >
+                    <tr
+                      className="MuiTableRow-root"
+                      role={null}
+                    >
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "55%",
+                          }
+                        }
+                      >
+                        <div
+                          address="recipient"
+                          id="Name"
+                          name="recipient"
+                        />
+                      </td>
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "45%",
+                          }
+                        }
+                      >
+                        1 FCT
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`screen: BlockDetails/Overview renders 5 messages (Multiple type) with all sections 1`] = `
+<div
+  className="makeStyles-root"
+  id="Box"
+>
+  <div
+    id="#42"
+    status="PROPOSAL_STATUS_VOTING_PERIOD"
+    title="Proposal with 5 messages"
+  />
+  <hr
+    className="MuiDivider-root"
+  />
+  <div
+    className="makeStyles-content"
+  >
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:type
+    </p>
+    <p
+      className="MuiTypography-root value MuiTypography-body1"
+    >
+      proposals:multiple
+    </p>
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:proposer
+    </p>
+    <div
+      address="firma1proposer123"
+      id="Name"
+      name="firma1proposer123"
+    />
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:submitTime
+    </p>
+    <p
+      className="MuiTypography-root value MuiTypography-body1"
+    >
+      2020-08-10 12:00:00
+    </p>
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:depositEndTime
+    </p>
+    <p
+      className="MuiTypography-root value MuiTypography-body1"
+    >
+      2020-08-10 12:00:00
+    </p>
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:votingStartTime
+    </p>
+    <p
+      className="MuiTypography-root value MuiTypography-body1"
+    >
+      2020-08-10 12:00:00
+    </p>
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:votingEndTime
+    </p>
+    <p
+      className="MuiTypography-root value MuiTypography-body1"
+    >
+      2020-08-10 12:00:00
+    </p>
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:description
+    </p>
+    <div
+      id="Markdown"
+      markdown="Sample description for multi-message proposal."
+    />
+  </div>
+  <hr
+    className="MuiDivider-root"
+  />
+  <div
+    className="makeStyles-content"
+  >
+    <p
+      className="MuiTypography-root label MuiTypography-body1"
+    >
+      proposals:messages
+    </p>
+    <div
+      className="makeStyles-messageList"
+    >
+      <div
+        className="makeStyles-messageSection"
+      >
+        <div
+          className="makeStyles-messageHeader"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <span
+            className="makeStyles-messagePillTag"
+            id="Tag"
+            theme="seven"
+            value="proposals:softwareUpgradeProposal"
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root makeStyles-messageChevron"
+            color="#999999"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+        </div>
+        <div
+          className="MuiCollapse-container MuiCollapse-hidden"
+          style={
+            Object {
+              "minHeight": "0px",
+            }
+          }
+        >
+          <div
+            className="MuiCollapse-wrapper"
+          >
+            <div
+              className="MuiCollapse-wrapperInner"
+            >
+              <div
+                className="makeStyles-labelValueRow"
+              >
+                <p
+                  className="MuiTypography-root label MuiTypography-body1"
+                >
+                  proposals:plan
+                </p>
+                <div
+                  style={
+                    Object {
+                      "overflow": "auto",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <table
+                    className="MuiTable-root"
+                    role={null}
+                  >
+                    <tbody
+                      className="MuiTableBody-root"
+                      role={null}
+                    >
+                      <tr
+                        className="MuiTableRow-root"
+                        role={null}
+                      >
+                        <td
+                          aria-sort={null}
+                          className="MuiTableCell-root MuiTableCell-body"
+                        >
+                          proposals:name
+                        </td>
+                        <td
+                          aria-sort={null}
+                          className="MuiTableCell-root MuiTableCell-body"
+                        >
+                          v0.5.1999
+                        </td>
+                      </tr>
+                      <tr
+                        className="MuiTableRow-root"
+                        role={null}
+                      >
+                        <td
+                          aria-sort={null}
+                          className="MuiTableCell-root MuiTableCell-body"
+                        >
+                          proposals:height
+                        </td>
+                        <td
+                          aria-sort={null}
+                          className="MuiTableCell-root MuiTableCell-body"
+                        >
+                          5,648,500
+                        </td>
+                      </tr>
+                      <tr
+                        className="MuiTableRow-root"
+                        role={null}
+                      >
+                        <td
+                          aria-sort={null}
+                          className="MuiTableCell-root MuiTableCell-body"
+                        >
+                          proposals:info
+                        </td>
+                        <td
+                          aria-sort={null}
+                          className="MuiTableCell-root MuiTableCell-body"
+                        >
+                          Upgrade to v0.5.1999
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="makeStyles-messageSection"
+      >
+        <div
+          className="makeStyles-messageHeader"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <span
+            className="makeStyles-messagePillTag"
+            id="Tag"
+            theme="seven"
+            value="proposals:communityPoolSpendProposal (3)"
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root makeStyles-messageChevron"
+            color="#999999"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+        </div>
+        <div
+          className="MuiCollapse-container MuiCollapse-hidden"
+          style={
+            Object {
+              "minHeight": "0px",
+            }
+          }
+        >
+          <div
+            className="MuiCollapse-wrapper"
+          >
+            <div
+              className="MuiCollapse-wrapperInner"
+            >
+              <div
+                style={
+                  Object {
+                    "overflow": "auto",
+                  }
+                }
+              >
+                <table
+                  className="MuiTable-root"
+                  role={null}
+                  style={
+                    Object {
+                      "tableLayout": "fixed",
+                    }
+                  }
+                >
+                  <thead
+                    className="MuiTableHead-root"
+                    role={null}
+                  >
+                    <tr
+                      className="MuiTableRow-root MuiTableRow-head"
+                      role={null}
+                    >
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head"
+                        scope="col"
+                        style={
+                          Object {
+                            "width": "55%",
+                          }
+                        }
+                      >
+                        proposals:recipient
+                      </th>
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head"
+                        scope="col"
+                        style={
+                          Object {
+                            "width": "45%",
+                          }
+                        }
+                      >
+                        proposals:amount
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    className="MuiTableBody-root"
+                    role={null}
+                  >
+                    <tr
+                      className="MuiTableRow-root"
+                      role={null}
+                    >
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "55%",
+                          }
+                        }
+                      >
+                        <div
+                          address="address1"
+                          id="Name"
+                          name="address1"
+                        />
+                      </td>
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "45%",
+                          }
+                        }
+                      >
+                        15,000 FCT
+                      </td>
+                    </tr>
+                    <tr
+                      className="MuiTableRow-root"
+                      role={null}
+                    >
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "55%",
+                          }
+                        }
+                      >
+                        <div
+                          address="address2"
+                          id="Name"
+                          name="address2"
+                        />
+                      </td>
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "45%",
+                          }
+                        }
+                      >
+                        25,000 FCT
+                      </td>
+                    </tr>
+                    <tr
+                      className="MuiTableRow-root"
+                      role={null}
+                    >
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "55%",
+                          }
+                        }
+                      >
+                        <div
+                          address="address3"
+                          id="Name"
+                          name="address3"
+                        />
+                      </td>
+                      <td
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-body"
+                        style={
+                          Object {
+                            "width": "45%",
+                          }
+                        }
+                      >
+                        10,000 FCT
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="makeStyles-messageSection"
+      >
+        <div
+          className="makeStyles-messageHeader"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <span
+            className="makeStyles-messagePillTag"
+            id="Tag"
+            theme="seven"
+            value="proposals:parameterChangeProposal"
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root makeStyles-messageChevron"
+            color="#999999"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+        </div>
+        <div
+          className="MuiCollapse-container MuiCollapse-hidden"
+          style={
+            Object {
+              "minHeight": "0px",
+            }
+          }
+        >
+          <div
+            className="MuiCollapse-wrapper"
+          >
+            <div
+              className="MuiCollapse-wrapperInner"
+            >
+              <div
+                className="makeStyles-labelValueRow"
+              >
+                <p
+                  className="MuiTypography-root label MuiTypography-body1"
+                >
+                  proposals:changes
+                </p>
+                <div>
+                  <div
+                    content={
+                      Object {
+                        "@type": "/cosmos.gov.v1.MsgUpdateParams",
+                        "authority": "firma10d07y265gmmuvt4z0w9aw880jnsr700j53mj8f",
+                        "params": Object {
+                          "min_deposit": Array [
+                            Object {
+                              "amount": "5000000000",
+                              "denom": "ufct",
+                            },
+                          ],
+                          "quorum": "0.334",
+                          "threshold": "0.5",
+                          "voting_period": "300s",
+                        },
+                      }
+                    }
+                    id="ParamsChangeV5"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
