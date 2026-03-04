@@ -24,14 +24,15 @@ const ParamsChangeV5: React.FC<{
   const moduleName = extractModuleName(content['@type']);
   const paramsEntries = Object.entries(content.params);
 
+  const colWidth = { first: '20%', second: '35%', third: '45%' };
   return (
     <div style={{ overflow: 'auto' }}>
-      <Table>
+      <Table style={{ tableLayout: 'fixed' }}>
         <TableHead>
           <TableRow>
-            <TableCell>{t('subspace')}</TableCell>
-            <TableCell>{t('key')}</TableCell>
-            <TableCell>{t('value')}</TableCell>
+            <TableCell style={{ width: colWidth.first }}>{t('subspace')}</TableCell>
+            <TableCell style={{ width: colWidth.second }}>{t('key')}</TableCell>
+            <TableCell style={{ width: colWidth.third }}>{t('value')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -40,13 +41,13 @@ const ParamsChangeV5: React.FC<{
               {index === 0 ? (
                 <TableCell
                   rowSpan={paramsEntries.length}
-                  style={{ verticalAlign: 'top' }}
+                  style={{ verticalAlign: 'top', width: colWidth.first }}
                 >
                   {moduleName}
                 </TableCell>
               ) : null}
-              <TableCell>{key}</TableCell>
-              <TableCell>{safeToString(value)}</TableCell>
+              <TableCell style={{ width: colWidth.second }}>{key}</TableCell>
+              <TableCell style={{ width: colWidth.third }}>{safeToString(value)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

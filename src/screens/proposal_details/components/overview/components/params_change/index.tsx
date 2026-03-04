@@ -19,22 +19,23 @@ const ParamsChange: React.FC<{
   changes,
 }) => {
   const { t } = useTranslation('proposals');
+  const colWidth = { first: '20%', second: '35%', third: '45%' };
   return (
     <div style={{ overflow: 'auto' }}>
-      <Table>
+      <Table style={{ tableLayout: 'fixed' }}>
         <TableHead>
           <TableRow>
-            <TableCell>{t('subspace')}</TableCell>
-            <TableCell>{t('key')}</TableCell>
-            <TableCell>{t('value')}</TableCell>
+            <TableCell style={{ width: colWidth.first }}>{t('subspace')}</TableCell>
+            <TableCell style={{ width: colWidth.second }}>{t('key')}</TableCell>
+            <TableCell style={{ width: colWidth.third }}>{t('value')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {changes.map((row) => (
             <TableRow key={row.key}>
-              <TableCell>{row.subspace}</TableCell>
-              <TableCell>{row.key}</TableCell>
-              <TableCell>{row.value}</TableCell>
+              <TableCell style={{ width: colWidth.first }}>{row.subspace}</TableCell>
+              <TableCell style={{ width: colWidth.second }}>{row.key}</TableCell>
+              <TableCell style={{ width: colWidth.third }}>{row.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
