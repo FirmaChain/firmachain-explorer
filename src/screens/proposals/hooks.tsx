@@ -7,6 +7,7 @@ import {
   useProposalsQuery,
   ProposalsQuery,
 } from '@graphql/types';
+import { getProposalDisplayTypes } from '@src/screens/proposal_details/utils';
 import { ProposalsState } from './types';
 
 export const useProposals = () => {
@@ -120,11 +121,14 @@ export const useProposals = () => {
       .filter((x) => !ignoredProposals.includes(x.proposalId))
       .map((x) => {
         const description = DOMPurify.sanitize(x.description);
+        const content = (x as { content?: unknown }).content;
+        const types = getProposalDisplayTypes(content ?? null);
         return {
           description,
           id: x.proposalId,
           title: x.title,
           status: x.status,
+          types,
         };
       });
   };

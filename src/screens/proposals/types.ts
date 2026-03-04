@@ -3,6 +3,8 @@ export type ProposalType = {
   title: string;
   description: string;
   status: string;
+  /** Display types (1 or more): each shown as a tag on the list */
+  types: string[];
 }
 
 export type ProposalsState = {
