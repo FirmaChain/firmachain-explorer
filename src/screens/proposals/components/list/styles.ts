@@ -16,6 +16,20 @@ export const useStyles = () => {
         },
         list: {
           flex: 1,
+          minHeight: 0,
+        },
+        listScroll: {
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
+        rowDivider: {
+          marginLeft: theme.spacing(-2),
+          marginRight: theme.spacing(-2),
+          marginTop: theme.spacing(1),
+          marginBottom: theme.spacing(1),
         },
         mobile: {
           [theme.breakpoints.up('lg')]: {

@@ -1,0 +1,38 @@
+import React from "react";
+import { Typography } from "@material-ui/core";
+import useTranslation from "next-translate/useTranslation";
+import CollapsibleMessageItem from "./collapsible_message_item";
+import type { MessageGroup } from "../utils";
+
+type Props = {
+  messageGroups: MessageGroup[];
+  openStates: Record<number, boolean>;
+  toggleOpen: (groupIndex: number) => void;
+  classes: Record<string, string>;
+};
+
+const MessagesSection: React.FC<Props> = ({ messageGroups, openStates, toggleOpen, classes }) => {
+  const { t } = useTranslation("proposals");
+
+  return (
+    <div className={classes.content}>
+      <Typography variant="body1" className="label">
+        {t("messages")}
+      </Typography>
+      <div className={classes.messageList}>
+        {messageGroups.map((group, groupIndex) => (
+          <CollapsibleMessageItem
+            key={groupIndex}
+            items={group.items}
+            displayType={group.displayType}
+            isOpen={!!openStates[groupIndex]}
+            onToggle={() => toggleOpen(groupIndex)}
+            classes={classes}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MessagesSection;

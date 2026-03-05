@@ -22,7 +22,7 @@ export const useProposalDetails = () => {
     exists: true,
     overview: {
       proposer: '',
-      content: defaultContent,
+      content: [defaultContent],
       title: '',
       id: 0,
       description: '',

@@ -33,6 +33,19 @@ exports[`screen: BlockDetails/Overview matches snapshot 1`] = `
         "label": "transactions:fee",
       },
       Object {
+        "detail": <Link
+          href="/accounts/undefined"
+          passHref={true}
+        >
+          <WithStyles(ForwardRef(Typography))
+            className="value"
+            component="a"
+            variant="body1"
+          />
+        </Link>,
+        "label": "transactions:feegrant",
+      },
+      Object {
         "detail": "0 / 0",
         "label": "transactions:gas",
       },
