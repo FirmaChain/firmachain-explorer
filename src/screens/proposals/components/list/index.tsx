@@ -109,7 +109,7 @@ const ProposalsList: React.FC<{
                     const item = formattedItems[index];
                     return (
                       <div style={style}>
-                        <div ref={rowRef} className={classes.row}>
+                        <div ref={rowRef}>
                           <SingleProposal {...item} />
                           {index !== itemCount - 1 && <Divider className={classes.rowDivider} />}
                         </div>
