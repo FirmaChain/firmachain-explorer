@@ -1,18 +1,26 @@
-import { useState, useCallback } from "react";
-import type { OverviewType } from "../../../types";
-import { toContentArray, getOverviewDisplayType, getMessageGroups } from "../utils";
-export function useOverviewState(overview: OverviewType) {
-  const contentArray = toContentArray(overview.content as OverviewType["content"] | string);
-  const messageItems = contentArray.filter(
-    (c): c is OverviewType["content"][number] => typeof c === "object" && c !== null
-  ) as OverviewType["content"][number][];
+import {
+  useCallback,
+  useState,
+} from 'react';
+import type { OverviewType } from '../../../types';
+import {
+  toContentArray,
+  getOverviewDisplayType,
+  getMessageGroups,
+} from '../utils';
+
+export const useOverviewState = (overview: OverviewType) => {
+  const messageItems = toContentArray(overview.content as OverviewType['content'] | string);
   const messageGroups = getMessageGroups(messageItems);
-  const hasMessageContent = messageItems.length > 0;
   const overviewType = getOverviewDisplayType(messageItems);
+  const hasMessageContent = messageItems.length > 0 && overviewType !== 'textProposal';
 
   const [openStates, setOpenStates] = useState<Record<number, boolean>>({});
   const toggleOpen = useCallback((groupIndex: number) => {
-    setOpenStates((prev) => ({ ...prev, [groupIndex]: !prev[groupIndex] }));
+    setOpenStates((prev) => ({
+      ...prev,
+      [groupIndex]: !prev[groupIndex],
+    }));
   }, []);
 
   return {
@@ -22,4 +30,4 @@ export function useOverviewState(overview: OverviewType) {
     openStates,
     toggleOpen,
   };
-}
+};

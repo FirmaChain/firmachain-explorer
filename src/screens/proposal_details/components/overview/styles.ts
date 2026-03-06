@@ -38,7 +38,9 @@ export const useStyles = () => {
           justifyContent: 'space-between',
           padding: theme.spacing(2),
           cursor: 'pointer',
-          backgroundColor: theme.palette.custom?.general?.surfaceTwo ?? theme.palette.background.paper,
+          backgroundColor: theme.palette.custom?.general?.surfaceTwo
+            ? theme.palette.custom.general.surfaceTwo
+            : theme.palette.background.paper,
           '&:hover': {
             backgroundColor: theme.palette.action.hover,
           },
@@ -81,6 +83,25 @@ export const useStyles = () => {
         },
         labelValueRowLabel: {
           transform: `translateX(${theme.spacing(2)}px) translateY(${theme.spacing(1.5)}px)`,
+        },
+        messageBodyTableWrap: {
+          width: '100%',
+          minWidth: 0,
+          overflowX: 'auto',
+        },
+        messageBodyContentCell: {
+          width: '100%',
+          minWidth: 0,
+          minHeight: 100,
+        },
+        messageBodyBlock: {
+          width: '100%',
+          minWidth: 0,
+          minHeight: 100,
+        },
+        messageBodyBlockCompact: {
+          width: '100%',
+          minWidth: 0,
         },
       });
     },

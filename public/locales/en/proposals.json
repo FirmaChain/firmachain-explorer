@@ -54,7 +54,7 @@
   "send": "Send",
   "recipients": "Recipients",
   "multiple": "Multiple",
-  "msgExec": "Msg Exec",
+  "authzExec": "Authz Exec",
   "other": "Other",
   "messages": "Messages",
   "authority": "Authority"
