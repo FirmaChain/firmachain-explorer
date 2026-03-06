@@ -1,13 +1,16 @@
-import React from "react";
-import numeral from "numeral";
-import classnames from "classnames";
-import { Divider } from "@material-ui/core";
-import { SingleProposal, Box } from "@components";
-import MetadataSection from "./components/metadata_section";
-import MessagesSection from "./components/messages_section";
-import { useStyles } from "./styles";
-import { useOverviewState } from "./hooks/use_overview_state";
-import type { OverviewType } from "../../types";
+import React from 'react';
+import numeral from 'numeral';
+import classnames from 'classnames';
+import { Divider } from '@material-ui/core';
+import {
+  SingleProposal,
+  Box,
+} from '@components';
+import MetadataSection from './components/metadata_section';
+import MessagesSection from './components/messages_section';
+import { useStyles } from './styles';
+import { useOverviewState } from './hooks/use_overview_state';
+import type { OverviewType } from '../../types';
 
 const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
   className,
@@ -25,7 +28,7 @@ const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({
   return (
     <Box className={classnames(className, classes.root)}>
       <SingleProposal
-        id={`#${numeral(overview.id).format("0,0")}`}
+        id={`#${numeral(overview.id).format('0,0')}`}
         title={overview.title}
         status={overview.status}
       />

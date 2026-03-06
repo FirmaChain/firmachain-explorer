@@ -36,15 +36,16 @@ describe('screen: BlockDetails/Overview', () => {
         <MockTheme>
           <Overview
             overview={{
-              content : [{
+              content: [{
                 '@type': '/cosmos.distribution.v1beta1.MsgCommunityPoolSpend',
-                authority: 'authority',
-                recipient: 'recipient',
-                amount: [{
-                  denom: 'denom',
-                  amount: '1000000',
-                }]
-              }],
+                  authority: 'authority',
+                  recipient: 'recipient',
+                  amount: [{
+                    denom: 'denom',
+                    amount: '1000000',
+                  }],
+                },
+              ],
               metadata: 'metadata',
               proposer: '',
               title: 'title',
@@ -82,13 +83,19 @@ describe('screen: BlockDetails/Overview', () => {
           '@type': '/cosmos.distribution.v1beta1.MsgCommunityPoolSpend',
           authority: 'firma10d07y265gmmuvt4z0w9aw880jnsr700j53mj8f',
           recipient: 'address1',
-          amount: [{ denom: 'ufct', amount: '15000000000' }],
+          amount: [{
+            denom: 'ufct',
+            amount: '15000000000',
+          }],
         },
         {
           '@type': '/cosmos.distribution.v1beta1.MsgCommunityPoolSpend',
           authority: 'firma10d07y265gmmuvt4z0w9aw880jnsr700j53mj8f',
           recipient: 'address2',
-          amount: [{ denom: 'ufct', amount: '25000000000' }],
+          amount: [{
+            denom: 'ufct',
+            amount: '25000000000',
+          }],
         },
         {
           '@type': '/cosmos.gov.v1.MsgUpdateParams',
@@ -96,7 +103,10 @@ describe('screen: BlockDetails/Overview', () => {
           params: {
             quorum: '0.334',
             threshold: '0.5',
-            min_deposit: [{ denom: 'ufct', amount: '5000000000' }],
+            min_deposit: [{
+              denom: 'ufct',
+              amount: '5000000000',
+            }],
             voting_period: '300s',
           },
         },
@@ -104,7 +114,10 @@ describe('screen: BlockDetails/Overview', () => {
           '@type': '/cosmos.distribution.v1beta1.MsgCommunityPoolSpend',
           authority: 'firma10d07y265gmmuvt4z0w9aw880jnsr700j53mj8f',
           recipient: 'address3',
-          amount: [{ denom: 'ufct', amount: '10000000000' }],
+          amount: [{
+            denom: 'ufct',
+            amount: '10000000000',
+          }],
         },
       ],
       metadata: '',

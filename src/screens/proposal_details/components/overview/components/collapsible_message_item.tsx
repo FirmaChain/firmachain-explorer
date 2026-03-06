@@ -1,16 +1,16 @@
-import React from "react";
-import classnames from "classnames";
-import { Collapse } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import useTranslation from "next-translate/useTranslation";
-import { Tag } from "@components";
-import { KNOWN_GOV_TYPES } from "../constants";
-import type { OverviewDisplayType } from "../utils";
-import MessageBodyContent from "./message_body_content";
-import type { OverviewType } from "../../../types";
+import React from 'react';
+import classnames from 'classnames';
+import { Collapse } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import useTranslation from 'next-translate/useTranslation';
+import { Tag } from '@components';
+import { KNOWN_GOV_TYPES } from '../constants';
+import type { OverviewDisplayType } from '../utils';
+import MessageBodyContent from './message_body_content';
+import type { OverviewType } from '../../../types';
 
 type Props = {
-  items: OverviewType["content"][number][];
+  items: OverviewType['content'][number][];
   displayType: OverviewDisplayType;
   isOpen: boolean;
   onToggle: () => void;
@@ -24,11 +24,11 @@ const CollapsibleMessageItem: React.FC<Props> = ({
   onToggle,
   classes,
 }) => {
-  const { t } = useTranslation("proposals");
+  const { t } = useTranslation('proposals');
   const isGov = (KNOWN_GOV_TYPES as readonly string[]).includes(displayType);
   const single = items.length === 1;
   const label = single ? t(displayType) : `${t(displayType)} (${items.length})`;
-  const tagTheme = displayType === "msgExec" ? "thirteen" : "seven";
+  const tagTheme = displayType === 'msgExec' ? 'thirteen' : 'seven';
 
   return (
     <div className={classes.messageSection}>
@@ -38,7 +38,7 @@ const CollapsibleMessageItem: React.FC<Props> = ({
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
+          if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             onToggle();
           }

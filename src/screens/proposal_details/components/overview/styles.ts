@@ -38,7 +38,9 @@ export const useStyles = () => {
           justifyContent: 'space-between',
           padding: theme.spacing(2),
           cursor: 'pointer',
-          backgroundColor: theme.palette.custom?.general?.surfaceTwo ?? theme.palette.background.paper,
+          backgroundColor: theme.palette.custom?.general?.surfaceTwo
+            ? theme.palette.custom.general.surfaceTwo
+            : theme.palette.background.paper,
           '&:hover': {
             backgroundColor: theme.palette.action.hover,
           },
