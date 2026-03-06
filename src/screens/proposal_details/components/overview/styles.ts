@@ -84,6 +84,25 @@ export const useStyles = () => {
         labelValueRowLabel: {
           transform: `translateX(${theme.spacing(2)}px) translateY(${theme.spacing(1.5)}px)`,
         },
+        messageBodyTableWrap: {
+          width: '100%',
+          minWidth: 0,
+          overflowX: 'auto',
+        },
+        messageBodyContentCell: {
+          width: '100%',
+          minWidth: 0,
+          minHeight: 100,
+        },
+        messageBodyBlock: {
+          width: '100%',
+          minWidth: 0,
+          minHeight: 100,
+        },
+        messageBodyBlockCompact: {
+          width: '100%',
+          minWidth: 0,
+        },
       });
     },
   )();

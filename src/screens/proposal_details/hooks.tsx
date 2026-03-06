@@ -7,22 +7,19 @@ import {
   useProposalDetailsQuery,
   ProposalDetailsQuery,
 } from '@graphql/types';
-import { ContentType, ProposalState } from './types';
+import {
+  ProposalState,
+} from './types';
 
 export const useProposalDetails = () => {
   const router = useRouter();
-  const defaultContent: ContentType = {
-    '@type': '',
-    authority: '',
-    plan: null,
-  };
 
   const [state, setState] = useState<ProposalState>({
     loading: true,
     exists: true,
     overview: {
       proposer: '',
-      content: [defaultContent],
+      content: [],
       title: '',
       id: 0,
       description: '',
@@ -36,7 +33,11 @@ export const useProposalDetails = () => {
   });
 
   const handleSetState = (stateChange: any) => {
-    setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
+    setState((prevState) => ({
+      ...prevState,
+      ...stateChange,
+      overview: stateChange.overview != null ? stateChange.overview : prevState.overview,
+    }));
   };
 
   // ==========================
@@ -77,7 +78,7 @@ export const useProposalDetails = () => {
 
       const overview = {
         proposer: R.pathOr('', ['proposal', 0, 'proposer'], data),
-        content: R.pathOr('', ['proposal', 0, 'content'], data),
+        content: R.pathOr([], ['proposal', 0, 'content'], data),
         title: R.pathOr('', ['proposal', 0, 'title'], data),
         id: R.pathOr('', ['proposal', 0, 'proposalId'], data),
         description: R.pathOr('', ['proposal', 0, 'description'], data).replace(/\n\n/gi, '\n\n&nbsp;&nbsp;\n\n'),
@@ -86,6 +87,7 @@ export const useProposalDetails = () => {
         depositEndTime: R.pathOr('', ['proposal', 0, 'depositEndTime'], data),
         votingStartTime,
         votingEndTime,
+        metadata: R.pathOr('', ['proposal', 0, 'metadata'], data),
       };
 
       return overview;

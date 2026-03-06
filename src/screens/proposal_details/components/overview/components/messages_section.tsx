@@ -21,7 +21,7 @@ const MessagesSection: React.FC<Props> = ({
 
   return (
     <div className={classes.content}>
-      <Typography variant="body1" className={classes.label}>
+      <Typography variant="body1" className="label">
         {t('messages')}
       </Typography>
       <div className={classes.messageList}>
