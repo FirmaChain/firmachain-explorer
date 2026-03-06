@@ -5,7 +5,7 @@ export const KNOWN_GOV_TYPES = [
   'softwareUpgradeProposal',
   'communityPoolSpendProposal',
   'multiple',
-  'msgExec',
+  'authzExec',
   'other',
 ] as const;
 
