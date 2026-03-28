@@ -1,120 +1,115 @@
-import { useState } from "react";
-import { useRouter } from "@/adapters/routing/router";
-import { convertMsgsToModels } from "@msg";
-import * as R from "ramda";
-import {
-  useGetMessagesByAddressQuery,
-  GetMessagesByAddressQuery,
-} from "@graphql/types";
-import { TransactionState } from "./types";
+import { useState } from 'react';
+import { useRouter } from '@/adapters/routing/router';
+import { GetMessagesByAddressQuery, useGetMessagesByAddressQuery } from '@graphql/types';
+import { convertMsgsToModels } from '@msg';
+import * as R from 'ramda';
+
+import { TransactionState } from './types';
 
 const LIMIT = 50;
 
 export const useTransactions = () => {
-  const router = useRouter();
-  const [state, setState] = useState<TransactionState>({
-    data: [],
-    hasNextPage: false,
-    isNextPageLoading: false,
-    offsetCount: 0,
-  });
-
-  const handleSetState = (stateChange: any) => {
-    setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
-  };
-
-  const transactionQuery = useGetMessagesByAddressQuery({
-    variables: {
-      limit: LIMIT + 1, // to check if more exist
-      offset: 0,
-      address: `{${R.pathOr("", ["query", "address"], router)}}`,
-    },
-    onCompleted: (data) => {
-      const itemsLength = data.messagesByAddress.length;
-      const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
-      const stateChange = {
-        data: newItems,
-        hasNextPage: itemsLength === 51,
+    const router = useRouter();
+    const [state, setState] = useState<TransactionState>({
+        data: [],
+        hasNextPage: false,
         isNextPageLoading: false,
-        offsetCount: state.offsetCount + LIMIT,
-      };
-
-      handleSetState(stateChange);
-    },
-  });
-
-  const loadNextPage = async () => {
-    handleSetState({
-      isNextPageLoading: true,
+        offsetCount: 0
     });
-    // refetch query
-    await transactionQuery
-      .fetchMore({
+
+    const handleSetState = (stateChange: any) => {
+        setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
+    };
+
+    const transactionQuery = useGetMessagesByAddressQuery({
         variables: {
-          offset: state.offsetCount,
-          limit: LIMIT + 1,
+            limit: LIMIT + 1, // to check if more exist
+            offset: 0,
+            address: `{${R.pathOr('', ['query', 'address'], router)}}`
         },
-        updateQuery: (
-          previousResult: GetMessagesByAddressQuery,
-          {
-            fetchMoreResult,
-          }: {
-            fetchMoreResult?: GetMessagesByAddressQuery;
-            variables: { offset: number; limit: number };
-          },
-        ) => {
-          if (!fetchMoreResult) return previousResult;
+        onCompleted: (data) => {
+            const itemsLength = data.messagesByAddress.length;
+            const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
+            const stateChange = {
+                data: newItems,
+                hasNextPage: itemsLength === 51,
+                isNextPageLoading: false,
+                offsetCount: state.offsetCount + LIMIT
+            };
 
-          return {
-            messagesByAddress: [
-              ...(previousResult.messagesByAddress ?? []),
-              ...(fetchMoreResult.messagesByAddress ?? []),
-            ],
-          };
-        },
-      })
-      .then(({ data }) => {
-        const itemsLength = data.messagesByAddress.length;
-        const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
-        const stateChange = {
-          data: newItems,
-          hasNextPage: itemsLength === 51,
-          isNextPageLoading: false,
-          offsetCount: state.offsetCount + LIMIT,
-        };
-        handleSetState(stateChange);
-      });
-  };
-
-  const formatTransactions = (data: GetMessagesByAddressQuery) => {
-    let formattedData = data.messagesByAddress;
-    if (data.messagesByAddress.length === 51) {
-      formattedData = data.messagesByAddress.slice(0, 51);
-    }
-    return formattedData.map((x) => {
-      const { transaction } = x;
-
-      // =============================
-      // messages
-      // =============================
-      const messages = convertMsgsToModels(transaction);
-
-      return {
-        height: transaction.height,
-        hash: transaction.hash,
-        messages: {
-          count: messages.length,
-          items: messages,
-        },
-        success: transaction.success,
-        timestamp: transaction.block.timestamp,
-        type: transaction.messages,
-      };
+            handleSetState(stateChange);
+        }
     });
-  };
 
-  return {
-    state,
-    loadNextPage,
-  };
+    const loadNextPage = async () => {
+        handleSetState({
+            isNextPageLoading: true
+        });
+        // refetch query
+        await transactionQuery
+            .fetchMore({
+                variables: {
+                    offset: state.offsetCount,
+                    limit: LIMIT + 1
+                },
+                updateQuery: (
+                    previousResult: GetMessagesByAddressQuery,
+                    {
+                        fetchMoreResult
+                    }: {
+                        fetchMoreResult?: GetMessagesByAddressQuery;
+                        variables: { offset: number; limit: number };
+                    }
+                ) => {
+                    if (!fetchMoreResult) return previousResult;
+
+                    return {
+                        messagesByAddress: [...(previousResult.messagesByAddress ?? []), ...(fetchMoreResult.messagesByAddress ?? [])]
+                    };
+                }
+            })
+            .then(({ data }) => {
+                const itemsLength = data.messagesByAddress.length;
+                const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
+                const stateChange = {
+                    data: newItems,
+                    hasNextPage: itemsLength === 51,
+                    isNextPageLoading: false,
+                    offsetCount: state.offsetCount + LIMIT
+                };
+                handleSetState(stateChange);
+            });
+    };
+
+    const formatTransactions = (data: GetMessagesByAddressQuery) => {
+        let formattedData = data.messagesByAddress;
+        if (data.messagesByAddress.length === 51) {
+            formattedData = data.messagesByAddress.slice(0, 51);
+        }
+        return formattedData.map((x) => {
+            const { transaction } = x;
+
+            // =============================
+            // messages
+            // =============================
+            const messages = convertMsgsToModels(transaction);
+
+            return {
+                height: transaction.height,
+                hash: transaction.hash,
+                messages: {
+                    count: messages.length,
+                    items: messages
+                },
+                success: transaction.success,
+                timestamp: transaction.block.timestamp,
+                type: transaction.messages
+            };
+        });
+    };
+
+    return {
+        state,
+        loadNextPage
+    };
 };

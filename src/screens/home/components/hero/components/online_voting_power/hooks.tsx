@@ -1,59 +1,48 @@
 import { useState } from 'react';
+import { chainConfig } from '@configs';
+import { OnlineVotingPowerQuery, useOnlineVotingPowerQuery } from '@graphql/types';
+import { formatToken } from '@utils/format_token';
 import numeral from 'numeral';
 import * as R from 'ramda';
-import {
-  useOnlineVotingPowerQuery,
-  OnlineVotingPowerQuery,
-} from '@graphql/types';
-import { chainConfig } from '@configs';
-import { formatToken } from '@utils/format_token';
 
 const initialState: {
-  votingPower: number;
-  totalVotingPower: number;
-  activeValidators: number;
+    votingPower: number;
+    totalVotingPower: number;
+    activeValidators: number;
 } = {
-  votingPower: 0,
-  totalVotingPower: 0,
-  activeValidators: 0,
+    votingPower: 0,
+    totalVotingPower: 0,
+    activeValidators: 0
 };
 
 export const useOnlineVotingPower = () => {
-  const [state, setState] = useState(initialState);
+    const [state, setState] = useState(initialState);
 
-  const handleSetState = (stateChange: any) => {
-    setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
-  };
+    const handleSetState = (stateChange: any) => {
+        setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
+    };
 
-  useOnlineVotingPowerQuery({
-    onCompleted: (data) => {
-      handleSetState(formatOnlineVotingPower(data));
-    },
-  });
+    useOnlineVotingPowerQuery({
+        onCompleted: (data) => {
+            handleSetState(formatOnlineVotingPower(data));
+        }
+    });
 
-  const formatOnlineVotingPower = (data: OnlineVotingPowerQuery) => {
-    const votingPower = R.pathOr(
-      0,
-      ["validatorVotingPowerAggregate", "aggregate", "sum", "votingPower"],
-      data
-    );
-    const bonded = R.pathOr(0, ["stakingPool", 0, "bonded"], data);
-    const activeValidators = R.pathOr(
-      0,
-      ["activeTotal", "aggregate", "count"],
-      data
-    );
+    const formatOnlineVotingPower = (data: OnlineVotingPowerQuery) => {
+        const votingPower = R.pathOr(0, ['validatorVotingPowerAggregate', 'aggregate', 'sum', 'votingPower'], data);
+        const bonded = R.pathOr(0, ['stakingPool', 0, 'bonded'], data);
+        const activeValidators = R.pathOr(0, ['activeTotal', 'aggregate', 'count'], data);
 
-    let tokenInfo = formatToken(bonded, chainConfig.votingPowerTokenUnit);
+        let tokenInfo = formatToken(bonded, chainConfig.votingPowerTokenUnit);
+
+        return {
+            activeValidators,
+            votingPower: numeral(votingPower / 10 ** tokenInfo.exponent).value(),
+            totalVotingPower: numeral(tokenInfo.value).value()
+        };
+    };
 
     return {
-      activeValidators,
-      votingPower: numeral(votingPower / 10 ** tokenInfo.exponent).value(),
-      totalVotingPower: numeral(tokenInfo.value).value(),
+        state
     };
-  };
-
-  return {
-    state,
-  };
 };

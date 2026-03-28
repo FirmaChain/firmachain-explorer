@@ -1,21 +1,19 @@
-import React from "react";
-import Trans from "@/adapters/i18n/Trans";
-import { Typography } from "@material-ui/core";
-import { useStyles } from "./styles";
+import React from 'react';
+import Trans from '@/adapters/i18n/Trans';
+import { Typography } from '@material-ui/core';
+
+import { useStyles } from './styles';
 
 const VotingPowerExplanation = () => {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
-      <Typography>
-        <Trans
-          i18nKey="validators:votingPowerExplanation"
-          components={[<b />]}
-        />
-      </Typography>
-    </div>
-  );
+    return (
+        <div className={classes.root}>
+            <Typography>
+                <Trans i18nKey="validators:votingPowerExplanation" components={[<b />]} />
+            </Typography>
+        </div>
+    );
 };
 
 export default VotingPowerExplanation;

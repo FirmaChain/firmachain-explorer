@@ -1,4 +1,5 @@
 import { selectorFamily } from 'recoil';
+
 import { atomFamilyState } from './atom';
 import { AtomState } from './types';
 
@@ -10,20 +11,24 @@ import { AtomState } from './types';
  * @param address string
  * @returns string | null
  */
-const getValidator = (address: string) => ({ get }): AtomState => {
-  const state = get(atomFamilyState(address));
-  return state;
-};
+const getValidator =
+    (address: string) =>
+    ({ get }): AtomState => {
+        const state = get(atomFamilyState(address));
+        return state;
+    };
 
 export const writeValidator = selectorFamily<AtomState, string>({
-  key: 'validator.write.validator',
-  get: getValidator,
-  set: (address: string) => ({ set }, validator) => {
-    set(atomFamilyState(address), validator);
-  },
+    key: 'validator.write.validator',
+    get: getValidator,
+    set:
+        (address: string) =>
+        ({ set }, validator) => {
+            set(atomFamilyState(address), validator);
+        }
 });
 
 export const readValidator = selectorFamily({
-  key: 'validator.read.validator',
-  get: getValidator,
+    key: 'validator.read.validator',
+    get: getValidator
 });

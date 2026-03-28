@@ -1,124 +1,124 @@
-import axios from "axios";
-import * as R from "ramda";
-import { toValidatorAddress } from "@utils/prefix_convert";
-import { ENV } from "@configs/env";
 import {
-  AccountCommissionDocument,
-  AccountWithdrawalAddressDocument,
-  AccountBalancesDocument,
-  AccountDelegationBalanceDocument,
-  AccountUnbondingBalanceDocument,
-  AccountDelegationRewardsDocument,
-} from "@/graphql/account_details_documents";
+    AccountBalancesDocument,
+    AccountCommissionDocument,
+    AccountDelegationBalanceDocument,
+    AccountDelegationRewardsDocument,
+    AccountUnbondingBalanceDocument,
+    AccountWithdrawalAddressDocument
+} from '@/graphql/account_details_documents';
+import { ENV } from '@configs/env';
+import { toValidatorAddress } from '@utils/prefix_convert';
+import axios from 'axios';
+import * as R from 'ramda';
 
 export const fetchCommission = async (address: string) => {
-  const defaultReturnValue = {
-    commission: {
-      coins: null,
-    },
-  };
-  try {
-    const { data } = await axios.post(ENV.GRAPHQL_URL, {
-      variables: {
-        validatorAddress: toValidatorAddress(address),
-      },
-      query: AccountCommissionDocument,
-    });
-    return R.pathOr(defaultReturnValue, ["data"], data);
-  } catch (error) {
-    return defaultReturnValue;
-  }
+    const defaultReturnValue = {
+        commission: {
+            coins: null
+        }
+    };
+    try {
+        const { data } = await axios.post(ENV.GRAPHQL_URL, {
+            variables: {
+                validatorAddress: toValidatorAddress(address)
+            },
+            query: AccountCommissionDocument
+        });
+        return R.pathOr(defaultReturnValue, ['data'], data);
+    } catch (error) {
+        return defaultReturnValue;
+    }
 };
 
 export const fetchAccountWithdrawalAddress = async (address: string) => {
-  const defaultReturnValue = {
-    withdrawalAddress: {
-      address,
-    },
-  };
-  try {
-    const { data } = await axios.post(ENV.GRAPHQL_URL, {
-      variables: {
-        address,
-      },
-      query: AccountWithdrawalAddressDocument,
-    });
-    return R.pathOr(defaultReturnValue, ["data"], data);
-  } catch (error) {
-    return defaultReturnValue;
-  }
+    const defaultReturnValue = {
+        withdrawalAddress: {
+            address
+        }
+    };
+    try {
+        const { data } = await axios.post(ENV.GRAPHQL_URL, {
+            variables: {
+                address
+            },
+            query: AccountWithdrawalAddressDocument
+        });
+        return R.pathOr(defaultReturnValue, ['data'], data);
+    } catch (error) {
+        return defaultReturnValue;
+    }
 };
 
 export const fetchAvailableBalances = async (address: string) => {
-  const defaultReturnValue = {
-    accountBalances: {
-      coins: [],
-    },
-  };
-  try {
-    const { data } = await axios.post(ENV.GRAPHQL_URL, {
-      variables: {
-        address,
-      },
-      query: AccountBalancesDocument,
-    });
-    return R.pathOr(defaultReturnValue, ["data"], data);
-  } catch (error) {
-    return defaultReturnValue;
-  }
+    const defaultReturnValue = {
+        accountBalances: {
+            coins: []
+        }
+    };
+    try {
+        const { data } = await axios.post(ENV.GRAPHQL_URL, {
+            variables: {
+                address
+            },
+            query: AccountBalancesDocument
+        });
+        return R.pathOr(defaultReturnValue, ['data'], data);
+    } catch (error) {
+        return defaultReturnValue;
+    }
 };
 
 export const fetchDelegationBalance = async (address: string) => {
-  const defaultReturnValue = {
-    delegationBalance: {
-      coins: [],
-    },
-  };
-  try {
-    const { data } = await axios.post(ENV.GRAPHQL_URL, {
-      variables: {
-        address,
-      },
-      query: AccountDelegationBalanceDocument,
-    });
-    return R.pathOr(defaultReturnValue, ["data"], data);
-  } catch (error) {
-    return defaultReturnValue;
-  }
+    const defaultReturnValue = {
+        delegationBalance: {
+            coins: []
+        }
+    };
+    try {
+        const { data } = await axios.post(ENV.GRAPHQL_URL, {
+            variables: {
+                address
+            },
+            query: AccountDelegationBalanceDocument
+        });
+        return R.pathOr(defaultReturnValue, ['data'], data);
+    } catch (error) {
+        return defaultReturnValue;
+    }
 };
 
 export const fetchUnbondingBalance = async (address: string) => {
-  const defaultReturnValue = {
-    unbondingBalance: {
-      coins: [],
-    },
-  };
-  try {
-    const { data } = await axios.post(ENV.GRAPHQL_URL, {
-      variables: {
-        address,
-      },
-      query: AccountUnbondingBalanceDocument,
-    });
-    return R.pathOr(defaultReturnValue, ["data"], data);
-  } catch (error) {
-    return defaultReturnValue;
-  }
+    const defaultReturnValue = {
+        unbondingBalance: {
+            coins: []
+        }
+    };
+    try {
+        const { data } = await axios.post(ENV.GRAPHQL_URL, {
+            variables: {
+                address
+            },
+            query: AccountUnbondingBalanceDocument
+        });
+        return R.pathOr(defaultReturnValue, ['data'], data);
+    } catch (error) {
+        return defaultReturnValue;
+    }
 };
 
 export const fetchRewards = async (address: string) => {
-  const defaultReturnValue = {
-    delegationRewards: [],
-  };
-  try {
-    const { data } = await axios.post(ENV.GRAPHQL_URL, {
-      variables: {
-        address,
-      },
-      query: AccountDelegationRewardsDocument,
-    });
-    return R.pathOr(defaultReturnValue, ["data"], data);
-  } catch (error) {
-    return defaultReturnValue;
-  }
+    const defaultReturnValue = {
+        delegationRewards: []
+    };
+    try {
+        const { data } = await axios.post(ENV.GRAPHQL_URL, {
+            variables: {
+                address
+            },
+            query: AccountDelegationRewardsDocument
+        });
+        return R.pathOr(defaultReturnValue, ['data'], data);
+    } catch (error) {
+        return defaultReturnValue;
+    }
 };

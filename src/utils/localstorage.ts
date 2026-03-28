@@ -5,17 +5,17 @@
  * @returns the localstorage item
  */
 export const getItem = <P>(key: string, value: P): P => {
-  const isClient = typeof window === 'object';
-  if (isClient) {
-    const persistedString = localStorage.getItem(key);
-    if (persistedString === null) {
-      return value;
-    }
+    const isClient = typeof window === 'object';
+    if (isClient) {
+        const persistedString = localStorage.getItem(key);
+        if (persistedString === null) {
+            return value;
+        }
 
-    const persistedValue = JSON.parse(persistedString);
-    return persistedValue;
-  }
-  return value;
+        const persistedValue = JSON.parse(persistedString);
+        return persistedValue;
+    }
+    return value;
 };
 
 /**
@@ -24,10 +24,10 @@ export const getItem = <P>(key: string, value: P): P => {
  * @param value
  */
 export const setItem = <P>(key: string, value: P) => {
-  const isClient = typeof window === 'object';
-  if (isClient) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
+    const isClient = typeof window === 'object';
+    if (isClient) {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
 };
 
 // ================================

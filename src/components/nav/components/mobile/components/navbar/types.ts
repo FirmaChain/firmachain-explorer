@@ -1,5 +1,5 @@
 export interface NavbarProps {
-  isOpen: boolean;
-  openNetwork: () => void;
-  toggleNavMenus: () => void;
+    isOpen: boolean;
+    openNetwork: () => void;
+    toggleNavMenus: () => void;
 }

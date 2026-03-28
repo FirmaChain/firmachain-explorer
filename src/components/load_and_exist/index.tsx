@@ -1,30 +1,16 @@
 import React from 'react';
-import {
-  NotFound,
-  LinearLoading,
-} from '@components';
+import { LinearLoading, NotFound } from '@components';
 
-const LoadAndExist = (props: {
-  loading: boolean;
-  exists: boolean;
-  children: React.ReactNode;
-}) => {
-  const {
-    loading,
-    exists,
-    children,
-  } = props;
+const LoadAndExist = (props: { loading: boolean; exists: boolean; children: React.ReactNode }) => {
+    const { loading, exists, children } = props;
 
-  if (loading) {
-    return <LinearLoading />;
-  } if (!exists && !loading) {
-    return <NotFound />;
-  }
-  return (
-    <>
-      {children}
-    </>
-  );
+    if (loading) {
+        return <LinearLoading />;
+    }
+    if (!exists && !loading) {
+        return <NotFound />;
+    }
+    return <>{children}</>;
 };
 
 export default LoadAndExist;

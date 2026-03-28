@@ -1,9 +1,5 @@
 import Overview from './overview';
-import Transactions from './transactions';
 import Signatures from './signatures';
+import Transactions from './transactions';
 
-export {
-  Overview,
-  Transactions,
-  Signatures,
-};
+export { Overview, Transactions, Signatures };

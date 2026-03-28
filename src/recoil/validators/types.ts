@@ -1,4 +1,4 @@
 export type AtomState = {
-  delegator: string;
-  validator: string;
+    delegator: string;
+    validator: string;
 } | null;

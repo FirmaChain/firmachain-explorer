@@ -5,36 +5,35 @@ import { initReactI18next } from 'react-i18next';
 const DEFAULT_NS = 'common';
 
 if (!i18n.isInitialized) {
-  i18n
-    .use(HttpBackend)
-    .use(initReactI18next)
-    .init({
-      lng: 'en',
-      fallbackLng: 'en',
-      defaultNS: DEFAULT_NS,
-      ns: [
-        'common',
-        'home',
-        'blocks',
-        'transactions',
-        'message_labels',
-        'message_contents',
-        'proposals',
-        'validators',
-        'accounts',
-        'params',
-        'profiles',
-      ],
-      interpolation: {
-        escapeValue: false,
-      },
-      backend: {
-        loadPath: '/locales/{{lng}}/{{ns}}.json',
-      },
-      react: {
-        useSuspense: false,
-      },
-    });
+    i18n.use(HttpBackend)
+        .use(initReactI18next)
+        .init({
+            lng: 'en',
+            fallbackLng: 'en',
+            defaultNS: DEFAULT_NS,
+            ns: [
+                'common',
+                'home',
+                'blocks',
+                'transactions',
+                'message_labels',
+                'message_contents',
+                'proposals',
+                'validators',
+                'accounts',
+                'params',
+                'profiles'
+            ],
+            interpolation: {
+                escapeValue: false
+            },
+            backend: {
+                loadPath: '/locales/{{lng}}/{{ns}}.json'
+            },
+            react: {
+                useSuspense: false
+            }
+        });
 }
 
 export default i18n;

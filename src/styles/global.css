@@ -1,200 +1,202 @@
 @font-face {
-  font-family: 'Hind Madurai';
-  src: url("/fonts/HindMadurai-Regular.ttf");
-  font-weight: 400;
+    font-family: 'Hind Madurai';
+    src: url('/fonts/HindMadurai-Regular.ttf');
+    font-weight: 400;
 }
 
 @font-face {
-  font-family: 'Hind Madurai';
-  src: url("/fonts/HindMadurai-Regular.ttf");
-  font-weight: 500;
+    font-family: 'Hind Madurai';
+    src: url('/fonts/HindMadurai-Regular.ttf');
+    font-weight: 500;
 }
 
 html {
-  font-size: 16px;
-  box-sizing: border-box;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 *,
-  *:before,
-  *:after {
+*:before,
+*:after {
     box-sizing: border-box;
-  }
-
-body {
-  font-family: "Hind Madurai", sans-serif;
-  font-size: 16px;
 }
 
+body {
+    font-family: 'Hind Madurai', sans-serif;
+    font-size: 16px;
+}
 
 ::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
+    width: 14px;
+    height: 14px;
 }
 
 ::-webkit-scrollbar-corner,
 ::-webkit-scrollbar-track {
-  background-color: rgb(64, 64, 64);
+    background-color: rgb(64, 64, 64);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(96, 96, 96);
-  background-clip: padding-box;
-  border: 2px solid transparent;
+    background-color: rgb(96, 96, 96);
+    background-clip: padding-box;
+    border: 2px solid transparent;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(112, 112, 112);
+    background-color: rgb(112, 112, 112);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background-color: rgb(128, 128, 128);
+    background-color: rgb(128, 128, 128);
 }
 
 /* Buttons */
 ::-webkit-scrollbar-button:single-button {
-  background-color: rgb(64, 64, 64);
+    background-color: rgb(64, 64, 64);
 
-  display: block;
-  background-size: 8px;
-  background-repeat: no-repeat;
+    display: block;
+    background-size: 8px;
+    background-repeat: no-repeat;
 }
 
 /* Up */
 ::-webkit-scrollbar-button:single-button:vertical:decrement {
-  height: 10px;
-  width: 14px;
-  background-position: center 5px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='50,00 0,50 100,50'/></svg>");
+    height: 10px;
+    width: 14px;
+    background-position: center 5px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='50,00 0,50 100,50'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='50,00 0,50 100,50'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='50,00 0,50 100,50'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:vertical:decrement:active {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='50,00 0,50 100,50'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='50,00 0,50 100,50'/></svg>");
 }
 
 /* Down */
 ::-webkit-scrollbar-button:single-button:vertical:increment {
-  height: 10px;
-  width: 14px;
-  background-position: center 2px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='0,0 100,0 50,50'/></svg>");
+    height: 10px;
+    width: 14px;
+    background-position: center 2px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='0,0 100,0 50,50'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:vertical:increment:hover {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='0,0 100,0 50,50'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='0,0 100,0 50,50'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:vertical:increment:active {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 100,0 50,50'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 100,0 50,50'/></svg>");
 }
 
 /* Left */
 ::-webkit-scrollbar-button:single-button:horizontal:decrement {
-  height: 10px;
-  width: 10px;
-  background-position: 3px 3px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='0,50 50,100 50,0'/></svg>");
-
+    height: 10px;
+    width: 10px;
+    background-position: 3px 3px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='0,50 50,100 50,0'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='0,50 50,100 50,0'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='0,50 50,100 50,0'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:horizontal:decrement:active {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,50 50,100 50,0'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,50 50,100 50,0'/></svg>");
 }
 
 /* Right */
 ::-webkit-scrollbar-button:single-button:horizontal:increment {
-  height: 10px;
-  width: 10px;
-  background-position: 3px 3px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='0,0 0,100 50,50'/></svg>");
+    height: 10px;
+    width: 10px;
+    background-position: 3px 3px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='0,0 0,100 50,50'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:horizontal:increment:hover {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='0,0 0,100 50,50'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='0,0 0,100 50,50'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:horizontal:increment:active {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 0,100 50,50'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 0,100 50,50'/></svg>");
 }
-
 
 a {
-  text-decoration: none;
-  color: #56B4E9;
+    text-decoration: none;
+    color: #56b4e9;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: "Hind Madurai", sans-serif;
-  font-weight: 400;
-  margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Hind Madurai', sans-serif;
+    font-weight: 400;
+    margin: 0;
 }
 
 h1 {
-  font-size: 2rem;
-  letter-spacing: 0.25px;
+    font-size: 2rem;
+    letter-spacing: 0.25px;
 }
 
 h2 {
-  font-size: 1.5rem;
-  letter-spacing: 0px;
+    font-size: 1.5rem;
+    letter-spacing: 0px;
 }
 
 h3 {
-  font-size: 1.25rem;
-  letter-spacing: 0.15px;
+    font-size: 1.25rem;
+    letter-spacing: 0.15px;
 }
 
 h4 {
-  font-size: 1rem;
-  letter-spacing: 0.15px;
+    font-size: 1rem;
+    letter-spacing: 0.15px;
 }
 
 h5 {
-  font-size: 0.875rem;
-  letter-spacing: 0.1px;
-  font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.1px;
+    font-weight: 500;
 }
 
 h6 {
-  font-size: 0.75rem;
-  letter-spacing: 0.1px;
-  font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.1px;
+    font-weight: 500;
 }
 
 p {
-  font-size: 1rem;
-  white-space: pre-wrap;
-  margin: 0px;
+    font-size: 1rem;
+    white-space: pre-wrap;
+    margin: 0px;
 }
 
 caption {
-  font-size: 0.75rem;
-  letter-spacing: 0.4px;
+    font-size: 0.75rem;
+    letter-spacing: 0.4px;
 }
 
 button {
-  font-size: 0.875rem;
-  letter-spacing: 1.25px;
-  text-transform: none;
+    font-size: 0.875rem;
+    letter-spacing: 1.25px;
+    text-transform: none;
 }
 
 svg {
-  fill: #999999;
+    fill: #999999;
 }
 
 .scrollbar::-webkit-scrollbar {
-  display: none;
+    display: none;
 }

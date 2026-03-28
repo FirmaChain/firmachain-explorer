@@ -10,24 +10,24 @@ class MsgChannelOpenTry {
     public json: any;
 
     constructor(payload: any) {
-      this.category = 'ibc';
-      this.type = payload.type;
-      this.signer = payload.signer;
-      this.channel = payload.channel;
-      this.portId = payload.portId;
-      this.counterpartyVersion = payload.counterpartyVersion;
-      this.json = payload.json;
+        this.category = 'ibc';
+        this.type = payload.type;
+        this.signer = payload.signer;
+        this.channel = payload.channel;
+        this.portId = payload.portId;
+        this.counterpartyVersion = payload.counterpartyVersion;
+        this.json = payload.json;
     }
 
     static fromJson(json: any) {
-      return new MsgChannelOpenTry({
-        json,
-        type: json['@type'],
-        signer: json.signer,
-        channel: json.channel,
-        portId: json.port_id,
-        counterpartyVersion: json.counterparty_version,
-      });
+        return new MsgChannelOpenTry({
+            json,
+            type: json['@type'],
+            signer: json.signer,
+            channel: json.channel,
+            portId: json.port_id,
+            counterpartyVersion: json.counterparty_version
+        });
     }
 }
 

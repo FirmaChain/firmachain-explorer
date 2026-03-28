@@ -1,54 +1,52 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = () => {
-  const styles = makeStyles(
-    (theme) => {
-      return ({
-        root: {
-          height: '100%',
-          '& .status': {
-            '&.one': {
-              color: theme.palette.custom.tags.one,
+    const styles = makeStyles((theme) => {
+        return {
+            root: {
+                height: '100%',
+                '& .status': {
+                    '&.one': {
+                        color: theme.palette.custom.tags.one
+                    },
+                    '&.two': {
+                        color: theme.palette.custom.tags.two
+                    },
+                    '&.three': {
+                        color: theme.palette.custom.tags.three
+                    },
+                    '&.zero': {
+                        color: theme.palette.custom.tags.zero
+                    }
+                }
             },
-            '&.two': {
-              color: theme.palette.custom.tags.two,
+            cell: {
+                ...theme.mixins.tableCell,
+                '&.sort:hover': {
+                    cursor: 'pointer'
+                }
             },
-            '&.three': {
-              color: theme.palette.custom.tags.three,
+            flexCells: {
+                '& > *': {
+                    display: 'flex',
+                    alignItems: 'center'
+                },
+                '&.right': {
+                    '& > *': {
+                        justifyContent: 'flex-end'
+                    }
+                },
+                '&.center': {
+                    '& > *': {
+                        justifyContent: 'center'
+                    }
+                }
             },
-            '&.zero': {
-              color: theme.palette.custom.tags.zero,
-            },
-          },
-        },
-        cell: {
-          ...theme.mixins.tableCell,
-          '&.sort:hover': {
-            cursor: 'pointer',
-          },
-        },
-        flexCells: {
-          '& > *': {
-            display: 'flex',
-            alignItems: 'center',
-          },
-          '&.right': {
-            '& > *': {
-              justifyContent: 'flex-end',
-            },
-          },
-          '&.center': {
-            '& > *': {
-              justifyContent: 'center',
-            },
-          },
-        },
-        body: {
-          color: theme.palette.custom.fonts.fontTwo,
-        },
-      });
-    },
-  )();
+            body: {
+                color: theme.palette.custom.fonts.fontTwo
+            }
+        };
+    })();
 
-  return styles;
+    return styles;
 };

@@ -3,7 +3,7 @@ export type Date = 'locale' | 'utc';
 export type Tx = 'compact' | 'detailed';
 
 export type AtomState = {
-  theme: Theme;
-  dateFormat: Date;
-  txListFormat: Tx;
-}
+    theme: Theme;
+    dateFormat: Date;
+    txListFormat: Tx;
+};

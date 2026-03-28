@@ -1,41 +1,41 @@
-import { useEffect } from "react";
-import * as jdenticon from "jdenticon";
-import useTranslation from "@/adapters/i18n/useTranslation";
+import { useEffect } from 'react';
+import useTranslation from '@/adapters/i18n/useTranslation';
+import * as jdenticon from 'jdenticon';
 
 export const useApp = () => {
-  // ==========================
-  // language
-  // ==========================
-  const { lang } = useTranslation();
+    // ==========================
+    // language
+    // ==========================
+    const { lang } = useTranslation();
 
-  useEffect(() => {
-    // jdenticon theme
-    jdenticon.configure({
-      hues: [207],
-      lightness: {
-        color: [0.84, 0.84],
-        grayscale: [0.84, 0.84],
-      },
-      saturation: {
-        color: 0.48,
-        grayscale: 0.48,
-      },
-      backColor: "#2a4766",
-    });
-  }, []);
+    useEffect(() => {
+        // jdenticon theme
+        jdenticon.configure({
+            hues: [207],
+            lightness: {
+                color: [0.84, 0.84],
+                grayscale: [0.84, 0.84]
+            },
+            saturation: {
+                color: 0.48,
+                grayscale: 0.48
+            },
+            backColor: '#2a4766'
+        });
+    }, []);
 
-  useEffect(() => {
-    document.cookie = `LOCALE=${lang}`;
-  }, [lang]);
+    useEffect(() => {
+        document.cookie = `LOCALE=${lang}`;
+    }, [lang]);
 
-  // ==========================
-  // css
-  // ==========================
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
+    // ==========================
+    // css
+    // ==========================
+    useEffect(() => {
+        // Remove the server-side injected CSS.
+        const jssStyles = document.querySelector('#jss-server-side');
+        if (jssStyles) {
+            jssStyles.parentElement.removeChild(jssStyles);
+        }
+    }, []);
 };

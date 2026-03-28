@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+
 import { Categories } from '../types';
 
 class MsgTransfer {
@@ -11,27 +12,27 @@ class MsgTransfer {
     public json: any;
 
     constructor(payload: any) {
-      this.category = 'ibc-transfer';
-      this.type = payload.type;
-      this.sender = payload.sender;
-      this.receiver = payload.receiver;
-      this.token = payload.token;
-      this.sourceChannel = payload.sourceChannel;
-      this.json = payload.json;
+        this.category = 'ibc-transfer';
+        this.type = payload.type;
+        this.sender = payload.sender;
+        this.receiver = payload.receiver;
+        this.token = payload.token;
+        this.sourceChannel = payload.sourceChannel;
+        this.json = payload.json;
     }
 
     static fromJson(json: any) {
-      return new MsgTransfer({
-        json,
-        type: json['@type'],
-        sender: json.sender,
-        receiver: json.receiver,
-        token: {
-          denom: R.pathOr('', ['token', 'denom'], json),
-          amount: R.pathOr('0', ['token', 'amount'], json),
-        },
-        sourceChannel: json.source_channel,
-      });
+        return new MsgTransfer({
+            json,
+            type: json['@type'],
+            sender: json.sender,
+            receiver: json.receiver,
+            token: {
+                denom: R.pathOr('', ['token', 'denom'], json),
+                amount: R.pathOr('0', ['token', 'amount'], json)
+            },
+            sourceChannel: json.source_channel
+        });
     }
 }
 

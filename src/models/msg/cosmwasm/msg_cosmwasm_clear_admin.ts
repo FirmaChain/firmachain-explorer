@@ -9,21 +9,21 @@ class MsgCosmwasmClearAdmin {
     public contractAddress: string;
 
     constructor(payload: any) {
-      this.category = 'nft';
-      this.type = payload.type;
-      this.json = payload.json;
+        this.category = 'nft';
+        this.type = payload.type;
+        this.json = payload.json;
 
-      this.ownerAddress = payload.ownerAddress;
-      this.contractAddress = payload.contractAddress;
+        this.ownerAddress = payload.ownerAddress;
+        this.contractAddress = payload.contractAddress;
     }
 
     static fromJson(json: any) {
-      return new MsgCosmwasmClearAdmin({
-        json,
-        type: json['@type'],
-        ownerAddress: json.sender,
-        contractAddress: json.contract,
-      });
+        return new MsgCosmwasmClearAdmin({
+            json,
+            type: json['@type'],
+            ownerAddress: json.sender,
+            contractAddress: json.contract
+        });
     }
 }
 

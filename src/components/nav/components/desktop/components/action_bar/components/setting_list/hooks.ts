@@ -1,99 +1,88 @@
-import { useState } from "react";
-import setLanguage from "@/adapters/i18n/setLanguage";
-import { useRecoilState, SetterOrUpdater } from "recoil";
-import { Theme, Date, Tx } from "@recoil/settings/types";
-import {
-  writeTheme,
-  writeDate,
-  writeTx,
-  THEME_DICTIONARY,
-} from "@recoil/settings";
-import * as R from "ramda";
+import { useState } from 'react';
+import setLanguage from '@/adapters/i18n/setLanguage';
+import { THEME_DICTIONARY, writeDate, writeTheme, writeTx } from '@recoil/settings';
+import { Date, Theme, Tx } from '@recoil/settings/types';
+import * as R from 'ramda';
+import { SetterOrUpdater, useRecoilState } from 'recoil';
 
 export const useSettingList = ({ lang }) => {
-  const [theme, setTheme] = useRecoilState(writeTheme) as [
-    Theme,
-    SetterOrUpdater<Theme>,
-  ];
-  const [date, setDate] = useRecoilState(writeDate) as [
-    Date,
-    SetterOrUpdater<Date>,
-  ];
-  const [tx, setTx] = useRecoilState(writeTx) as [Tx, SetterOrUpdater<Tx>];
+    const [theme, setTheme] = useRecoilState(writeTheme) as [Theme, SetterOrUpdater<Theme>];
+    const [date, setDate] = useRecoilState(writeDate) as [Date, SetterOrUpdater<Date>];
+    const [tx, setTx] = useRecoilState(writeTx) as [Tx, SetterOrUpdater<Tx>];
 
-  const [open, setOpen] = useState(false);
-  const [state, setState] = useState({
-    lang,
-    theme,
-    dateFormat: date,
-    txListFormat: tx,
-  });
-
-  const resetSettings = () => {
-    handleSetState({
-      theme,
-      dateFormat: date,
-      lang,
+    const [open, setOpen] = useState(false);
+    const [state, setState] = useState({
+        lang,
+        theme,
+        dateFormat: date,
+        txListFormat: tx
     });
-  };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+    const resetSettings = () => {
+        handleSetState({
+            theme,
+            dateFormat: date,
+            lang
+        });
+    };
 
-  const handleCancel = () => {
-    resetSettings();
-    handleClose();
-  };
+    const handleOpen = () => {
+        setOpen(true);
+    };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    const handleCancel = () => {
+        resetSettings();
+        handleClose();
+    };
 
-  const handleSetState = (stateChange: any) => {
-    setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
-  };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-  const handleChange = (label: string, value: any) => {
-    handleSetState({
-      [label]: value,
-    });
-  };
+    const handleSetState = (stateChange: any) => {
+        setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
+    };
 
-  const changeTheme = (value: Theme) => {
-    if (THEME_DICTIONARY[value]) {
-      setTheme(value);
-    }
-  };
+    const handleChange = (label: string, value: any) => {
+        handleSetState({
+            [label]: value
+        });
+    };
 
-  const handleFormSubmit = (e: any) => {
-    e.preventDefault();
-    if (state.theme !== theme) {
-      changeTheme(state.theme);
-    }
+    const changeTheme = (value: Theme) => {
+        if (THEME_DICTIONARY[value]) {
+            setTheme(value);
+        }
+    };
 
-    if (state.lang !== lang) {
-      setLanguage(state.lang);
-    }
+    const handleFormSubmit = (e: any) => {
+        e.preventDefault();
+        if (state.theme !== theme) {
+            changeTheme(state.theme);
+        }
 
-    if (state.dateFormat !== date) {
-      setDate(state.dateFormat);
-    }
+        if (state.lang !== lang) {
+            setLanguage(state.lang);
+        }
 
-    if (state.txListFormat !== tx) {
-      setTx(state.txListFormat);
-    }
+        if (state.dateFormat !== date) {
+            setDate(state.dateFormat);
+        }
 
-    handleClose();
-  };
+        if (state.txListFormat !== tx) {
+            setTx(state.txListFormat);
+        }
 
-  return {
-    open,
-    handleOpen,
-    handleClose,
-    state,
-    handleChange,
-    handleFormSubmit,
-    handleCancel,
-  };
+        handleClose();
+    };
+
+    return {
+        open,
+        handleOpen,
+        handleClose,
+        state,
+        handleChange,
+        handleFormSubmit,
+        handleCancel
+    };
 };

@@ -4,7 +4,7 @@
  * @returns seconds
  */
 export const nanoToSeconds = (nano: number) => {
-  return nano / 1000000000;
+    return nano / 1000000000;
 };
 
 /**
@@ -13,5 +13,5 @@ export const nanoToSeconds = (nano: number) => {
  * @returns days
  */
 export const secondsToDays = (seconds: number) => {
-  return seconds / (3600 * 24);
+    return seconds / (3600 * 24);
 };

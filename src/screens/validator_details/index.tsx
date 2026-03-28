@@ -1,58 +1,44 @@
-import React from "react";
-import useTranslation from "@/adapters/i18n/useTranslation";
-import { NextSeo } from "@/adapters/seo/seo";
-import { Layout, LoadAndExist, DesmosProfile } from "@components";
-import { useStyles } from "./styles";
-import {
-  Profile,
-  VotingPower,
-  Transactions,
-  Staking,
-  Blocks,
-  ValidatorOverview,
-} from "./components";
-import { useValidatorDetails } from "./hooks";
+import React from 'react';
+import useTranslation from '@/adapters/i18n/useTranslation';
+import { NextSeo } from '@/adapters/seo/seo';
+import { DesmosProfile, Layout, LoadAndExist } from '@components';
+
+import { Blocks, Profile, Staking, Transactions, ValidatorOverview, VotingPower } from './components';
+import { useValidatorDetails } from './hooks';
+import { useStyles } from './styles';
 
 const ValidatorDetails = () => {
-  const { t } = useTranslation("validators");
-  const classes = useStyles();
-  const { state } = useValidatorDetails();
-  const { desmosProfile, status } = state;
+    const { t } = useTranslation('validators');
+    const classes = useStyles();
+    const { state } = useValidatorDetails();
+    const { desmosProfile, status } = state;
 
-  return (
-    <>
-      <NextSeo
-        title={t("validatorDetails")}
-        openGraph={{
-          title: t("validatorDetails"),
-        }}
-      />
-      <Layout navTitle={t("validatorDetails")}>
-        <LoadAndExist exists={state.exists} loading={state.loading}>
-          <span className={classes.root}>
-            {desmosProfile ? (
-              <DesmosProfile className={classes.profile} {...desmosProfile} />
-            ) : (
-              <Profile className={classes.profile} profile={state.overview} />
-            )}
-            <ValidatorOverview
-              className={classes.address}
-              overview={state.overview}
-              status={state.status}
+    return (
+        <>
+            <NextSeo
+                title={t('validatorDetails')}
+                openGraph={{
+                    title: t('validatorDetails')
+                }}
             />
-            <VotingPower
-              className={classes.votingPower}
-              data={state.votingPower}
-              status={status.status}
-            />
-            <Blocks className={classes.blocks} />
-            <Staking className={classes.staking} />
-            <Transactions className={classes.transactions} />
-          </span>
-        </LoadAndExist>
-      </Layout>
-    </>
-  );
+            <Layout navTitle={t('validatorDetails')}>
+                <LoadAndExist exists={state.exists} loading={state.loading}>
+                    <span className={classes.root}>
+                        {desmosProfile ? (
+                            <DesmosProfile className={classes.profile} {...desmosProfile} />
+                        ) : (
+                            <Profile className={classes.profile} profile={state.overview} />
+                        )}
+                        <ValidatorOverview className={classes.address} overview={state.overview} status={state.status} />
+                        <VotingPower className={classes.votingPower} data={state.votingPower} status={status.status} />
+                        <Blocks className={classes.blocks} />
+                        <Staking className={classes.staking} />
+                        <Transactions className={classes.transactions} />
+                    </span>
+                </LoadAndExist>
+            </Layout>
+        </>
+    );
 };
 
 export default ValidatorDetails;

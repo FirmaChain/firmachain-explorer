@@ -1,43 +1,44 @@
-import React from "react";
-import { NextSeo } from "@/adapters/seo/seo";
-import useTranslation from "@/adapters/i18n/useTranslation";
-import { Layout, LoadAndExist, DesmosProfile } from "@components";
-import { useStyles } from "./styles";
-import { Connections } from "./components";
-import { useProfileDetails } from "./hooks";
+import React from 'react';
+import useTranslation from '@/adapters/i18n/useTranslation';
+import { NextSeo } from '@/adapters/seo/seo';
+import { DesmosProfile, Layout, LoadAndExist } from '@components';
+
+import { Connections } from './components';
+import { useProfileDetails } from './hooks';
+import { useStyles } from './styles';
 
 const ProfileDetails = () => {
-  const { t } = useTranslation("profiles");
-  const classes = useStyles();
-  const { state } = useProfileDetails();
+    const { t } = useTranslation('profiles');
+    const classes = useStyles();
+    const { state } = useProfileDetails();
 
-  return (
-    <>
-      <NextSeo
-        title={t("profileDetails")}
-        openGraph={{
-          title: t("profileDetails"),
-        }}
-      />
-      <Layout navTitle={t("profileDetails")}>
-        <LoadAndExist loading={state.loading} exists={state.exists}>
-          {!!state.desmosProfile && (
-            <span className={classes.root}>
-              <DesmosProfile
-                dtag={state.desmosProfile.dtag}
-                nickname={state.desmosProfile.nickname}
-                imageUrl={state.desmosProfile.imageUrl}
-                bio={state.desmosProfile.bio}
-                connections={[]}
-                coverUrl={state.desmosProfile.coverUrl}
-              />
-              <Connections data={state.desmosProfile.connections} />
-            </span>
-          )}
-        </LoadAndExist>
-      </Layout>
-    </>
-  );
+    return (
+        <>
+            <NextSeo
+                title={t('profileDetails')}
+                openGraph={{
+                    title: t('profileDetails')
+                }}
+            />
+            <Layout navTitle={t('profileDetails')}>
+                <LoadAndExist loading={state.loading} exists={state.exists}>
+                    {!!state.desmosProfile && (
+                        <span className={classes.root}>
+                            <DesmosProfile
+                                dtag={state.desmosProfile.dtag}
+                                nickname={state.desmosProfile.nickname}
+                                imageUrl={state.desmosProfile.imageUrl}
+                                bio={state.desmosProfile.bio}
+                                connections={[]}
+                                coverUrl={state.desmosProfile.coverUrl}
+                            />
+                            <Connections data={state.desmosProfile.connections} />
+                        </span>
+                    )}
+                </LoadAndExist>
+            </Layout>
+        </>
+    );
 };
 
 export default ProfileDetails;

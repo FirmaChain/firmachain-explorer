@@ -1,23 +1,5 @@
-import {
-  atomState,
-} from './atom';
+import { atomState } from './atom';
+import { useBigDipperNetworksRecoil } from './hooks';
+import { readNetworks, readSelectedNetwork, writeNetworks, writeSelectedNetwork } from './selectors';
 
-import {
-  useBigDipperNetworksRecoil,
-} from './hooks';
-
-import {
-  writeNetworks,
-  writeSelectedNetwork,
-  readNetworks,
-  readSelectedNetwork,
-} from './selectors';
-
-export {
-  atomState,
-  useBigDipperNetworksRecoil,
-  writeNetworks,
-  writeSelectedNetwork,
-  readNetworks,
-  readSelectedNetwork,
-};
+export { atomState, useBigDipperNetworksRecoil, writeNetworks, writeSelectedNetwork, readNetworks, readSelectedNetwork };

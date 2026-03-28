@@ -1,4 +1,4 @@
 export interface MenuProps {
-  className?: string;
-  toggleNavMenus: () => void;
+    className?: string;
+    toggleNavMenus: () => void;
 }

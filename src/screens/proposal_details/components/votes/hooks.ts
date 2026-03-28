@@ -1,126 +1,120 @@
-import { useState } from "react";
-import { useRouter } from "@/adapters/routing/router";
-import * as R from "ramda";
-import * as lodash from "lodash";
-import {
-  useProposalDetailsVotesQuery,
-  ProposalDetailsVotesQuery,
-} from "@graphql/types";
-import { toValidatorAddress } from "@utils/prefix_convert";
-import { VoteState } from "./types";
+import { useState } from 'react';
+import { useRouter } from '@/adapters/routing/router';
+import { ProposalDetailsVotesQuery, useProposalDetailsVotesQuery } from '@graphql/types';
+import { toValidatorAddress } from '@utils/prefix_convert';
+import * as lodash from 'lodash';
+import * as R from 'ramda';
+
+import { VoteState } from './types';
 
 export const useVotes = (resetPagination: any) => {
-  const router = useRouter();
-  const [state, setState] = useState<VoteState>({
-    data: [],
-    validatorsNotVoted: [],
-    voteCount: {
-      yes: 0,
-      no: 0,
-      abstain: 0,
-      veto: 0,
-      didNotVote: 0,
-    },
-    tab: 0,
-  });
-
-  const handleSetState = (stateChange: any) => {
-    setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
-  };
-
-  const handleTabChange = (_event: any, newValue: number) => {
-    if (resetPagination) {
-      resetPagination();
-    }
-    handleSetState({
-      tab: newValue,
-    });
-  };
-
-  useProposalDetailsVotesQuery({
-    variables: {
-      proposalId: R.pathOr("", ["query", "id"], router),
-    },
-    onCompleted: (data) => {
-      handleSetState(formatVotes(data));
-    },
-  });
-
-  const formatVotes = (data: ProposalDetailsVotesQuery) => {
-    const validatorDict = {};
-    const validators = data.validatorStatuses.map((x) => {
-      const selfDelegateAddress = R.pathOr(
-        "",
-        ["validator", "validatorInfo", "selfDelegateAddress"],
-        x,
-      );
-      validatorDict[selfDelegateAddress] = false;
-      return selfDelegateAddress;
-    });
-    const latestVotesByVoter = lodash
-      .chain(data.proposalVote)
-      .groupBy("voterAddress")
-      .values()
-      .map((votes: any[]) => votes[0])
-      .value();
-
-    let yes = 0;
-    let no = 0;
-    let abstain = 0;
-    let veto = 0;
-
-    const votes = latestVotesByVoter.map((x) => {
-      if (x.option === "VOTE_OPTION_YES") {
-        yes += 1;
-      }
-      if (x.option === "VOTE_OPTION_ABSTAIN") {
-        abstain += 1;
-      }
-      if (x.option === "VOTE_OPTION_NO") {
-        no += 1;
-      }
-      if (x.option === "VOTE_OPTION_NO_WITH_VETO") {
-        veto += 1;
-      }
-      if (validatorDict[x.voterAddress] === false) {
-        validatorDict[x.voterAddress] = true;
-      }
-
-      return {
-        user: x.voterAddress,
-        vote: x.option,
-      };
+    const router = useRouter();
+    const [state, setState] = useState<VoteState>({
+        data: [],
+        validatorsNotVoted: [],
+        voteCount: {
+            yes: 0,
+            no: 0,
+            abstain: 0,
+            veto: 0,
+            didNotVote: 0
+        },
+        tab: 0
     });
 
-    // =====================================
-    // Get data for active validators that did not vote
-    // =====================================
-    const validatorsNotVoted = validators
-      .filter((x) => {
-        return validatorDict[x] === false;
-      })
-      .map((address) => {
+    const handleSetState = (stateChange: any) => {
+        setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
+    };
+
+    const handleTabChange = (_event: any, newValue: number) => {
+        if (resetPagination) {
+            resetPagination();
+        }
+        handleSetState({
+            tab: newValue
+        });
+    };
+
+    useProposalDetailsVotesQuery({
+        variables: {
+            proposalId: R.pathOr('', ['query', 'id'], router)
+        },
+        onCompleted: (data) => {
+            handleSetState(formatVotes(data));
+        }
+    });
+
+    const formatVotes = (data: ProposalDetailsVotesQuery) => {
+        const validatorDict = {};
+        const validators = data.validatorStatuses.map((x) => {
+            const selfDelegateAddress = R.pathOr('', ['validator', 'validatorInfo', 'selfDelegateAddress'], x);
+            validatorDict[selfDelegateAddress] = false;
+            return selfDelegateAddress;
+        });
+        const latestVotesByVoter = lodash
+            .chain(data.proposalVote)
+            .groupBy('voterAddress')
+            .values()
+            .map((votes: any[]) => votes[0])
+            .value();
+
+        let yes = 0;
+        let no = 0;
+        let abstain = 0;
+        let veto = 0;
+
+        const votes = latestVotesByVoter.map((x) => {
+            if (x.option === 'VOTE_OPTION_YES') {
+                yes += 1;
+            }
+            if (x.option === 'VOTE_OPTION_ABSTAIN') {
+                abstain += 1;
+            }
+            if (x.option === 'VOTE_OPTION_NO') {
+                no += 1;
+            }
+            if (x.option === 'VOTE_OPTION_NO_WITH_VETO') {
+                veto += 1;
+            }
+            if (validatorDict[x.voterAddress] === false) {
+                validatorDict[x.voterAddress] = true;
+            }
+
+            return {
+                user: x.voterAddress,
+                vote: x.option
+            };
+        });
+
+        // =====================================
+        // Get data for active validators that did not vote
+        // =====================================
+        const validatorsNotVoted = validators
+            .filter((x) => {
+                return validatorDict[x] === false;
+            })
+            .map((address) => {
+                return {
+                    user: toValidatorAddress(address),
+                    vote: 'NOT_VOTED'
+                };
+            });
+
         return {
-          user: toValidatorAddress(address),
-          vote: "NOT_VOTED",
+            data: votes,
+            validatorsNotVoted,
+            voteCount: {
+                yes,
+                no,
+                veto,
+                abstain,
+                didNotVote: validatorsNotVoted.length
+            }
         };
-      });
+    };
 
     return {
-      data: votes,
-      validatorsNotVoted,
-      voteCount: {
-        yes,
-        no,
-        veto,
-        abstain,
-        didNotVote: validatorsNotVoted.length,
-      },
+        state,
+        handleTabChange
     };
-  };
-
-  return {
-    state,
-    handleTabChange,
-  };
 };

@@ -1,31 +1,28 @@
-import React from "react";
-import Trans from "@/adapters/i18n/Trans";
-import { Typography } from "@material-ui/core";
-import { Name } from "@components";
-import { MsgChannelOpenInit } from "@models";
-import { useProfileRecoil } from "@recoil/profiles";
+import React from 'react';
+import Trans from '@/adapters/i18n/Trans';
+import { Name } from '@components';
+import { Typography } from '@material-ui/core';
+import { MsgChannelOpenInit } from '@models';
+import { useProfileRecoil } from '@recoil/profiles';
 
 const ChannelOpenInit = (props: { message: MsgChannelOpenInit }) => {
-  const { message } = props;
+    const { message } = props;
 
-  const signer = useProfileRecoil(message.signer);
-  const signerMoniker = signer ? signer?.name : message.signer;
+    const signer = useProfileRecoil(message.signer);
+    const signerMoniker = signer ? signer?.name : message.signer;
 
-  return (
-    <Typography>
-      <Trans
-        i18nKey="message_contents:txChannelOpenInitContent"
-        components={[
-          <Name address={message.signer} name={signerMoniker} />,
-          <b />,
-        ]}
-        values={{
-          channelId: message.channelId,
-          portId: message.portId,
-        }}
-      />
-    </Typography>
-  );
+    return (
+        <Typography>
+            <Trans
+                i18nKey="message_contents:txChannelOpenInitContent"
+                components={[<Name address={message.signer} name={signerMoniker} />, <b />]}
+                values={{
+                    channelId: message.channelId,
+                    portId: message.portId
+                }}
+            />
+        </Typography>
+    );
 };
 
 export default ChannelOpenInit;

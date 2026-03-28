@@ -4,6 +4,6 @@ export type Networks = BigDipperNetwork[];
 export type Selected = string;
 
 export type AtomState = {
-  networks: Networks;
-  selected: Selected;
-}
+    networks: Networks;
+    selected: Selected;
+};

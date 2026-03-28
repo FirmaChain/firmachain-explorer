@@ -1,25 +1,25 @@
 export type OverviewType = {
-  hash: string;
-  height: number;
-  timestamp: string;
-  fee: TokenUnit;
-  feeGrant: string;
-  gasUsed: number;
-  gasWanted: number;
-  success: boolean;
-  memo: string;
-  error: string;
-}
+    hash: string;
+    height: number;
+    timestamp: string;
+    fee: TokenUnit;
+    feeGrant: string;
+    gasUsed: number;
+    gasWanted: number;
+    success: boolean;
+    memo: string;
+    error: string;
+};
 
 export type TransactionState = {
-  loading: boolean;
-  exists: boolean;
-  overview: OverviewType;
-  logs: null | [];
-  events: null | [];
-  messages: {
-    filterBy: string;
-    viewRaw: boolean;
-    items: any[];
-  }
-}
+    loading: boolean;
+    exists: boolean;
+    overview: OverviewType;
+    logs: null | [];
+    events: null | [];
+    messages: {
+        filterBy: string;
+        viewRaw: boolean;
+        items: any[];
+    };
+};

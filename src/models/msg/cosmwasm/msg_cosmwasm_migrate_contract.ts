@@ -10,23 +10,23 @@ class MsgCosmwasmMigrateContract {
     public codeId: string;
 
     constructor(payload: any) {
-      this.category = 'nft';
-      this.type = payload.type;
-      this.json = payload.json;
+        this.category = 'nft';
+        this.type = payload.type;
+        this.json = payload.json;
 
-      this.ownerAddress = payload.ownerAddress;
-      this.contractAddress = payload.contractAddress;
-      this.codeId = payload.codeId;
+        this.ownerAddress = payload.ownerAddress;
+        this.contractAddress = payload.contractAddress;
+        this.codeId = payload.codeId;
     }
 
     static fromJson(json: any) {
-      return new MsgCosmwasmMigrateContract({
-        json,
-        type: json['@type'],
-        ownerAddress: json.sender,
-        contractAddress: json.contract,
-        codeId: json.code_id,
-      });
+        return new MsgCosmwasmMigrateContract({
+            json,
+            type: json['@type'],
+            ownerAddress: json.sender,
+            contractAddress: json.contract,
+            codeId: json.code_id
+        });
     }
 }
 

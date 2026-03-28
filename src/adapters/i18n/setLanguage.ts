@@ -1,7 +1,7 @@
-import i18n from "@/i18n";
+import i18n from '@/i18n';
 
 const setLanguage = async (lang: string) => {
-  await i18n.changeLanguage(lang);
+    await i18n.changeLanguage(lang);
 };
 
 export default setLanguage;

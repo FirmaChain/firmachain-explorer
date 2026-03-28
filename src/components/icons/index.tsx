@@ -4,16 +4,7 @@ import GithubIcon from './github';
 import LinkedinIcon from './linkedIn';
 import MediumIcon from './medium';
 import TelegramIcon from './telegram';
-import YoutubeIcon from './youtube';
 import TwitterIcon from './twitter';
+import YoutubeIcon from './youtube';
 
-export {
-  FacebookIcon,
-  ForboleIcon,
-  GithubIcon,
-  LinkedinIcon,
-  MediumIcon,
-  TelegramIcon,
-  YoutubeIcon,
-  TwitterIcon,
-};
+export { FacebookIcon, ForboleIcon, GithubIcon, LinkedinIcon, MediumIcon, TelegramIcon, YoutubeIcon, TwitterIcon };

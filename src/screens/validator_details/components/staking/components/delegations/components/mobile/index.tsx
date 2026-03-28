@@ -1,51 +1,47 @@
-import React from "react";
-import classnames from "classnames";
-import useTranslation from "@/adapters/i18n/useTranslation";
-import { Divider, Typography } from "@material-ui/core";
-import { AvatarName } from "@components";
-import { formatNumber } from "@utils/format_token";
-import { useStyles } from "./styles";
-import { ItemType } from "../../types";
+import React from 'react';
+import useTranslation from '@/adapters/i18n/useTranslation';
+import { AvatarName } from '@components';
+import { Divider, Typography } from '@material-ui/core';
+import { formatNumber } from '@utils/format_token';
+import classnames from 'classnames';
+
+import { ItemType } from '../../types';
+import { useStyles } from './styles';
 
 const Mobile: React.FC<{
-  className?: string;
-  items?: ItemType[];
+    className?: string;
+    items?: ItemType[];
 }> = ({ className, items }) => {
-  const classes = useStyles();
-  const { t } = useTranslation("accounts");
+    const classes = useStyles();
+    const { t } = useTranslation('accounts');
 
-  return (
-    <div className={classnames(className)}>
-      {items.map((x, i) => {
-        return (
-          <React.Fragment key={`votes-mobile-${i}`}>
-            <div className={classes.list}>
-              <div className={classes.item}>
-                <Typography variant="h4" className="label">
-                  {t("address")}
-                </Typography>
-                <AvatarName
-                  name={x.address.name}
-                  address={x.address.address}
-                  imageUrl={x.address.imageUrl}
-                />
-              </div>
-              <div className={classes.item}>
-                <Typography variant="h4" className="label">
-                  {t("amount")}
-                </Typography>
-                <Typography variant="body1" className="value">
-                  {formatNumber(x.amount.value, x.amount.exponent)}{" "}
-                  {x.amount.displayDenom.toUpperCase()}
-                </Typography>
-              </div>
-            </div>
-            {i !== items.length - 1 && <Divider />}
-          </React.Fragment>
-        );
-      })}
-    </div>
-  );
+    return (
+        <div className={classnames(className)}>
+            {items.map((x, i) => {
+                return (
+                    <React.Fragment key={`votes-mobile-${i}`}>
+                        <div className={classes.list}>
+                            <div className={classes.item}>
+                                <Typography variant="h4" className="label">
+                                    {t('address')}
+                                </Typography>
+                                <AvatarName name={x.address.name} address={x.address.address} imageUrl={x.address.imageUrl} />
+                            </div>
+                            <div className={classes.item}>
+                                <Typography variant="h4" className="label">
+                                    {t('amount')}
+                                </Typography>
+                                <Typography variant="body1" className="value">
+                                    {formatNumber(x.amount.value, x.amount.exponent)} {x.amount.displayDenom.toUpperCase()}
+                                </Typography>
+                            </div>
+                        </div>
+                        {i !== items.length - 1 && <Divider />}
+                    </React.Fragment>
+                );
+            })}
+        </div>
+    );
 };
 
 export default Mobile;

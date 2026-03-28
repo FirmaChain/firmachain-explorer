@@ -1,177 +1,175 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "@/adapters/routing/router";
-import * as R from "ramda";
-import {
-  useTransactionDetailsQuery,
-  TransactionDetailsQuery,
-} from "@graphql/types";
-import { formatToken } from "@utils/format_token";
-import { convertMsgsToModels, convertDefaultRaw } from "@msg";
-import { TransactionState } from "./types";
+import { useEffect, useState } from 'react';
+import { useRouter } from '@/adapters/routing/router';
+import { TransactionDetailsQuery, useTransactionDetailsQuery } from '@graphql/types';
+import { convertDefaultRaw, convertMsgsToModels } from '@msg';
+import { formatToken } from '@utils/format_token';
+import * as R from 'ramda';
+
+import { TransactionState } from './types';
 
 export const useTransactionDetails = () => {
-  const router = useRouter();
-  const [state, setState] = useState<TransactionState>({
-    exists: true,
-    loading: true,
-    overview: {
-      hash: "",
-      height: 0,
-      timestamp: "",
-      fee: {
-        value: "0",
-        displayDenom: "",
-        baseDenom: "",
-        exponent: 0,
-      },
-      feeGrant: "",
-      gasUsed: 0,
-      gasWanted: 0,
-      success: false,
-      memo: "",
-      error: "",
-    },
-    logs: null,
-    events: null,
-    messages: {
-      filterBy: "none",
-      viewRaw: false,
-      items: [],
-    },
-  });
-
-  const handleSetState = (stateChange: any) => {
-    setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
-  };
-
-  useEffect(() => {
-    handleSetState({
-      loading: true,
-      exists: true,
-    });
-  }, [router.query.tx]);
-
-  // ===============================
-  // Fetch data
-  // ===============================
-  useTransactionDetailsQuery({
-    variables: {
-      hash: (router.query.tx as string).toUpperCase(),
-    },
-    onCompleted: (data) => {
-      console.log("data", data);
-      handleSetState(formatTransactionDetails(data));
-    },
-  });
-
-  // ===============================
-  // Parse data
-  // ===============================
-  const formatTransactionDetails = (data: TransactionDetailsQuery) => {
-    const stateChange: any = {
-      loading: false,
-    };
-
-    if (!data.transaction.length) {
-      stateChange.exists = false;
-      return stateChange;
-    }
-
-    // =============================
-    // overview
-    // =============================
-    const formatOverview = () => {
-      const { fee } = data.transaction[0];
-      const feeAmount = R.pathOr(
-        {
-          denom: "",
-          amount: 0,
+    const router = useRouter();
+    const [state, setState] = useState<TransactionState>({
+        exists: true,
+        loading: true,
+        overview: {
+            hash: '',
+            height: 0,
+            timestamp: '',
+            fee: {
+                value: '0',
+                displayDenom: '',
+                baseDenom: '',
+                exponent: 0
+            },
+            feeGrant: '',
+            gasUsed: 0,
+            gasWanted: 0,
+            success: false,
+            memo: '',
+            error: ''
         },
-        ["amount", 0],
-        fee,
-      );
-      const { success } = data.transaction[0];
-      const overview = {
-        hash: data.transaction[0].hash,
-        height: data.transaction[0].height,
-        timestamp: data.transaction[0].block.timestamp,
-        fee: formatToken(feeAmount.amount, feeAmount.denom),
-        feeGrant: fee.granter,
-        gasUsed: data.transaction[0].gasUsed,
-        gasWanted: data.transaction[0].gasWanted,
-        success,
-        memo: data.transaction[0].memo,
-        error: success ? "" : data.transaction[0].rawLog,
-      };
-      return overview;
-    };
-
-    stateChange.overview = formatOverview();
-
-    // =============================
-    // Events
-    // =============================
-    const formatEvents = () => {
-      const { events } = data.transaction[0];
-      return events;
-    };
-    stateChange.events = formatEvents();
-
-    const formatLogs = () => {
-      const { logs } = data.transaction[0];
-      return logs;
-    };
-    stateChange.logs = formatLogs();
-
-    // =============================
-    // messages
-    // =============================
-    const formatMessages = () => {
-      const messages = convertMsgsToModels(data.transaction[0]);
-      return {
-        items: messages,
-      };
-    };
-
-    const formatViewRaw = () => {
-      return convertDefaultRaw(data.transaction[0]);
-    };
-
-    stateChange.messages = formatMessages();
-    stateChange.messages.viewRaw = formatViewRaw();
-
-    return stateChange;
-  };
-
-  const onMessageFilterCallback = (value: string) => {
-    handleSetState({
-      messages: {
-        filterBy: value,
-      },
+        logs: null,
+        events: null,
+        messages: {
+            filterBy: 'none',
+            viewRaw: false,
+            items: []
+        }
     });
-  };
 
-  const toggleMessageDisplay = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleSetState({
-      messages: {
-        viewRaw: event.target.checked,
-      },
+    const handleSetState = (stateChange: any) => {
+        setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
+    };
+
+    useEffect(() => {
+        handleSetState({
+            loading: true,
+            exists: true
+        });
+    }, [router.query.tx]);
+
+    // ===============================
+    // Fetch data
+    // ===============================
+    useTransactionDetailsQuery({
+        variables: {
+            hash: (router.query.tx as string).toUpperCase()
+        },
+        onCompleted: (data) => {
+            console.log('data', data);
+            handleSetState(formatTransactionDetails(data));
+        }
     });
-  };
 
-  const filterMessages = (messages: any[]) => {
-    return messages.filter((x) => {
-      if (state.messages.filterBy !== "none") {
-        return x.category === state.messages.filterBy;
-      }
-      return true;
-    });
-  };
+    // ===============================
+    // Parse data
+    // ===============================
+    const formatTransactionDetails = (data: TransactionDetailsQuery) => {
+        const stateChange: any = {
+            loading: false
+        };
 
-  return {
-    state,
-    onMessageFilterCallback,
-    toggleMessageDisplay,
-    filterMessages,
-  };
+        if (!data.transaction.length) {
+            stateChange.exists = false;
+            return stateChange;
+        }
+
+        // =============================
+        // overview
+        // =============================
+        const formatOverview = () => {
+            const { fee } = data.transaction[0];
+            const feeAmount = R.pathOr(
+                {
+                    denom: '',
+                    amount: 0
+                },
+                ['amount', 0],
+                fee
+            );
+            const { success } = data.transaction[0];
+            const overview = {
+                hash: data.transaction[0].hash,
+                height: data.transaction[0].height,
+                timestamp: data.transaction[0].block.timestamp,
+                fee: formatToken(feeAmount.amount, feeAmount.denom),
+                feeGrant: fee.granter,
+                gasUsed: data.transaction[0].gasUsed,
+                gasWanted: data.transaction[0].gasWanted,
+                success,
+                memo: data.transaction[0].memo,
+                error: success ? '' : data.transaction[0].rawLog
+            };
+            return overview;
+        };
+
+        stateChange.overview = formatOverview();
+
+        // =============================
+        // Events
+        // =============================
+        const formatEvents = () => {
+            const { events } = data.transaction[0];
+            return events;
+        };
+        stateChange.events = formatEvents();
+
+        const formatLogs = () => {
+            const { logs } = data.transaction[0];
+            return logs;
+        };
+        stateChange.logs = formatLogs();
+
+        // =============================
+        // messages
+        // =============================
+        const formatMessages = () => {
+            const messages = convertMsgsToModels(data.transaction[0]);
+            return {
+                items: messages
+            };
+        };
+
+        const formatViewRaw = () => {
+            return convertDefaultRaw(data.transaction[0]);
+        };
+
+        stateChange.messages = formatMessages();
+        stateChange.messages.viewRaw = formatViewRaw();
+
+        return stateChange;
+    };
+
+    const onMessageFilterCallback = (value: string) => {
+        handleSetState({
+            messages: {
+                filterBy: value
+            }
+        });
+    };
+
+    const toggleMessageDisplay = (event: React.ChangeEvent<HTMLInputElement>) => {
+        handleSetState({
+            messages: {
+                viewRaw: event.target.checked
+            }
+        });
+    };
+
+    const filterMessages = (messages: any[]) => {
+        return messages.filter((x) => {
+            if (state.messages.filterBy !== 'none') {
+                return x.category === state.messages.filterBy;
+            }
+            return true;
+        });
+    };
+
+    return {
+        state,
+        onMessageFilterCallback,
+        toggleMessageDisplay,
+        filterMessages
+    };
 };

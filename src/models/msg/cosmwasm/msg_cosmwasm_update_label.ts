@@ -10,23 +10,23 @@ class MsgCosmwasmUpdateLabel {
     public contractAddress: string;
 
     constructor(payload: any) {
-      this.category = 'nft';
-      this.type = payload.type;
-      this.json = payload.json;
+        this.category = 'nft';
+        this.type = payload.type;
+        this.json = payload.json;
 
-      this.ownerAddress = payload.ownerAddress;
-      this.newLabelString = payload.newLabelString;
-      this.contractAddress = payload.contractAddress;
+        this.ownerAddress = payload.ownerAddress;
+        this.newLabelString = payload.newLabelString;
+        this.contractAddress = payload.contractAddress;
     }
 
     static fromJson(json: any) {
-      return new MsgCosmwasmUpdateLabel({
-        json,
-        type: json['@type'],
-        ownerAddress: json.sender,
-        newLabelString: json.new_label,
-        contractAddress: json.contract,
-      });
+        return new MsgCosmwasmUpdateLabel({
+            json,
+            type: json['@type'],
+            ownerAddress: json.sender,
+            newLabelString: json.new_label,
+            contractAddress: json.contract
+        });
     }
 }
 

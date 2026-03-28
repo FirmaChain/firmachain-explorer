@@ -1,33 +1,33 @@
 export type OverviewType = {
-  validator: string;
-  operatorAddress: string;
-  selfDelegateAddress: string;
-  description: string;
-  website: string;
-}
+    validator: string;
+    operatorAddress: string;
+    selfDelegateAddress: string;
+    description: string;
+    website: string;
+};
 
 export type StatusType = {
-  status: number;
-  jailed: boolean;
-  tombstoned: boolean;
-  condition: number;
-  commission: number | null;
-  signedBlockWindow: number;
-  missedBlockCounter: number;
-  maxRate: string;
-}
+    status: number;
+    jailed: boolean;
+    tombstoned: boolean;
+    condition: number;
+    commission: number | null;
+    signedBlockWindow: number;
+    missedBlockCounter: number;
+    maxRate: string;
+};
 
 export type VotingPowerType = {
-  height: number;
-  overall: TokenUnit;
-  self: number;
-}
+    height: number;
+    overall: TokenUnit;
+    self: number;
+};
 
 export type ValidatorDetailsState = {
-  loading: boolean;
-  exists: boolean;
-  desmosProfile: DesmosProfile | null;
-  overview: OverviewType;
-  status: StatusType;
-  votingPower: VotingPowerType;
-}
+    loading: boolean;
+    exists: boolean;
+    desmosProfile: DesmosProfile | null;
+    overview: OverviewType;
+    status: StatusType;
+    votingPower: VotingPowerType;
+};
