@@ -1,7 +1,7 @@
 import React from 'react';
 import { AvatarName } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider } from '@material-ui/core';
+import { Divider } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import classnames from 'classnames';

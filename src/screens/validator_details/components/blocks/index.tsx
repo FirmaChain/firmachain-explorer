@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, Box, Result } from '@components';
-import { Tooltip, Typography } from '@material-ui/core';
+import { Tooltip, Typography } from '@mui/material';
 import { useProfilesRecoil } from '@recoil/profiles';
 import classnames from 'classnames';
 import numeral from 'numeral';

@@ -3,8 +3,8 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { useRouter } from '@/adapters/routing/router';
 import SettingIcon from '@assets/icon-setting.svg?react';
 import { generalConfig } from '@configs';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, Select, Typography } from '@material-ui/core';
-import { Close as CloseIcon } from '@material-ui/icons';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, Select, Typography } from '@mui/material';
+import { Close as CloseIcon } from '@mui/icons-material';
 import { DATE_LIST, THEME_LIST, TX_LIST } from '@recoil/settings';
 import classnames from 'classnames';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { OtherTokenType } from '@/screens/account_details/types';
 import { ibcConfig, tokenConfig } from '@configs';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
 import classnames from 'classnames';

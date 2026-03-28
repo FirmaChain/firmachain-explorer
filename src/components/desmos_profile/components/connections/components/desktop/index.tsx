@@ -1,6 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import classnames from 'classnames';

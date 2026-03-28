@@ -1,8 +1,8 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import FilterIcon from '@assets/icon-filter.svg?react';
-import { InputBase, MenuItem, Select, Typography } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { InputBase, MenuItem, Select, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import classnames from 'classnames';
 
 import { useTransactionsFilter } from './hooks';

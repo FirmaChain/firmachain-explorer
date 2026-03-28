@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Loading, Result } from '@components';
 import { useList, useListRow, useScreenSize } from '@hooks';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { getMessageByType } from '@msg';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';

@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { ibcConfig, tokenConfig } from '@/configs';
 import { OtherTokenType } from '@/screens/account_details/types';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
 import classnames from 'classnames';

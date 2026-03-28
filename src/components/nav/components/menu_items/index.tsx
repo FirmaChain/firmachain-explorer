@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { useRouter } from '@/adapters/routing/router';
-import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import classnames from 'classnames';
 
 import { useStyles } from './styles';

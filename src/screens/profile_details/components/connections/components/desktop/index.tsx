@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { chainConfig } from '@configs';
-import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { readNetworks } from '@recoil/big_dipper_networks';
 import { useRecoilValue } from 'recoil';
 

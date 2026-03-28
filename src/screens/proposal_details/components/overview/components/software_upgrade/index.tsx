@@ -1,6 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Table, TableBody, TableCell, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableRow } from '@mui/material';
 import numeral from 'numeral';
 
 const SoftwareUpgrade: React.FC<{

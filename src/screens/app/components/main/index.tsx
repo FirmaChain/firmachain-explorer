@@ -1,7 +1,7 @@
-import React from 'react';
 import { AppProps } from '@/adapters/app/types';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as StylesThemeProvider } from '@mui/styles';
 import { useBigDipperNetworksRecoil } from '@recoil/big_dipper_networks';
 import { useMarketRecoil } from '@recoil/market';
 import { useSettingsRecoil } from '@recoil/settings';
@@ -40,19 +40,21 @@ const Main = (props: AppProps) => {
 
     return (
         <ThemeProvider theme={muiTheme}>
-            <CssBaseline />
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                hideProgressBar
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
-            {Component}
+            <StylesThemeProvider theme={muiTheme}>
+                <CssBaseline />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    hideProgressBar
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+                {Component}
+            </StylesThemeProvider>
         </ThemeProvider>
     );
 };

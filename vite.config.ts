@@ -5,5 +5,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
     plugins: [react(), svgr(), tsconfigPaths()],
-    resolve: {}
+    resolve: {
+        alias: [
+            {
+                find: '@mui/styled-engine',
+                replacement: '@mui/styled-engine-sc'
+            }
+        ]
+    }
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@mui/material';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import classnames from 'classnames';

@@ -1,9 +1,9 @@
 import React from 'react';
-// import { withStyles } from '@material-ui/core/styles';
+// import { withStyles } from '@mui/styles';
 import {
     Typography
     // Link,
-} from '@material-ui/core';
+} from '@mui/material';
 import DOMPurify from 'dompurify';
 import ReactMarkdown from 'markdown-to-jsx';
 

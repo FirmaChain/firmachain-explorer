@@ -1,6 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import numeral from 'numeral';
 
 import { useOnlineVotingPower } from './hooks';

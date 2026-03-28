@@ -1,7 +1,7 @@
 import React from 'react';
 import { chainConfig } from '@configs';
-import { Typography } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { Typography } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
 import { readSelectedNetwork } from '@recoil/big_dipper_networks';
 import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';

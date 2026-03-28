@@ -2,7 +2,7 @@ import React from 'react';
 import Link from '@/adapters/routing/link';
 import { Box, Loading } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@mui/material';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
 import { mergeRefs } from '@utils/merge_refs';
 import classnames from 'classnames';

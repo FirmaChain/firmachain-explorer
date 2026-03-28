@@ -2,7 +2,7 @@ import React from 'react';
 import Link from '@/adapters/routing/link';
 import { AvatarName, Loading, SingleBlockMobile } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';

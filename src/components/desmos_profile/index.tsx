@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Avatar, Box, Markdown } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import classnames from 'classnames';
 import numeral from 'numeral';
 

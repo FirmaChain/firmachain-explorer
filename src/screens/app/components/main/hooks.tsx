@@ -1,6 +1,7 @@
 import { useState } from 'react';
+
 import { chainConfig } from '@configs';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme as createMuiTheme } from '@mui/material/styles';
 import { getThemeTemplate, readTheme } from '@recoil/settings';
 import dayjs from '@utils/dayjs';
 import { useRecoilValue } from 'recoil';

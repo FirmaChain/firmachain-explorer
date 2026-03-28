@@ -2,7 +2,7 @@ import React from 'react';
 import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
 import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
 import FirmachainTitle from '@assets/firma_chain_title.svg?react';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress } from '@mui/material';
 // import { chainConfig } from '@configs';
 import { readTheme } from '@recoil/settings';
 // import * as R from 'ramda';

@@ -1,8 +1,8 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Tag } from '@components';
-import { Collapse } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Collapse } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import classnames from 'classnames';
 
 import type { OverviewType } from '../../../types';

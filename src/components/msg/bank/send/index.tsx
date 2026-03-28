@@ -2,7 +2,7 @@ import React from 'react';
 import Trans from '@/adapters/i18n/Trans';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Name } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { MsgSend } from '@models';
 import { useProfileRecoil } from '@recoil/profiles';
 import { formatNumber, formatToken } from '@utils/format_token';

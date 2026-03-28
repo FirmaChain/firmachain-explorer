@@ -1,4 +1,4 @@
-import { ThemeOptions } from '@material-ui/core/styles';
+import { ThemeOptions } from '@mui/material/styles';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
 import * as R from 'ramda';

@@ -1,6 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { TablePagination } from '@material-ui/core';
+import { TablePagination } from '@mui/material';
 import classnames from 'classnames';
 
 import { Actions } from './components';

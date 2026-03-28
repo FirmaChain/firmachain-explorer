@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import { chainConfig } from '@configs';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@mui/material';
 import { readMarket } from '@recoil/market';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from '@/adapters/routing/link';
 import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
 import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore } from '@mui/icons-material';
 import { readSelectedNetwork } from '@recoil/big_dipper_networks';
 import { readTheme } from '@recoil/settings';
 import { HOME } from '@utils/go_to_page';

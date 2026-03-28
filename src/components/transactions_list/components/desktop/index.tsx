@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Loading, Result } from '@components';
 import { useGrid } from '@hooks';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';

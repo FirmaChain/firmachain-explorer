@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Loading } from '@components';
 import { chainConfig } from '@configs';
 import { useInterval } from '@hooks';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { readTheme } from '@recoil/settings';
 import dayjs from '@utils/dayjs';
 import * as R from 'ramda';

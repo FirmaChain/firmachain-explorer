@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, CustomToolTip } from '@components';
 import { chainConfig } from '@configs';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';

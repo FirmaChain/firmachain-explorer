@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { chainConfig } from '@configs';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { readMarket } from '@recoil/market';
 import { readTheme } from '@recoil/settings';
 import classnames from 'classnames';

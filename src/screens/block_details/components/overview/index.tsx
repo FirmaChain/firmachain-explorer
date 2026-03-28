@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, BoxDetails } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { useProfileRecoil } from '@recoil/profiles';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';

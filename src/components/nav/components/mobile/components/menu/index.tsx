@@ -4,8 +4,8 @@ import Link from '@/adapters/routing/link';
 import { useRouter } from '@/adapters/routing/router';
 import Language from '@assets/icon-language.svg?react';
 import ThemeIcon from '@assets/icon-theme.svg?react';
-import { Drawer, MenuItem, Typography } from '@material-ui/core';
-import { ExpandMoreOutlined } from '@material-ui/icons';
+import { Drawer, MenuItem, Typography } from '@mui/material';
+import { ExpandMoreOutlined } from '@mui/icons-material';
 import { THEME_LIST } from '@recoil/settings';
 import classnames from 'classnames';
 

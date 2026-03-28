@@ -1,7 +1,7 @@
 import React from 'react';
 import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { MsgNFTBurn } from '@models';
 import { useProfileRecoil } from '@recoil/profiles';
 

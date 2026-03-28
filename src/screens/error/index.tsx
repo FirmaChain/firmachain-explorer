@@ -4,7 +4,7 @@ import Trans from '@/adapters/i18n/Trans';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { generalConfig } from '@configs';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { HOME } from '@utils/go_to_page';
 
 import { useStyles } from './styles';

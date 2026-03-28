@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from '@/adapters/routing/link';
 import { ibcConfig } from '@/configs';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { ADDRESS_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 

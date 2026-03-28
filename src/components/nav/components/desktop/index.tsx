@@ -1,6 +1,6 @@
 import React from 'react';
 import FirmachainLogo from '@assets/firma_chain_title.svg?react';
-import { AppBar, ClickAwayListener, Drawer } from '@material-ui/core';
+import { AppBar, ClickAwayListener, Drawer } from '@mui/material';
 import classnames from 'classnames';
 
 import { MenuItems, TitleBar } from '..';

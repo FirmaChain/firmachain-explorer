@@ -1,6 +1,6 @@
 import React from 'react';
 import { ConditionExplanation, InfoPopover } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 
 export const fetchColumns = (
     t

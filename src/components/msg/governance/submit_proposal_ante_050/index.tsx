@@ -2,7 +2,7 @@ import React from 'react';
 import Trans from '@/adapters/i18n/Trans';
 import MsgSubmitProposal from '@/models/msg/governance/msg_submit_proposal';
 import { Name } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { useProfileRecoil } from '@recoil/profiles';
 
 const SubmitProposalAnte050 = (props: { message: MsgSubmitProposal }) => {

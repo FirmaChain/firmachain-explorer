@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { useProfilesRecoil } from '@recoil/profiles';
 import classnames from 'classnames';
 

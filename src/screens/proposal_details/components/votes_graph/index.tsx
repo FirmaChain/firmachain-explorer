@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, InfoPopover } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import Big from 'big.js';
 import classnames from 'classnames';
 import numeral from 'numeral';

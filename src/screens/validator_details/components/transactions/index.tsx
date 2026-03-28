@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, TransactionListDetails, TransactionsList } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { readTx } from '@recoil/settings';
 import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';

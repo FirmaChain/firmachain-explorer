@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import { Cancel, CheckCircle } from '@material-ui/icons';
+import { Typography } from '@mui/material';
+import { Cancel, CheckCircle } from '@mui/icons-material';
 import classnames from 'classnames';
 
 import { useStyles } from './styles';

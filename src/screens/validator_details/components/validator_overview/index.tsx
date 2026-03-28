@@ -4,7 +4,7 @@ import Link from '@/adapters/routing/link';
 import CopyIcon from '@assets/icon-copy.svg?react';
 import { Box, ConditionExplanation, InfoPopover, Tag } from '@components';
 import { useScreenSize } from '@hooks';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@mui/material';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';

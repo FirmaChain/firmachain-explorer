@@ -1,7 +1,7 @@
 import React from 'react';
 import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
 import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import { readTheme } from '@recoil/settings/selectors';
 import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';

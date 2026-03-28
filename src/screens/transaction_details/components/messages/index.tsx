@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, TransactionMessagesFilter } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider, FormControlLabel, Switch, Typography } from '@material-ui/core';
+import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
 import { getMessageByType } from '@msg';
 import classnames from 'classnames';
 import AutoSizer from 'react-virtualized-auto-sizer';

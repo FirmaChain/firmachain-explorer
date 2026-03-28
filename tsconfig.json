@@ -36,6 +36,6 @@
             "@graphql/types": ["graphql/types"]
         }
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "declarations.d.ts", "vite.config.ts"],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "declarations.d.ts", "vite.config.ts"],
     "exclude": ["node_modules"]
 }

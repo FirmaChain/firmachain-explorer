@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import classnames from 'classnames';
 
 import { useStyles } from './styles';

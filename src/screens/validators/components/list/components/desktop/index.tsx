@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, InfoPopover, SortArrows } from '@components';
 import { useGrid } from '@hooks';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import classnames from 'classnames';

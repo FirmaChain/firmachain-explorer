@@ -4,7 +4,7 @@ import dynamic from '@/adapters/routing/dynamic';
 import Link from '@/adapters/routing/link';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Typography } from '@mui/material';
 import { TRANSACTIONS } from '@utils/go_to_page';
 import classnames from 'classnames';
 

@@ -4,7 +4,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { chainConfig, generalConfig } from '@/configs';
 import FooterLogoLight from '@assets/big-dipper-red.svg?react';
 import FooterLogoDark from '@assets/big-dipper-white.svg?react';
-import { Button, Divider, Typography } from '@material-ui/core';
+import { Button, Divider, Typography } from '@mui/material';
 import { readTheme } from '@recoil/settings/selectors';
 import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';

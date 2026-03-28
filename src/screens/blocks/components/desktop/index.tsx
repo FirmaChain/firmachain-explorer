@@ -4,7 +4,7 @@ import Link from '@/adapters/routing/link';
 import { mergeRefs } from '@/utils/merge_refs';
 import { AvatarName, Loading } from '@components';
 import { useGrid } from '@hooks';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';

@@ -1,7 +1,7 @@
 import React from 'react';
 import NextFastIcon from '@assets/icon-next-fast.svg?react';
 import NextIcon from '@assets/icon-next.svg?react';
-import { FormControl, IconButton, InputBase, MenuItem, Select, Typography } from '@material-ui/core';
+import { FormControl, IconButton, InputBase, MenuItem, Select, Typography } from '@mui/material';
 import classnames from 'classnames';
 
 import { useTablePaginationActions } from './hooks';

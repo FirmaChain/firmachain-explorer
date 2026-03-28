@@ -3,7 +3,7 @@ import Trans from '@/adapters/i18n/Trans';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Name } from '@components';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { MsgVote } from '@models';
 import { useProfileRecoil } from '@recoil/profiles';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Trans from '@/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 
 import { useStyles } from './styles';
 

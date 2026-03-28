@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import NotFoundDark from '@assets/not-found-dark.svg?react';
 import NotFoundLight from '@assets/not-found-light.svg?react';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { readTheme } from '@recoil/settings/selectors';
 import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';

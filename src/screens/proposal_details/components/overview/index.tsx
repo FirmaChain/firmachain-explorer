@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, SingleProposal } from '@components';
-import { Divider } from '@material-ui/core';
+import { Divider } from '@mui/material';
 import classnames from 'classnames';
 import numeral from 'numeral';
 

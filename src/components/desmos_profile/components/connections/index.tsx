@@ -3,8 +3,8 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import { Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
-import { Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@material-ui/core';
-import { Close as CloseIcon } from '@material-ui/icons';
+import { Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
+import { Close as CloseIcon } from '@mui/icons-material';
 
 import { useStyles } from './styles';
 

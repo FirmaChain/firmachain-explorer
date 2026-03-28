@@ -4,7 +4,7 @@ import CopyIcon from '@assets/icon-copy.svg?react';
 import ShareIcon from '@assets/icon-share.svg?react';
 import { Box } from '@components';
 import { useScreenSize, useWindowOrigin } from '@hooks';
-import { Dialog, Typography } from '@material-ui/core';
+import { Dialog, Typography } from '@mui/material';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import classnames from 'classnames';
 import QRCode from 'qrcode.react';
