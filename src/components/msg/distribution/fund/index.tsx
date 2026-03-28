@@ -1,6 +1,6 @@
 import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@src/adapters/i18n/useTranslation';
+import Trans from '@src/adapters/i18n/Trans';
 import { Typography } from '@material-ui/core';
 import {
   formatToken, formatNumber,

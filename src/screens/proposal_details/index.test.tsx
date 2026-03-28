@@ -15,7 +15,7 @@ import ProposalDetails from '.';
 // ==================================
 // mocks
 // ==================================
-jest.mock('next/router', () => ({
+jest.mock('@src/adapters/routing/router', () => ({
   useRouter: () => ({
     query: {
       id: 4,

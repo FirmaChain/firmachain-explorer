@@ -1,6 +1,6 @@
 import numeral from 'numeral';
 import { chainConfig } from '@configs';
-import { useRouter } from 'next/router';
+import { useRouter } from '@src/adapters/routing/router';
 import {
   VALIDATOR_DETAILS,
   ACCOUNT_DETAILS,

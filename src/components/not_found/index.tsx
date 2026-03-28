@@ -1,11 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Typography } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
 import { readTheme } from '@recoil/settings/selectors';
-import NotFoundLight from '@assets/not-found-light.svg';
-import NotFoundDark from '@assets/not-found-dark.svg';
+import NotFoundLight from '@assets/not-found-light.svg?react';
+import NotFoundDark from '@assets/not-found-dark.svg?react';
 import { useStyles } from './styles';
 
 const NotFound: React.FC<{

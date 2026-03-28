@@ -6,7 +6,7 @@ import { useSearchBar } from './hooks';
 
 const mockPush = jest.fn();
 
-jest.mock('next/router', () => ({
+jest.mock('@src/adapters/routing/router', () => ({
   useRouter: () => ({
     push: mockPush,
   }),

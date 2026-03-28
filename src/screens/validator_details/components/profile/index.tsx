@@ -4,7 +4,7 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import {
   Box,
   Avatar,

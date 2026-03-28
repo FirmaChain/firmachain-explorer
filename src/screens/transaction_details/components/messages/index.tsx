@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { VariableSizeList as List } from 'react-window';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import {
   Divider,

@@ -1,8 +1,8 @@
 // /* eslint-disable */
 import React from 'react';
-import Link from 'next/link';
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import Link from '@src/adapters/routing/link';
+import useTranslation from '@src/adapters/i18n/useTranslation';
+import Trans from '@src/adapters/i18n/Trans';
 import { HOME } from '@utils/go_to_page';
 import {
   Typography,

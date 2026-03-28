@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import {
   Layout,
   LoadAndExist,
   DesmosProfile,
 } from '@components';
-import { NextSeo } from 'next-seo';
+import { NextSeo } from '@src/adapters/seo/seo';
 import { useStyles } from './styles';
 import {
   Overview,

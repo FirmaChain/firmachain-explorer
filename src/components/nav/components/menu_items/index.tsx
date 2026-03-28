@@ -1,14 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { useRouter } from '@src/adapters/routing/router';
+import Link from '@src/adapters/routing/link';
 import {
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { useStyles } from './styles';
 import { getMenuItems } from './utils';
 

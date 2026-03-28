@@ -6,6 +6,7 @@ import Axios from "axios";
 
 import { useMarketDataQuery, MarketDataQuery } from "@graphql/types";
 import { chainConfig } from "@configs";
+import { ENV } from '@configs/env';
 import { writeMarket } from "@recoil/market";
 import { AtomState } from "@recoil/market/types";
 import { getDenom } from "@utils/get_denom";
@@ -31,7 +32,7 @@ export const useMarketRecoil = () => {
   const getChainVersion = async () => {
     try {
       const axios = Axios.create({
-        baseURL: process.env.NEXT_PUBLIC_REST_CHAIN_URL,
+        baseURL: ENV.REST_CHAIN_URL,
         headers: { Accept: "application/json" },
         timeout: 15000,
       });

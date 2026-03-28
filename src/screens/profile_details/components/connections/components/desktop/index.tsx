@@ -1,7 +1,7 @@
 import React from 'react';
 import { chainConfig } from '@configs';
 import classnames from 'classnames';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { useRecoilValue } from 'recoil';
 import { readDate } from '@recoil/settings';
 import {
@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import dayjs, { formatDayJs } from '@utils/dayjs';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import { columns } from './utils';
 

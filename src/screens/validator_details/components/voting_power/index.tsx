@@ -1,11 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import numeral from 'numeral';
 import {
   Typography,
 } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
 import { useStyles } from './styles';

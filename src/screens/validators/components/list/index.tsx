@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import dynamic from 'next/dynamic';
+import dynamic from '@src/adapters/routing/dynamic';
 import {
   Box,
   NoData,

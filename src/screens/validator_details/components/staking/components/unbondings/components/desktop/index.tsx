@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import {
   Table,

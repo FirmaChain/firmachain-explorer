@@ -15,7 +15,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from 'recharts';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import { chainConfig } from '@configs';
 import { formatNumber } from '@utils/format_token';

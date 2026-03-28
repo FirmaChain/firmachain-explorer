@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import dayjs from '@utils/dayjs';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
 import {
   Typography, Divider,

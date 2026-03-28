@@ -5,7 +5,7 @@ import App from '.';
 
 const mockClient = createMockClient();
 
-jest.mock('next-translate/useTranslation', () => () => ({
+jest.mock('@src/adapters/i18n/useTranslation', () => () => ({
   lang: 'en',
 }));
 jest.mock('@src/graphql/client', () => ({
@@ -17,7 +17,7 @@ const mockI18n = {
   lang: 'en',
 };
 
-jest.mock('next-translate/useTranslation', () => () => mockI18n);
+jest.mock('@src/adapters/i18n/useTranslation', () => () => mockI18n);
 
 // ==================================
 // unit tests

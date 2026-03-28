@@ -13,7 +13,7 @@ const mockRouter = {
   push: jest.fn(),
 };
 
-jest.mock('next/router', () => ({
+jest.mock('@src/adapters/routing/router', () => ({
   useRouter: () => mockRouter,
 }));
 

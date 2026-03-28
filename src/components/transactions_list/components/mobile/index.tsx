@@ -2,8 +2,8 @@ import React from 'react';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import dayjs from '@utils/dayjs';
-import Link from 'next/link';
-import useTranslation from 'next-translate/useTranslation';
+import Link from '@src/adapters/routing/link';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import {
   TRANSACTION_DETAILS,
   BLOCK_DETAILS,

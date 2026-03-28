@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import classnames from 'classnames';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import { mergeRefs } from '@utils/merge_refs';
 import {
   Typography, Divider,

@@ -1,15 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import {
   Drawer,
   MenuItem,
   Typography,
 } from '@material-ui/core';
-import { useRouter } from 'next/router';
-import useTranslation from 'next-translate/useTranslation';
-import Language from '@assets/icon-language.svg';
-import ThemeIcon from '@assets/icon-theme.svg';
+import { useRouter } from '@src/adapters/routing/router';
+import useTranslation from '@src/adapters/i18n/useTranslation';
+import Language from '@assets/icon-language.svg?react';
+import ThemeIcon from '@assets/icon-theme.svg?react';
 import { THEME_LIST } from '@recoil/settings';
 import {
   ExpandMoreOutlined,

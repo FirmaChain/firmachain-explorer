@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import { Typography } from '@material-ui/core';
 import { ibcConfig } from '@src/configs';
 import { ADDRESS_DETAILS } from '@utils/go_to_page';

@@ -11,6 +11,7 @@ import { getValidatorCondition } from '@utils/get_validator_condition';
 import { formatToken } from '@utils/format_token';
 import { SlashingParams } from '@models';
 import { chainConfig } from '@src/configs';
+import { ENV } from '@configs/env';
 import {
   ValidatorsState,
   ItemType,
@@ -71,7 +72,7 @@ export const useValidators = () => {
       let commission = null;
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`,
+          `${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`,
         );
         const commissionRate = response.data.validator.commission.commission_rates.rate;
         commission = Number(commissionRate) * 100;

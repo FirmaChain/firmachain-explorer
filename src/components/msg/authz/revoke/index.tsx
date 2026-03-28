@@ -1,5 +1,5 @@
 import React from 'react';
-import Trans from 'next-translate/Trans';
+import Trans from '@src/adapters/i18n/Trans';
 import { Typography } from '@material-ui/core';
 import { Name } from '@components';
 import { MsgRevoke } from '@models';

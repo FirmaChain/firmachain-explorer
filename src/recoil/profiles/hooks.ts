@@ -8,6 +8,7 @@ import {
   useRecoilCallback,
 } from 'recoil';
 import { chainConfig } from '@configs';
+import { ENV } from '@configs/env';
 import {
   writeProfile,
   readProfilesExist,
@@ -32,7 +33,7 @@ export const useProfileRecoil = (address: string): AvatarName | null => {
 
   useEffect(() => {
     const fetchValidatorsIdentityList = async () => {
-      const validatorsIdentityListUrl = process.env.NEXT_PUBLIC_VALIDATORS_IDENTITY_LIST_URL;
+      const validatorsIdentityListUrl = ENV.VALIDATORS_IDENTITY_LIST_URL;
 
       if (!validatorsIdentityListUrl) {
         return;
@@ -110,7 +111,7 @@ export const useProfilesRecoil = (addresses: string[]): AvatarName[] => {
 
   useEffect(() => {
     const fetchValidatorsIdentityList = async () => {
-      const validatorsIdentityListUrl = process.env.NEXT_PUBLIC_VALIDATORS_IDENTITY_LIST_URL;
+      const validatorsIdentityListUrl = ENV.VALIDATORS_IDENTITY_LIST_URL;
 
       if (!validatorsIdentityListUrl) {
         return;

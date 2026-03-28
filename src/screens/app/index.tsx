@@ -1,8 +1,8 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
-import { AppProps } from 'next/app';
-import { DefaultSeo } from 'next-seo';
-import useTranslation from 'next-translate/useTranslation';
+import { AppProps } from '@src/adapters/app/types';
+import { DefaultSeo } from '@src/adapters/seo/seo';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '@src/graphql/client';
 import { chainConfig } from '@configs';

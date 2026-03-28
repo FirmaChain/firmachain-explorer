@@ -2,7 +2,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import dayjs from '@utils/dayjs';
 import { toast } from 'react-toastify';
 import * as R from 'ramda';

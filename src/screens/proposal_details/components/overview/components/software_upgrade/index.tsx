@@ -1,6 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import {
   Table,
   TableBody,

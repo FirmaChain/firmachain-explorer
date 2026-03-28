@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppProps } from 'next/app';
+import { AppProps } from '@src/adapters/app/types';
 import { useChainHealthCheck } from './hooks';
 
 function InnerApp({

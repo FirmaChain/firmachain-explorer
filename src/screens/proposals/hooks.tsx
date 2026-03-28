@@ -7,6 +7,7 @@ import {
   useProposalsQuery,
   ProposalsQuery,
 } from '@graphql/types';
+import { ENV } from '@configs/env';
 import { getProposalDisplayTypes } from '@src/screens/proposal_details/utils';
 import { ProposalsState } from './types';
 
@@ -32,11 +33,11 @@ export const useProposals = () => {
   // ================================
   useEffect(() => {
     const fetchIngnoreProposals = async () => {
-      const ignoreListUrl = process.env.NEXT_PUBLIC_IGNORE_LIST_URL;
+      const ignoreListUrl = ENV.IGNORE_LIST_URL;
 
       if (!ignoreListUrl) {
         // eslint-disable-next-line no-console
-        console.error('Environment variable NEXT_PUBLIC_IGNORE_LIST_URL is not defined.');
+        console.error('Environment variable VITE_IGNORE_LIST_URL is not defined.');
         return;
       }
 

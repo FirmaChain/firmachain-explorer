@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import {
   Typography,
   Dialog,
@@ -19,8 +19,8 @@ import {
   EmailShareButton,
   EmailIcon,
 } from 'react-share';
-import CopyIcon from '@assets/icon-copy.svg';
-import ShareIcon from '@assets/icon-share.svg';
+import CopyIcon from '@assets/icon-copy.svg?react';
+import ShareIcon from '@assets/icon-share.svg?react';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { Box } from '@components';
 import { useStyles } from './styles';

@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import dayjs, { formatDayJs } from '@utils/dayjs';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import {
   TRANSACTION_DETAILS,
   BLOCK_DETAILS,
@@ -10,7 +10,7 @@ import {
 import {
   Typography,
 } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import AutoSizer from 'react-virtualized-auto-sizer';

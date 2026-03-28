@@ -1,6 +1,6 @@
 import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
-import { NextSeo } from 'next-seo';
+import useTranslation from '@src/adapters/i18n/useTranslation';
+import { NextSeo } from '@src/adapters/seo/seo';
 import {
   Layout,
   LoadAndExist,

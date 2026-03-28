@@ -13,7 +13,7 @@ import BlockDetails from '.';
 // ==================================
 // mocks
 // ==================================
-jest.mock('next/router', () => ({
+jest.mock('@src/adapters/routing/router', () => ({
   useRouter: () => ({
     query: {
       height: 300,

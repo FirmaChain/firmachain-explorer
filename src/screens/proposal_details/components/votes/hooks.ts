@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from '@src/adapters/routing/router';
 import * as R from 'ramda';
 import * as lodash from 'lodash';
 import {

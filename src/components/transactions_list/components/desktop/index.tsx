@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import numeral from 'numeral';
 import dayjs from '@utils/dayjs';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import {
   TRANSACTION_DETAILS,
   BLOCK_DETAILS,
@@ -12,7 +12,7 @@ import { getMessageByType } from '@src/components/msg';
 import InfiniteLoader from 'react-window-infinite-loader';
 import { VariableSizeGrid as Grid } from 'react-window';
 import { Typography } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { mergeRefs } from '@utils/merge_refs';
 import {
   Loading, Result,

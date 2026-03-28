@@ -1,5 +1,5 @@
 import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Typography } from '@material-ui/core';
 import { Box } from '@components';
 import { useGetStyles } from './styles';

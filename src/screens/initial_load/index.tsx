@@ -1,12 +1,12 @@
 import React from 'react';
 // import * as R from 'ramda';
 import { useRecoilValue } from 'recoil';
-import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
-import BigDipperLogoRed from '@assets/big-dipper-red.svg';
+import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
+import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
+import FirmachainTitle from '@assets/firma_chain_title.svg?react';
 import { LinearProgress } from '@material-ui/core';
 // import { chainConfig } from '@configs';
 import { readTheme } from '@recoil/settings';
-import FirmachainTitle from '@public/firmachain/firma_chain_title.svg';
 import { useStyles } from './styles';
 
 const InitialLoad = () => {
@@ -22,9 +22,9 @@ const InitialLoad = () => {
         {/* <img src={logoUrl} className={classes.logo} alt="logo" /> */}
         <LinearProgress className={classes.divider} />
         {theme === 'light' ? (
-          <BigDipperLogoRed style={{height: '40px'}}/>
+          <BigDipperLogoRed style={{ height: '40px' }} />
         ) : (
-          <BigDipperLogoWhite style={{height: '40px'}}/>
+          <BigDipperLogoWhite style={{ height: '40px' }} />
         )}
       </div>
     </div>

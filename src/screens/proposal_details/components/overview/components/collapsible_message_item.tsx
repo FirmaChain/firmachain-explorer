@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { Collapse } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Tag } from '@components';
 import { KNOWN_GOV_TYPES } from '../constants';
 import type { OverviewDisplayType } from '../utils';

@@ -3,7 +3,7 @@ import {
 } from 'react';
 import * as R from 'ramda';
 import numeral from 'numeral';
-import { useRouter } from 'next/router';
+import { useRouter } from '@src/adapters/routing/router';
 import {
   useBlockDetailsQuery,
   BlockDetailsQuery,

@@ -1,5 +1,5 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
+import dynamic from '@src/adapters/routing/dynamic';
 import { useScreenSize } from '@hooks';
 import { Mobile } from './components';
 import { useStyles } from './styles';

@@ -66,6 +66,9 @@
       "@configs": [
         "src/configs"
       ],
+      "@configs/*": [
+        "src/configs/*"
+      ],
       "@graphql/*": [
         "src/graphql/*"
       ],
@@ -79,14 +82,20 @@
     "incremental": true
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "tests/utils/mock_i18n.js",
-    "tests/utils/mock_apollo_provider.tss"
+    "tests/utils/mock_apollo_provider.tss",
+    "declarations.d.ts",
+    "vite.config.ts"
   ],
   "exclude": [
     "node_modules",
-    "cypress"
+    "cypress",
+    "src/pages",
+    "server",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "**/*.spec.ts"
   ]
 }

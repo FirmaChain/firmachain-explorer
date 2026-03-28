@@ -10,7 +10,7 @@ const mockI18n = {
   t: (key: string) => key,
   lang: 'en',
 };
-jest.mock('next-translate/useTranslation', () => () => mockI18n);
+jest.mock('@src/adapters/i18n/useTranslation', () => () => mockI18n);
 jest.mock('@components', () => ({
   Loading: (props) => <div id="Loading" {...props} />,
   AvatarName: (props) => <div id="AvatarName" {...props} />,

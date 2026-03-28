@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ToastContainer } from 'react-toastify';
-import { AppProps } from 'next/app';
+import { AppProps } from '@src/adapters/app/types';
 import Countdown from '@screens/countdown';
 import InitialLoad from '@screens/initial_load';
 import { useSettingsRecoil } from '@recoil/settings';

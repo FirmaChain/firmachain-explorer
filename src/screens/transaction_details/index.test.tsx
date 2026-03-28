@@ -13,7 +13,7 @@ import TransactionDetails from '.';
 // ==================================
 // mocks
 // ==================================
-jest.mock('next/router', () => ({
+jest.mock('@src/adapters/routing/router', () => ({
   useRouter: () => ({
     query: {
       tx: 3,
@@ -25,7 +25,7 @@ const mockI18n = {
   t: (key: string) => key,
   lang: 'en',
 };
-jest.mock('next-translate/useTranslation', () => () => mockI18n);
+jest.mock('@src/adapters/i18n/useTranslation', () => () => mockI18n);
 jest.mock('@components', () => ({
   Layout: (props) => <div id="Layout" {...props} />,
   LoadAndExist: (props) => <div id="LoadAndExist" {...props} />,

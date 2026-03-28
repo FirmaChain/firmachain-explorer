@@ -1,10 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
-import Trans from 'next-translate/Trans';
+import Trans from '@src/adapters/i18n/Trans';
 import { useRecoilValue } from 'recoil';
-import useTranslation from 'next-translate/useTranslation';
-import FooterLogoLight from '@assets/big-dipper-red.svg';
-import FooterLogoDark from '@assets/big-dipper-white.svg';
+import useTranslation from '@src/adapters/i18n/useTranslation';
+import FooterLogoLight from '@assets/big-dipper-red.svg?react';
+import FooterLogoDark from '@assets/big-dipper-white.svg?react';
 import {
   Button,
   Divider,

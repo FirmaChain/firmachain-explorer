@@ -3,7 +3,7 @@ import {
 } from 'react';
 import axios from 'axios';
 import * as R from 'ramda';
-import { useRouter } from 'next/router';
+import { useRouter } from '@src/adapters/routing/router';
 import { formatToken } from '@utils/format_token';
 import {
   useValidatorDetailsQuery,
@@ -13,6 +13,7 @@ import { useDesmosProfile } from '@hooks';
 import { validatorToDelegatorAddress } from '@recoil/profiles';
 import { getValidatorCondition } from '@utils/get_validator_condition';
 import { chainConfig } from '@src/configs';
+import { ENV } from '@configs/env';
 import {
   SlashingParams,
 } from '@models';
@@ -93,7 +94,7 @@ export const useValidatorDetails = () => {
       address: router.query.address as string,
     },
     onCompleted: (data) => {
-      axios.get(`${process.env.NEXT_PUBLIC_REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`).then((response)=>{
+      axios.get(`${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`).then((response)=>{
         const commissionRate = response.data.validator.commission.commission_rates.rate;
         handleSetState(formatAccountQuery(data, commissionRate));
       }).catch((error)=>{

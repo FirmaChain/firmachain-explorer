@@ -1,13 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import Big from 'big.js';
 import numeral from 'numeral';
 import {
   Divider, Typography,
 } from '@material-ui/core';
 import { useScreenSize } from '@hooks';
-import CopyIcon from '@assets/icon-copy.svg';
+import CopyIcon from '@assets/icon-copy.svg?react';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import {
   Box,
@@ -15,7 +15,7 @@ import {
   InfoPopover,
   ConditionExplanation,
 } from '@components';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import { useStyles } from './styles';

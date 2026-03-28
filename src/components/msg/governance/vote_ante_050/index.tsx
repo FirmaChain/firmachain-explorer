@@ -1,7 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
-import Trans from 'next-translate/Trans';
-import useTranslation from 'next-translate/useTranslation';
+import Link from '@src/adapters/routing/link';
+import Trans from '@src/adapters/i18n/Trans';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Typography } from '@material-ui/core';
 import { Name } from '@components';
 import { MsgVoteAnte050 } from '@models';

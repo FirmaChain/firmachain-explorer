@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import setLanguage from 'next-translate/setLanguage';
+import setLanguage from '@src/adapters/i18n/setLanguage';
 import {
   useRecoilState, SetterOrUpdater,
 } from 'recoil';

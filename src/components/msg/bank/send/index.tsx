@@ -1,9 +1,9 @@
 import React from 'react';
-import Trans from 'next-translate/Trans';
+import Trans from '@src/adapters/i18n/Trans';
 import {
   formatToken, formatNumber,
 } from '@utils/format_token';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Typography } from '@material-ui/core';
 import { Name } from '@components';
 import { MsgSend } from '@models';

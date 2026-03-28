@@ -1,12 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
 import numeral from 'numeral';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { Typography } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
 import { readDate } from '@recoil/settings';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { BLOCK_DETAILS, ACCOUNT_DETAILS } from '@utils/go_to_page';
 import {
   BoxDetails, Result,

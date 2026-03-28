@@ -1,11 +1,11 @@
 import React from 'react';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
+import Link from '@src/adapters/routing/link';
+import dynamic from '@src/adapters/routing/dynamic';
 import classnames from 'classnames';
 import {
   Typography, Divider,
 } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { BLOCKS } from '@utils/go_to_page';
 import {
   Box, NoData,

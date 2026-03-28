@@ -4,8 +4,17 @@ declare module 'ramda';
 declare module '*.png';
 declare module '*.jpg';
 declare module '*.jpeg';
-declare module '*.svg';
 declare module '*.gif';
+declare module '*.svg' {
+  const src: string;
+  export default src;
+}
+declare module '*.svg?react' {
+  import * as React from 'react';
+
+  const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+  export default ReactComponent;
+}
 
 type Override<T1, T2> = Omit<T1, keyof T2> & T2;
 

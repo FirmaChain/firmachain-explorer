@@ -1,7 +1,7 @@
 import React from 'react';
 import * as R from 'ramda';
 import classnames from 'classnames';
-import dynamic from 'next/dynamic';
+import dynamic from '@src/adapters/routing/dynamic';
 import {
   usePagination,
   useScreenSize,

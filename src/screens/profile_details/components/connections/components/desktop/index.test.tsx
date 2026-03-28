@@ -11,7 +11,7 @@ const mockI18n = {
   t: (key: string) => key,
   lang: 'en',
 };
-jest.mock('next-translate/useTranslation', () => () => mockI18n);
+jest.mock('@src/adapters/i18n/useTranslation', () => () => mockI18n);
 
 jest.mock('react-virtualized-auto-sizer', () => ({ children }: any) => children({
   height: 600, width: 600,

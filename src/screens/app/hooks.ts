@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { init } from '@socialgouv/matomo-next';
 import * as jdenticon from 'jdenticon';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 
 export const useApp = () => {
   // ==========================
@@ -10,13 +9,6 @@ export const useApp = () => {
   const { lang } = useTranslation();
 
   useEffect(() => {
-    const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL;
-    const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID;
-    if (MATOMO_URL && MATOMO_SITE_ID) {
-      init({
-        url: MATOMO_URL, siteId: MATOMO_SITE_ID,
-      });
-    }
     // jdenticon theme
     jdenticon.configure({
       hues: [207],
@@ -33,7 +25,7 @@ export const useApp = () => {
   }, []);
 
   useEffect(() => {
-    document.cookie = `NEXT_LOCALE=${lang}`;
+    document.cookie = `LOCALE=${lang}`;
   }, [lang]);
 
   // ==========================

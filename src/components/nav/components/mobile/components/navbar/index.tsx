@@ -1,11 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import { ExpandMore } from '@material-ui/icons';
 import { useRecoilValue } from 'recoil';
 import { readSelectedNetwork } from '@recoil/big_dipper_networks';
-import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
-import BigDipperLogoRed from '@assets/big-dipper-red.svg';
+import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
+import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
 import { HOME } from '@utils/go_to_page';
 import { readTheme } from '@recoil/settings';
 import { useStyles } from './styles';

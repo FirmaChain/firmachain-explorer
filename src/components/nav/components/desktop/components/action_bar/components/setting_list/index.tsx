@@ -1,8 +1,8 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from '@src/adapters/routing/router';
 import classnames from 'classnames';
-import useTranslation from 'next-translate/useTranslation';
-import SettingIcon from '@assets/icon-setting.svg';
+import useTranslation from '@src/adapters/i18n/useTranslation';
+import SettingIcon from '@assets/icon-setting.svg?react';
 import { generalConfig } from '@configs';
 import {
   MenuItem,

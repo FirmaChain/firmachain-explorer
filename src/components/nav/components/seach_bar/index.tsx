@@ -1,5 +1,5 @@
 import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Search } from '@components';
 import { chainConfig } from '@src/configs';
 import { useSearchBar } from './hooks';

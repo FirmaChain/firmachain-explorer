@@ -5,7 +5,7 @@ import {
   AppBar,
   ClickAwayListener,
 } from '@material-ui/core';
-import FirmachainLogo from '@assets/firma_chain_title.svg';
+import FirmachainLogo from '@assets/firma_chain_title.svg?react';
 import { useStyles } from './styles';
 import { useDesktop } from './hooks';
 import {

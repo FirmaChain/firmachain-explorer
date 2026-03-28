@@ -1,11 +1,11 @@
 import React from 'react';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
+import Link from '@src/adapters/routing/link';
+import dynamic from '@src/adapters/routing/dynamic';
 import {
   Typography, Divider,
 } from '@material-ui/core';
 import classnames from 'classnames';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { TRANSACTIONS } from '@utils/go_to_page';
 import {
   Box, NoData,

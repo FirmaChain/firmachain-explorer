@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import dynamic from 'next/dynamic';
+import dynamic from '@src/adapters/routing/dynamic';
 import { Typography } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import {
   usePagination, useScreenSize,

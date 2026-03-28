@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
-import dynamic from 'next/dynamic';
-import useTranslation from 'next-translate/useTranslation';
+import dynamic from '@src/adapters/routing/dynamic';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import {
   Pagination,
   Box,

@@ -22,11 +22,11 @@ const mockI18n = {
   lang: 'en',
 };
 
-jest.mock('next-seo', () => ({
+jest.mock('@src/adapters/seo/seo', () => ({
   NextSeo: (props) => <div id="NextSeo" {...props} />,
 }));
 
-jest.mock('next-translate/useTranslation', () => () => mockI18n);
+jest.mock('@src/adapters/i18n/useTranslation', () => () => mockI18n);
 
 // ==================================
 // unit tests

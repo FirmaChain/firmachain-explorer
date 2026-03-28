@@ -1,6 +1,6 @@
 import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
-import dynamic from 'next/dynamic';
+import useTranslation from '@src/adapters/i18n/useTranslation';
+import dynamic from '@src/adapters/routing/dynamic';
 import {
   Dialog,
   Typography,

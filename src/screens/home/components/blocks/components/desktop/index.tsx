@@ -8,10 +8,10 @@ import {
   TableBody,
   Typography,
 } from '@material-ui/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@src/adapters/i18n/useTranslation';
 import numeral from 'numeral';
 import dayjs from '@utils/dayjs';
-import Link from 'next/link';
+import Link from '@src/adapters/routing/link';
 import { AvatarName } from '@components';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';

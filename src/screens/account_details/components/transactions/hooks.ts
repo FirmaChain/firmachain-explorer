@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from '@src/adapters/routing/router';
 import { convertMsgsToModels } from '@msg';
 import * as R from 'ramda';
 import { useGetMessagesByAddressQuery, GetMessagesByAddressQuery } from '@graphql/types';
