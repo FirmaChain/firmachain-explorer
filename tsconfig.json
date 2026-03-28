@@ -1,101 +1,47 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "downlevelIteration": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
+    "useDefineForClassFields": true,
     "baseUrl": ".",
     "paths": {
-      "@src/*": [
-        "src/*"
-      ],
-      "@components": [
-        "src/components"
-      ],
-      "@msg": [
-        "src/components/msg"
-      ],
-      "@icons": [
-        "src/components/icons"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@hooks": [
-        "src/hooks"
-      ],
-      "@models": [
-        "src/models"
-      ],
-      "@screens/*": [
-        "src/screens/*"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@styles": [
-        "src/styles"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@contexts": [
-        "src/contexts"
-      ],
-      "@recoil/*": [
-        "src/recoil/*"
-      ],
-      "@graphql": [
-        "src/graphql"
-      ],
-      "@configs": [
-        "src/configs"
-      ],
-      "@configs/*": [
-        "src/configs/*"
-      ],
-      "@graphql/*": [
-        "src/graphql/*"
-      ],
-      "@graphql/types": [
-        "src/graphql/types"
-      ],
-      "@tests/utils": [
-        "tests/utils"
-      ]
-    },
-    "incremental": true
+      "@src/*": ["src/*"],
+      "@components": ["src/components"],
+      "@msg": ["src/components/msg"],
+      "@icons": ["src/components/icons"],
+      "@assets/*": ["src/assets/*"],
+      "@hooks": ["src/hooks"],
+      "@models": ["src/models"],
+      "@screens/*": ["src/screens/*"],
+      "@public/*": ["public/*"],
+      "@styles": ["src/styles"],
+      "@utils/*": ["src/utils/*"],
+      "@contexts": ["src/contexts"],
+      "@recoil/*": ["src/recoil/*"],
+      "@graphql": ["src/graphql"],
+      "@configs": ["src/configs"],
+      "@configs/*": ["src/configs/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@graphql/types": ["src/graphql/types"]
+    }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "tests/utils/mock_i18n.js",
-    "tests/utils/mock_apollo_provider.tss",
     "declarations.d.ts",
     "vite.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "cypress",
-    "src/pages",
-    "server",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
-    "**/*.spec.ts"
-  ]
+  "exclude": ["node_modules"]
 }
