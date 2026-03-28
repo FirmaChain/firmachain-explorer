@@ -1,15 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgExec } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgExec } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const Exec = (props: {
-  message: MsgExec;
-}) => {
+const Exec = (props: { message: MsgExec }) => {
   const { message } = props;
 
   const grantee = useProfileRecoil(message.grantee);
@@ -19,14 +15,7 @@ const Exec = (props: {
     <Typography>
       <Trans
         i18nKey="message_contents:MsgExec"
-        components={[
-          (
-            <Name
-              address={message.grantee}
-              name={granteeMoniker}
-            />
-          ),
-        ]}
+        components={[<Name address={message.grantee} name={granteeMoniker} />]}
       />
     </Typography>
   );

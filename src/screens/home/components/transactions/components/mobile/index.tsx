@@ -1,41 +1,32 @@
-import React from 'react';
-import classnames from 'classnames';
-import Link from '@src/adapters/routing/link';
-import numeral from 'numeral';
-import dayjs from '@utils/dayjs';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Typography,
-  Divider,
-} from '@material-ui/core';
-import {
-  SingleTransactionMobile, Result,
-} from '@components';
-import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
-import { getMessageByType } from '@src/components/msg';
-import {
-  BLOCK_DETAILS, TRANSACTION_DETAILS,
-} from '@utils/go_to_page';
+import React from "react";
+import classnames from "classnames";
+import Link from "@/adapters/routing/link";
+import numeral from "numeral";
+import dayjs from "@utils/dayjs";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography, Divider } from "@material-ui/core";
+import { SingleTransactionMobile, Result } from "@components";
+import { getMiddleEllipsis } from "@utils/get_middle_ellipsis";
+import { getMessageByType } from "@/components/msg";
+import { BLOCK_DETAILS, TRANSACTION_DETAILS } from "@utils/go_to_page";
 
-import { TransactionType } from '../../types';
+import { TransactionType } from "../../types";
 
-const Mobile:React.FC<{
+const Mobile: React.FC<{
   className?: string;
   items: TransactionType[];
-}> = ({
-  className, items,
-}) => {
-  const { t } = useTranslation('transactions');
-  
+}> = ({ className, items }) => {
+  const { t } = useTranslation("transactions");
+
   const formattedData = items.map((x) => {
-    x.type[0].type = x.type[0]['@type'];
+    x.type[0].type = x.type[0]["@type"];
     const tag = getMessageByType(x.type[0], true, t);
 
-    return ({
+    return {
       block: (
         <Link href={BLOCK_DETAILS(x.height)} passHref>
           <Typography variant="body1" component="a">
-            {numeral(x.height).format('0,0')}
+            {numeral(x.height).format("0,0")}
           </Typography>
         </Link>
       ),
@@ -43,22 +34,21 @@ const Mobile:React.FC<{
         <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
           <Typography variant="body1" component="a">
             {getMiddleEllipsis(x.hash, {
-              beginning: 15, ending: 5,
+              beginning: 15,
+              ending: 5,
             })}
           </Typography>
         </Link>
       ),
-      result: (
-        <Result success={x.success} />
-      ),
+      result: <Result success={x.success} />,
       time: dayjs.utc(x.timestamp).fromNow(),
-      messages: numeral(x.messages).format('0,0'),
-      type : (
-        <Typography variant='body1' component='a'>
+      messages: numeral(x.messages).format("0,0"),
+      type: (
+        <Typography variant="body1" component="a">
           {tag.type}
         </Typography>
       ),
-    });
+    };
   });
 
   return (

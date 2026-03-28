@@ -1,48 +1,41 @@
-import React from 'react';
-import classnames from 'classnames';
-import Link from '@src/adapters/routing/link';
-import numeral from 'numeral';
-import {
-  Typography,
-} from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Box } from '@components';
-import { BLOCK_DETAILS } from '@utils/go_to_page';
-import { useStyles } from './styles';
-import { VotingPowerType } from '../../types';
+import React from "react";
+import classnames from "classnames";
+import Link from "@/adapters/routing/link";
+import numeral from "numeral";
+import { Typography } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Box } from "@components";
+import { BLOCK_DETAILS } from "@utils/go_to_page";
+import { useStyles } from "./styles";
+import { VotingPowerType } from "../../types";
 
 const VotingPower: React.FC<{
   className?: string;
   data: VotingPowerType;
   status: number;
-}> = ({
-  className,
-  data,
-  status,
-}) => {
-  const { t } = useTranslation('validators');
-  const votingPowerPercent = status === 3 ? numeral((
-    (data.self / 10**6) / numeral(data.overall.value).value()) * 100) : numeral(0);
+}> = ({ className, data, status }) => {
+  const { t } = useTranslation("validators");
+  const votingPowerPercent =
+    status === 3
+      ? numeral(
+          (data.self / 10 ** 6 / numeral(data.overall.value).value()) * 100,
+        )
+      : numeral(0);
 
   const classes = useStyles(votingPowerPercent.format(0, Math.floor));
 
-  const votingPower = status === 3 ? numeral(data.self / 10**6).format('0,0') : '0';
+  const votingPower =
+    status === 3 ? numeral(data.self / 10 ** 6).format("0,0") : "0";
 
   return (
     <Box className={classnames(className, classes.root)}>
-      <Typography variant="h2">
-        {t('votingPower')}
-      </Typography>
+      <Typography variant="h2">{t("votingPower")}</Typography>
       <div className={classes.data}>
         <Typography variant="h3" className="primary__data">
-          {`${votingPowerPercent.format('0,0.00')}%`}
+          {`${votingPowerPercent.format("0,0.00")}%`}
         </Typography>
         <Typography variant="body1">
-          {votingPower}
-          {' '}
-          /
-          {' '}
-          {numeral(data.overall.value).format('0,0')}
+          {votingPower} / {numeral(data.overall.value).format("0,0")}
         </Typography>
       </div>
       <div className={classes.chart}>
@@ -50,17 +43,17 @@ const VotingPower: React.FC<{
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('block')}
+          {t("block")}
         </Typography>
         <Link href={BLOCK_DETAILS(data.height)} passHref>
           <Typography variant="body1" className="value" component="a">
-            {numeral(data.height).format('0,0')}
+            {numeral(data.height).format("0,0")}
           </Typography>
         </Link>
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('votingPower')}
+          {t("votingPower")}
         </Typography>
         <Typography variant="body1" className="value">
           {votingPower}
@@ -68,10 +61,10 @@ const VotingPower: React.FC<{
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('votingPowerPercent')}
+          {t("votingPowerPercent")}
         </Typography>
         <Typography variant="body1" className="value">
-          {`${votingPowerPercent.format('0,0.00')}%`}
+          {`${votingPowerPercent.format("0,0.00")}%`}
         </Typography>
       </div>
     </Box>

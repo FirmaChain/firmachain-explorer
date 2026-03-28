@@ -1,8 +1,8 @@
-import React from 'react';
-import numeral from 'numeral';
-import { Typography } from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { useRecoilValue } from 'recoil';
+import React from "react";
+import numeral from "numeral";
+import { Typography } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { useRecoilValue } from "recoil";
 import {
   AreaChart,
   Area,
@@ -11,37 +11,32 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
-import { CustomToolTip } from '@components';
-import { readDate } from '@recoil/settings';
-import dayjs, { formatDayJs } from '@utils/dayjs';
-import { TokenPriceType } from '../../types';
-import { useStyles } from './styles';
-import { usePrice } from './hooks';
+} from "recharts";
+import { CustomToolTip } from "@components";
+import { readDate } from "@recoil/settings";
+import dayjs, { formatDayJs } from "@utils/dayjs";
+import { TokenPriceType } from "../../types";
+import { useStyles } from "./styles";
+import { usePrice } from "./hooks";
 
-const TokenPrice: React.FC<{items: TokenPriceType[]} & ComponentDefault> = (props) => {
-  const {
-    classes, theme,
-  } = useStyles();
-  const { t } = useTranslation('home');
-  const {
-    tickPriceFormatter,
-    formatTime,
-  } = usePrice();
+const TokenPrice: React.FC<{ items: TokenPriceType[] } & ComponentDefault> = (
+  props,
+) => {
+  const { classes, theme } = useStyles();
+  const { t } = useTranslation("home");
+  const { tickPriceFormatter, formatTime } = usePrice();
   const dateFormat = useRecoilValue(readDate);
 
   const formatItems = props.items.map((x) => {
-    return ({
+    return {
       time: formatTime(dayjs.utc(x.time), dateFormat),
       fullTime: formatDayJs(dayjs.utc(x.time), dateFormat),
       value: x.value,
-    });
+    };
   });
   return (
     <div>
-      <Typography variant="h2">
-        {t('priceHistory')}
-      </Typography>
+      <Typography variant="h2">{t("priceHistory")}</Typography>
       <div className={classes.chart}>
         <ResponsiveContainer width="99%">
           <AreaChart
@@ -51,8 +46,7 @@ const TokenPrice: React.FC<{items: TokenPriceType[]} & ComponentDefault> = (prop
               right: 30,
               left: 0,
               bottom: 0,
-            }}
-          >
+            }}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop
@@ -68,10 +62,7 @@ const TokenPrice: React.FC<{items: TokenPriceType[]} & ComponentDefault> = (prop
               </linearGradient>
             </defs>
             <CartesianGrid stroke={theme.palette.divider} />
-            <XAxis
-              dataKey="time"
-              tickLine={false}
-            />
+            <XAxis dataKey="time" tickLine={false} />
             <YAxis
               tickLine={false}
               tickFormatter={tickPriceFormatter}
@@ -81,23 +72,20 @@ const TokenPrice: React.FC<{items: TokenPriceType[]} & ComponentDefault> = (prop
             />
             <Tooltip
               cursor={false}
-              content={(
+              content={
                 <CustomToolTip>
                   {(x) => {
                     return (
                       <>
-                        <Typography variant="caption">
-                          {x.fullTime}
-                        </Typography>
+                        <Typography variant="caption">{x.fullTime}</Typography>
                         <Typography variant="body1">
-                          $
-                          {numeral(x.value).format('0,0.00')}
+                          ${numeral(x.value).format("0,0.00")}
                         </Typography>
                       </>
                     );
                   }}
                 </CustomToolTip>
-            )}
+              }
             />
             <Area
               type="monotone"

@@ -1,34 +1,22 @@
-import React from 'react';
-import classnames from 'classnames';
-import numeral from 'numeral';
-import dayjs from '@utils/dayjs';
-import Link from '@src/adapters/routing/link';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  TRANSACTION_DETAILS,
-  BLOCK_DETAILS,
-} from '@utils/go_to_page';
-import { getMessageByType } from '@src/components/msg';
-import {
-  Typography, Divider,
-} from '@material-ui/core';
-import { VariableSizeList as List } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
-import AutoSizer from 'react-virtualized-auto-sizer';
+import React from "react";
+import classnames from "classnames";
+import numeral from "numeral";
+import dayjs from "@utils/dayjs";
+import Link from "@/adapters/routing/link";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { TRANSACTION_DETAILS, BLOCK_DETAILS } from "@utils/go_to_page";
+import { getMessageByType } from "@/components/msg";
+import { Typography, Divider } from "@material-ui/core";
+import { VariableSizeList as List } from "react-window";
+import InfiniteLoader from "react-window-infinite-loader";
+import AutoSizer from "react-virtualized-auto-sizer";
 
-import { mergeRefs } from '@utils/merge_refs';
-import {
-  SingleTransactionMobile,
-  Loading,
-  Result,
-} from '@components';
-import {
-  useList,
-  useListRow,
-} from '@hooks';
-import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
-import { useStyles } from './styles';
-import { TransactionsListState } from '../../types';
+import { mergeRefs } from "@utils/merge_refs";
+import { SingleTransactionMobile, Loading, Result } from "@components";
+import { useList, useListRow } from "@hooks";
+import { getMiddleEllipsis } from "@utils/get_middle_ellipsis";
+import { useStyles } from "./styles";
+import { TransactionsListState } from "../../types";
 
 const Mobile: React.FC<TransactionsListState> = ({
   className,
@@ -37,24 +25,20 @@ const Mobile: React.FC<TransactionsListState> = ({
   isItemLoaded,
   transactions,
 }) => {
-  const { t } = useTranslation('transactions');
+  const { t } = useTranslation("transactions");
   const classes = useStyles();
 
-  const {
-    listRef,
-    getRowHeight,
-    setRowHeight,
-  } = useList();
+  const { listRef, getRowHeight, setRowHeight } = useList();
 
-  const items = transactions.map((x:any) => {
-    x.type[0].type = x.type[0]['@type'];
+  const items = transactions.map((x: any) => {
+    x.type[0].type = x.type[0]["@type"];
     const tag = getMessageByType(x.type[0], true, t);
 
     return {
       block: (
         <Link href={BLOCK_DETAILS(x.height)} passHref>
           <Typography variant="body1" component="a">
-            {numeral(x.height).format('0,0')}
+            {numeral(x.height).format("0,0")}
           </Typography>
         </Link>
       ),
@@ -70,7 +54,7 @@ const Mobile: React.FC<TransactionsListState> = ({
       ),
       result: <Result success={x.success} />,
       time: dayjs.utc(x.timestamp).fromNow(),
-      messages: numeral(x.messages.count).format('0,0'),
+      messages: numeral(x.messages.count).format("0,0"),
       type: (
         <Typography variant="body1" component="a">
           {tag.type}
@@ -82,18 +66,13 @@ const Mobile: React.FC<TransactionsListState> = ({
   return (
     <div className={classnames(className, classes.root)}>
       <AutoSizer>
-        {({
-          height, width,
-        }) => {
+        {({ height, width }) => {
           return (
             <InfiniteLoader
               isItemLoaded={isItemLoaded}
               itemCount={itemCount}
-              loadMoreItems={loadMoreItems}
-            >
-              {({
-                onItemsRendered, ref,
-              }) => (
+              loadMoreItems={loadMoreItems}>
+              {({ onItemsRendered, ref }) => (
                 <List
                   className="List"
                   height={height}
@@ -101,11 +80,8 @@ const Mobile: React.FC<TransactionsListState> = ({
                   itemSize={getRowHeight}
                   onItemsRendered={onItemsRendered}
                   ref={mergeRefs(listRef, ref)}
-                  width={width}
-                >
-                  {({
-                    index, style,
-                  }) => {
+                  width={width}>
+                  {({ index, style }) => {
                     const { rowRef } = useListRow(index, setRowHeight);
                     if (!isItemLoaded(index)) {
                       return (

@@ -1,25 +1,21 @@
-import React from 'react';
-import classnames from 'classnames';
-import dynamic from '@src/adapters/routing/dynamic';
-import { Typography } from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Box } from '@components';
-import {
-  usePagination, useScreenSize,
-} from '@hooks';
-import {
-  useProfilesRecoil,
-} from '@recoil/profiles';
-import { useStyles } from './styles';
-import { Paginate } from './components';
-import { useDeposits } from './hooks';
+import React from "react";
+import classnames from "classnames";
+import dynamic from "@/adapters/routing/dynamic";
+import { Typography } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Box } from "@components";
+import { usePagination, useScreenSize } from "@hooks";
+import { useProfilesRecoil } from "@recoil/profiles";
+import { useStyles } from "./styles";
+import { Paginate } from "./components";
+import { useDeposits } from "./hooks";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
 const Deposits: React.FC<ComponentDefault> = (props) => {
   const { isDesktop } = useScreenSize();
-  const { t } = useTranslation('proposals');
+  const { t } = useTranslation("proposals");
   const {
     page,
     rowsPerPage,
@@ -35,26 +31,22 @@ const Deposits: React.FC<ComponentDefault> = (props) => {
 
   const dataProfiles = useProfilesRecoil(items.map((x) => x.user));
   items = items.map((x, i) => {
-    return ({
+    return {
       ...x,
       user: dataProfiles[i],
-    });
+    };
   });
 
   return (
     <Box className={classnames(props.className, classes.root)}>
-      <Typography className={classes.title} variant="h2">{t('deposits')}</Typography>
+      <Typography className={classes.title} variant="h2">
+        {t("deposits")}
+      </Typography>
       <div className={classes.list}>
         {isDesktop ? (
-          <Desktop
-            className={classes.desktop}
-            items={items}
-          />
+          <Desktop className={classes.desktop} items={items} />
         ) : (
-          <Mobile
-            className={classes.mobile}
-            items={items}
-          />
+          <Mobile className={classes.mobile} items={items} />
         )}
       </div>
       <Paginate

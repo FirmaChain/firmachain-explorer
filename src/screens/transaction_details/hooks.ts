@@ -1,20 +1,13 @@
-import {
-  useState, useEffect,
-} from 'react';
-import { useRouter } from '@src/adapters/routing/router';
-import * as R from 'ramda';
+import { useState, useEffect } from "react";
+import { useRouter } from "@/adapters/routing/router";
+import * as R from "ramda";
 import {
   useTransactionDetailsQuery,
   TransactionDetailsQuery,
-} from '@graphql/types';
-import { formatToken } from '@utils/format_token';
-import {
-  convertMsgsToModels,
-  convertDefaultRaw,
-} from '@msg';
-import {
-  TransactionState,
-} from './types';
+} from "@graphql/types";
+import { formatToken } from "@utils/format_token";
+import { convertMsgsToModels, convertDefaultRaw } from "@msg";
+import { TransactionState } from "./types";
 
 export const useTransactionDetails = () => {
   const router = useRouter();
@@ -22,26 +15,26 @@ export const useTransactionDetails = () => {
     exists: true,
     loading: true,
     overview: {
-      hash: '',
+      hash: "",
       height: 0,
-      timestamp: '',
+      timestamp: "",
       fee: {
-        value: '0',
-        displayDenom: '',
-        baseDenom: '',
+        value: "0",
+        displayDenom: "",
+        baseDenom: "",
         exponent: 0,
       },
-      feeGrant: '',
+      feeGrant: "",
       gasUsed: 0,
       gasWanted: 0,
       success: false,
-      memo: '',
-      error: '',
+      memo: "",
+      error: "",
     },
     logs: null,
     events: null,
     messages: {
-      filterBy: 'none',
+      filterBy: "none",
       viewRaw: false,
       items: [],
     },
@@ -66,7 +59,7 @@ export const useTransactionDetails = () => {
       hash: (router.query.tx as string).toUpperCase(),
     },
     onCompleted: (data) => {
-      console.log('data', data);
+      console.log("data", data);
       handleSetState(formatTransactionDetails(data));
     },
   });
@@ -89,10 +82,14 @@ export const useTransactionDetails = () => {
     // =============================
     const formatOverview = () => {
       const { fee } = data.transaction[0];
-      const feeAmount = R.pathOr({
-        denom: '',
-        amount: 0,
-      }, ['amount', 0], fee);
+      const feeAmount = R.pathOr(
+        {
+          denom: "",
+          amount: 0,
+        },
+        ["amount", 0],
+        fee,
+      );
       const { success } = data.transaction[0];
       const overview = {
         hash: data.transaction[0].hash,
@@ -104,7 +101,7 @@ export const useTransactionDetails = () => {
         gasWanted: data.transaction[0].gasWanted,
         success,
         memo: data.transaction[0].memo,
-        error: success ? '' : data.transaction[0].rawLog,
+        error: success ? "" : data.transaction[0].rawLog,
       };
       return overview;
     };
@@ -164,7 +161,7 @@ export const useTransactionDetails = () => {
 
   const filterMessages = (messages: any[]) => {
     return messages.filter((x) => {
-      if (state.messages.filterBy !== 'none') {
+      if (state.messages.filterBy !== "none") {
         return x.category === state.messages.filterBy;
       }
       return true;

@@ -1,18 +1,16 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import classnames from 'classnames';
-import { Typography } from '@material-ui/core';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import classnames from "classnames";
+import { Typography } from "@material-ui/core";
 
 const Total: React.FC<{
   className?: string;
   total: string;
-}> = ({
-  className, total,
-}) => {
-  const { t } = useTranslation('proposals');
+}> = ({ className, total }) => {
+  const { t } = useTranslation("proposals");
   return (
     <Typography variant="body1" className={classnames(className)}>
-      {t('totalProposals', {
+      {t("totalProposals", {
         amount: total,
       })}
     </Typography>

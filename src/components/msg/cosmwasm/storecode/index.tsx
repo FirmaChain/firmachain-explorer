@@ -1,15 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgCosmwasmStoreCode } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgCosmwasmStoreCode } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const CosmwasmStoreCode = (props: {
-  message: MsgCosmwasmStoreCode;
-}) => {
+const CosmwasmStoreCode = (props: { message: MsgCosmwasmStoreCode }) => {
   const { message } = props;
 
   const ownerAddress = useProfileRecoil(message.ownerAddress);
@@ -20,15 +16,10 @@ const CosmwasmStoreCode = (props: {
       <Trans
         i18nKey="message_contents:txCosmwasmStoreCodeContent"
         components={[
-          (
-            <Name
-              address={message.ownerAddress}
-              name={ownerMoniker}
-            />
-          ),
+          <Name address={message.ownerAddress} name={ownerMoniker} />,
         ]}
         values={{
-            codeId: message.codeId,
+          codeId: message.codeId,
         }}
       />
     </Typography>

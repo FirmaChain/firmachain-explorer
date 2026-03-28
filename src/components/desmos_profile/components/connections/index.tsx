@@ -1,36 +1,29 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import dynamic from '@src/adapters/routing/dynamic';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import dynamic from "@/adapters/routing/dynamic";
 import {
   Dialog,
   Typography,
   DialogTitle,
   IconButton,
   DialogContent,
-} from '@material-ui/core';
-import { Close as CloseIcon } from '@material-ui/icons';
-import { Pagination } from '@components';
-import {
-  usePagination,
-  useScreenSize,
-} from '@hooks';
-import { useStyles } from './styles';
+} from "@material-ui/core";
+import { Close as CloseIcon } from "@material-ui/icons";
+import { Pagination } from "@components";
+import { usePagination, useScreenSize } from "@hooks";
+import { useStyles } from "./styles";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
 const Connections: React.FC<{
   handleClose: () => void;
   open: boolean;
   data: ProfileConnectionType[];
-}> = ({
-  handleClose,
-  open,
-  data,
-}) => {
+}> = ({ handleClose, open, data }) => {
   const { isDesktop } = useScreenSize();
   const classes = useStyles();
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
   const {
     page,
     rowsPerPage,
@@ -45,16 +38,10 @@ const Connections: React.FC<{
       onClose={handleClose}
       aria-labelledby="simple-dialog-title"
       open={open}
-      className={classes.dialog}
-    >
+      className={classes.dialog}>
       <DialogTitle disableTypography className={classes.header}>
-        <Typography variant="h2">
-          {t('connectionsTitle')}
-        </Typography>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-        >
+        <Typography variant="h2">{t("connectionsTitle")}</Typography>
+        <IconButton aria-label="close" onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>

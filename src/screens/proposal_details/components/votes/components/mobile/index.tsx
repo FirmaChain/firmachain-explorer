@@ -1,26 +1,21 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Divider,
-  Typography,
-} from '@material-ui/core';
-import { AvatarName } from '@components';
-import { useStyles } from './styles';
-import { getVoteKey } from '../../utils';
-import { ItemType } from '../../types';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Divider, Typography } from "@material-ui/core";
+import { AvatarName } from "@components";
+import { useStyles } from "./styles";
+import { getVoteKey } from "../../utils";
+import { ItemType } from "../../types";
 
 const Mobile: React.FC<{
   className?: string;
   items?: ItemType[];
-}> = ({
-  className, items,
-}) => {
-  const { t } = useTranslation('proposals');
+}> = ({ className, items }) => {
+  const { t } = useTranslation("proposals");
   const classes = useStyles();
 
   const formattedItems = items.map((x) => {
-    return ({
+    return {
       voter: (
         <AvatarName
           address={x.user.address}
@@ -29,7 +24,7 @@ const Mobile: React.FC<{
         />
       ),
       vote: t(getVoteKey(x.vote)),
-    });
+    };
   });
 
   return (
@@ -40,7 +35,7 @@ const Mobile: React.FC<{
             <div className={classes.list}>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('voter')}
+                  {t("voter")}
                 </Typography>
                 {x.voter}
               </div>
@@ -54,7 +49,7 @@ const Mobile: React.FC<{
               </div> */}
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('vote')}
+                  {t("vote")}
                 </Typography>
                 <Typography variant="body1" className="value">
                   {x.vote}

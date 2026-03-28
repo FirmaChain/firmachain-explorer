@@ -1,29 +1,20 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import dynamic from '@src/adapters/routing/dynamic';
-import {
-  Typography,
-} from '@material-ui/core';
-import {
-  Pagination, Box,
-} from '@components';
-import {
-  usePagination,
-  useScreenSize,
-} from '@hooks';
-import { useStyles } from './styles';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import dynamic from "@/adapters/routing/dynamic";
+import { Typography } from "@material-ui/core";
+import { Pagination, Box } from "@components";
+import { usePagination, useScreenSize } from "@hooks";
+import { useStyles } from "./styles";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
 const Connections: React.FC<{
   data: ProfileConnectionType[];
-}> = ({
-  data,
-}) => {
+}> = ({ data }) => {
   const { isDesktop } = useScreenSize();
   const classes = useStyles();
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
   const {
     page,
     rowsPerPage,
@@ -35,9 +26,7 @@ const Connections: React.FC<{
 
   return (
     <Box>
-      <Typography variant="h2">
-        {t('connectionsTitle')}
-      </Typography>
+      <Typography variant="h2">{t("connectionsTitle")}</Typography>
 
       {isDesktop ? (
         <Desktop items={items} className={classes.noWrap} />

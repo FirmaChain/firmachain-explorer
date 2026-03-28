@@ -1,24 +1,26 @@
-import { useState } from 'react';
-import * as R from 'ramda';
-import { useRouter } from '@src/adapters/routing/router';
+import { useState } from "react";
+import * as R from "ramda";
+import { useRouter } from "@/adapters/routing/router";
 import {
   useLastHundredBlocksSubscription,
   LastHundredBlocksSubscription,
-} from '@graphql/types';
+} from "@graphql/types";
 
 export const useBlocks = () => {
-  const [state, setState] = useState<{
-    height: number;
-    txs: number;
-    proposer: string;
-    signed: boolean;
-  }[]>([]);
+  const [state, setState] = useState<
+    {
+      height: number;
+      txs: number;
+      proposer: string;
+      signed: boolean;
+    }[]
+  >([]);
 
   const router = useRouter();
 
   useLastHundredBlocksSubscription({
     variables: {
-      address: R.pathOr('', ['query', 'address'], router),
+      address: R.pathOr("", ["query", "address"], router),
     },
     onSubscriptionData: (data) => {
       setState(formatLastHundredBlocks(data.subscriptionData.data));

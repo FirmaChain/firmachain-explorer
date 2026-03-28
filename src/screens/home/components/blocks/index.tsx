@@ -1,50 +1,44 @@
-import React from 'react';
-import Link from '@src/adapters/routing/link';
-import dynamic from '@src/adapters/routing/dynamic';
-import classnames from 'classnames';
-import {
-  Typography, Divider,
-} from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { BLOCKS } from '@utils/go_to_page';
-import {
-  Box, NoData,
-} from '@components';
-import { useScreenSize } from '@hooks';
-import {
-  useProfilesRecoil,
-} from '@recoil/profiles';
-import { useStyles } from './styles';
-import { useBlocks } from './hooks';
+import React from "react";
+import Link from "@/adapters/routing/link";
+import dynamic from "@/adapters/routing/dynamic";
+import classnames from "classnames";
+import { Typography, Divider } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { BLOCKS } from "@utils/go_to_page";
+import { Box, NoData } from "@components";
+import { useScreenSize } from "@hooks";
+import { useProfilesRecoil } from "@recoil/profiles";
+import { useStyles } from "./styles";
+import { useBlocks } from "./hooks";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
-const Blocks:React.FC<{
+const Blocks: React.FC<{
   className?: string;
 }> = ({ className }) => {
   const { isDesktop } = useScreenSize();
-  const { t } = useTranslation('home');
+  const { t } = useTranslation("home");
   const classes = useStyles();
   const { state } = useBlocks();
 
-  const proposerProfiles = useProfilesRecoil(state.items.map((x) => x.proposer));
+  const proposerProfiles = useProfilesRecoil(
+    state.items.map((x) => x.proposer),
+  );
   const mergedDataWithProfiles = state.items.map((x, i) => {
-    return ({
+    return {
       ...x,
       proposer: proposerProfiles[i],
-    });
+    };
   });
 
   return (
     <Box className={classnames(className, classes.root)}>
       <div className={classes.label}>
-        <Typography variant="h2">
-          {t('latestBlocks')}
-        </Typography>
+        <Typography variant="h2">{t("latestBlocks")}</Typography>
         <Link href={BLOCKS} passHref>
           <Typography variant="h4" className="button" component="a">
-            {t('seeMore')}
+            {t("seeMore")}
           </Typography>
         </Link>
       </div>
@@ -58,19 +52,19 @@ const Blocks:React.FC<{
               items={mergedDataWithProfiles}
             />
           ) : (
-            <Mobile
-              className={classes.mobile}
-              items={mergedDataWithProfiles}
-            />
+            <Mobile className={classes.mobile} items={mergedDataWithProfiles} />
           )}
           <Divider className={classes.mobile} />
           <Link href={BLOCKS} passHref>
             <Typography
               variant="h4"
               component="a"
-              className={classnames(classes.seeMoreFooter, classes.mobile, 'button')}
-            >
-              {t('seeMore')}
+              className={classnames(
+                classes.seeMoreFooter,
+                classes.mobile,
+                "button",
+              )}>
+              {t("seeMore")}
             </Typography>
           </Link>
         </>

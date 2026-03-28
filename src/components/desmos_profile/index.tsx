@@ -1,29 +1,24 @@
-import React from 'react';
-import numeral from 'numeral';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import {
-  Box,
-  Avatar,
-  Markdown,
-} from '@components';
-import { useStyles } from './styles';
-import { useDesmosProfile } from './hooks';
-import { Connections } from './components';
+import React from "react";
+import numeral from "numeral";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { Box, Avatar, Markdown } from "@components";
+import { useStyles } from "./styles";
+import { useDesmosProfile } from "./hooks";
+import { Connections } from "./components";
 
-const DesmosProfile: React.FC<{
-  className?: string;
-} & DesmosProfile> = (props) => {
-  const { t } = useTranslation('accounts');
+const DesmosProfile: React.FC<
+  {
+    className?: string;
+  } & DesmosProfile
+> = (props) => {
+  const { t } = useTranslation("accounts");
   const classes = useStyles(props.coverUrl);
-  const {
-    connectionsOpen,
-    handleConnectionsClose,
-    handleConnectionsOpen,
-  } = useDesmosProfile();
+  const { connectionsOpen, handleConnectionsClose, handleConnectionsOpen } =
+    useDesmosProfile();
 
-  const displayConnections = props.connections.length ? '' : 'hide';
+  const displayConnections = props.connections.length ? "" : "hide";
 
   return (
     <>
@@ -42,20 +37,16 @@ const DesmosProfile: React.FC<{
             variant="body1"
             className={classnames(classes.link, displayConnections)}
             onClick={handleConnectionsOpen}
-            role="button"
-          >
-            {t('connections', {
-              connections: numeral(props.connections.length).format('0,0'),
+            role="button">
+            {t("connections", {
+              connections: numeral(props.connections.length).format("0,0"),
             })}
           </Typography>
         </div>
         <div className={classes.nicknameWrapper}>
-          <Typography variant="h2">
-            {props.nickname}
-          </Typography>
+          <Typography variant="h2">{props.nickname}</Typography>
           <Typography variant="body2" className="tag">
-            @
-            {props.dtag}
+            @{props.dtag}
           </Typography>
         </div>
         {props.bio && (

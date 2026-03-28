@@ -1,41 +1,33 @@
-import React from 'react';
-import * as R from 'ramda';
-import dynamic from '@src/adapters/routing/dynamic';
-import classnames from 'classnames';
-import {
-  usePagination, useScreenSize,
-} from '@hooks';
-import {
-  Pagination, NoData, Loading,
-} from '@components';
-import {
-  useProfilesRecoil,
-} from '@recoil/profiles';
-import { useStyles } from './styles';
-import { UnbondingsType } from '../../types';
+import React from "react";
+import * as R from "ramda";
+import dynamic from "@/adapters/routing/dynamic";
+import classnames from "classnames";
+import { usePagination, useScreenSize } from "@hooks";
+import { Pagination, NoData, Loading } from "@components";
+import { useProfilesRecoil } from "@recoil/profiles";
+import { useStyles } from "./styles";
+import { UnbondingsType } from "../../types";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
-const Unbondings: React.FC<{
-  unbondings: UnbondingsType,
-} & ComponentDefault> = (props) => {
+const Unbondings: React.FC<
+  {
+    unbondings: UnbondingsType;
+  } & ComponentDefault
+> = (props) => {
   const classes = useStyles();
-  const {
-    page,
-    rowsPerPage,
-    handleChangePage,
-    handleChangeRowsPerPage,
-  } = usePagination({});
+  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
+    usePagination({});
   const { isDesktop } = useScreenSize();
 
-  const pageItems = R.pathOr([], ['unbondings', 'data', page], props);
+  const pageItems = R.pathOr([], ["unbondings", "data", page], props);
   const dataProfiles = useProfilesRecoil(pageItems.map((x) => x.validator));
   const mergedDataWithProfiles = pageItems.map((x, i) => {
-    return ({
+    return {
       ...x,
       validator: dataProfiles[i],
-    });
+    };
   });
 
   const items = mergedDataWithProfiles;

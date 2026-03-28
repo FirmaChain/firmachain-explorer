@@ -1,12 +1,10 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgCosmwasmUpdateLabel } from '@models';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgCosmwasmUpdateLabel } from "@models";
 
-const CosmwasmUpdateLabel = (props: {
-  message: MsgCosmwasmUpdateLabel;
-}) => {
+const CosmwasmUpdateLabel = (props: { message: MsgCosmwasmUpdateLabel }) => {
   const { message } = props;
 
   return (
@@ -14,18 +12,14 @@ const CosmwasmUpdateLabel = (props: {
       <Trans
         i18nKey="message_contents:txCosmwasmUpdateLabelContent"
         components={[
-            (
-              <Name
-                address={message.newLabelString}
-                name={message.newLabelString}
-              />
-            ),
-            (
-              <Name
-                address={message.contractAddress}
-                name={message.contractAddress}
-              />
-            ),
+          <Name
+            address={message.newLabelString}
+            name={message.newLabelString}
+          />,
+          <Name
+            address={message.contractAddress}
+            name={message.contractAddress}
+          />,
         ]}
       />
     </Typography>

@@ -1,10 +1,8 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Typography,
-} from '@material-ui/core';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const SingleValidator: React.FC<{
   className?: string;
@@ -16,41 +14,37 @@ const SingleValidator: React.FC<{
     status: string;
     theme: string;
   };
-}> = ({
-  className,
-  validator,
-  commission,
-  votingPower,
-  status,
-}) => {
-  const { t } = useTranslation('validators');
+}> = ({ className, validator, commission, votingPower, status }) => {
+  const { t } = useTranslation("validators");
   const classes = useStyles();
   return (
     <div className={classnames(className, classes.root)}>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('validator')}
+          {t("validator")}
         </Typography>
         {validator}
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('votingPower')}
+          {t("votingPower")}
         </Typography>
         {votingPower}
       </div>
       <div className={classes.flex}>
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('status')}
+            {t("status")}
           </Typography>
-          <Typography variant="body1" className={classnames('value', 'status', status.theme)}>
+          <Typography
+            variant="body1"
+            className={classnames("value", "status", status.theme)}>
             {t(status.status)}
           </Typography>
         </div>
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('commission')}
+            {t("commission")}
           </Typography>
           <Typography variant="body1" className="value">
             {commission}
@@ -58,7 +52,6 @@ const SingleValidator: React.FC<{
         </div>
       </div>
     </div>
-
   );
 };
 

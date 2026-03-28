@@ -1,15 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgNFTTransfer } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgNFTTransfer } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const NFTTransfer = (props: {
-  message: MsgNFTTransfer;
-}) => {
+const NFTTransfer = (props: { message: MsgNFTTransfer }) => {
   const { message } = props;
 
   const ownerAddress = useProfileRecoil(message.ownerAddress);
@@ -23,21 +19,11 @@ const NFTTransfer = (props: {
       <Trans
         i18nKey="message_contents:txNFTTransferContent"
         components={[
-          (
-            <Name
-              address={message.ownerAddress}
-              name={ownerMoniker}
-            />
-          ),
-          (
-            <Name
-              address={message.toAddress}
-              name={toMoniker}
-            />
-          ),
+          <Name address={message.ownerAddress} name={ownerMoniker} />,
+          <Name address={message.toAddress} name={toMoniker} />,
         ]}
         values={{
-            nftId: message.nftId,
+          nftId: message.nftId,
         }}
       />
     </Typography>

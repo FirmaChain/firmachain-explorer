@@ -1,15 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgTokenMint } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgTokenMint } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const TokenMint = (props: {
-  message: MsgTokenMint;
-}) => {
+const TokenMint = (props: { message: MsgTokenMint }) => {
   const { message } = props;
 
   const ownerAddress = useProfileRecoil(message.ownerAddress);
@@ -23,22 +19,12 @@ const TokenMint = (props: {
       <Trans
         i18nKey="message_contents:txTokenMintContent"
         components={[
-          (
-            <Name
-              address={message.ownerAddress}
-              name={ownerMoniker}
-            />
-          ),
-          (
-            <Name
-              address={message.toAddress}
-              name={toMoniker}
-            />
-          ),
+          <Name address={message.ownerAddress} name={ownerMoniker} />,
+          <Name address={message.toAddress} name={toMoniker} />,
         ]}
         values={{
-            amount: message.amount,
-            tokenID: message.tokenID,
+          amount: message.amount,
+          tokenID: message.tokenID,
         }}
       />
     </Typography>

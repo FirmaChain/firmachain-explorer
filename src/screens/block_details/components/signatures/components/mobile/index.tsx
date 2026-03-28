@@ -1,39 +1,26 @@
-import React from 'react';
-import classnames from 'classnames';
-import { VariableSizeList as List } from 'react-window';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import {
-  Divider, Typography,
-} from '@material-ui/core';
-import {
-  useList,
-  useListRow,
-} from '@hooks';
-import { AvatarName } from '@components';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import { VariableSizeList as List } from "react-window";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import AutoSizer from "react-virtualized-auto-sizer";
+import { Divider, Typography } from "@material-ui/core";
+import { useList, useListRow } from "@hooks";
+import { AvatarName } from "@components";
+import { useStyles } from "./styles";
 
 const Mobile: React.FC<{
   className?: string;
   signatures?: AvatarName[];
-}> = ({
-  className, signatures,
-}) => {
-  const { t } = useTranslation('blocks');
+}> = ({ className, signatures }) => {
+  const { t } = useTranslation("blocks");
 
-  const {
-    listRef,
-    getRowHeight,
-    setRowHeight,
-  } = useList();
+  const { listRef, getRowHeight, setRowHeight } = useList();
   const classes = useStyles();
 
   return (
     <div className={classnames(className, classes.root)}>
       <AutoSizer>
-        {({
-          height, width,
-        }) => {
+        {({ height, width }) => {
           return (
             <List
               className="List"
@@ -41,11 +28,8 @@ const Mobile: React.FC<{
               itemCount={signatures.length}
               itemSize={getRowHeight}
               ref={listRef}
-              width={width}
-            >
-              {({
-                index, style,
-              }) => {
+              width={width}>
+              {({ index, style }) => {
                 const { rowRef } = useListRow(index, setRowHeight);
                 const selectedItem = signatures[index];
                 return (
@@ -55,7 +39,7 @@ const Mobile: React.FC<{
                       <div className={classes.itemWrapper}>
                         <div className={classes.item}>
                           <Typography variant="h4" className="label">
-                            {t('validator')}
+                            {t("validator")}
                           </Typography>
                           <AvatarName
                             address={selectedItem.address}

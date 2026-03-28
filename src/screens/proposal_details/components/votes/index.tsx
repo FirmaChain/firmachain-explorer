@@ -1,26 +1,16 @@
-import React from 'react';
-import dynamic from '@src/adapters/routing/dynamic';
-import classnames from 'classnames';
-import {
-  Box, NoData,
-} from '@components';
-import {
-  usePagination,
-  useScreenSize,
-} from '@hooks';
-import {
-  useProfilesRecoil,
-} from '@recoil/profiles';
-import { useStyles } from './styles';
-import {
-  Tabs,
-  Paginate,
-} from './components';
-import { filterDataByTab } from './utils';
-import { useVotes } from './hooks';
+import React from "react";
+import dynamic from "@/adapters/routing/dynamic";
+import classnames from "classnames";
+import { Box, NoData } from "@components";
+import { usePagination, useScreenSize } from "@hooks";
+import { useProfilesRecoil } from "@recoil/profiles";
+import { useStyles } from "./styles";
+import { Tabs, Paginate } from "./components";
+import { filterDataByTab } from "./utils";
+import { useVotes } from "./hooks";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
 const Votes: React.FC<ComponentDefault> = (props) => {
   const { isDesktop } = useScreenSize();
@@ -33,9 +23,7 @@ const Votes: React.FC<ComponentDefault> = (props) => {
     resetPagination,
   } = usePagination({});
   const classes = useStyles();
-  const {
-    state, handleTabChange,
-  } = useVotes(resetPagination);
+  const { state, handleTabChange } = useVotes(resetPagination);
   const filteredItems = filterDataByTab({
     tab: state.tab,
     data: state.data,
@@ -46,10 +34,10 @@ const Votes: React.FC<ComponentDefault> = (props) => {
 
   const userProfiles = useProfilesRecoil(slicedItems.map((x) => x.user));
   const items = slicedItems.map((x, i) => {
-    return ({
+    return {
       ...x,
       user: userProfiles[i],
-    });
+    };
   });
 
   return (
@@ -69,15 +57,9 @@ const Votes: React.FC<ComponentDefault> = (props) => {
         {items.length ? (
           <>
             {isDesktop ? (
-              <Desktop
-                className={classes.desktop}
-                items={items}
-              />
+              <Desktop className={classes.desktop} items={items} />
             ) : (
-              <Mobile
-                className={classes.mobile}
-                items={items}
-              />
+              <Mobile className={classes.mobile} items={items} />
             )}
           </>
         ) : (

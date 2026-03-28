@@ -1,30 +1,43 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
-import { OtherTokenType } from '@src/screens/account_details/types';
-import { formatNumber } from '@utils/format_token';
-import { columns } from './utils';
-import { ibcConfig, tokenConfig } from '@configs';
-import Big from 'big.js';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import {
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@material-ui/core";
+import { OtherTokenType } from "@/screens/account_details/types";
+import { formatNumber } from "@utils/format_token";
+import { columns } from "./utils";
+import { ibcConfig, tokenConfig } from "@configs";
+import Big from "big.js";
 
 const Desktop: React.FC<{
   className?: string;
   items?: OtherTokenType[];
 }> = ({ className, items }) => {
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
 
   const formattedItems = items.map((x) => {
-    let available = { value: x.available.value, exponent: x.available.exponent };
+    let available = {
+      value: x.available.value,
+      exponent: x.available.exponent,
+    };
     let token = x.denom.toUpperCase();
 
     if (tokenConfig[x.denom]) {
       token = tokenConfig[x.denom].display.toUpperCase();
-      available.value = Big(x.available.value).toFixed(tokenConfig[x.denom].exponent);
+      available.value = Big(x.available.value).toFixed(
+        tokenConfig[x.denom].exponent,
+      );
       available.exponent = tokenConfig[x.denom].exponent;
     } else if (ibcConfig[x.denom]) {
       token = ibcConfig[x.denom].display.toUpperCase();
-      available.value = Big(x.available.value).toFixed(ibcConfig[x.denom].exponent);
+      available.value = Big(x.available.value).toFixed(
+        ibcConfig[x.denom].exponent,
+      );
       available.exponent = ibcConfig[x.denom].exponent;
     }
     return {
@@ -42,7 +55,10 @@ const Desktop: React.FC<{
           <TableRow>
             {columns.map((column) => {
               return (
-                <TableCell key={column.key} align={column.align} style={{ width: `${column.width}%` }}>
+                <TableCell
+                  key={column.key}
+                  align={column.align}
+                  style={{ width: `${column.width}%` }}>
                   {t(column.key)}
                 </TableCell>
               );
@@ -57,8 +73,7 @@ const Desktop: React.FC<{
                   <TableCell
                     key={`holders-row-${i}-${column.key}`}
                     align={column.align}
-                    style={{ width: `${column.width}%` }}
-                  >
+                    style={{ width: `${column.width}%` }}>
                     {row[column.key]}
                   </TableCell>
                 );

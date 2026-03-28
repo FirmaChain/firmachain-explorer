@@ -1,8 +1,8 @@
-import React from 'react';
-import { Typography } from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import CollapsibleMessageItem from './collapsible_message_item';
-import type { MessageGroup } from '../utils';
+import React from "react";
+import { Typography } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import CollapsibleMessageItem from "./collapsible_message_item";
+import type { MessageGroup } from "../utils";
 
 type Props = {
   messageGroups: MessageGroup[];
@@ -17,12 +17,12 @@ const MessagesSection: React.FC<Props> = ({
   toggleOpen,
   classes,
 }) => {
-  const { t } = useTranslation('proposals');
+  const { t } = useTranslation("proposals");
 
   return (
     <div className={classes.content}>
       <Typography variant="body1" className="label">
-        {t('messages')}
+        {t("messages")}
       </Typography>
       <div className={classes.messageList}>
         {messageGroups.map((group, groupIndex) => (

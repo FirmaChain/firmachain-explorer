@@ -1,9 +1,9 @@
-import React from 'react';
-import { chainConfig } from '@configs';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { useRecoilValue } from 'recoil';
-import { readDate } from '@recoil/settings';
+import React from "react";
+import { chainConfig } from "@configs";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { useRecoilValue } from "recoil";
+import { readDate } from "@recoil/settings";
 import {
   Table,
   TableHead,
@@ -11,21 +11,18 @@ import {
   TableCell,
   TableBody,
   Typography,
-} from '@material-ui/core';
-import dayjs, { formatDayJs } from '@utils/dayjs';
-import Link from '@src/adapters/routing/link';
-import { ACCOUNT_DETAILS } from '@utils/go_to_page';
-import { columns } from './utils';
+} from "@material-ui/core";
+import dayjs, { formatDayJs } from "@utils/dayjs";
+import Link from "@/adapters/routing/link";
+import { ACCOUNT_DETAILS } from "@utils/go_to_page";
+import { columns } from "./utils";
 
 const Desktop: React.FC<{
   className?: string;
   items?: ProfileConnectionType[];
-}> = ({
-  className,
-  items,
-}) => {
+}> = ({ className, items }) => {
   const dateFormat = useRecoilValue(readDate);
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
 
   const formattedItems = items.map((x) => {
     let identity: string | React.ReactNode = x.identifier;
@@ -39,11 +36,11 @@ const Desktop: React.FC<{
       );
     }
 
-    return ({
+    return {
       network: x.network.toUpperCase(),
       identifier: identity,
       creationTime: formatDayJs(dayjs.utc(x.creationTime), dateFormat),
-    });
+    };
   });
 
   return (
@@ -56,8 +53,7 @@ const Desktop: React.FC<{
                 <TableCell
                   key={column.key}
                   align={column.align}
-                  style={{ width: `${column.width}%` }}
-                >
+                  style={{ width: `${column.width}%` }}>
                   {t(column.key)}
                 </TableCell>
               );
@@ -72,8 +68,7 @@ const Desktop: React.FC<{
                   <TableCell
                     key={`holders-row-${i}-${column.key}`}
                     align={column.align}
-                    style={{ width: `${column.width}%` }}
-                  >
+                    style={{ width: `${column.width}%` }}>
                     {row[column.key]}
                   </TableCell>
                 );
@@ -83,7 +78,6 @@ const Desktop: React.FC<{
         </TableBody>
       </Table>
     </div>
-
   );
 };
 

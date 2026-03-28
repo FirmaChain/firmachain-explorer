@@ -1,37 +1,23 @@
-import React from 'react';
-import classnames from 'classnames';
-import Link from '@src/adapters/routing/link';
-import {
-  Drawer,
-  MenuItem,
-  Typography,
-} from '@material-ui/core';
-import { useRouter } from '@src/adapters/routing/router';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import Language from '@assets/icon-language.svg?react';
-import ThemeIcon from '@assets/icon-theme.svg?react';
-import { THEME_LIST } from '@recoil/settings';
-import {
-  ExpandMoreOutlined,
-} from '@material-ui/icons';
-import { useStyles } from './styles';
-import { MenuItems } from '../../..';
-import {
-  useLanguageDrawer, useThemeDrawer,
-} from './hooks';
-import { MenuProps } from './types';
+import React from "react";
+import classnames from "classnames";
+import Link from "@/adapters/routing/link";
+import { Drawer, MenuItem, Typography } from "@material-ui/core";
+import { useRouter } from "@/adapters/routing/router";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import Language from "@assets/icon-language.svg?react";
+import ThemeIcon from "@assets/icon-theme.svg?react";
+import { THEME_LIST } from "@recoil/settings";
+import { ExpandMoreOutlined } from "@material-ui/icons";
+import { useStyles } from "./styles";
+import { MenuItems } from "../../..";
+import { useLanguageDrawer, useThemeDrawer } from "./hooks";
+import { MenuProps } from "./types";
 
 const Menu = (props: MenuProps) => {
   const router = useRouter();
-  const {
-    t,
-    lang,
-  } = useTranslation('common');
+  const { t, lang } = useTranslation("common");
 
-  const {
-    toggleNavMenus,
-    className,
-  } = props;
+  const { toggleNavMenus, className } = props;
 
   const classes = useStyles();
   const languageOptions = useLanguageDrawer(lang, toggleNavMenus);
@@ -46,29 +32,25 @@ const Menu = (props: MenuProps) => {
         anchor="bottom"
         open={languageOptions.drawerOpen}
         onClose={languageOptions.toggleDrawer}
-        className={classnames(classes.drawer, 'lang-drawer')}
-      >
-        <div className={classnames('content')}>
-          {
-            router.locales
-              .filter((l) => l !== lang)
-              .map((l) => (
-                <div key={l}>
-                  <Link
-                    href={{
-                      pathname: router.pathname,
-                      query: router.query,
-                    }}
-                    locale={l}
-                    passHref
-                  >
-                    <MenuItem button component="a">
-                      {t(l)}
-                    </MenuItem>
-                  </Link>
-                </div>
-              ))
-            }
+        className={classnames(classes.drawer, "lang-drawer")}>
+        <div className={classnames("content")}>
+          {router.locales
+            .filter((l) => l !== lang)
+            .map((l) => (
+              <div key={l}>
+                <Link
+                  href={{
+                    pathname: router.pathname,
+                    query: router.query,
+                  }}
+                  locale={l}
+                  passHref>
+                  <MenuItem button component="a">
+                    {t(l)}
+                  </MenuItem>
+                </Link>
+              </div>
+            ))}
         </div>
       </Drawer>
       {/* ================================== */}
@@ -78,20 +60,18 @@ const Menu = (props: MenuProps) => {
         anchor="bottom"
         open={themeOptions.drawerOpen}
         onClose={themeOptions.toggleDrawer}
-        className={classes.drawer}
-      >
-        <div className={classnames('content')}>
-          {
-            THEME_LIST
-              .filter((l) => l !== themeOptions.theme)
-              .map((l) => (
-                <div key={l}>
-                  <MenuItem button component="a" onClick={() => themeOptions.handleChangeTheme(l)}>
-                    {t(l)}
-                  </MenuItem>
-                </div>
-              ))
-            }
+        className={classes.drawer}>
+        <div className={classnames("content")}>
+          {THEME_LIST.filter((l) => l !== themeOptions.theme).map((l) => (
+            <div key={l}>
+              <MenuItem
+                button
+                component="a"
+                onClick={() => themeOptions.handleChangeTheme(l)}>
+                {t(l)}
+              </MenuItem>
+            </div>
+          ))}
         </div>
       </Drawer>
       {/* ================================== */}
@@ -108,8 +88,7 @@ const Menu = (props: MenuProps) => {
           <div
             className={classes.language}
             role="button"
-            onClick={languageOptions.toggleDrawer}
-          >
+            onClick={languageOptions.toggleDrawer}>
             <Language />
             <Typography variant="caption">{t(router.locale)}</Typography>
             <ExpandMoreOutlined fontSize="small" />
@@ -117,8 +96,7 @@ const Menu = (props: MenuProps) => {
           <div
             className={classes.theme}
             role="button"
-            onClick={themeOptions.toggleDrawer}
-          >
+            onClick={themeOptions.toggleDrawer}>
             <span role="button">
               <ThemeIcon />
             </span>

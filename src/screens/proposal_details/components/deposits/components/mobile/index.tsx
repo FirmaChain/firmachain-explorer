@@ -1,29 +1,25 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Divider, Typography,
-} from '@material-ui/core';
-import { formatNumber } from '@utils/format_token';
-import dayjs, { formatDayJs } from '@utils/dayjs';
-import { AvatarName } from '@components';
-import { useRecoilValue } from 'recoil';
-import { readDate } from '@recoil/settings';
-import { useStyles } from './styles';
-import { ItemType } from '../../types';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Divider, Typography } from "@material-ui/core";
+import { formatNumber } from "@utils/format_token";
+import dayjs, { formatDayJs } from "@utils/dayjs";
+import { AvatarName } from "@components";
+import { useRecoilValue } from "recoil";
+import { readDate } from "@recoil/settings";
+import { useStyles } from "./styles";
+import { ItemType } from "../../types";
 
 const Mobile: React.FC<{
   className?: string;
   items?: ItemType[];
-}> = ({
-  className, items,
-}) => {
-  const { t } = useTranslation('proposals');
+}> = ({ className, items }) => {
+  const { t } = useTranslation("proposals");
   const classes = useStyles();
   const dateFormat = useRecoilValue(readDate);
 
   const formattedItems = items.map((x) => {
-    return ({
+    return {
       depositor: (
         <>
           {x.user.address ? (
@@ -39,7 +35,7 @@ const Mobile: React.FC<{
       ),
       amount: `${formatNumber(x.amount.value, x.amount.exponent)} ${x.amount.displayDenom.toUpperCase()}`,
       time: formatDayJs(dayjs.utc(x.timestamp), dateFormat),
-    });
+    };
   });
 
   return (
@@ -50,13 +46,13 @@ const Mobile: React.FC<{
             <div className={classes.list}>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('depositor')}
+                  {t("depositor")}
                 </Typography>
                 {x.depositor}
               </div>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('amount')}
+                  {t("amount")}
                 </Typography>
                 <Typography variant="body1" className="value">
                   {x.amount}
@@ -64,7 +60,7 @@ const Mobile: React.FC<{
               </div>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('time')}
+                  {t("time")}
                 </Typography>
                 <Typography variant="body1" className="value">
                   {x.time}

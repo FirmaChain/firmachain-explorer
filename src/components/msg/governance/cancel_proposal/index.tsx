@@ -1,13 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgCancelProposal } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgCancelProposal } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const CancelProposal = (props: {
-  message: MsgCancelProposal;
-}) => {
+const CancelProposal = (props: { message: MsgCancelProposal }) => {
   const { message } = props;
 
   const proposer = useProfileRecoil(message.proposer);
@@ -18,12 +16,7 @@ const CancelProposal = (props: {
       <Trans
         i18nKey="message_contents:txCancelProposalContent"
         components={[
-          (
-            <Name
-              address={message.proposer}
-              name={proposerMoniker}
-            />
-          ),
+          <Name address={message.proposer} name={proposerMoniker} />,
         ]}
       />
     </Typography>

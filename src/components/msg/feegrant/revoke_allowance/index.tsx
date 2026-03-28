@@ -1,15 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgRevokeAllowance } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgRevokeAllowance } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const RevokeAllowance = (props: {
-  message: MsgRevokeAllowance;
-}) => {
+const RevokeAllowance = (props: { message: MsgRevokeAllowance }) => {
   const { message } = props;
 
   const granter = useProfileRecoil(message.granter);
@@ -23,18 +19,8 @@ const RevokeAllowance = (props: {
       <Trans
         i18nKey="message_contents:MsgRevokeAllowance"
         components={[
-          (
-            <Name
-              address={message.granter}
-              name={granterMoniker}
-            />
-          ),
-          (
-            <Name
-              address={message.grantee}
-              name={granteeMoniker}
-            />
-          ),
+          <Name address={message.granter} name={granterMoniker} />,
+          <Name address={message.grantee} name={granteeMoniker} />,
         ]}
       />
     </Typography>

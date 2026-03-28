@@ -1,34 +1,25 @@
-import React from 'react';
-import classnames from 'classnames';
-import dynamic from '@src/adapters/routing/dynamic';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Pagination,
-  Box,
-} from '@components';
+import React from "react";
+import classnames from "classnames";
+import dynamic from "@/adapters/routing/dynamic";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Pagination, Box } from "@components";
 
-import {
-  usePagination,
-  useScreenSize,
-} from '@hooks';
-import { Typography } from '@material-ui/core';
-import { useStyles } from './styles';
-import { OtherTokenType } from '../../types';
+import { usePagination, useScreenSize } from "@hooks";
+import { Typography } from "@material-ui/core";
+import { useStyles } from "./styles";
+import { OtherTokenType } from "../../types";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
 export const OtherTokens: React.FC<{
   className?: string;
   otherTokens: {
-    data: OtherTokenType[],
+    data: OtherTokenType[];
     count: number;
-  }
-}> = ({
-  className,
-  otherTokens,
-}) => {
-  const { t } = useTranslation('accounts');
+  };
+}> = ({ className, otherTokens }) => {
+  const { t } = useTranslation("accounts");
   const { isDesktop } = useScreenSize();
   const classes = useStyles();
   const {
@@ -49,9 +40,7 @@ export const OtherTokens: React.FC<{
 
   return (
     <Box className={classnames(className)}>
-      <Typography variant="h2">
-        {t('otherTokens')}
-      </Typography>
+      <Typography variant="h2">{t("otherTokens")}</Typography>
 
       {isDesktop ? (
         <Desktop className={classes.desktop} items={items} />

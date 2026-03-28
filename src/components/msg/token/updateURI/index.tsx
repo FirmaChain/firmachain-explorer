@@ -1,11 +1,9 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { MsgTokenUpdateURI } from '@models';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { MsgTokenUpdateURI } from "@models";
 
-const TokenUpdateURI = (props: {
-  message: MsgTokenUpdateURI;
-}) => {
+const TokenUpdateURI = (props: { message: MsgTokenUpdateURI }) => {
   const { message } = props;
 
   return (
@@ -13,7 +11,7 @@ const TokenUpdateURI = (props: {
       <Trans
         i18nKey="message_contents:txTokenUpdateURIContent"
         values={{
-            tokenID: message.tokenID,
+          tokenID: message.tokenID,
         }}
       />
     </Typography>

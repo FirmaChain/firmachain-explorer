@@ -1,38 +1,35 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import dayjs, { formatDayJs } from '@utils/dayjs';
-import { useRecoilValue } from 'recoil';
-import { readDate } from '@recoil/settings';
-import {
-  Divider,
-  Typography,
-} from '@material-ui/core';
-import { chainConfig } from '@src/configs';
-import Link from '@src/adapters/routing/link';
-import { ACCOUNT_DETAILS } from '@utils/go_to_page';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import dayjs, { formatDayJs } from "@utils/dayjs";
+import { useRecoilValue } from "recoil";
+import { readDate } from "@recoil/settings";
+import { Divider, Typography } from "@material-ui/core";
+import { chainConfig } from "@/configs";
+import Link from "@/adapters/routing/link";
+import { ACCOUNT_DETAILS } from "@utils/go_to_page";
+import { useStyles } from "./styles";
 
 const Mobile: React.FC<{
   className?: string;
   items?: ProfileConnectionType[];
-}> = ({
-  className, items,
-}) => {
+}> = ({ className, items }) => {
   const dateFormat = useRecoilValue(readDate);
   const classes = useStyles();
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
 
   return (
     <div className={classnames(className)}>
       {items.map((x, i) => {
-        const checkIdentifier = new RegExp(`^(${chainConfig.prefix.account})`).test(x.identifier);
+        const checkIdentifier = new RegExp(
+          `^(${chainConfig.prefix.account})`,
+        ).test(x.identifier);
         return (
           <React.Fragment key={`votes-mobile-${i}`}>
             <div className={classes.list}>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('network')}
+                  {t("network")}
                 </Typography>
                 <Typography variant="body1" className="value">
                   {x.network.toUpperCase()}
@@ -40,22 +37,27 @@ const Mobile: React.FC<{
               </div>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('identifier')}
+                  {t("identifier")}
                 </Typography>
                 <Typography variant="body1" className="value">
                   {checkIdentifier && (
-                  <Link href={ACCOUNT_DETAILS(x.identifier)} passHref>
-                    <Typography variant="body1" className="value" component="a">
-                      {x.identifier}
-                    </Typography>
-                  </Link>
+                    <Link href={ACCOUNT_DETAILS(x.identifier)} passHref>
+                      <Typography
+                        variant="body1"
+                        className="value"
+                        component="a">
+                        {x.identifier}
+                      </Typography>
+                    </Link>
                   )}
-                  {new RegExp(`^(${chainConfig.prefix.account})`).test(x.identifier) === false && x.identifier}
+                  {new RegExp(`^(${chainConfig.prefix.account})`).test(
+                    x.identifier,
+                  ) === false && x.identifier}
                 </Typography>
               </div>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('creationTime')}
+                  {t("creationTime")}
                 </Typography>
                 <Typography variant="body1" className="value">
                   {formatDayJs(dayjs.utc(x.creationTime), dateFormat)}

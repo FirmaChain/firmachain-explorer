@@ -1,33 +1,26 @@
-import { useState } from 'react';
-import Big from 'big.js';
-import axios from 'axios';
-import * as R from 'ramda';
-import numeral from 'numeral';
-import {
-  useValidatorsQuery,
-  ValidatorsQuery,
-} from '@graphql/types';
-import { getValidatorCondition } from '@utils/get_validator_condition';
-import { formatToken } from '@utils/format_token';
-import { SlashingParams } from '@models';
-import { chainConfig } from '@src/configs';
-import { ENV } from '@configs/env';
-import {
-  ValidatorsState,
-  ItemType,
-  ValidatorType,
-} from './types';
+import { useState } from "react";
+import Big from "big.js";
+import axios from "axios";
+import * as R from "ramda";
+import numeral from "numeral";
+import { useValidatorsQuery, ValidatorsQuery } from "@graphql/types";
+import { getValidatorCondition } from "@utils/get_validator_condition";
+import { formatToken } from "@utils/format_token";
+import { SlashingParams } from "@models";
+import { chainConfig } from "@/configs";
+import { ENV } from "@configs/env";
+import { ValidatorsState, ItemType, ValidatorType } from "./types";
 
 export const useValidators = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [state, setState] = useState<ValidatorsState>({
     loading: true,
     exists: true,
     items: [],
     votingPowerOverall: 0,
     tab: 0,
-    sortKey: 'votingPower',
-    sortDirection: 'desc',
+    sortKey: "votingPower",
+    sortDirection: "desc",
   });
 
   const handleSetState = (stateChange: any) => {
@@ -52,46 +45,70 @@ export const useValidators = () => {
   // Parse data
   // ==========================
   const formatValidators = async (data: ValidatorsQuery) => {
-    const slashingParams = SlashingParams.fromJson(R.pathOr({}, ['slashingParams', 0, 'params'], data));
-    const votingPowerOverall = numeral(formatToken(
-      R.pathOr(0, ['stakingPool', 0, 'bondedTokens'], data),
-      chainConfig.votingPowerTokenUnit,
-    ).value).value();
+    const slashingParams = SlashingParams.fromJson(
+      R.pathOr({}, ["slashingParams", 0, "params"], data),
+    );
+    const votingPowerOverall = numeral(
+      formatToken(
+        R.pathOr(0, ["stakingPool", 0, "bondedTokens"], data),
+        chainConfig.votingPowerTokenUnit,
+      ).value,
+    ).value();
 
     const { signedBlockWindow } = slashingParams;
 
     const filteredValidators = data.validator.filter((x) => x.validatorInfo);
-    let formattedItems: ValidatorType[] = await Promise.all(filteredValidators.map(async (x) => {
-      let votingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], x);
-      votingPower /= 10 ** 6;
-      const votingPowerPercent = numeral((votingPower / votingPowerOverall) * 100).value();
-
-      const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], x);
-      const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
-
-      let commission = null;
-      try {
-        const response = await axios.get(
-          `${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`,
+    let formattedItems: ValidatorType[] = await Promise.all(
+      filteredValidators.map(async (x) => {
+        let votingPower = R.pathOr(
+          0,
+          ["validatorVotingPowers", 0, "votingPower"],
+          x,
         );
-        const commissionRate = response.data.validator.commission.commission_rates.rate;
-        commission = Number(commissionRate) * 100;
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
+        votingPower /= 10 ** 6;
+        const votingPowerPercent = numeral(
+          (votingPower / votingPowerOverall) * 100,
+        ).value();
 
-      return ({
-        validator: x.validatorInfo.operatorAddress,
-        votingPower,
-        votingPowerPercent,
-        commission,
-        condition,
-        status: R.pathOr(0, ['validatorStatuses', 0, 'status'], x),
-        jailed: R.pathOr(false, ['validatorStatuses', 0, 'jailed'], x),
-        tombstoned: R.pathOr(false, ['validatorSigningInfos', 0, 'tombstoned'], x),
-      });
-    }));
+        const missedBlockCounter = R.pathOr(
+          0,
+          ["validatorSigningInfos", 0, "missedBlocksCounter"],
+          x,
+        );
+        const condition = getValidatorCondition(
+          signedBlockWindow,
+          missedBlockCounter,
+        );
+
+        let commission = null;
+        try {
+          const response = await axios.get(
+            `${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`,
+          );
+          const commissionRate =
+            response.data.validator.commission.commission_rates.rate;
+          commission = Number(commissionRate) * 100;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+
+        return {
+          validator: x.validatorInfo.operatorAddress,
+          votingPower,
+          votingPowerPercent,
+          commission,
+          condition,
+          status: R.pathOr(0, ["validatorStatuses", 0, "status"], x),
+          jailed: R.pathOr(false, ["validatorStatuses", 0, "jailed"], x),
+          tombstoned: R.pathOr(
+            false,
+            ["validatorSigningInfos", 0, "tombstoned"],
+            x,
+          ),
+        };
+      }),
+    );
 
     // get the top 34% validators
     formattedItems = formattedItems.sort((a, b) => {
@@ -134,13 +151,13 @@ export const useValidators = () => {
     if (key === state.sortKey) {
       setState((prevState) => ({
         ...prevState,
-        sortDirection: prevState.sortDirection === 'asc' ? 'desc' : 'asc',
+        sortDirection: prevState.sortDirection === "asc" ? "desc" : "asc",
       }));
     } else {
       setState((prevState) => ({
         ...prevState,
         sortKey: key,
-        sortDirection: 'asc', // new key so we start the sort by asc
+        sortDirection: "asc", // new key so we start the sort by asc
       }));
     }
   };
@@ -158,29 +175,32 @@ export const useValidators = () => {
 
     if (search) {
       sorted = sorted.filter((x) => {
-        const formattedSearch = search.toLowerCase().replace(/ /g, '');
+        const formattedSearch = search.toLowerCase().replace(/ /g, "");
         return (
-          x.validator.name.toLowerCase().replace(/ /g, '').includes(formattedSearch)
-          || x.validator.address.toLowerCase().includes(formattedSearch)
+          x.validator.name
+            .toLowerCase()
+            .replace(/ /g, "")
+            .includes(formattedSearch) ||
+          x.validator.address.toLowerCase().includes(formattedSearch)
         );
       });
     }
 
     if (state.sortKey && state.sortDirection) {
       sorted.sort((a, b) => {
-        let compareA = R.pathOr(undefined, [...state.sortKey.split('.')], a);
-        let compareB = R.pathOr(undefined, [...state.sortKey.split('.')], b);
+        let compareA = R.pathOr(undefined, [...state.sortKey.split(".")], a);
+        let compareB = R.pathOr(undefined, [...state.sortKey.split(".")], b);
 
-        if (typeof compareA === 'string') {
+        if (typeof compareA === "string") {
           compareA = compareA.toLowerCase();
           compareB = compareB.toLowerCase();
         }
 
         if (compareA < compareB) {
-          return state.sortDirection === 'asc' ? -1 : 1;
+          return state.sortDirection === "asc" ? -1 : 1;
         }
         if (compareA > compareB) {
-          return state.sortDirection === 'asc' ? 1 : -1;
+          return state.sortDirection === "asc" ? 1 : -1;
         }
         return 0;
       });

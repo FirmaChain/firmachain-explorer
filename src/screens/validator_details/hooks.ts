@@ -1,28 +1,24 @@
-import {
-  useState, useEffect,
-} from 'react';
-import axios from 'axios';
-import * as R from 'ramda';
-import { useRouter } from '@src/adapters/routing/router';
-import { formatToken } from '@utils/format_token';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import * as R from "ramda";
+import { useRouter } from "@/adapters/routing/router";
+import { formatToken } from "@utils/format_token";
 import {
   useValidatorDetailsQuery,
   ValidatorDetailsQuery,
-} from '@graphql/types';
-import { useDesmosProfile } from '@hooks';
-import { validatorToDelegatorAddress } from '@recoil/profiles';
-import { getValidatorCondition } from '@utils/get_validator_condition';
-import { chainConfig } from '@src/configs';
-import { ENV } from '@configs/env';
-import {
-  SlashingParams,
-} from '@models';
-import { ValidatorDetailsState } from './types';
+} from "@graphql/types";
+import { useDesmosProfile } from "@hooks";
+import { validatorToDelegatorAddress } from "@recoil/profiles";
+import { getValidatorCondition } from "@utils/get_validator_condition";
+import { chainConfig } from "@/configs";
+import { ENV } from "@configs/env";
+import { SlashingParams } from "@models";
+import { ValidatorDetailsState } from "./types";
 
 const initialTokenDenom: TokenUnit = {
-  value: '0',
-  displayDenom: '',
-  baseDenom: '',
+  value: "0",
+  displayDenom: "",
+  baseDenom: "",
   exponent: 0,
 };
 
@@ -31,11 +27,11 @@ const initialState: ValidatorDetailsState = {
   exists: true,
   desmosProfile: null,
   overview: {
-    validator: '',
-    operatorAddress: '',
-    selfDelegateAddress: '',
-    description: '',
-    website: '',
+    validator: "",
+    operatorAddress: "",
+    selfDelegateAddress: "",
+    description: "",
+    website: "",
   },
   status: {
     status: 0,
@@ -45,7 +41,7 @@ const initialState: ValidatorDetailsState = {
     commission: 0,
     missedBlockCounter: 0,
     signedBlockWindow: 0,
-    maxRate: '0',
+    maxRate: "0",
   },
   votingPower: {
     height: 0,
@@ -65,9 +61,7 @@ export const useValidatorDetails = () => {
   // ==========================
   // Desmos Profile
   // ==========================
-  const {
-    fetchDesmosProfile, formatDesmosProfile,
-  } = useDesmosProfile({
+  const { fetchDesmosProfile, formatDesmosProfile } = useDesmosProfile({
     onComplete: (data) => {
       handleSetState({
         desmosProfile: formatDesmosProfile(data),
@@ -80,7 +74,9 @@ export const useValidatorDetails = () => {
     // why did i do this again
     handleSetState(initialState);
     if (chainConfig.extra.profile) {
-      const address = validatorToDelegatorAddress(router.query.address as string);
+      const address = validatorToDelegatorAddress(
+        router.query.address as string,
+      );
 
       fetchDesmosProfile(address);
     }
@@ -94,16 +90,25 @@ export const useValidatorDetails = () => {
       address: router.query.address as string,
     },
     onCompleted: (data) => {
-      axios.get(`${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`).then((response)=>{
-        const commissionRate = response.data.validator.commission.commission_rates.rate;
-        handleSetState(formatAccountQuery(data, commissionRate));
-      }).catch((error)=>{
-        handleSetState(formatAccountQuery(data));
-      });
+      axios
+        .get(
+          `${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr("", ["validator", 0, "validatorInfo", "operatorAddress"], data)}`,
+        )
+        .then((response) => {
+          const commissionRate =
+            response.data.validator.commission.commission_rates.rate;
+          handleSetState(formatAccountQuery(data, commissionRate));
+        })
+        .catch((error) => {
+          handleSetState(formatAccountQuery(data));
+        });
     },
   });
 
-  const formatAccountQuery = (data: ValidatorDetailsQuery, commissionRate = '') => {
+  const formatAccountQuery = (
+    data: ValidatorDetailsQuery,
+    commissionRate = "",
+  ) => {
     const stateChange: any = {
       loading: false,
     };
@@ -117,14 +122,30 @@ export const useValidatorDetails = () => {
     // overview
     // ============================
     const formatOverview = () => {
-      const operatorAddress = R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data);
-      const selfDelegateAddress = R.pathOr('', ['validator', 0, 'validatorInfo', 'selfDelegateAddress'], data);
+      const operatorAddress = R.pathOr(
+        "",
+        ["validator", 0, "validatorInfo", "operatorAddress"],
+        data,
+      );
+      const selfDelegateAddress = R.pathOr(
+        "",
+        ["validator", 0, "validatorInfo", "selfDelegateAddress"],
+        data,
+      );
       const profile = {
         validator: operatorAddress,
         operatorAddress,
         selfDelegateAddress,
-        description: R.pathOr('', ['validatorDescriptions', 0, 'details'], data.validator[0]),
-        website: R.pathOr('', ['validatorDescriptions', 0, 'website'], data.validator[0]),
+        description: R.pathOr(
+          "",
+          ["validatorDescriptions", 0, "details"],
+          data.validator[0],
+        ),
+        website: R.pathOr(
+          "",
+          ["validatorDescriptions", 0, "website"],
+          data.validator[0],
+        ),
       };
 
       return profile;
@@ -136,25 +157,50 @@ export const useValidatorDetails = () => {
     // status
     // ============================
     const formatStatus = () => {
-      const slashingParams = SlashingParams.fromJson(R.pathOr({}, ['slashingParams', 0, 'params'], data));
-      const missedBlockCounter = R.pathOr(0, ['validatorSigningInfos', 0, 'missedBlocksCounter'], data.validator[0]);
+      const slashingParams = SlashingParams.fromJson(
+        R.pathOr({}, ["slashingParams", 0, "params"], data),
+      );
+      const missedBlockCounter = R.pathOr(
+        0,
+        ["validatorSigningInfos", 0, "missedBlocksCounter"],
+        data.validator[0],
+      );
       const { signedBlockWindow } = slashingParams;
-      const condition = getValidatorCondition(signedBlockWindow, missedBlockCounter);
+      const condition = getValidatorCondition(
+        signedBlockWindow,
+        missedBlockCounter,
+      );
 
       let commission = null;
-      if(commissionRate !== '') {
+      if (commissionRate !== "") {
         commission = Number(commissionRate);
       }
 
       const profile = {
-        status: R.pathOr(3, ['validatorStatuses', 0, 'status'], data.validator[0]),
-        jailed: R.pathOr(false, ['validatorStatuses', 0, 'jailed'], data.validator[0]),
-        tombstoned: R.pathOr(false, ['validatorSigningInfos', 0, 'tombstoned'], data.validator[0]),
+        status: R.pathOr(
+          3,
+          ["validatorStatuses", 0, "status"],
+          data.validator[0],
+        ),
+        jailed: R.pathOr(
+          false,
+          ["validatorStatuses", 0, "jailed"],
+          data.validator[0],
+        ),
+        tombstoned: R.pathOr(
+          false,
+          ["validatorSigningInfos", 0, "tombstoned"],
+          data.validator[0],
+        ),
         commission,
         condition,
         missedBlockCounter,
         signedBlockWindow,
-        maxRate: R.pathOr('0', ['validator', 0, 'validatorInfo', 'maxRate'], data),
+        maxRate: R.pathOr(
+          "0",
+          ["validator", 0, "validatorInfo", "maxRate"],
+          data,
+        ),
       };
 
       return profile;
@@ -165,15 +211,23 @@ export const useValidatorDetails = () => {
     // votingPower
     // ============================
     const formatVotingPower = () => {
-      const selfVotingPower = R.pathOr(0, ['validatorVotingPowers', 0, 'votingPower'], data.validator[0]);
+      const selfVotingPower = R.pathOr(
+        0,
+        ["validatorVotingPowers", 0, "votingPower"],
+        data.validator[0],
+      );
 
       const votingPower = {
         self: selfVotingPower,
         overall: formatToken(
-          R.pathOr(0, ['stakingPool', 0, 'bonded'], data),
+          R.pathOr(0, ["stakingPool", 0, "bonded"], data),
           chainConfig.votingPowerTokenUnit,
         ),
-        height: R.pathOr(0, ['validatorVotingPowers', 0, 'height'], data.validator[0]),
+        height: R.pathOr(
+          0,
+          ["validatorVotingPowers", 0, "height"],
+          data.validator[0],
+        ),
       };
 
       return votingPower;

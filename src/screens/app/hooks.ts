@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import * as jdenticon from 'jdenticon';
-import useTranslation from '@src/adapters/i18n/useTranslation';
+import { useEffect } from "react";
+import * as jdenticon from "jdenticon";
+import useTranslation from "@/adapters/i18n/useTranslation";
 
 export const useApp = () => {
   // ==========================
@@ -20,7 +20,7 @@ export const useApp = () => {
         color: 0.48,
         grayscale: 0.48,
       },
-      backColor: '#2a4766',
+      backColor: "#2a4766",
     });
   }, []);
 
@@ -33,7 +33,7 @@ export const useApp = () => {
   // ==========================
   useEffect(() => {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }

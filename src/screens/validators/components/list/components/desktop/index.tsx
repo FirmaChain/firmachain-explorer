@@ -1,52 +1,43 @@
-import React from 'react';
-import classnames from 'classnames';
-import numeral from 'numeral';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { VariableSizeGrid as Grid } from 'react-window';
-import { Typography } from '@material-ui/core';
-import { useGrid } from '@hooks';
-import {
-  SortArrows,
-  AvatarName,
-  InfoPopover,
-} from '@components';
-import { getValidatorConditionClass } from '@utils/get_validator_condition';
-import { getValidatorStatus } from '@utils/get_validator_status';
-import { useStyles } from './styles';
-import { fetchColumns } from './utils';
-import { ItemType } from '../../types';
-import {
-  Condition,
-  VotingPower,
-  VotingPowerExplanation,
-} from '..';
+import React from "react";
+import classnames from "classnames";
+import numeral from "numeral";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import AutoSizer from "react-virtualized-auto-sizer";
+import { VariableSizeGrid as Grid } from "react-window";
+import { Typography } from "@material-ui/core";
+import { useGrid } from "@hooks";
+import { SortArrows, AvatarName, InfoPopover } from "@components";
+import { getValidatorConditionClass } from "@utils/get_validator_condition";
+import { getValidatorStatus } from "@utils/get_validator_status";
+import { useStyles } from "./styles";
+import { fetchColumns } from "./utils";
+import { ItemType } from "../../types";
+import { Condition, VotingPower, VotingPowerExplanation } from "..";
 
 const Desktop: React.FC<{
   className?: string;
-  sortDirection: 'desc' | 'asc';
+  sortDirection: "desc" | "asc";
   sortKey: string;
   handleSort: (key: string) => void;
   items: ItemType[];
 }> = (props) => {
-  const { t } = useTranslation('validators');
+  const { t } = useTranslation("validators");
   const classes = useStyles();
   const columns = fetchColumns(t);
 
-  const {
-    gridRef,
-    columnRef,
-    onResize,
-    getColumnWidth,
-    getRowHeight,
-  } = useGrid(columns);
+  const { gridRef, columnRef, onResize, getColumnWidth, getRowHeight } =
+    useGrid(columns);
 
   const formattedItems = props.items.map((x, i) => {
     const status = getValidatorStatus(x.status, x.jailed, x.tombstoned);
-    const condition = x.status === 3 ? getValidatorConditionClass(x.condition) : undefined;
-    const percentDisplay = x.status === 3 ? `${numeral(x.votingPowerPercent).format('0.[00]')}%` : '0%';
-    const votingPower = numeral(x.votingPower).format('0,0');
-    return ({
+    const condition =
+      x.status === 3 ? getValidatorConditionClass(x.condition) : undefined;
+    const percentDisplay =
+      x.status === 3
+        ? `${numeral(x.votingPowerPercent).format("0.[00]")}%`
+        : "0%";
+    const votingPower = numeral(x.votingPower).format("0,0");
+    return {
       idx: `#${i + 1}`,
       validator: (
         <AvatarName
@@ -55,10 +46,11 @@ const Desktop: React.FC<{
           name={x.validator.name}
         />
       ),
-      commission: x.commission === null ? 'N/A' : `${numeral(x.commission).format('0.[00]')}%`,
-      condition: (
-        <Condition className={condition} />
-      ),
+      commission:
+        x.commission === null
+          ? "N/A"
+          : `${numeral(x.commission).format("0.[00]")}%`,
+      condition: <Condition className={condition} />,
       votingPower: (
         <VotingPower
           percentDisplay={percentDisplay}
@@ -68,19 +60,19 @@ const Desktop: React.FC<{
         />
       ),
       status: (
-        <Typography variant="body1" className={classnames('status', status.theme)}>
+        <Typography
+          variant="body1"
+          className={classnames("status", status.theme)}>
           {t(status.status)}
         </Typography>
       ),
-    });
+    };
   });
 
   return (
     <div className={classnames(props.className, classes.root)}>
       <AutoSizer onResize={onResize}>
-        {({
-          height, width,
-        }) => {
+        {({ height, width }) => {
           return (
             <>
               {/* ======================================= */}
@@ -93,11 +85,8 @@ const Desktop: React.FC<{
                 height={50}
                 rowCount={1}
                 rowHeight={() => 50}
-                width={width}
-              >
-                {({
-                  columnIndex, style,
-                }) => {
+                width={width}>
+                {({ columnIndex, style }) => {
                   const {
                     key,
                     align,
@@ -108,18 +97,18 @@ const Desktop: React.FC<{
 
                   let formattedComponent = component;
 
-                  if (key === 'votingPower') {
+                  if (key === "votingPower") {
                     formattedComponent = (
                       <Typography variant="h4" className="label popover">
-                        {t('votingPower')}
-                        <InfoPopover
-                          content={<VotingPowerExplanation />}
-                        />
+                        {t("votingPower")}
+                        <InfoPopover content={<VotingPowerExplanation />} />
                         {!!sort && (
                           <SortArrows
-                            sort={props.sortKey === sortingKey
-                              ? props.sortDirection
-                              : undefined}
+                            sort={
+                              props.sortKey === sortingKey
+                                ? props.sortDirection
+                                : undefined
+                            }
                           />
                         )}
                       </Typography>
@@ -129,31 +118,28 @@ const Desktop: React.FC<{
                   return (
                     <div
                       style={style}
-                      className={classnames(
-                        classes.cell,
-                        {
-                          [classes.flexCells]: component || sort,
-                          [align]: sort || component,
-                          sort,
-                        },
-                      )}
-                      onClick={() => (sort ? props.handleSort(sortingKey) : null)}
-                      role="button"
-                    >
+                      className={classnames(classes.cell, {
+                        [classes.flexCells]: component || sort,
+                        [align]: sort || component,
+                        sort,
+                      })}
+                      onClick={() =>
+                        sort ? props.handleSort(sortingKey) : null
+                      }
+                      role="button">
                       {formattedComponent || (
-                      <Typography
-                        variant="h4"
-                        align={align}
-                      >
-                        {t(key)}
-                        {!!sort && (
-                        <SortArrows
-                          sort={props.sortKey === sortingKey
-                            ? props.sortDirection
-                            : undefined}
-                        />
-                        )}
-                      </Typography>
+                        <Typography variant="h4" align={align}>
+                          {t(key)}
+                          {!!sort && (
+                            <SortArrows
+                              sort={
+                                props.sortKey === sortingKey
+                                  ? props.sortDirection
+                                  : undefined
+                              }
+                            />
+                          )}
+                        </Typography>
                       )}
                     </div>
                   );
@@ -170,27 +156,17 @@ const Desktop: React.FC<{
                 rowCount={formattedItems.length}
                 rowHeight={getRowHeight}
                 width={width}
-                className="scrollbar"
-              >
-                {({
-                  columnIndex, rowIndex, style,
-                }) => {
-                  const {
-                    key, align,
-                  } = columns[columnIndex];
+                className="scrollbar">
+                {({ columnIndex, rowIndex, style }) => {
+                  const { key, align } = columns[columnIndex];
                   const item = formattedItems[rowIndex][key];
                   return (
                     <div
                       style={style}
                       className={classnames(classes.cell, classes.body, {
                         odd: !(rowIndex % 2),
-                      })}
-                    >
-                      <Typography
-                        variant="body1"
-                        align={align}
-                        component="div"
-                      >
+                      })}>
+                      <Typography variant="body1" align={align} component="div">
                         {item}
                       </Typography>
                     </div>
@@ -202,7 +178,6 @@ const Desktop: React.FC<{
         }}
       </AutoSizer>
     </div>
-
   );
 };
 

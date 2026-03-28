@@ -1,21 +1,16 @@
-import React from 'react';
-import classnames from 'classnames';
-import { useRouter } from '@src/adapters/routing/router';
-import Link from '@src/adapters/routing/link';
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { useStyles } from './styles';
-import { getMenuItems } from './utils';
+import React from "react";
+import classnames from "classnames";
+import { useRouter } from "@/adapters/routing/router";
+import Link from "@/adapters/routing/link";
+import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { useStyles } from "./styles";
+import { getMenuItems } from "./utils";
 
 const MenuItems = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const items = getMenuItems();
 
   return (
@@ -25,7 +20,7 @@ const MenuItems = () => {
         if (x.url === router?.asPath) {
           isActive = true;
         }
-        if (router?.asPath?.includes(x.url) && x.url !== '/') {
+        if (router?.asPath?.includes(x.url) && x.url !== "/") {
           isActive = true;
         }
 
@@ -36,8 +31,7 @@ const MenuItems = () => {
               className={classnames(classes.root, {
                 active: isActive,
               })}
-              component="a"
-            >
+              component="a">
               <ListItemIcon>{x.icon}</ListItemIcon>
               <ListItemText primary={t(x.key)} />
             </ListItem>

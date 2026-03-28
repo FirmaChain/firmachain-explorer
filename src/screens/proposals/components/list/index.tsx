@@ -1,30 +1,19 @@
-import React from 'react';
-import numeral from 'numeral';
-import classnames from 'classnames';
-import Link from '@src/adapters/routing/link';
-import { mergeRefs } from '@utils/merge_refs';
-import {
-  Typography, Divider,
-} from '@material-ui/core';
-import { VariableSizeList as List } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
-import AutoSizer from 'react-virtualized-auto-sizer';
+import React from "react";
+import numeral from "numeral";
+import classnames from "classnames";
+import Link from "@/adapters/routing/link";
+import { mergeRefs } from "@utils/merge_refs";
+import { Typography, Divider } from "@material-ui/core";
+import { VariableSizeList as List } from "react-window";
+import InfiniteLoader from "react-window-infinite-loader";
+import AutoSizer from "react-virtualized-auto-sizer";
 
-import { PROPOSAL_DETAILS } from '@utils/go_to_page';
-import {
-  useList,
-  useListRow,
-} from '@hooks';
-import {
-  Loading,
-  Box,
-} from '@components';
-import {
-  Total,
-  SingleProposal,
-} from './components';
-import { useStyles } from './styles';
-import { ProposalType } from '../../types';
+import { PROPOSAL_DETAILS } from "@utils/go_to_page";
+import { useList, useListRow } from "@hooks";
+import { Loading, Box } from "@components";
+import { Total, SingleProposal } from "./components";
+import { useStyles } from "./styles";
+import { ProposalType } from "../../types";
 
 const ProposalsList: React.FC<{
   className?: string;
@@ -43,15 +32,14 @@ const ProposalsList: React.FC<{
 }) => {
   const classes = useStyles();
 
-  const {
-    listRef,
-    getRowHeight,
-    setRowHeight,
-  } = useList();
+  const { listRef, getRowHeight, setRowHeight } = useList();
 
   const formattedItems = items.map((x) => {
-    return ({
-      description: x.description.length > 200 ? `${x.description.slice(0, 200)}...` : x.description,
+    return {
+      description:
+        x.description.length > 200
+          ? `${x.description.slice(0, 200)}...`
+          : x.description,
       status: x.status,
       types: x.types,
       title: (
@@ -61,29 +49,27 @@ const ProposalsList: React.FC<{
           </Typography>
         </Link>
       ),
-      id: `#${numeral(x.id).format('0,0')}`,
-    });
+      id: `#${numeral(x.id).format("0,0")}`,
+    };
   });
 
   return (
     <Box className={classnames(className, classes.root)}>
       <div className={classes.topContent}>
-        <Total className={classes.total} total={numeral(rawDataTotal).format('0,0')} />
+        <Total
+          className={classes.total}
+          total={numeral(rawDataTotal).format("0,0")}
+        />
         {/* <Search className={classes.search} /> */}
       </div>
       <div className={classes.list}>
         <AutoSizer>
-          {({
-            height, width,
-          }) => (
+          {({ height, width }) => (
             <InfiniteLoader
               isItemLoaded={isItemLoaded}
               itemCount={itemCount}
-              loadMoreItems={loadMoreItems}
-            >
-              {({
-                onItemsRendered, ref,
-              }) => (
+              loadMoreItems={loadMoreItems}>
+              {({ onItemsRendered, ref }) => (
                 <List
                   className={classes.listScroll}
                   height={height}
@@ -91,11 +77,8 @@ const ProposalsList: React.FC<{
                   itemSize={getRowHeight}
                   onItemsRendered={onItemsRendered}
                   ref={mergeRefs(listRef, ref)}
-                  width={width}
-                >
-                  {({
-                    index, style,
-                  }) => {
+                  width={width}>
+                  {({ index, style }) => {
                     const { rowRef } = useListRow(index, setRowHeight);
                     if (!isItemLoaded(index)) {
                       return (
@@ -111,7 +94,9 @@ const ProposalsList: React.FC<{
                       <div style={style}>
                         <div ref={rowRef}>
                           <SingleProposal {...item} />
-                          {index !== itemCount - 1 && <Divider className={classes.rowDivider} />}
+                          {index !== itemCount - 1 && (
+                            <Divider className={classes.rowDivider} />
+                          )}
                         </div>
                       </div>
                     );

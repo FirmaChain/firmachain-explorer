@@ -1,9 +1,9 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import classnames from 'classnames';
-import { TablePagination } from '@material-ui/core';
-import { Actions } from './components';
-import { useStyles } from './styles';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import classnames from "classnames";
+import { TablePagination } from "@material-ui/core";
+import { Actions } from "./components";
+import { useStyles } from "./styles";
 
 const Pagination: React.FC<{
   className?: string;
@@ -11,8 +11,10 @@ const Pagination: React.FC<{
   rowsPerPage: number;
   rowsPerPageOptions?: number[];
   page: number;
-  handleChangePage: (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
-    selectedRowsPerPage: number) => void;
+  handleChangePage: (
+    _event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    selectedRowsPerPage: number,
+  ) => void;
   handleChangeRowsPerPage: (page: number) => void;
 }> = ({
   className,
@@ -23,7 +25,7 @@ const Pagination: React.FC<{
   handleChangeRowsPerPage,
   rowsPerPageOptions,
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const classes = useStyles();
 
   // hides pagination if the total items is less than
@@ -37,13 +39,13 @@ const Pagination: React.FC<{
       className={classnames(className, classes.root)}
       rowsPerPageOptions={[]}
       labelRowsPerPage=""
-      labelDisplayedRows={({
-        from, to, count,
-      }) => t('paginationLabelOne', {
-        from,
-        to,
-        count,
-      })}
+      labelDisplayedRows={({ from, to, count }) =>
+        t("paginationLabelOne", {
+          from,
+          to,
+          count,
+        })
+      }
       colSpan={6}
       component="div"
       count={total}

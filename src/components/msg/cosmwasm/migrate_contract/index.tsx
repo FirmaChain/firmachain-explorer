@@ -1,8 +1,8 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgCosmwasmMigrateContract } from '@models';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgCosmwasmMigrateContract } from "@models";
 
 const CosmwasmMigrateContract = (props: {
   message: MsgCosmwasmMigrateContract;
@@ -14,15 +14,13 @@ const CosmwasmMigrateContract = (props: {
       <Trans
         i18nKey="message_contents:txCosmwasmMigrateContractContent"
         components={[
-            (
-              <Name
-                address={message.contractAddress}
-                name={message.contractAddress}
-              />
-            ),
+          <Name
+            address={message.contractAddress}
+            name={message.contractAddress}
+          />,
         ]}
         values={{
-            codeId: message.codeId,
+          codeId: message.codeId,
         }}
       />
     </Typography>

@@ -1,9 +1,12 @@
-import { useState } from 'react';
-import { useRouter } from '@src/adapters/routing/router';
-import { convertMsgsToModels } from '@msg';
-import * as R from 'ramda';
-import { useGetMessagesByAddressQuery, GetMessagesByAddressQuery } from '@graphql/types';
-import { TransactionState } from './types';
+import { useState } from "react";
+import { useRouter } from "@/adapters/routing/router";
+import { convertMsgsToModels } from "@msg";
+import * as R from "ramda";
+import {
+  useGetMessagesByAddressQuery,
+  GetMessagesByAddressQuery,
+} from "@graphql/types";
+import { TransactionState } from "./types";
 
 const LIMIT = 50;
 
@@ -24,7 +27,7 @@ export const useTransactions = () => {
     variables: {
       limit: LIMIT + 1, // to check if more exist
       offset: 0,
-      address: `{${R.pathOr('', ['query', 'address'], router)}}`,
+      address: `{${R.pathOr("", ["query", "address"], router)}}`,
     },
     onCompleted: (data) => {
       const itemsLength = data.messagesByAddress.length;
@@ -45,25 +48,32 @@ export const useTransactions = () => {
       isNextPageLoading: true,
     });
     // refetch query
-    await transactionQuery.fetchMore({
-      variables: {
-        offset: state.offsetCount,
-        limit: LIMIT + 1,
-      },
-      updateQuery: (
-        previousResult: GetMessagesByAddressQuery, 
-        { fetchMoreResult }: { fetchMoreResult?: GetMessagesByAddressQuery; variables: { offset: number; limit: number } }
-      ) => {
-        if (!fetchMoreResult) return previousResult;
+    await transactionQuery
+      .fetchMore({
+        variables: {
+          offset: state.offsetCount,
+          limit: LIMIT + 1,
+        },
+        updateQuery: (
+          previousResult: GetMessagesByAddressQuery,
+          {
+            fetchMoreResult,
+          }: {
+            fetchMoreResult?: GetMessagesByAddressQuery;
+            variables: { offset: number; limit: number };
+          },
+        ) => {
+          if (!fetchMoreResult) return previousResult;
 
-        return {
-          messagesByAddress: [
-            ...(previousResult.messagesByAddress ?? []),
-            ...(fetchMoreResult.messagesByAddress ?? []),
-          ],
-        };
-      },
-    }).then(({ data }) => {
+          return {
+            messagesByAddress: [
+              ...(previousResult.messagesByAddress ?? []),
+              ...(fetchMoreResult.messagesByAddress ?? []),
+            ],
+          };
+        },
+      })
+      .then(({ data }) => {
         const itemsLength = data.messagesByAddress.length;
         const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
         const stateChange = {

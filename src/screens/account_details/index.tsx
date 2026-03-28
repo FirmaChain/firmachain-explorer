@@ -1,51 +1,42 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Layout,
-  LoadAndExist,
-  DesmosProfile,
-} from '@components';
-import { NextSeo } from '@src/adapters/seo/seo';
-import { useStyles } from './styles';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Layout, LoadAndExist, DesmosProfile } from "@components";
+import { NextSeo } from "@/adapters/seo/seo";
+import { useStyles } from "./styles";
 import {
   Overview,
   Balance,
   Staking,
   Transactions,
   OtherTokens,
-} from './components';
-import { useAccountDetails } from './hooks';
+} from "./components";
+import { useAccountDetails } from "./hooks";
 
 const AccountDetails = () => {
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
   const classes = useStyles();
-  const {
-    state,
-  } = useAccountDetails();
+  const { state } = useAccountDetails();
 
   return (
     <>
       <NextSeo
-        title={t('accountDetails')}
+        title={t("accountDetails")}
         openGraph={{
-          title: t('accountDetails'),
+          title: t("accountDetails"),
         }}
       />
-      <Layout navTitle={t('accountDetails')}>
-        <LoadAndExist
-          loading={state.loading}
-          exists={state.exists}
-        >
+      <Layout navTitle={t("accountDetails")}>
+        <LoadAndExist loading={state.loading} exists={state.exists}>
           <span className={classes.root}>
             {!!state.desmosProfile && (
-            <DesmosProfile
-              dtag={state.desmosProfile.dtag}
-              nickname={state.desmosProfile.nickname}
-              imageUrl={state.desmosProfile.imageUrl}
-              bio={state.desmosProfile.bio}
-              connections={state.desmosProfile.connections}
-              coverUrl={state.desmosProfile.coverUrl}
-            />
+              <DesmosProfile
+                dtag={state.desmosProfile.dtag}
+                nickname={state.desmosProfile.nickname}
+                imageUrl={state.desmosProfile.imageUrl}
+                bio={state.desmosProfile.bio}
+                connections={state.desmosProfile.connections}
+                coverUrl={state.desmosProfile.coverUrl}
+              />
             )}
             <Overview
               className={classes.overview}
@@ -65,13 +56,8 @@ const AccountDetails = () => {
               className={classes.otherTokens}
               otherTokens={state.otherTokens}
             />
-            <Staking
-              className={classes.staking}
-              rewards={state.rewards}
-            />
-            <Transactions
-              className={classes.transactions}
-            />
+            <Staking className={classes.staking} rewards={state.rewards} />
+            <Transactions className={classes.transactions} />
           </span>
         </LoadAndExist>
       </Layout>

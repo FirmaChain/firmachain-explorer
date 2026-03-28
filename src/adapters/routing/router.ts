@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import i18n from '@src/i18n';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import i18n from "@/i18n";
 
 type UrlObject = {
   pathname?: string;
@@ -36,8 +36,8 @@ const buildPath = (pathname: string, query?: Record<string, any>) => {
 };
 
 const toHref = (url: string | UrlObject) => {
-  if (typeof url === 'string') return url;
-  return buildPath(url.pathname || '/', url.query);
+  if (typeof url === "string") return url;
+  return buildPath(url.pathname || "/", url.query);
 };
 
 export const useRouter = () => {
@@ -45,7 +45,9 @@ export const useRouter = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const search = Object.fromEntries(new URLSearchParams(location.search).entries());
+  const search = Object.fromEntries(
+    new URLSearchParams(location.search).entries(),
+  );
   const query = {
     ...search,
     ...params,
@@ -76,6 +78,6 @@ export const useRouter = () => {
     pathname: location.pathname,
     asPath: `${location.pathname}${location.search}`,
     locale: i18n.language,
-    locales: i18n.languages?.length ? i18n.languages : ['en'],
+    locales: i18n.languages?.length ? i18n.languages : ["en"],
   };
 };

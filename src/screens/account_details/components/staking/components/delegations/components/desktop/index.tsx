@@ -1,32 +1,27 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
 import {
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-} from '@material-ui/core';
-import {
-  AvatarName,
-} from '@components';
-import { formatNumber } from '@utils/format_token';
-import { columns } from './utils';
-import { ItemType } from '../../types';
+} from "@material-ui/core";
+import { AvatarName } from "@components";
+import { formatNumber } from "@utils/format_token";
+import { columns } from "./utils";
+import { ItemType } from "../../types";
 
 const Desktop: React.FC<{
   className?: string;
   items?: ItemType[];
-}> = ({
-  className,
-  items,
-}) => {
-  const { t } = useTranslation('accounts');
+}> = ({ className, items }) => {
+  const { t } = useTranslation("accounts");
   const formattedItems = items.map((x) => {
     const amount = formatNumber(x.amount.value, x.amount.exponent);
     const reward = formatNumber(x.reward.value, x.reward.exponent);
-    return ({
+    return {
       validator: (
         <AvatarName
           name={x.validator.name}
@@ -36,7 +31,7 @@ const Desktop: React.FC<{
       ),
       amount: `${amount} ${x.amount.displayDenom.toUpperCase()}`,
       reward: `${reward} ${x.reward.displayDenom.toUpperCase()}`,
-    });
+    };
   });
 
   return (
@@ -49,8 +44,7 @@ const Desktop: React.FC<{
                 <TableCell
                   key={column.key}
                   align={column.align}
-                  style={{ width: `${column.width}%` }}
-                >
+                  style={{ width: `${column.width}%` }}>
                   {t(column.key)}
                 </TableCell>
               );
@@ -65,8 +59,7 @@ const Desktop: React.FC<{
                   <TableCell
                     key={`holders-row-${i}-${column.key}`}
                     align={column.align}
-                    style={{ width: `${column.width}%` }}
-                  >
+                    style={{ width: `${column.width}%` }}>
                     {row[column.key]}
                   </TableCell>
                 );
@@ -76,7 +69,6 @@ const Desktop: React.FC<{
         </TableBody>
       </Table>
     </div>
-
   );
 };
 

@@ -1,12 +1,10 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgCosmwasmClearAdmin } from '@models';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgCosmwasmClearAdmin } from "@models";
 
-const CosmwasmClearAdmin = (props: {
-  message: MsgCosmwasmClearAdmin;
-}) => {
+const CosmwasmClearAdmin = (props: { message: MsgCosmwasmClearAdmin }) => {
   const { message } = props;
 
   return (
@@ -14,12 +12,10 @@ const CosmwasmClearAdmin = (props: {
       <Trans
         i18nKey="message_contents:txCosmwasmClearAdminContent"
         components={[
-            (
-              <Name
-                address={message.contractAddress}
-                name={message.contractAddress}
-              />
-            ),
+          <Name
+            address={message.contractAddress}
+            name={message.contractAddress}
+          />,
         ]}
       />
     </Typography>

@@ -1,17 +1,15 @@
-import React from 'react';
-import Link from '@src/adapters/routing/link';
-import Trans from '@src/adapters/i18n/Trans';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgVoteAnte050 } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
-import { PROPOSAL_DETAILS } from '@utils/go_to_page';
+import React from "react";
+import Link from "@/adapters/routing/link";
+import Trans from "@/adapters/i18n/Trans";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgVoteAnte050 } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
+import { PROPOSAL_DETAILS } from "@utils/go_to_page";
 
-const VoteAnte050 = (props: {
-  message: MsgVoteAnte050;
-}) => {
-  const { t } = useTranslation('transactions');
+const VoteAnte050 = (props: { message: MsgVoteAnte050 }) => {
+  const { t } = useTranslation("transactions");
   const { message } = props;
   const vote = t(message.getOptionTranslationKey());
 
@@ -21,10 +19,7 @@ const VoteAnte050 = (props: {
   const Proposal = () => {
     return (
       <Link href={PROPOSAL_DETAILS(message.proposalId)} passHref>
-        <Typography component="a">
-          #
-          {message.proposalId}
-        </Typography>
+        <Typography component="a">#{message.proposalId}</Typography>
       </Link>
     );
   };
@@ -34,12 +29,7 @@ const VoteAnte050 = (props: {
       <Trans
         i18nKey="message_contents:txVoteAnte050Content"
         components={[
-          (
-            <Name
-              address={message.voter}
-              name={voterMoniker}
-            />
-          ),
+          <Name address={message.voter} name={voterMoniker} />,
           <b />,
           <Proposal />,
         ]}

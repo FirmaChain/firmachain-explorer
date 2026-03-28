@@ -1,15 +1,10 @@
-import {
-  useState, useEffect,
-} from 'react';
-import * as R from 'ramda';
-import numeral from 'numeral';
-import { useRouter } from '@src/adapters/routing/router';
-import {
-  useBlockDetailsQuery,
-  BlockDetailsQuery,
-} from '@graphql/types';
-import { convertMsgsToModels } from '@msg';
-import { BlockDetailState } from './types';
+import { useState, useEffect } from "react";
+import * as R from "ramda";
+import numeral from "numeral";
+import { useRouter } from "@/adapters/routing/router";
+import { useBlockDetailsQuery, BlockDetailsQuery } from "@graphql/types";
+import { convertMsgsToModels } from "@msg";
+import { BlockDetailState } from "./types";
 
 export const useBlockDetails = () => {
   const router = useRouter();
@@ -18,10 +13,10 @@ export const useBlockDetails = () => {
     exists: true,
     overview: {
       height: 0,
-      hash: '',
+      hash: "",
       txs: 0,
-      timestamp: '',
-      proposer: '',
+      timestamp: "",
+      proposer: "",
     },
     signatures: [],
     transactions: [],
@@ -65,7 +60,11 @@ export const useBlockDetails = () => {
     // Overview
     // ==========================
     const formatOverview = () => {
-      const proposerAddress = R.pathOr('', ['block', 0, 'validator', 'validatorInfo', 'operatorAddress'], data);
+      const proposerAddress = R.pathOr(
+        "",
+        ["block", 0, "validator", "validatorInfo", "operatorAddress"],
+        data,
+      );
       const overview = {
         height: data.block[0].height,
         hash: data.block[0].hash,
@@ -82,9 +81,11 @@ export const useBlockDetails = () => {
     // Signatures
     // ==========================
     const formatSignatures = () => {
-      const signatures = data.preCommits.filter((x) => x?.validator?.validatorInfo).map((x) => {
-        return x.validator.validatorInfo.operatorAddress;
-      });
+      const signatures = data.preCommits
+        .filter((x) => x?.validator?.validatorInfo)
+        .map((x) => {
+          return x.validator.validatorInfo.operatorAddress;
+        });
       return signatures;
     };
     stateChange.signatures = formatSignatures();
@@ -95,7 +96,7 @@ export const useBlockDetails = () => {
     const formatTransactions = () => {
       const transactions = data.transaction.map((x) => {
         const messages = convertMsgsToModels(x);
-        return ({
+        return {
           height: x.height,
           hash: x.hash,
           success: x.success,
@@ -105,7 +106,7 @@ export const useBlockDetails = () => {
             items: messages,
           },
           type: x.messages,
-        });
+        };
       });
 
       return transactions;

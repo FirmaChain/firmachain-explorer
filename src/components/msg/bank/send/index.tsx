@@ -1,26 +1,25 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import {
-  formatToken, formatNumber,
-} from '@utils/format_token';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgSend } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { formatToken, formatNumber } from "@utils/format_token";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgSend } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const Send = (props: {
-  message: MsgSend;
-}) => {
-  const { t } = useTranslation('transactions');
+const Send = (props: { message: MsgSend }) => {
+  const { t } = useTranslation("transactions");
   const { message } = props;
 
-  const parsedAmount = message?.amount?.map((x) => {
-    const amount = formatToken(x.amount, x.denom);
-    return `${formatNumber(amount.value, amount.exponent)} ${amount.displayDenom.toUpperCase()}`;
-  }).reduce((text, value, i, array) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value);
+  const parsedAmount = message?.amount
+    ?.map((x) => {
+      const amount = formatToken(x.amount, x.denom);
+      return `${formatNumber(amount.value, amount.exponent)} ${amount.displayDenom.toUpperCase()}`;
+    })
+    .reduce(
+      (text, value, i, array) =>
+        text + (i < array.length - 1 ? ", " : ` ${t("and")} `) + value,
+    );
 
   const from = useProfileRecoil(message.fromAddress);
   const fromMoniker = from ? from?.name : message.fromAddress;
@@ -33,19 +32,9 @@ const Send = (props: {
       <Trans
         i18nKey="message_contents:txSendContent"
         components={[
-          (
-            <Name
-              address={message.fromAddress}
-              name={fromMoniker}
-            />
-          ),
+          <Name address={message.fromAddress} name={fromMoniker} />,
           <b />,
-          (
-            <Name
-              address={message.toAddress}
-              name={toMoniker}
-            />
-          ),
+          <Name address={message.toAddress} name={toMoniker} />,
         ]}
         values={{
           amount: parsedAmount,

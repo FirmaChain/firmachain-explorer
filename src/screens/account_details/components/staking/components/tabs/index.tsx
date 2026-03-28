@@ -1,13 +1,10 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import numeral from 'numeral';
-import {
-  Tabs,
-  Tab,
-} from '@material-ui/core';
-import { a11yProps } from '@utils/allyProps';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import numeral from "numeral";
+import { Tabs, Tab } from "@material-ui/core";
+import { a11yProps } from "@utils/allyProps";
+import { useStyles } from "./styles";
 
 const TabsHeader: React.FC<{
   className?: string;
@@ -18,15 +15,10 @@ const TabsHeader: React.FC<{
     key: string;
     count: number;
     component?: React.ReactNode;
-  }[]
-}> = ({
-  className,
-  tab,
-  handleTabChange,
-  tabs,
-}) => {
+  }[];
+}> = ({ className, tab, handleTabChange, tabs }) => {
   const classes = useStyles();
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
 
   return (
     <div className={classnames(className, classes.root)}>
@@ -34,13 +26,12 @@ const TabsHeader: React.FC<{
         variant="scrollable"
         scrollButtons="off"
         value={tab}
-        onChange={handleTabChange}
-      >
+        onChange={handleTabChange}>
         {tabs.map((x) => (
           <Tab
             key={x.key}
             label={t(x.key, {
-              num: numeral(x.count ?? 0).format('0,0'),
+              num: numeral(x.count ?? 0).format("0,0"),
             })}
             {...a11yProps(x.id)}
           />

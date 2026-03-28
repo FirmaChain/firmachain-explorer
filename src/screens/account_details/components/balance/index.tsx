@@ -1,26 +1,18 @@
-import React from 'react';
-import classnames from 'classnames';
-import Big from 'big.js';
-import numeral from 'numeral';
-import * as R from 'ramda';
-import { useRecoilValue } from 'recoil';
-import { readMarket } from '@recoil/market';
-import {
-  Typography,
-  Divider,
-} from '@material-ui/core';
-import {
-  PieChart,
-  Pie,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Box } from '@components';
-import { chainConfig } from '@configs';
-import { formatNumber } from '@utils/format_token';
-import { useStyles } from './styles';
-import { formatBalanceData } from './utils';
+import React from "react";
+import classnames from "classnames";
+import Big from "big.js";
+import numeral from "numeral";
+import * as R from "ramda";
+import { useRecoilValue } from "recoil";
+import { readMarket } from "@recoil/market";
+import { Typography, Divider } from "@material-ui/core";
+import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Box } from "@components";
+import { chainConfig } from "@configs";
+import { formatNumber } from "@utils/format_token";
+import { useStyles } from "./styles";
+import { formatBalanceData } from "./utils";
 
 const Balance: React.FC<{
   className?: string;
@@ -31,18 +23,16 @@ const Balance: React.FC<{
   commission?: TokenUnit;
   total: TokenUnit;
 }> = (props) => {
-  const { t } = useTranslation('accounts');
-  const {
-    classes, theme,
-  } = useStyles();
+  const { t } = useTranslation("accounts");
+  const { classes, theme } = useStyles();
   const market = useRecoilValue(readMarket);
   const formattedChartData = formatBalanceData(props);
 
   const empty = {
-    key: 'empty',
+    key: "empty",
     value: 2400,
     background: theme.palette.custom.charts.zero,
-    display: '',
+    display: "",
   };
 
   const backgrounds = [
@@ -63,16 +53,18 @@ const Balance: React.FC<{
 
   const dataCount = formatData.filter((x) => Big(x.value).gt(0)).length;
   const data = notEmpty ? formatData : [...formatData, empty];
-  const totalAmount = `$${numeral(Big(market.price || 0).times(props.total.value).toPrecision()).format('0,0.00')}`;
+  const totalAmount = `$${numeral(
+    Big(market.price || 0)
+      .times(props.total.value)
+      .toPrecision(),
+  ).format("0,0.00")}`;
 
   // format
   const totalDisplay = formatNumber(props.total.value, props.total.exponent);
 
   return (
     <Box className={classnames(props.className, classes.root)}>
-      <Typography variant="h2">
-        {t('balance')}
-      </Typography>
+      <Typography variant="h2">{t("balance")}</Typography>
       <div className={classes.chartWrapper}>
         <div className={classes.chart}>
           <ResponsiveContainer width="99%">
@@ -86,8 +78,7 @@ const Balance: React.FC<{
                 cornerRadius={40}
                 paddingAngle={dataCount > 1 ? 5 : 0}
                 fill="#82ca9d"
-                stroke="none"
-              >
+                stroke="none">
                 {data.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
@@ -101,21 +92,20 @@ const Balance: React.FC<{
         </div>
         <div className={classes.legends}>
           {data.map((x) => {
-            if (x.key.toLowerCase() === 'empty') {
+            if (x.key.toLowerCase() === "empty") {
               return null;
             }
 
             return (
               <div key={x.key} className="legends__single--container">
                 <div className="single__label--container">
-                  <div className="legend-color" style={{ background: x.background }} />
-                  <Typography variant="body1">
-                    {t(x.key)}
-                  </Typography>
+                  <div
+                    className="legend-color"
+                    style={{ background: x.background }}
+                  />
+                  <Typography variant="body1">{t(x.key)}</Typography>
                 </div>
-                <Typography variant="body1">
-                  {x.display}
-                </Typography>
+                <Typography variant="body1">{x.display}</Typography>
               </div>
             );
           })}
@@ -126,26 +116,22 @@ const Balance: React.FC<{
         <div className={classes.total}>
           <div className="total__single--container">
             <Typography variant="h3" className="label">
-              {t('total', {
+              {t("total", {
                 unit: props.total.displayDenom.toUpperCase(),
               })}
             </Typography>
-            <Typography variant="h3">
-              {totalDisplay}
-            </Typography>
+            <Typography variant="h3">{totalDisplay}</Typography>
           </div>
           <div className="total__secondary--container total__single--container">
             <Typography variant="body1" className="label">
-              $
-              {numeral(market.price).format('0,0.[00]', Math.floor)}
-              {' '}
-              /
-              {' '}
-              {R.pathOr('', ['tokenUnits', chainConfig.primaryTokenUnit, 'display'], chainConfig).toUpperCase()}
+              ${numeral(market.price).format("0,0.[00]", Math.floor)} /{" "}
+              {R.pathOr(
+                "",
+                ["tokenUnits", chainConfig.primaryTokenUnit, "display"],
+                chainConfig,
+              ).toUpperCase()}
             </Typography>
-            <Typography variant="body1">
-              {totalAmount}
-            </Typography>
+            <Typography variant="body1">{totalAmount}</Typography>
           </div>
         </div>
       </div>

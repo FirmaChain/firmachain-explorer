@@ -1,12 +1,12 @@
-import React from 'react';
-import dynamic from '@src/adapters/routing/dynamic';
-import { NoData } from '@components';
-import { useScreenSize } from '@hooks';
-import { useStyles } from './styles';
-import { TransactionsListState } from './types';
+import React from "react";
+import dynamic from "@/adapters/routing/dynamic";
+import { NoData } from "@components";
+import { useScreenSize } from "@hooks";
+import { useStyles } from "./styles";
+import { TransactionsListState } from "./types";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
 const TransactionsList: React.FC<TransactionsListState> = (props) => {
   const { isDesktop } = useScreenSize();
@@ -33,23 +33,15 @@ const TransactionsList: React.FC<TransactionsListState> = (props) => {
   };
 
   if (!itemCount) {
-    return (
-      <NoData />
-    );
+    return <NoData />;
   }
 
   return (
     <>
       {isDesktop ? (
-        <Desktop
-          className={classes.desktop}
-          {...formatProps}
-        />
+        <Desktop className={classes.desktop} {...formatProps} />
       ) : (
-        <Mobile
-          className={classes.mobile}
-          {...formatProps}
-        />
+        <Mobile className={classes.mobile} {...formatProps} />
       )}
     </>
   );

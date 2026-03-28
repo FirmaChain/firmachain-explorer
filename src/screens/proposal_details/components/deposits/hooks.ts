@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import * as R from 'ramda';
-import { useRouter } from '@src/adapters/routing/router';
+import { useState } from "react";
+import * as R from "ramda";
+import { useRouter } from "@/adapters/routing/router";
 import {
   useProposalDetailsDepositsQuery,
   ProposalDetailsDepositsQuery,
-} from '@graphql/types';
-import { chainConfig } from '@configs';
-import { formatToken } from '@utils/format_token';
-import { DepositState } from './types';
+} from "@graphql/types";
+import { chainConfig } from "@configs";
+import { formatToken } from "@utils/format_token";
+import { DepositState } from "./types";
 
 export const useDeposits = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ export const useDeposits = () => {
 
   useProposalDetailsDepositsQuery({
     variables: {
-      proposalId: R.pathOr('', ['query', 'id'], router),
+      proposalId: R.pathOr("", ["query", "id"], router),
     },
     onCompleted: (data) => {
       handleSetState(foramtProposalDeposits(data));
@@ -30,14 +30,14 @@ export const useDeposits = () => {
 
   const foramtProposalDeposits = (data: ProposalDetailsDepositsQuery) => {
     const format = data.proposalDeposit.map((x) => {
-      return ({
+      return {
         amount: formatToken(
-          R.pathOr('0', ['amount', 0, 'amount'], x),
-          R.pathOr(chainConfig.primaryTokenUnit, ['amount', 0, 'denom'], x),
+          R.pathOr("0", ["amount", 0, "amount"], x),
+          R.pathOr(chainConfig.primaryTokenUnit, ["amount", 0, "denom"], x),
         ),
-        user: R.pathOr('', ['depositorAddress'], x),
-        timestamp: R.pathOr('', ['block', 'timestamp'], x),
-      });
+        user: R.pathOr("", ["depositorAddress"], x),
+        timestamp: R.pathOr("", ["block", "timestamp"], x),
+      };
     });
 
     return {

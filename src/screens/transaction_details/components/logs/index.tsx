@@ -1,26 +1,24 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import { Box } from '@components';
-import { useGetStyles } from './styles';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { Box } from "@components";
+import { useGetStyles } from "./styles";
 
-const Logs: React.FC<{
-  datas: null | any[];
-  isEvents: boolean;
-} & ComponentDefault> = ({
- datas, isEvents = false,
-}) => {
+const Logs: React.FC<
+  {
+    datas: null | any[];
+    isEvents: boolean;
+  } & ComponentDefault
+> = ({ datas, isEvents = false }) => {
   const { classes } = useGetStyles();
-  const { t } = useTranslation('transactions');
+  const { t } = useTranslation("transactions");
   return (
     <Box className={classes.root}>
       <Typography variant="h2" className={classes.header}>
-        {isEvents ? t('events') : t('logs')}
+        {isEvents ? t("events") : t("logs")}
       </Typography>
       <pre className={classes.pre}>
-        <code>
-          {JSON.stringify(datas, null, 4)}
-        </code>
+        <code>{JSON.stringify(datas, null, 4)}</code>
       </pre>
     </Box>
   );

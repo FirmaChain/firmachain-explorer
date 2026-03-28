@@ -1,12 +1,8 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { NextSeo } from '@src/adapters/seo/seo';
-import {
-  Layout,
-  LoadAndExist,
-  DesmosProfile,
-} from '@components';
-import { useStyles } from './styles';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { NextSeo } from "@/adapters/seo/seo";
+import { Layout, LoadAndExist, DesmosProfile } from "@components";
+import { useStyles } from "./styles";
 import {
   Profile,
   VotingPower,
@@ -14,44 +10,30 @@ import {
   Staking,
   Blocks,
   ValidatorOverview,
-} from './components';
-import { useValidatorDetails } from './hooks';
+} from "./components";
+import { useValidatorDetails } from "./hooks";
 
 const ValidatorDetails = () => {
-  const { t } = useTranslation('validators');
+  const { t } = useTranslation("validators");
   const classes = useStyles();
-  const {
-    state,
-  } = useValidatorDetails();
-  const {
-    desmosProfile,
-    status,
-  } = state;
+  const { state } = useValidatorDetails();
+  const { desmosProfile, status } = state;
 
   return (
     <>
       <NextSeo
-        title={t('validatorDetails')}
+        title={t("validatorDetails")}
         openGraph={{
-          title: t('validatorDetails'),
+          title: t("validatorDetails"),
         }}
       />
-      <Layout navTitle={t('validatorDetails')}>
-        <LoadAndExist
-          exists={state.exists}
-          loading={state.loading}
-        >
+      <Layout navTitle={t("validatorDetails")}>
+        <LoadAndExist exists={state.exists} loading={state.loading}>
           <span className={classes.root}>
             {desmosProfile ? (
-              <DesmosProfile
-                className={classes.profile}
-                {...desmosProfile}
-              />
+              <DesmosProfile className={classes.profile} {...desmosProfile} />
             ) : (
-              <Profile
-                className={classes.profile}
-                profile={state.overview}
-              />
+              <Profile className={classes.profile} profile={state.overview} />
             )}
             <ValidatorOverview
               className={classes.address}
@@ -64,12 +46,8 @@ const ValidatorDetails = () => {
               status={status.status}
             />
             <Blocks className={classes.blocks} />
-            <Staking
-              className={classes.staking}
-            />
-            <Transactions
-              className={classes.transactions}
-            />
+            <Staking className={classes.staking} />
+            <Transactions className={classes.transactions} />
           </span>
         </LoadAndExist>
       </Layout>

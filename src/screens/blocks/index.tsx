@@ -1,58 +1,42 @@
-import React from 'react';
-import dynamic from '@src/adapters/routing/dynamic';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { NextSeo } from '@src/adapters/seo/seo';
-import {
-  Layout,
-  Box,
-  LoadAndExist,
-  NoData,
-} from '@components';
-import { useScreenSize } from '@hooks';
-import {
-  useProfilesRecoil,
-} from '@recoil/profiles';
-import { useStyles } from './styles';
-import { useBlocks } from './hooks';
+import React from "react";
+import dynamic from "@/adapters/routing/dynamic";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { NextSeo } from "@/adapters/seo/seo";
+import { Layout, Box, LoadAndExist, NoData } from "@components";
+import { useScreenSize } from "@hooks";
+import { useProfilesRecoil } from "@recoil/profiles";
+import { useStyles } from "./styles";
+import { useBlocks } from "./hooks";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
 const Blocks = () => {
-  const { t } = useTranslation('blocks');
+  const { t } = useTranslation("blocks");
   const { isDesktop } = useScreenSize();
   const classes = useStyles();
-  const {
-    state,
-    loadMoreItems,
-    itemCount,
-    isItemLoaded,
-  } = useBlocks();
+  const { state, loadMoreItems, itemCount, isItemLoaded } = useBlocks();
 
-  const proposerProfiles = useProfilesRecoil(state.items.map((x) => x.proposer));
+  const proposerProfiles = useProfilesRecoil(
+    state.items.map((x) => x.proposer),
+  );
   const mergedDataWithProfiles = state.items.map((x, i) => {
-    return ({
+    return {
       ...x,
       proposer: proposerProfiles[i],
-    });
+    };
   });
 
   return (
     <>
       <NextSeo
-        title={t('blocks')}
+        title={t("blocks")}
         openGraph={{
-          title: t('blocks'),
+          title: t("blocks"),
         }}
       />
-      <Layout
-        navTitle={t('blocks')}
-        className={classes.root}
-      >
-        <LoadAndExist
-          loading={state.loading}
-          exists={state.exists}
-        >
+      <Layout navTitle={t("blocks")} className={classes.root}>
+        <LoadAndExist loading={state.loading} exists={state.exists}>
           <Box className={classes.box}>
             {!state.items.length ? (
               <NoData />

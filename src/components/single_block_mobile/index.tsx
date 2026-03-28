@@ -1,10 +1,8 @@
-import React from 'react';
-import classnames from 'classnames';
-import {
-  Typography,
-} from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import { Typography } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { useStyles } from "./styles";
 
 const SingleBlockMobile: React.FC<{
   className?: string;
@@ -14,29 +12,27 @@ const SingleBlockMobile: React.FC<{
   txs: string;
   time: string;
   proposer: React.ReactNode;
-}> = ({
-  className, height, hash, parentHash, txs, time, proposer,
-}) => {
-  const { t } = useTranslation('blocks');
+}> = ({ className, height, hash, parentHash, txs, time, proposer }) => {
+  const { t } = useTranslation("blocks");
   const classes = useStyles();
 
   return (
     <div className={classnames(className, classes.root)}>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('height')}
+          {t("height")}
         </Typography>
         {height}
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('proposer')}
+          {t("proposer")}
         </Typography>
         {proposer}
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label">
-          {t('hash')}
+          {t("hash")}
         </Typography>
         <Typography variant="body1" className="value">
           {hash}
@@ -45,7 +41,7 @@ const SingleBlockMobile: React.FC<{
       {parentHash && (
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('parentHash')}
+            {t("parentHash")}
           </Typography>
           <Typography variant="body1" className="value">
             {parentHash}
@@ -55,7 +51,7 @@ const SingleBlockMobile: React.FC<{
       <div className={classes.flex}>
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('txs')}
+            {t("txs")}
           </Typography>
           <Typography variant="body1" className="value">
             {txs}
@@ -63,7 +59,7 @@ const SingleBlockMobile: React.FC<{
         </div>
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('time')}
+            {t("time")}
           </Typography>
           <Typography variant="body1" className="value">
             {time}

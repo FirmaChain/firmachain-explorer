@@ -1,36 +1,34 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const ConditionExplanation = () => {
-  const { t } = useTranslation('validators');
+  const { t } = useTranslation("validators");
   const classes = useStyles();
 
   const conditions = [
     {
-      display: '90% - 100%',
-      className: 'green',
+      display: "90% - 100%",
+      className: "green",
     },
     {
-      display: '70% - 90%',
-      className: 'yellow',
+      display: "70% - 90%",
+      className: "yellow",
     },
     {
-      display: '1% - 70%',
-      className: 'red',
+      display: "1% - 70%",
+      className: "red",
     },
     {
-      display: '0%',
-      className: '',
+      display: "0%",
+      className: "",
     },
   ];
   return (
     <div className={classes.root}>
-      <Typography>
-        {t('conditionExplanation')}
-      </Typography>
+      <Typography>{t("conditionExplanation")}</Typography>
       <div className={classes.itemWrapper}>
         {conditions.map((x) => {
           return (

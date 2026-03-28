@@ -1,14 +1,10 @@
-import React from 'react';
-import { AppProps } from '@src/adapters/app/types';
-import { useChainHealthCheck } from './hooks';
+import React from "react";
+import { AppProps } from "@/adapters/app/types";
+import { useChainHealthCheck } from "./hooks";
 
-function InnerApp({
-  Component, pageProps,
-}: AppProps) {
+function InnerApp({ Component, pageProps }: AppProps) {
   useChainHealthCheck();
-  return (
-    <Component {...pageProps} />
-  );
+  return <Component {...pageProps} />;
 }
 
 export default InnerApp;

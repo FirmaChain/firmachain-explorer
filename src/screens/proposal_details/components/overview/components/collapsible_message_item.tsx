@@ -1,17 +1,17 @@
-import React from 'react';
-import classnames from 'classnames';
-import { Collapse } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Tag } from '@components';
-import { KNOWN_GOV_TYPES } from '../constants';
-import type { OverviewDisplayType } from '../utils';
-import { getExecNestedTypeSummary } from '../utils';
-import MessageBodyContent from './message_body_content';
-import type { OverviewType } from '../../../types';
+import React from "react";
+import classnames from "classnames";
+import { Collapse } from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Tag } from "@components";
+import { KNOWN_GOV_TYPES } from "../constants";
+import type { OverviewDisplayType } from "../utils";
+import { getExecNestedTypeSummary } from "../utils";
+import MessageBodyContent from "./message_body_content";
+import type { OverviewType } from "../../../types";
 
 type Props = {
-  items: OverviewType['content'][number][];
+  items: OverviewType["content"][number][];
   displayType: OverviewDisplayType;
   isOpen: boolean;
   onToggle: () => void;
@@ -25,11 +25,11 @@ const CollapsibleMessageItem: React.FC<Props> = ({
   onToggle,
   classes,
 }) => {
-  const { t } = useTranslation('proposals');
-  const tMsg = useTranslation('message_labels').t;
+  const { t } = useTranslation("proposals");
+  const tMsg = useTranslation("message_labels").t;
   const isGov = (KNOWN_GOV_TYPES as readonly string[]).includes(displayType);
   const single = items.length === 1;
-  const isMsgExec = displayType === 'authzExec';
+  const isMsgExec = displayType === "authzExec";
 
   const nestedSummary = isMsgExec ? getExecNestedTypeSummary(items) : [];
 
@@ -43,37 +43,32 @@ const CollapsibleMessageItem: React.FC<Props> = ({
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+          if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             onToggle();
           }
-        }}
-      >
+        }}>
         {isMsgExec && (
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 8,
-              flexWrap: 'wrap',
-            }}
-          >
+              flexWrap: "wrap",
+            }}>
             <Tag
-              value={t('authzExec')}
+              value={t("authzExec")}
               theme="thirteen"
               className={classes.messagePillTag}
             />
-            {nestedSummary.map(({
-              typeStr,
-              tagDisplay,
-              tagTheme,
-              count,
-            }) => {
+            {nestedSummary.map(({ typeStr, tagDisplay, tagTheme, count }) => {
               const displayLabel = tMsg(tagDisplay);
               return (
                 <Tag
                   key={typeStr}
-                  value={count > 1 ? `${displayLabel} (${count})` : displayLabel}
+                  value={
+                    count > 1 ? `${displayLabel} (${count})` : displayLabel
+                  }
                   theme={tagTheme as TagTheme}
                   className={classes.messagePillTag}
                 />
@@ -88,7 +83,10 @@ const CollapsibleMessageItem: React.FC<Props> = ({
           <span className={classes.messagePill}>{label}</span>
         )}
         <ExpandMoreIcon
-          className={classnames(classes.messageChevron, isOpen && classes.messageChevronOpen)}
+          className={classnames(
+            classes.messageChevron,
+            isOpen && classes.messageChevronOpen,
+          )}
         />
       </div>
       <Collapse in={isOpen}>

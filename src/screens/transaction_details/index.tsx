@@ -1,20 +1,13 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { NextSeo } from '@src/adapters/seo/seo';
-import {
-  Layout,
-  LoadAndExist,
-} from '@components';
-import { useStyles } from './styles';
-import {
-  Overview,
-  Messages,
-  Logs,
-} from './components';
-import { useTransactionDetails } from './hooks';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { NextSeo } from "@/adapters/seo/seo";
+import { Layout, LoadAndExist } from "@components";
+import { useStyles } from "./styles";
+import { Overview, Messages, Logs } from "./components";
+import { useTransactionDetails } from "./hooks";
 
 const TransactionDetails = () => {
-  const { t } = useTranslation('transactions');
+  const { t } = useTranslation("transactions");
   const classes = useStyles();
   const {
     state,
@@ -22,30 +15,20 @@ const TransactionDetails = () => {
     toggleMessageDisplay,
     filterMessages,
   } = useTransactionDetails();
-  const {
-    overview,
-    events,
-    logs,
-    messages,
-  } = state;
+  const { overview, events, logs, messages } = state;
 
   return (
     <>
       <NextSeo
-        title={t('transactionDetails')}
+        title={t("transactionDetails")}
         openGraph={{
-          title: t('transactionDetails'),
+          title: t("transactionDetails"),
         }}
       />
-      <Layout navTitle={t('transactionDetails')}>
-        <LoadAndExist
-          loading={state.loading}
-          exists={state.exists}
-        >
+      <Layout navTitle={t("transactionDetails")}>
+        <LoadAndExist loading={state.loading} exists={state.exists}>
           <span className={classes.root}>
-            <Overview
-              data={overview}
-            />
+            <Overview data={overview} />
             <Messages
               className={classes.messages}
               messages={filterMessages(messages.items)}
@@ -53,7 +36,9 @@ const TransactionDetails = () => {
               toggleMessageDisplay={toggleMessageDisplay}
               onMessageFilterCallback={onMessageFilterCallback}
             />
-            {!!logs && logs.length > 0 && <Logs datas={logs} isEvents={false} />}
+            {!!logs && logs.length > 0 && (
+              <Logs datas={logs} isEvents={false} />
+            )}
             {!!events && events.length > 0 && <Logs datas={events} isEvents />}
           </span>
         </LoadAndExist>

@@ -1,15 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgNFTMint } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgNFTMint } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const NFTMint = (props: {
-  message: MsgNFTMint;
-}) => {
+const NFTMint = (props: { message: MsgNFTMint }) => {
   const { message } = props;
 
   const ownerAddress = useProfileRecoil(message.ownerAddress);
@@ -20,15 +16,10 @@ const NFTMint = (props: {
       <Trans
         i18nKey="message_contents:txNFTMintContent"
         components={[
-          (
-            <Name
-              address={message.ownerAddress}
-              name={ownerMoniker}
-            />
-          ),
+          <Name address={message.ownerAddress} name={ownerMoniker} />,
         ]}
         values={{
-            nftId: message.nftId,
+          nftId: message.nftId,
         }}
       />
     </Typography>

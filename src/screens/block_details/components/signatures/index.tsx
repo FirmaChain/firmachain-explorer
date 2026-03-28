@@ -1,32 +1,31 @@
-import React from 'react';
-import dynamic from '@src/adapters/routing/dynamic';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import {
-  Box, NoData,
-} from '@components';
-import { useProfilesRecoil } from '@recoil/profiles';
-import { useScreenSize } from '@hooks';
-import { useStyles } from './styles';
+import React from "react";
+import dynamic from "@/adapters/routing/dynamic";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { Box, NoData } from "@components";
+import { useProfilesRecoil } from "@recoil/profiles";
+import { useScreenSize } from "@hooks";
+import { useStyles } from "./styles";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
-const Signatures: React.FC<ComponentDefault & {
-  signatures: string[];
-}> = ({
-  className,
-  signatures,
-}) => {
+const Signatures: React.FC<
+  ComponentDefault & {
+    signatures: string[];
+  }
+> = ({ className, signatures }) => {
   const { isDesktop } = useScreenSize();
-  const { t } = useTranslation('blocks');
+  const { t } = useTranslation("blocks");
   const classes = useStyles();
   const formattedSignatures = useProfilesRecoil(signatures);
 
   return (
     <Box className={classnames(className, classes.root)}>
-      <Typography className={classes.title} variant="h2">{t('signatures')}</Typography>
+      <Typography className={classes.title} variant="h2">
+        {t("signatures")}
+      </Typography>
       {!signatures.length ? (
         <NoData />
       ) : (

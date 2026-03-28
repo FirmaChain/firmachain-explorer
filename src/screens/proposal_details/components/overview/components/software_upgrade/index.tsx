@@ -1,42 +1,33 @@
-import React from 'react';
-import numeral from 'numeral';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from '@material-ui/core';
+import React from "react";
+import numeral from "numeral";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 
 const SoftwareUpgrade: React.FC<{
   className?: string;
   height: string;
   info: string;
   name: string;
-}> = ({
-  height,
-  info,
-  name,
-}) => {
-  const { t } = useTranslation('proposals');
+}> = ({ height, info, name }) => {
+  const { t } = useTranslation("proposals");
   return (
     <div
       style={{
-        overflow: 'auto', whiteSpace: 'nowrap',
-      }}
-    >
+        overflow: "auto",
+        whiteSpace: "nowrap",
+      }}>
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell>{t('name')}</TableCell>
+            <TableCell>{t("name")}</TableCell>
             <TableCell>{name}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>{t('height')}</TableCell>
-            <TableCell>{numeral(height).format('0,0')}</TableCell>
+            <TableCell>{t("height")}</TableCell>
+            <TableCell>{numeral(height).format("0,0")}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>{t('info')}</TableCell>
+            <TableCell>{t("info")}</TableCell>
             <TableCell>{info}</TableCell>
           </TableRow>
         </TableBody>

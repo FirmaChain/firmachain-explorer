@@ -1,12 +1,10 @@
-import React from 'react';
-import classnames from 'classnames';
-import {
-  Typography,
-} from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import { Typography } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { useStyles } from "./styles";
 
-const SingleTransactionMobile:React.FC<{
+const SingleTransactionMobile: React.FC<{
   className?: string;
   block: React.ReactNode;
   hash: React.ReactNode;
@@ -14,10 +12,8 @@ const SingleTransactionMobile:React.FC<{
   messages: string;
   type: any;
   result?: React.ReactNode;
-}> = ({
-  className, block, hash, time, messages, type, result,
-}) => {
-  const { t } = useTranslation('transactions');
+}> = ({ className, block, hash, time, messages, type, result }) => {
+  const { t } = useTranslation("transactions");
   const classes = useStyles();
 
   return (
@@ -25,13 +21,13 @@ const SingleTransactionMobile:React.FC<{
       <div className={classes.flex}>
         <div className={classes.item}>
           <Typography variant="h4" className="label" component="span">
-            {t('block')}
+            {t("block")}
           </Typography>
           {block}
         </div>
         <div className={classes.item}>
           <Typography variant="h4" className="label" component="span">
-            {t('type')}
+            {t("type")}
           </Typography>
           <Typography variant="body1" className="value" component="span">
             {type}
@@ -40,7 +36,7 @@ const SingleTransactionMobile:React.FC<{
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label" component="span">
-          {t('hash')}
+          {t("hash")}
         </Typography>
         <Typography variant="body1" className="value" component="span">
           {hash}
@@ -48,25 +44,25 @@ const SingleTransactionMobile:React.FC<{
       </div>
       <div className={classes.flex}>
         {!!messages && (
-        <div className={classes.item}>
-          <Typography variant="h4" className="label" component="span">
-            {t('messages')}
-          </Typography>
-          <Typography variant="body1" className="value" component="span">
-            {messages}
-          </Typography>
-        </div>
+          <div className={classes.item}>
+            <Typography variant="h4" className="label" component="span">
+              {t("messages")}
+            </Typography>
+            <Typography variant="body1" className="value" component="span">
+              {messages}
+            </Typography>
+          </div>
         )}
         <div className={classes.item}>
           <Typography variant="h4" className="label" component="span">
-            {t('result')}
+            {t("result")}
           </Typography>
           {result}
         </div>
       </div>
       <div className={classes.item}>
         <Typography variant="h4" className="label" component="span">
-          {t('time')}
+          {t("time")}
         </Typography>
         <Typography variant="body1" className="value" component="span">
           {time}

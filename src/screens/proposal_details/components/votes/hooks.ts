@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { useRouter } from '@src/adapters/routing/router';
-import * as R from 'ramda';
-import * as lodash from 'lodash';
+import { useState } from "react";
+import { useRouter } from "@/adapters/routing/router";
+import * as R from "ramda";
+import * as lodash from "lodash";
 import {
-  useProposalDetailsVotesQuery, ProposalDetailsVotesQuery,
-} from '@graphql/types';
-import { toValidatorAddress } from '@utils/prefix_convert';
-import { VoteState } from './types';
+  useProposalDetailsVotesQuery,
+  ProposalDetailsVotesQuery,
+} from "@graphql/types";
+import { toValidatorAddress } from "@utils/prefix_convert";
+import { VoteState } from "./types";
 
-export const useVotes = (resetPagination:any) => {
+export const useVotes = (resetPagination: any) => {
   const router = useRouter();
   const [state, setState] = useState<VoteState>({
     data: [],
@@ -38,7 +39,7 @@ export const useVotes = (resetPagination:any) => {
 
   useProposalDetailsVotesQuery({
     variables: {
-      proposalId: R.pathOr('', ['query', 'id'], router),
+      proposalId: R.pathOr("", ["query", "id"], router),
     },
     onCompleted: (data) => {
       handleSetState(formatVotes(data));
@@ -48,14 +49,19 @@ export const useVotes = (resetPagination:any) => {
   const formatVotes = (data: ProposalDetailsVotesQuery) => {
     const validatorDict = {};
     const validators = data.validatorStatuses.map((x) => {
-      const selfDelegateAddress = R.pathOr('', ['validator', 'validatorInfo', 'selfDelegateAddress'], x);
+      const selfDelegateAddress = R.pathOr(
+        "",
+        ["validator", "validatorInfo", "selfDelegateAddress"],
+        x,
+      );
       validatorDict[selfDelegateAddress] = false;
       return selfDelegateAddress;
     });
-    const latestVotesByVoter = lodash.chain(data.proposalVote)
-      .groupBy('voterAddress')
+    const latestVotesByVoter = lodash
+      .chain(data.proposalVote)
+      .groupBy("voterAddress")
       .values()
-      .map((votes:any[]) => votes[0])
+      .map((votes: any[]) => votes[0])
       .value();
 
     let yes = 0;
@@ -64,41 +70,43 @@ export const useVotes = (resetPagination:any) => {
     let veto = 0;
 
     const votes = latestVotesByVoter.map((x) => {
-      if (x.option === 'VOTE_OPTION_YES') {
+      if (x.option === "VOTE_OPTION_YES") {
         yes += 1;
       }
-      if (x.option === 'VOTE_OPTION_ABSTAIN') {
+      if (x.option === "VOTE_OPTION_ABSTAIN") {
         abstain += 1;
       }
-      if (x.option === 'VOTE_OPTION_NO') {
+      if (x.option === "VOTE_OPTION_NO") {
         no += 1;
       }
-      if (x.option === 'VOTE_OPTION_NO_WITH_VETO') {
+      if (x.option === "VOTE_OPTION_NO_WITH_VETO") {
         veto += 1;
       }
       if (validatorDict[x.voterAddress] === false) {
         validatorDict[x.voterAddress] = true;
       }
 
-      return ({
+      return {
         user: x.voterAddress,
         vote: x.option,
-      });
+      };
     });
 
     // =====================================
     // Get data for active validators that did not vote
     // =====================================
-    const validatorsNotVoted = validators.filter((x) => {
-      return validatorDict[x] === false;
-    }).map((address) => {
-      return ({
-        user: toValidatorAddress(address),
-        vote: 'NOT_VOTED',
+    const validatorsNotVoted = validators
+      .filter((x) => {
+        return validatorDict[x] === false;
+      })
+      .map((address) => {
+        return {
+          user: toValidatorAddress(address),
+          vote: "NOT_VOTED",
+        };
       });
-    });
 
-    return ({
+    return {
       data: votes,
       validatorsNotVoted,
       voteCount: {
@@ -108,7 +116,7 @@ export const useVotes = (resetPagination:any) => {
         abstain,
         didNotVote: validatorsNotVoted.length,
       },
-    });
+    };
   };
 
   return {

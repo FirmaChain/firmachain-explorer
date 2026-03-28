@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import '@src/styles/global.css';
-import 'react-toastify/dist/ReactToastify.css';
-import AppShell from '@src/AppShell';
-import '@src/i18n';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import "@/styles/global.css";
+import "react-toastify/dist/ReactToastify.css";
+import AppShell from "@/AppShell";
+import "@/i18n";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,5 +15,5 @@ ReactDOM.render(
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById("root"),
 );

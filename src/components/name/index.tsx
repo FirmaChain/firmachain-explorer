@@ -1,19 +1,17 @@
-import React from 'react';
-import classnames from 'classnames';
-import Link from '@src/adapters/routing/link';
-import { Typography } from '@material-ui/core';
-import { ibcConfig } from '@src/configs';
-import { ADDRESS_DETAILS } from '@utils/go_to_page';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import Link from "@/adapters/routing/link";
+import { Typography } from "@material-ui/core";
+import { ibcConfig } from "@/configs";
+import { ADDRESS_DETAILS } from "@utils/go_to_page";
+import { useStyles } from "./styles";
 
 const Name: React.FC<{
   className?: string;
   address: string;
   name: string;
   href?: (address: string) => string;
-}> = ({
-  className, address, name, href = ADDRESS_DETAILS,
-}) => {
+}> = ({ className, address, name, href = ADDRESS_DETAILS }) => {
   const classes = useStyles();
 
   const getExplorerUrlForAddress = (addressIn: string): string | null => {
@@ -26,8 +24,14 @@ const Name: React.FC<{
   const explorerUrl = getExplorerUrlForAddress(address);
 
   return (
-    <Link href={explorerUrl ? `${explorerUrl}/${address}` : href(address)} passHref>
-      <Typography variant="body1" className={classnames(className, classes.root)} component="a" target={explorerUrl ? '_blank' : ''}>
+    <Link
+      href={explorerUrl ? `${explorerUrl}/${address}` : href(address)}
+      passHref>
+      <Typography
+        variant="body1"
+        className={classnames(className, classes.root)}
+        component="a"
+        target={explorerUrl ? "_blank" : ""}>
         {name}
       </Typography>
     </Link>

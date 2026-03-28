@@ -1,15 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgVerifyInvariant } from '@models';
-import {
-  useProfileRecoil,
-} from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgVerifyInvariant } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const VerifyInvariant = (props: {
-  message: MsgVerifyInvariant;
-}) => {
+const VerifyInvariant = (props: { message: MsgVerifyInvariant }) => {
   const { message } = props;
 
   const user = useProfileRecoil(message.sender);
@@ -19,14 +15,7 @@ const VerifyInvariant = (props: {
     <Typography>
       <Trans
         i18nKey="message_contents:txVerifyInvariantContent"
-        components={[
-          (
-            <Name
-              address={message.sender}
-              name={userMoniker}
-            />
-          ),
-        ]}
+        components={[<Name address={message.sender} name={userMoniker} />]}
       />
     </Typography>
   );

@@ -1,28 +1,20 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Tabs,
-  Tab,
-} from '@material-ui/core';
-import { a11yProps } from '@utils/allyProps';
-import { Search } from '@components';
-import { tabLabels } from './utils';
-import { useStyles } from './styles';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Tabs, Tab } from "@material-ui/core";
+import { a11yProps } from "@utils/allyProps";
+import { Search } from "@components";
+import { tabLabels } from "./utils";
+import { useStyles } from "./styles";
 
 const TabsHeader: React.FC<{
   className?: string;
   tab: number;
-  handleTabChange: (event:any, newvalue:number) => void;
+  handleTabChange: (event: any, newvalue: number) => void;
   handleSearch: (value: string) => void;
-}> = ({
-  className,
-  tab,
-  handleTabChange,
-  handleSearch,
-}) => {
+}> = ({ className, tab, handleTabChange, handleSearch }) => {
   const classes = useStyles();
-  const { t } = useTranslation('validators');
+  const { t } = useTranslation("validators");
 
   return (
     <div className={classnames(className, classes.root)}>
@@ -30,20 +22,15 @@ const TabsHeader: React.FC<{
         variant="scrollable"
         scrollButtons="off"
         value={tab}
-        onChange={handleTabChange}
-      >
+        onChange={handleTabChange}>
         {tabLabels.map((x, i) => (
-          <Tab
-            key={x}
-            label={t(x)}
-            {...a11yProps(i)}
-          />
+          <Tab key={x} label={t(x)} {...a11yProps(i)} />
         ))}
       </Tabs>
       <Search
         className={classes.searchBar}
         callback={handleSearch}
-        placeholder={t('searchValidator')}
+        placeholder={t("searchValidator")}
       />
     </div>
   );

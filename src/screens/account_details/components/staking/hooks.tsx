@@ -1,21 +1,19 @@
-import {
-  useState, useEffect,
-} from 'react';
-import * as R from 'ramda';
-import Big from 'big.js';
-import { useRouter } from '@src/adapters/routing/router';
-import { ENV } from '@configs/env';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import * as R from "ramda";
+import Big from "big.js";
+import { useRouter } from "@/adapters/routing/router";
+import { ENV } from "@configs/env";
+import axios from "axios";
 import {
   AccountDelegationsDocument,
   AccountRedelegationsDocument,
   AccountUndelegationsDocument,
-} from '@src/graphql/account_details_documents';
-import { formatToken } from '@utils/format_token';
-import { getDenom } from '@utils/get_denom';
-import { chainConfig } from '@configs';
-import { StakingState } from './types';
-import { RewardsType } from '../../types';
+} from "@/graphql/account_details_documents";
+import { formatToken } from "@utils/format_token";
+import { getDenom } from "@utils/get_denom";
+import { chainConfig } from "@configs";
+import { StakingState } from "./types";
+import { RewardsType } from "../../types";
 
 const stakingDefault = {
   data: {},
@@ -67,7 +65,7 @@ export const useStaking = (rewards: RewardsType) => {
   const getStakeByPage = async (page: number, query: string) => {
     const { data } = await axios.post(ENV.GRAPHQL_URL, {
       variables: {
-        address: R.pathOr('', ['query', 'address'], router),
+        address: R.pathOr("", ["query", "address"], router),
         offset: page * LIMIT,
         limit: LIMIT,
         pagination: false,
@@ -84,27 +82,41 @@ export const useStaking = (rewards: RewardsType) => {
     try {
       const { data } = await axios.post(ENV.GRAPHQL_URL, {
         variables: {
-          address: R.pathOr('', ['query', 'address'], router),
+          address: R.pathOr("", ["query", "address"], router),
           limit: LIMIT,
         },
         query: AccountDelegationsDocument,
       });
-      const count = R.pathOr(0, ['data', 'delegations', 'pagination', 'total'], data);
-      const allDelegations = R.pathOr([], ['data', 'delegations', 'delegations'], data);
+      const count = R.pathOr(
+        0,
+        ["data", "delegations", "pagination", "total"],
+        data,
+      );
+      const allDelegations = R.pathOr(
+        [],
+        ["data", "delegations", "delegations"],
+        data,
+      );
       // if there are more than the default 100, grab the remaining delegations
       if (count > LIMIT) {
         const remainingFetchCount = Math.ceil(count / LIMIT) - 1;
         const remainingDelegationsPromises = [];
         for (let i = 0; i < remainingFetchCount; i += 1) {
-          remainingDelegationsPromises.push(getStakeByPage(
-            i + 1, AccountDelegationsDocument,
-          ));
+          remainingDelegationsPromises.push(
+            getStakeByPage(i + 1, AccountDelegationsDocument),
+          );
         }
-        const remainingDelegations = await Promise.allSettled(remainingDelegationsPromises);
+        const remainingDelegations = await Promise.allSettled(
+          remainingDelegationsPromises,
+        );
         remainingDelegations
-          .filter((x) => x.status === 'fulfilled')
+          .filter((x) => x.status === "fulfilled")
           .forEach((x) => {
-            const delegations = R.pathOr([], ['value', 'data', 'delegations', 'delegations'], x);
+            const delegations = R.pathOr(
+              [],
+              ["value", "data", "delegations", "delegations"],
+              x,
+            );
             allDelegations.push(...delegations);
           });
       }
@@ -113,9 +125,7 @@ export const useStaking = (rewards: RewardsType) => {
         delegations: {
           loading: false,
           count,
-          data: createPagination(
-            formatDelegations(allDelegations),
-          ),
+          data: createPagination(formatDelegations(allDelegations)),
         },
       });
     } catch (error) {
@@ -130,13 +140,13 @@ export const useStaking = (rewards: RewardsType) => {
   const formatDelegations = (data: any[]) => {
     return data
       .map((x) => {
-        const validator = R.pathOr('', ['validator_address'], x);
+        const validator = R.pathOr("", ["validator_address"], x);
         const delegation = getDenom(x.coins, chainConfig.primaryTokenUnit);
-        return ({
+        return {
           validator,
           amount: formatToken(delegation.amount, delegation.denom),
           reward: rewards[validator],
-        });
+        };
       })
       .sort((a, b) => {
         return Big(a.amount.value).gt(b.amount.value) ? -1 : 1;
@@ -150,28 +160,40 @@ export const useStaking = (rewards: RewardsType) => {
     try {
       const { data } = await axios.post(ENV.GRAPHQL_URL, {
         variables: {
-          address: R.pathOr('', ['query', 'address'], router),
+          address: R.pathOr("", ["query", "address"], router),
           limit: LIMIT,
         },
         query: AccountRedelegationsDocument,
       });
-      const count = R.pathOr(0, ['data', 'redelegations', 'pagination', 'total'], data);
-      const allData = R.pathOr([], ['data', 'redelegations', 'redelegations'], data);
+      const count = R.pathOr(
+        0,
+        ["data", "redelegations", "pagination", "total"],
+        data,
+      );
+      const allData = R.pathOr(
+        [],
+        ["data", "redelegations", "redelegations"],
+        data,
+      );
 
       // if there are more than the default 100, grab the remaining delegations
       if (count > LIMIT) {
         const remainingFetchCount = Math.ceil(count / LIMIT) - 1;
         const remainingPromises = [];
         for (let i = 0; i < remainingFetchCount; i += 1) {
-          remainingPromises.push(getStakeByPage(
-            i + 1, AccountRedelegationsDocument,
-          ));
+          remainingPromises.push(
+            getStakeByPage(i + 1, AccountRedelegationsDocument),
+          );
         }
         const remainingData = await Promise.allSettled(remainingPromises);
         remainingData
-          .filter((x) => x.status === 'fulfilled')
+          .filter((x) => x.status === "fulfilled")
           .forEach((x) => {
-            const fullfilledData = R.pathOr([], ['value', 'data', 'redelegations', 'redelegations'], x);
+            const fullfilledData = R.pathOr(
+              [],
+              ["value", "data", "redelegations", "redelegations"],
+              x,
+            );
             allData.push(...fullfilledData);
           });
       }
@@ -196,17 +218,16 @@ export const useStaking = (rewards: RewardsType) => {
 
   const formatRedelegations = (data: any[]) => {
     const results = [];
-    data
-      .forEach((x) => {
-        R.pathOr([], ['entries'], x).forEach((y) => {
-          results.push({
-            from: R.pathOr('', ['validator_src_address'], x),
-            to: R.pathOr('', ['validator_dst_address'], x),
-            amount: formatToken(y.balance, chainConfig.primaryTokenUnit),
-            completionTime: R.pathOr('', ['completion_time'], y),
-          });
+    data.forEach((x) => {
+      R.pathOr([], ["entries"], x).forEach((y) => {
+        results.push({
+          from: R.pathOr("", ["validator_src_address"], x),
+          to: R.pathOr("", ["validator_dst_address"], x),
+          amount: formatToken(y.balance, chainConfig.primaryTokenUnit),
+          completionTime: R.pathOr("", ["completion_time"], y),
         });
       });
+    });
 
     results.sort((a, b) => {
       return a.completionTime < b.completionTime ? -1 : 1;
@@ -222,28 +243,40 @@ export const useStaking = (rewards: RewardsType) => {
     try {
       const { data } = await axios.post(ENV.GRAPHQL_URL, {
         variables: {
-          address: R.pathOr('', ['query', 'address'], router),
+          address: R.pathOr("", ["query", "address"], router),
           limit: LIMIT,
         },
         query: AccountUndelegationsDocument,
       });
-      const count = R.pathOr(0, ['data', 'undelegations', 'pagination', 'total'], data);
-      const allData = R.pathOr([], ['data', 'undelegations', 'undelegations'], data);
+      const count = R.pathOr(
+        0,
+        ["data", "undelegations", "pagination", "total"],
+        data,
+      );
+      const allData = R.pathOr(
+        [],
+        ["data", "undelegations", "undelegations"],
+        data,
+      );
 
       // if there are more than the default 100, grab the remaining delegations
       if (count > LIMIT) {
         const remainingFetchCount = Math.ceil(count / LIMIT) - 1;
         const remainingPromises = [];
         for (let i = 0; i < remainingFetchCount; i += 1) {
-          remainingPromises.push(getStakeByPage(
-            i + 1, AccountUndelegationsDocument,
-          ));
+          remainingPromises.push(
+            getStakeByPage(i + 1, AccountUndelegationsDocument),
+          );
         }
         const remainingData = await Promise.allSettled(remainingPromises);
         remainingData
-          .filter((x) => x.status === 'fulfilled')
+          .filter((x) => x.status === "fulfilled")
           .forEach((x) => {
-            const fullfilledData = R.pathOr([], ['value', 'data', 'undelegations', 'undelegations'], x);
+            const fullfilledData = R.pathOr(
+              [],
+              ["value", "data", "undelegations", "undelegations"],
+              x,
+            );
             allData.push(...fullfilledData);
           });
       }
@@ -269,11 +302,11 @@ export const useStaking = (rewards: RewardsType) => {
   const formatUnbondings = (data: any[]) => {
     const results = [];
     data.forEach((x) => {
-      R.pathOr([], ['entries'], x).forEach((y) => {
+      R.pathOr([], ["entries"], x).forEach((y) => {
         results.push({
-          validator: R.pathOr('', ['validator_address'], x),
+          validator: R.pathOr("", ["validator_address"], x),
           amount: formatToken(y.balance, chainConfig.primaryTokenUnit),
-          completionTime: R.pathOr('', ['completion_time'], y),
+          completionTime: R.pathOr("", ["completion_time"], y),
         });
       });
     });

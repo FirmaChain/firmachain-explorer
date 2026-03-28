@@ -1,13 +1,11 @@
-import React from 'react';
-import Trans from '@src/adapters/i18n/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgPacket } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import React from "react";
+import Trans from "@/adapters/i18n/Trans";
+import { Typography } from "@material-ui/core";
+import { Name } from "@components";
+import { MsgPacket } from "@models";
+import { useProfileRecoil } from "@recoil/profiles";
 
-const Packet = (props: {
-  message: MsgPacket;
-}) => {
+const Packet = (props: { message: MsgPacket }) => {
   const { message } = props;
 
   const signer = useProfileRecoil(message.signer);
@@ -18,12 +16,7 @@ const Packet = (props: {
       <Trans
         i18nKey="message_contents:txPacketContent"
         components={[
-          (
-            <Name
-              address={message.signer}
-              name={signerMoniker}
-            />
-          ),
+          <Name address={message.signer} name={signerMoniker} />,
           <b />,
         ]}
       />

@@ -1,44 +1,36 @@
-import React from 'react';
-import * as R from 'ramda';
-import dynamic from '@src/adapters/routing/dynamic';
-import classnames from 'classnames';
-import {
-  usePagination, useScreenSize,
-} from '@hooks';
-import {
-  NoData, Pagination, Loading,
-} from '@components';
-import {
-  useProfilesRecoil,
-} from '@recoil/profiles';
-import { useStyles } from './styles';
-import { RedelegationsType } from '../../types';
+import React from "react";
+import * as R from "ramda";
+import dynamic from "@/adapters/routing/dynamic";
+import classnames from "classnames";
+import { usePagination, useScreenSize } from "@hooks";
+import { NoData, Pagination, Loading } from "@components";
+import { useProfilesRecoil } from "@recoil/profiles";
+import { useStyles } from "./styles";
+import { RedelegationsType } from "../../types";
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+const Desktop = dynamic(() => import("./components/desktop"));
+const Mobile = dynamic(() => import("./components/mobile"));
 
-const Redelegations: React.FC<{
-  redelegations: RedelegationsType,
-} & ComponentDefault> = (props) => {
+const Redelegations: React.FC<
+  {
+    redelegations: RedelegationsType;
+  } & ComponentDefault
+> = (props) => {
   const { isDesktop } = useScreenSize();
   const classes = useStyles();
-  const {
-    page,
-    rowsPerPage,
-    handleChangePage,
-    handleChangeRowsPerPage,
-  } = usePagination({});
+  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
+    usePagination({});
 
-  const pageItems = R.pathOr([], ['redelegations', 'data', page], props);
+  const pageItems = R.pathOr([], ["redelegations", "data", page], props);
 
   const toProfiles = useProfilesRecoil(pageItems.map((x) => x.to));
   const addressProfiles = useProfilesRecoil(pageItems.map((x) => x.address));
   const mergedDataWithProfiles = pageItems.map((x, i) => {
-    return ({
+    return {
       ...x,
       to: toProfiles[i],
       address: addressProfiles[i],
-    });
+    };
   });
 
   const items = mergedDataWithProfiles;

@@ -1,47 +1,41 @@
-import React from 'react';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { NextSeo } from '@src/adapters/seo/seo';
+import React from "react";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { NextSeo } from "@/adapters/seo/seo";
 import {
   Layout,
   TransactionsList,
   Box,
   LoadAndExist,
   TransactionListDetails,
-} from '@components';
-import { useRecoilValue } from 'recoil';
-import { readTx } from '@recoil/settings';
-import { useStyles } from './styles';
-import { useTransactions } from './hooks';
+} from "@components";
+import { useRecoilValue } from "recoil";
+import { readTx } from "@recoil/settings";
+import { useStyles } from "./styles";
+import { useTransactions } from "./hooks";
 
 const Transactions = () => {
   const txListFormat = useRecoilValue(readTx);
-  const { t } = useTranslation('transactions');
+  const { t } = useTranslation("transactions");
   const classes = useStyles();
-  const {
-    state,
-    loadNextPage,
-  } = useTransactions();
+  const { state, loadNextPage } = useTransactions();
   const loadMoreItems = state.isNextPageLoading ? () => null : loadNextPage;
-  const isItemLoaded = (index) => !state.hasNextPage || index < state.items.length;
-  const itemCount = state.hasNextPage ? state.items.length + 1 : state.items.length;
+  const isItemLoaded = (index) =>
+    !state.hasNextPage || index < state.items.length;
+  const itemCount = state.hasNextPage
+    ? state.items.length + 1
+    : state.items.length;
   return (
     <>
       <NextSeo
-        title={t('transactions')}
+        title={t("transactions")}
         openGraph={{
-          title: t('transactions'),
+          title: t("transactions"),
         }}
       />
-      <Layout
-        navTitle={t('transactions')}
-        className={classes.root}
-      >
-        <LoadAndExist
-          exists={state.exists}
-          loading={state.loading}
-        >
+      <Layout navTitle={t("transactions")} className={classes.root}>
+        <LoadAndExist exists={state.exists} loading={state.loading}>
           <Box className={classes.box}>
-            {txListFormat === 'compact' ? (
+            {txListFormat === "compact" ? (
               <TransactionsList
                 transactions={state.items}
                 itemCount={itemCount}

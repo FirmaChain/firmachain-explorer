@@ -1,23 +1,18 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Divider,
-  Typography,
-} from '@material-ui/core';
-import { AvatarName } from '@components';
-import { formatNumber } from '@utils/format_token';
-import { useStyles } from './styles';
-import { ItemType } from '../../types';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Divider, Typography } from "@material-ui/core";
+import { AvatarName } from "@components";
+import { formatNumber } from "@utils/format_token";
+import { useStyles } from "./styles";
+import { ItemType } from "../../types";
 
 const Mobile: React.FC<{
   className?: string;
   items?: ItemType[];
-}> = ({
-  className, items,
-}) => {
+}> = ({ className, items }) => {
   const classes = useStyles();
-  const { t } = useTranslation('accounts');
+  const { t } = useTranslation("accounts");
 
   return (
     <div className={classnames(className)}>
@@ -27,7 +22,7 @@ const Mobile: React.FC<{
             <div className={classes.list}>
               <div className={classes.item}>
                 <Typography variant="h4" className="label">
-                  {t('validator')}
+                  {t("validator")}
                 </Typography>
                 <AvatarName
                   name={x.validator.name}
@@ -38,21 +33,19 @@ const Mobile: React.FC<{
               <div className={classes.flex}>
                 <div className={classes.item}>
                   <Typography variant="h4" className="label">
-                    {t('amount')}
+                    {t("amount")}
                   </Typography>
                   <Typography variant="body1" className="value">
-                    {formatNumber(x.amount.value, x.amount.exponent)}
-                    {' '}
+                    {formatNumber(x.amount.value, x.amount.exponent)}{" "}
                     {x.amount.displayDenom.toUpperCase()}
                   </Typography>
                 </div>
                 <div className={classes.item}>
                   <Typography variant="h4" className="label">
-                    {t('reward')}
+                    {t("reward")}
                   </Typography>
                   <Typography variant="body1" className="value">
-                    {formatNumber(x.reward.value, x.reward.exponent)}
-                    {' '}
+                    {formatNumber(x.reward.value, x.reward.exponent)}{" "}
                     {x.reward.displayDenom.toUpperCase()}
                   </Typography>
                 </div>

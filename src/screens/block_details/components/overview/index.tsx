@@ -1,40 +1,41 @@
-import React from 'react';
-import numeral from 'numeral';
-import dayjs, { formatDayJs } from '@utils/dayjs';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import { Typography } from '@material-ui/core';
-import { useRecoilValue } from 'recoil';
-import { useProfileRecoil } from '@recoil/profiles';
-import { readDate } from '@recoil/settings';
-import {
-  BoxDetails, AvatarName,
-} from '@components';
-import { OverviewType } from '../../types';
+import React from "react";
+import numeral from "numeral";
+import dayjs, { formatDayJs } from "@utils/dayjs";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography } from "@material-ui/core";
+import { useRecoilValue } from "recoil";
+import { useProfileRecoil } from "@recoil/profiles";
+import { readDate } from "@recoil/settings";
+import { BoxDetails, AvatarName } from "@components";
+import { OverviewType } from "../../types";
 
-const Overview: React.FC<OverviewType & ComponentDefault> = (props, { className }) => {
+const Overview: React.FC<OverviewType & ComponentDefault> = (
+  props,
+  { className },
+) => {
   const proposer = useProfileRecoil(props.proposer);
-  const { t } = useTranslation('blocks');
+  const { t } = useTranslation("blocks");
   const dateFormat = useRecoilValue(readDate);
 
   return (
     <BoxDetails
       className={className}
-      title={t('overview')}
+      title={t("overview")}
       details={[
         {
-          label: t('height'),
+          label: t("height"),
           detail: (
             <Typography variant="body1" className="value">
-              {numeral(props.height).format('0,0')}
+              {numeral(props.height).format("0,0")}
             </Typography>
           ),
         },
         {
-          label: t('hash'),
+          label: t("hash"),
           detail: props.hash,
         },
         {
-          label: t('proposer'),
+          label: t("proposer"),
           detail: (
             <AvatarName
               address={props.proposer}
@@ -44,12 +45,12 @@ const Overview: React.FC<OverviewType & ComponentDefault> = (props, { className 
           ),
         },
         {
-          label: t('time'),
+          label: t("time"),
           detail: formatDayJs(dayjs.utc(props.timestamp), dateFormat),
         },
         {
-          label: t('txs'),
-          detail: numeral(props.txs).format('0,0'),
+          label: t("txs"),
+          detail: numeral(props.txs).format("0,0"),
         },
       ]}
     />

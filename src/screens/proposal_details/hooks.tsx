@@ -1,15 +1,8 @@
-import {
-  useState,
-} from 'react';
-import * as R from 'ramda';
-import { useRouter } from '@src/adapters/routing/router';
-import {
-  useProposalDetailsQuery,
-  ProposalDetailsQuery,
-} from '@graphql/types';
-import {
-  ProposalState,
-} from './types';
+import { useState } from "react";
+import * as R from "ramda";
+import { useRouter } from "@/adapters/routing/router";
+import { useProposalDetailsQuery, ProposalDetailsQuery } from "@graphql/types";
+import { ProposalState } from "./types";
 
 export const useProposalDetails = () => {
   const router = useRouter();
@@ -18,17 +11,17 @@ export const useProposalDetails = () => {
     loading: true,
     exists: true,
     overview: {
-      proposer: '',
+      proposer: "",
       content: [],
-      title: '',
+      title: "",
       id: 0,
-      description: '',
-      status: '',
-      submitTime: '',
-      depositEndTime: '',
-      votingStartTime: '',
-      votingEndTime: '',
-      metadata: '',
+      description: "",
+      status: "",
+      submitTime: "",
+      depositEndTime: "",
+      votingStartTime: "",
+      votingEndTime: "",
+      metadata: "",
     },
   });
 
@@ -36,7 +29,10 @@ export const useProposalDetails = () => {
     setState((prevState) => ({
       ...prevState,
       ...stateChange,
-      overview: stateChange.overview != null ? stateChange.overview : prevState.overview,
+      overview:
+        stateChange.overview != null
+          ? stateChange.overview
+          : prevState.overview,
     }));
   };
 
@@ -45,7 +41,7 @@ export const useProposalDetails = () => {
   // ==========================
   useProposalDetailsQuery({
     variables: {
-      proposalId: R.pathOr('', ['query', 'id'], router),
+      proposalId: R.pathOr("", ["query", "id"], router),
     },
     onCompleted: (data) => {
       handleSetState(formatProposalQuery(data));
@@ -70,24 +66,36 @@ export const useProposalDetails = () => {
     // overview
     // =========================
     const formatOverview = () => {
-      const DEFAULT_TIME = '0001-01-01T00:00:00';
-      let votingStartTime = R.pathOr(DEFAULT_TIME, ['proposal', 0, 'votingStartTime'], data);
-      votingStartTime = votingStartTime === DEFAULT_TIME ? null : votingStartTime;
-      let votingEndTime = R.pathOr(DEFAULT_TIME, ['proposal', 0, 'votingEndTime'], data);
+      const DEFAULT_TIME = "0001-01-01T00:00:00";
+      let votingStartTime = R.pathOr(
+        DEFAULT_TIME,
+        ["proposal", 0, "votingStartTime"],
+        data,
+      );
+      votingStartTime =
+        votingStartTime === DEFAULT_TIME ? null : votingStartTime;
+      let votingEndTime = R.pathOr(
+        DEFAULT_TIME,
+        ["proposal", 0, "votingEndTime"],
+        data,
+      );
       votingEndTime = votingEndTime === DEFAULT_TIME ? null : votingEndTime;
 
       const overview = {
-        proposer: R.pathOr('', ['proposal', 0, 'proposer'], data),
-        content: R.pathOr([], ['proposal', 0, 'content'], data),
-        title: R.pathOr('', ['proposal', 0, 'title'], data),
-        id: R.pathOr('', ['proposal', 0, 'proposalId'], data),
-        description: R.pathOr('', ['proposal', 0, 'description'], data).replace(/\n\n/gi, '\n\n&nbsp;&nbsp;\n\n'),
-        status: R.pathOr('', ['proposal', 0, 'status'], data),
-        submitTime: R.pathOr('', ['proposal', 0, 'submitTime'], data),
-        depositEndTime: R.pathOr('', ['proposal', 0, 'depositEndTime'], data),
+        proposer: R.pathOr("", ["proposal", 0, "proposer"], data),
+        content: R.pathOr([], ["proposal", 0, "content"], data),
+        title: R.pathOr("", ["proposal", 0, "title"], data),
+        id: R.pathOr("", ["proposal", 0, "proposalId"], data),
+        description: R.pathOr("", ["proposal", 0, "description"], data).replace(
+          /\n\n/gi,
+          "\n\n&nbsp;&nbsp;\n\n",
+        ),
+        status: R.pathOr("", ["proposal", 0, "status"], data),
+        submitTime: R.pathOr("", ["proposal", 0, "submitTime"], data),
+        depositEndTime: R.pathOr("", ["proposal", 0, "depositEndTime"], data),
         votingStartTime,
         votingEndTime,
-        metadata: R.pathOr('', ['proposal', 0, 'metadata'], data),
+        metadata: R.pathOr("", ["proposal", 0, "metadata"], data),
       };
 
       return overview;

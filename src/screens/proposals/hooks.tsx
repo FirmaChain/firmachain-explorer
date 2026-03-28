@@ -1,15 +1,10 @@
-import {
-  useEffect, useState,
-} from 'react';
-import * as R from 'ramda';
-import DOMPurify from 'dompurify';
-import {
-  useProposalsQuery,
-  ProposalsQuery,
-} from '@graphql/types';
-import { ENV } from '@configs/env';
-import { getProposalDisplayTypes } from '@src/screens/proposal_details/utils';
-import { ProposalsState } from './types';
+import { useEffect, useState } from "react";
+import * as R from "ramda";
+import DOMPurify from "dompurify";
+import { useProposalsQuery, ProposalsQuery } from "@graphql/types";
+import { ENV } from "@configs/env";
+import { getProposalDisplayTypes } from "@/screens/proposal_details/utils";
+import { ProposalsState } from "./types";
 
 export const useProposals = () => {
   const [state, setState] = useState<ProposalsState>({
@@ -37,20 +32,24 @@ export const useProposals = () => {
 
       if (!ignoreListUrl) {
         // eslint-disable-next-line no-console
-        console.error('Environment variable VITE_IGNORE_LIST_URL is not defined.');
+        console.error(
+          "Environment variable VITE_IGNORE_LIST_URL is not defined.",
+        );
         return;
       }
 
       try {
         const response = await fetch(ignoreListUrl);
         if (!response.ok) {
-          throw new Error(`Failed to load ignored proposals: ${response.status}`);
+          throw new Error(
+            `Failed to load ignored proposals: ${response.status}`,
+          );
         }
         const data = await response.json();
         setIgnoredProposals(data.ignoreProposalIdList || []);
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('Error fetching ignored proposals:', error);
+        console.error("Error fetching ignored proposals:", error);
       } finally {
         setIgnoredProposalsLoaded(true);
       }
@@ -72,9 +71,11 @@ export const useProposals = () => {
       const newItems = R.uniq([...state.items, ...formatProposals(data)]);
       handleSetState({
         items: newItems,
-        hasNextPage: newItems.length < (data.total.aggregate.count - ignoredProposals.length),
+        hasNextPage:
+          newItems.length <
+          data.total.aggregate.count - ignoredProposals.length,
         isNextPageLoading: false,
-        rawDataTotal: (data.total.aggregate.count - ignoredProposals.length),
+        rawDataTotal: data.total.aggregate.count - ignoredProposals.length,
       });
     },
   });
@@ -84,37 +85,41 @@ export const useProposals = () => {
       isNextPageLoading: true,
     });
     // refetch query
-    await proposalQuery.fetchMore({
-      variables: {
-        offset: state.items.length,
-        limit: 50,
-      },
-      updateQuery: (
-        prev: ProposalsQuery,
-        { fetchMoreResult }: { fetchMoreResult?: ProposalsQuery; variables: { offset: number; limit: number } }
-      ) => {
-        if (!fetchMoreResult) return prev;
-        return {
-          ...prev,
-          proposals: [
-            ...(prev?.proposals ?? []),
-            ...(fetchMoreResult?.proposals ?? []),
-          ],
-          total: fetchMoreResult.total,
-        };
-      },
-    }).then(({ data }) => {
-      const newItems = R.uniq([
-        ...state.items,
-        ...formatProposals(data),
-      ]);
-      handleSetState({
-        items: newItems,
-        isNextPageLoading: false,
-        hasNextPage: newItems.length < data.total.aggregate.count,
-        rawDataTotal: data.total.aggregate.count,
+    await proposalQuery
+      .fetchMore({
+        variables: {
+          offset: state.items.length,
+          limit: 50,
+        },
+        updateQuery: (
+          prev: ProposalsQuery,
+          {
+            fetchMoreResult,
+          }: {
+            fetchMoreResult?: ProposalsQuery;
+            variables: { offset: number; limit: number };
+          },
+        ) => {
+          if (!fetchMoreResult) return prev;
+          return {
+            ...prev,
+            proposals: [
+              ...(prev?.proposals ?? []),
+              ...(fetchMoreResult?.proposals ?? []),
+            ],
+            total: fetchMoreResult.total,
+          };
+        },
+      })
+      .then(({ data }) => {
+        const newItems = R.uniq([...state.items, ...formatProposals(data)]);
+        handleSetState({
+          items: newItems,
+          isNextPageLoading: false,
+          hasNextPage: newItems.length < data.total.aggregate.count,
+          rawDataTotal: data.total.aggregate.count,
+        });
       });
-    });
   };
 
   const formatProposals = (data: ProposalsQuery) => {
@@ -134,9 +139,12 @@ export const useProposals = () => {
       });
   };
 
-  const itemCount = state.hasNextPage ? state.items.length + 1 : state.items.length;
+  const itemCount = state.hasNextPage
+    ? state.items.length + 1
+    : state.items.length;
   const loadMoreItems = state.isNextPageLoading ? () => null : loadNextPage;
-  const isItemLoaded = (index) => !state.hasNextPage || index < state.items.length;
+  const isItemLoaded = (index) =>
+    !state.hasNextPage || index < state.items.length;
 
   return {
     state,

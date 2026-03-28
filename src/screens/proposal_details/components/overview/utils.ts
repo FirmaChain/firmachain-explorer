@@ -1,14 +1,14 @@
-import * as R from 'ramda';
-import { getTagInfoByType } from '@src/components/msg/tag_map';
-import { getProposalType } from '../../utils';
+import * as R from "ramda";
+import { getTagInfoByType } from "@/components/msg/tag_map";
+import { getProposalType } from "../../utils";
 
 import type {
   MsgCommunityPoolSpendContent,
   MsgUpdateParamsContent,
   OverviewType,
-} from '../../types';
+} from "../../types";
 
-import { KNOWN_GOV_TYPES } from './constants';
+import { KNOWN_GOV_TYPES } from "./constants";
 
 /** Parse JSON string to object or array; returns null on failure */
 function safeParseJson(s: string): unknown {
@@ -21,45 +21,54 @@ function safeParseJson(s: string): unknown {
 
 /** Normalize overview.content: [] | '' | JSON string | single object → content object array */
 export const toContentArray = (
-  raw: OverviewType['content'] | string | unknown,
-): OverviewType['content'][number][] => {
-  if (raw === null || raw === undefined || raw === '') {
+  raw: OverviewType["content"] | string | unknown,
+): OverviewType["content"][number][] => {
+  if (raw === null || raw === undefined || raw === "") {
     return [];
   }
-  if (typeof raw === 'string') {
+  if (typeof raw === "string") {
     const parsed = safeParseJson(raw);
     if (parsed === null) return [];
     if (Array.isArray(parsed)) {
-      return parsed.filter((c): c is OverviewType['content'][number] => typeof c === 'object' && c !== null);
+      return parsed.filter(
+        (c): c is OverviewType["content"][number] =>
+          typeof c === "object" && c !== null,
+      );
     }
-    return [parsed as OverviewType['content'][number]];
+    return [parsed as OverviewType["content"][number]];
   }
   if (Array.isArray(raw)) {
     const expanded = raw.flatMap((item) => {
-      if (typeof item === 'string') {
+      if (typeof item === "string") {
         const parsed = safeParseJson(item);
         if (parsed === null) return [];
         if (Array.isArray(parsed)) return parsed;
         return [parsed];
       }
-      return item !== null && typeof item === 'object' ? [item] : [];
+      return item !== null && typeof item === "object" ? [item] : [];
     });
-    return expanded as OverviewType['content'][number][];
+    return expanded as OverviewType["content"][number][];
   }
-  return [raw as OverviewType['content'][number]];
+  return [raw as OverviewType["content"][number]];
 };
 
-export const hasParams = (c: unknown): c is MsgUpdateParamsContent => typeof c === 'object' && c !== null && 'params' in c;
-export const isCommunityPoolSpendItem = (c: unknown): c is MsgCommunityPoolSpendContent => typeof c === 'object' && c !== null && 'recipient' in c && 'amount' in c;
+export const hasParams = (c: unknown): c is MsgUpdateParamsContent =>
+  typeof c === "object" && c !== null && "params" in c;
+export const isCommunityPoolSpendItem = (
+  c: unknown,
+): c is MsgCommunityPoolSpendContent =>
+  typeof c === "object" && c !== null && "recipient" in c && "amount" in c;
 
 /** MsgExec (authz) with nested msgs */
-export const isMsgExecItem = (c: unknown): c is { '@type': string; msgs?: unknown[] } => {
+export const isMsgExecItem = (
+  c: unknown,
+): c is { "@type": string; msgs?: unknown[] } => {
   const withMsgs = c as { msgs?: unknown[] };
   return (
-    typeof c === 'object'
-    && c !== null
-    && 'msgs' in c
-    && Array.isArray(withMsgs.msgs)
+    typeof c === "object" &&
+    c !== null &&
+    "msgs" in c &&
+    Array.isArray(withMsgs.msgs)
   );
 };
 
@@ -68,14 +77,14 @@ const msgToRow = (
   msg: unknown,
 ): { fromAddress: string; toAddress: string; amount: string } | null => {
   const m = msg as Record<string, unknown>;
-  if (typeof m !== 'object' || m === null) return null;
-  const type = (m['@type'] as string) ?? '';
-  if (!type.endsWith('.MsgSend')) return null;
-  const toAddress = (m.to_address as string) ?? '';
+  if (typeof m !== "object" || m === null) return null;
+  const type = (m["@type"] as string) ?? "";
+  if (!type.endsWith(".MsgSend")) return null;
+  const toAddress = (m.to_address as string) ?? "";
   if (!toAddress) return null;
-  const fromAddress = (m.from_address as string) ?? '';
+  const fromAddress = (m.from_address as string) ?? "";
   const amountArr = (m.amount as { amount?: string }[]) ?? [];
-  const amount = amountArr[0]?.amount ?? '0';
+  const amount = amountArr[0]?.amount ?? "0";
   return {
     fromAddress,
     toAddress,
@@ -84,47 +93,57 @@ const msgToRow = (
 };
 
 export const getExecSendRecipients = (
-  items: OverviewType['content'][number][],
+  items: OverviewType["content"][number][],
 ): { fromAddress: string; toAddress: string; amount: string }[] => {
   return items
     .filter(isMsgExecItem)
     .flatMap((item) => (item as { msgs?: unknown[] }).msgs ?? [])
     .map(msgToRow)
-    .filter((row): row is {
-      fromAddress: string;
-      toAddress: string;
-      amount: string;
-    } => row !== null);
+    .filter(
+      (
+        row,
+      ): row is {
+        fromAddress: string;
+        toAddress: string;
+        amount: string;
+      } => row !== null,
+    );
 };
 
 export type OverviewDisplayType =
-  | 'textProposal'
-  | 'parameterChangeProposal'
-  | 'softwareUpgradeProposal'
-  | 'communityPoolSpendProposal'
-  | 'multiple'
-  | 'authzExec'
-  | 'other';
+  | "textProposal"
+  | "parameterChangeProposal"
+  | "softwareUpgradeProposal"
+  | "communityPoolSpendProposal"
+  | "multiple"
+  | "authzExec"
+  | "other";
 
 /**
  * Single display type for overview header: "multiple" when >1 message or mixed types.
  */
 export const getOverviewDisplayType = (
-  messageItems: OverviewType['content'][number][],
+  messageItems: OverviewType["content"][number][],
 ): OverviewDisplayType => {
-  if (messageItems.length === 0) return 'textProposal';
-  const contentTypes = messageItems.map((c) => getProposalType(R.pathOr('', ['@type'], c) as string));
+  if (messageItems.length === 0) return "textProposal";
+  const contentTypes = messageItems.map((c) =>
+    getProposalType(R.pathOr("", ["@type"], c) as string),
+  );
   const uniqueTypes = [...new Set(contentTypes.filter(Boolean))];
-  if (messageItems.length > 1 || uniqueTypes.length > 1) return 'multiple';
+  if (messageItems.length > 1 || uniqueTypes.length > 1) return "multiple";
   const first = uniqueTypes[0];
-  return (KNOWN_GOV_TYPES as readonly string[]).includes(first) ? (first as OverviewDisplayType) : 'other';
+  return (KNOWN_GOV_TYPES as readonly string[]).includes(first)
+    ? (first as OverviewDisplayType)
+    : "other";
 };
 
 export const getMessageDisplayType = (
-  content: OverviewType['content'][number],
+  content: OverviewType["content"][number],
 ): OverviewDisplayType => {
-  const typeLabel = getProposalType(R.pathOr('', ['@type'], content) as string);
-  return (KNOWN_GOV_TYPES as readonly string[]).includes(typeLabel) ? (typeLabel as OverviewDisplayType) : 'other';
+  const typeLabel = getProposalType(R.pathOr("", ["@type"], content) as string);
+  return (KNOWN_GOV_TYPES as readonly string[]).includes(typeLabel)
+    ? (typeLabel as OverviewDisplayType)
+    : "other";
 };
 
 export type NestedMsgSummary = {
@@ -136,15 +155,18 @@ export type NestedMsgSummary = {
 
 /** Extract nested msg type summaries from MsgExec items with tag info from the global mapping */
 export const getExecNestedTypeSummary = (
-  items: OverviewType['content'][number][],
+  items: OverviewType["content"][number][],
 ): NestedMsgSummary[] => {
   const msgs = items
     .filter(isMsgExecItem)
     .flatMap((item) => (item as { msgs?: unknown[] }).msgs ?? []);
-  const grouped = new Map<string, { tagDisplay: string; tagTheme: string; count: number }>();
+  const grouped = new Map<
+    string,
+    { tagDisplay: string; tagTheme: string; count: number }
+  >();
   msgs.forEach((msg) => {
     const m = msg as Record<string, unknown>;
-    const typeStr = (m?.['@type'] as string) ?? '';
+    const typeStr = (m?.["@type"] as string) ?? "";
     if (!grouped.has(typeStr)) {
       const info = getTagInfoByType(typeStr);
       grouped.set(typeStr, {
@@ -162,23 +184,20 @@ export const getExecNestedTypeSummary = (
 
 export type MessageGroup = {
   displayType: OverviewDisplayType;
-  items: OverviewType['content'][number][];
+  items: OverviewType["content"][number][];
 };
 
 /** Group messages by same type (one section + table when duplicates) */
 export const getMessageGroups = (
-  messageItems: OverviewType['content'][number][],
+  messageItems: OverviewType["content"][number][],
 ): MessageGroup[] => {
-  const byType = messageItems.reduce(
-    (acc, item) => {
-      const type = getMessageDisplayType(item);
-      const list = acc.get(type) ?? [];
-      list.push(item);
-      acc.set(type, list);
-      return acc;
-    },
-    new Map<OverviewDisplayType, OverviewType['content'][number][]>(),
-  );
+  const byType = messageItems.reduce((acc, item) => {
+    const type = getMessageDisplayType(item);
+    const list = acc.get(type) ?? [];
+    list.push(item);
+    acc.set(type, list);
+    return acc;
+  }, new Map<OverviewDisplayType, OverviewType["content"][number][]>());
   return [...byType.entries()].map(([displayType, items]) => ({
     displayType,
     items,

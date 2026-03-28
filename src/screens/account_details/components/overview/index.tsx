@@ -1,12 +1,9 @@
-import React from 'react';
-import classnames from 'classnames';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Typography,
-  Dialog,
-} from '@material-ui/core';
-import QRCode from 'qrcode.react';
-import { useScreenSize, useWindowOrigin } from '@hooks';
+import React from "react";
+import classnames from "classnames";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Typography, Dialog } from "@material-ui/core";
+import QRCode from "qrcode.react";
+import { useScreenSize, useWindowOrigin } from "@hooks";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -18,47 +15,38 @@ import {
   WhatsappIcon,
   EmailShareButton,
   EmailIcon,
-} from 'react-share';
-import CopyIcon from '@assets/icon-copy.svg?react';
-import ShareIcon from '@assets/icon-share.svg?react';
-import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
-import { Box } from '@components';
-import { useStyles } from './styles';
-import { useOverview } from './hooks';
+} from "react-share";
+import CopyIcon from "@assets/icon-copy.svg?react";
+import ShareIcon from "@assets/icon-share.svg?react";
+import { getMiddleEllipsis } from "@utils/get_middle_ellipsis";
+import { Box } from "@components";
+import { useStyles } from "./styles";
+import { useOverview } from "./hooks";
 
 const Overview: React.FC<{
   className?: string;
   withdrawalAddress: string;
   address: string;
-}> = ({
-  className,
-  address,
-  withdrawalAddress,
-}) => {
+}> = ({ className, address, withdrawalAddress }) => {
   const { isDesktop } = useScreenSize();
   const { location } = useWindowOrigin();
   const classes = useStyles();
-  const { t } = useTranslation('accounts');
-  const {
-    open,
-    handleClose,
-    handleOpen,
-    handleCopyToClipboard,
-  } = useOverview(t);
+  const { t } = useTranslation("accounts");
+  const { open, handleClose, handleOpen, handleCopyToClipboard } =
+    useOverview(t);
 
   const url = `${location}/accounts/${address}`;
-  const hashTags = ['bigdipperexplorer', 'bigdipper'];
+  const hashTags = ["bigdipperexplorer", "bigdipper"];
   return (
     <>
       <Dialog
         maxWidth="xl"
         onClose={handleClose}
         aria-labelledby="simple-dialog-title"
-        open={open}
-      >
+        open={open}>
         <Box className={classes.dialog}>
           <Typography variant="body1" align="center">
-            {t('scanForAddress')}
+            {t("scanForAddress")}
           </Typography>
           <QRCode
             value={address}
@@ -68,61 +56,44 @@ const Overview: React.FC<{
             renderAs="svg"
           />
           <div className="dialog__share--wrapper">
-            <Typography variant="body1">
-              {t('shareTo')}
-            </Typography>
+            <Typography variant="body1">{t("shareTo")}</Typography>
             <div className={classes.icons}>
               <FacebookShareButton
                 url={url}
                 quote={address}
                 hashtag={hashTags[0]}
-                className="share-buttons"
-              >
-                <FacebookIcon
-                  round
-                />
+                className="share-buttons">
+                <FacebookIcon round />
               </FacebookShareButton>
               <TwitterShareButton
                 url={url}
                 title={address}
                 hashtags={hashTags}
-                className="share-buttons"
-              >
-                <TwitterIcon
-                  round
-                />
+                className="share-buttons">
+                <TwitterIcon round />
               </TwitterShareButton>
 
               <TelegramShareButton
                 url={url}
                 title={address}
-                className="share-buttons"
-              >
-                <TelegramIcon
-                  round
-                />
+                className="share-buttons">
+                <TelegramIcon round />
               </TelegramShareButton>
 
               <WhatsappShareButton
                 url={url}
                 title={address}
                 separator=":: "
-                className="share-buttons"
-              >
-                <WhatsappIcon
-                  round
-                />
+                className="share-buttons">
+                <WhatsappIcon round />
               </WhatsappShareButton>
               <EmailShareButton
                 url={url}
                 subject="address"
                 body={address}
                 separator=":: "
-                className="share-buttons email"
-              >
-                <EmailIcon
-                  round
-                />
+                className="share-buttons email">
+                <EmailIcon round />
               </EmailShareButton>
             </div>
           </div>
@@ -131,34 +102,28 @@ const Overview: React.FC<{
       <Box className={classnames(className, classes.root)}>
         <div className={classnames(classes.copyText, classes.item)}>
           <Typography variant="body1" className="label">
-            {t('address')}
+            {t("address")}
           </Typography>
           <div className="detail">
             <CopyIcon
               onClick={() => handleCopyToClipboard(address)}
               className={classes.actionIcons}
             />
-            <ShareIcon
-              onClick={handleOpen}
-              className={classes.actionIcons}
-            />
+            <ShareIcon onClick={handleOpen} className={classes.actionIcons} />
             <Typography variant="body1" className="value">
-              {
-                !isDesktop ? (
-                  getMiddleEllipsis(address, {
-                    beginning: 15, ending: 5,
+              {!isDesktop
+                ? getMiddleEllipsis(address, {
+                    beginning: 15,
+                    ending: 5,
                   })
-                ) : (
-                  address
-                )
-              }
+                : address}
             </Typography>
           </div>
         </div>
 
         <div className={classnames(classes.copyText, classes.item)}>
           <Typography variant="body1" className="label">
-            {t('rewardAddress')}
+            {t("rewardAddress")}
           </Typography>
           <div className="detail">
             <CopyIcon
@@ -166,15 +131,12 @@ const Overview: React.FC<{
               onClick={() => handleCopyToClipboard(withdrawalAddress)}
             />
             <Typography variant="body1" className="value">
-              {
-                !isDesktop ? (
-                  getMiddleEllipsis(withdrawalAddress, {
-                    beginning: 15, ending: 5,
+              {!isDesktop
+                ? getMiddleEllipsis(withdrawalAddress, {
+                    beginning: 15,
+                    ending: 5,
                   })
-                ) : (
-                  withdrawalAddress
-                )
-              }
+                : withdrawalAddress}
             </Typography>
           </div>
         </div>

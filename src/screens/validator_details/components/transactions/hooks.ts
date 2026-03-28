@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useRouter } from '@src/adapters/routing/router';
-import { convertMsgsToModels } from '@msg';
-import * as R from 'ramda';
+import { useState } from "react";
+import { useRouter } from "@/adapters/routing/router";
+import { convertMsgsToModels } from "@msg";
+import * as R from "ramda";
 import {
   useGetMessagesByAddressQuery,
   GetMessagesByAddressQuery,
-} from '@graphql/types';
-import { TransactionState } from './types';
+} from "@graphql/types";
+import { TransactionState } from "./types";
 
 const LIMIT = 50;
 
@@ -27,7 +27,7 @@ export const useTransactions = () => {
     variables: {
       limit: LIMIT + 1, // to check if more exist
       offset: 0,
-      address: `{${R.pathOr('', ['query', 'address'], router)}}`,
+      address: `{${R.pathOr("", ["query", "address"], router)}}`,
     },
     onCompleted: (data) => {
       const itemsLength = data.messagesByAddress.length;
@@ -48,35 +48,42 @@ export const useTransactions = () => {
       isNextPageLoading: true,
     });
     // refetch query
-    await transactionQuery.fetchMore({
-      variables: {
-        offset: state.offsetCount,
-        limit: LIMIT + 1,
-      },
-      updateQuery: (
-        prev: GetMessagesByAddressQuery,
-        { fetchMoreResult }: { fetchMoreResult?: GetMessagesByAddressQuery; variables: { offset: number; limit: number } }
-      ) => {
-        if (!fetchMoreResult) return prev;
-        return {
-          ...prev,
-          messagesByAddress: [
-            ...(prev.messagesByAddress ?? []),
-            ...(fetchMoreResult.messagesByAddress ?? []),
-          ],
+    await transactionQuery
+      .fetchMore({
+        variables: {
+          offset: state.offsetCount,
+          limit: LIMIT + 1,
+        },
+        updateQuery: (
+          prev: GetMessagesByAddressQuery,
+          {
+            fetchMoreResult,
+          }: {
+            fetchMoreResult?: GetMessagesByAddressQuery;
+            variables: { offset: number; limit: number };
+          },
+        ) => {
+          if (!fetchMoreResult) return prev;
+          return {
+            ...prev,
+            messagesByAddress: [
+              ...(prev.messagesByAddress ?? []),
+              ...(fetchMoreResult.messagesByAddress ?? []),
+            ],
+          };
+        },
+      })
+      .then(({ data }) => {
+        const itemsLength = data.messagesByAddress.length;
+        const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
+        const stateChange = {
+          data: newItems,
+          hasNextPage: itemsLength === 51,
+          isNextPageLoading: false,
+          offsetCount: state.offsetCount + LIMIT,
         };
-      },
-    }).then(({ data }) => {
-      const itemsLength = data.messagesByAddress.length;
-      const newItems = R.uniq([...state.data, ...formatTransactions(data)]);
-      const stateChange = {
-        data: newItems,
-        hasNextPage: itemsLength === 51,
-        isNextPageLoading: false,
-        offsetCount: state.offsetCount + LIMIT,
-      };
-      handleSetState(stateChange);
-    });
+        handleSetState(stateChange);
+      });
   };
 
   const formatTransactions = (data: GetMessagesByAddressQuery) => {
@@ -92,7 +99,7 @@ export const useTransactions = () => {
       // =============================
       const messages = convertMsgsToModels(transaction);
 
-      return ({
+      return {
         height: transaction.height,
         hash: transaction.hash,
         messages: {
@@ -101,13 +108,13 @@ export const useTransactions = () => {
         },
         success: transaction.success,
         timestamp: transaction.block.timestamp,
-        type: transaction.messages
-      });
+        type: transaction.messages,
+      };
     });
   };
 
-  return ({
+  return {
     state,
     loadNextPage,
-  });
+  };
 };

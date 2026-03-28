@@ -1,24 +1,18 @@
-import React from 'react';
-import classnames from 'classnames';
-import {
-  Typography,
-  Divider,
-} from '@material-ui/core';
-import useTranslation from '@src/adapters/i18n/useTranslation';
-import {
-  Box,
-  Avatar,
-  Markdown,
-} from '@components';
-import { useProfileRecoil } from '@recoil/profiles';
-import { useStyles } from './styles';
-import { OverviewType } from '../../types';
+import React from "react";
+import classnames from "classnames";
+import { Typography, Divider } from "@material-ui/core";
+import useTranslation from "@/adapters/i18n/useTranslation";
+import { Box, Avatar, Markdown } from "@components";
+import { useProfileRecoil } from "@recoil/profiles";
+import { useStyles } from "./styles";
+import { OverviewType } from "../../types";
 
-const Profile: React.FC<{profile: OverviewType} & ComponentDefault> = ({
-  className, profile,
+const Profile: React.FC<{ profile: OverviewType } & ComponentDefault> = ({
+  className,
+  profile,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation('validators');
+  const { t } = useTranslation("validators");
   const validator = useProfileRecoil(profile.validator);
 
   const pattern = /^((http|https|ftp):\/\/)/;
@@ -36,8 +30,7 @@ const Profile: React.FC<{profile: OverviewType} & ComponentDefault> = ({
         component="a"
         href={website}
         target="_blank"
-        rel="noreferrer"
-      >
+        rel="noreferrer">
         {profile.website}
       </Typography>
     ),
@@ -63,9 +56,7 @@ const Profile: React.FC<{profile: OverviewType} & ComponentDefault> = ({
                 className={classnames(classes.avatar, classes.mobile)}
               />
               <div className="header__content">
-                <Typography variant="h2">
-                  {validator.name}
-                </Typography>
+                <Typography variant="h2">{validator.name}</Typography>
               </div>
             </div>
           </div>
@@ -84,7 +75,7 @@ const Profile: React.FC<{profile: OverviewType} & ComponentDefault> = ({
       <div>
         <div className={classes.item}>
           <Typography variant="h4" className="label">
-            {t('website')}
+            {t("website")}
           </Typography>
           {formattedItem.website}
         </div>
