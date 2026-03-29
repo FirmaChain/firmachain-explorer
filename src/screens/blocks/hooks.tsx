@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BlocksListenerSubscription, BlocksQuery, useBlocksListenerSubscription, useBlocksQuery } from '@graphql/types';
 import * as R from 'ramda';
 
@@ -34,11 +34,17 @@ export const useBlocks = () => {
             offset: 0
         },
         onSubscriptionData: (data) => {
-            const newItems = uniqueAndSort([...formatBlocks(data.subscriptionData.data), ...state.items]);
-            handleSetState({
-                loading: false,
-                items: newItems
-            });
+            try {
+                const newItems = uniqueAndSort([...formatBlocks(data.subscriptionData.data), ...state.items]);
+                handleSetState({
+                    loading: false,
+                    items: newItems
+                });
+            } catch {
+                handleSetState({
+                    loading: false
+                });
+            }
         }
     });
 
@@ -57,16 +63,52 @@ export const useBlocks = () => {
             });
         },
         onCompleted: (data) => {
-            const itemsLength = data.blocks.length;
-            const newItems = uniqueAndSort([...state.items, ...formatBlocks(data)]);
+            try {
+                const itemsLength = data.blocks.length;
+                const newItems = uniqueAndSort([...state.items, ...formatBlocks(data)]);
+                handleSetState({
+                    loading: false,
+                    items: newItems,
+                    hasNextPage: itemsLength === 51,
+                    isNextPageLoading: false
+                });
+            } catch {
+                handleSetState({
+                    loading: false,
+                    isNextPageLoading: false
+                });
+            }
+        }
+    });
+
+    useEffect(() => {
+        if (blockQuery.data) {
+            try {
+                const itemsLength = blockQuery.data.blocks.length;
+                const newItems = uniqueAndSort([...state.items, ...formatBlocks(blockQuery.data)]);
+                handleSetState({
+                    loading: false,
+                    items: newItems,
+                    hasNextPage: itemsLength === 51,
+                    isNextPageLoading: false
+                });
+                return;
+            } catch {
+                handleSetState({
+                    loading: false,
+                    isNextPageLoading: false
+                });
+                return;
+            }
+        }
+
+        if (blockQuery.error || !blockQuery.loading) {
             handleSetState({
                 loading: false,
-                items: newItems,
-                hasNextPage: itemsLength === 51,
                 isNextPageLoading: false
             });
         }
-    });
+    }, [blockQuery.data, blockQuery.loading, blockQuery.error]);
 
     const loadNextPage = async () => {
         handleSetState({
@@ -91,15 +133,21 @@ export const useBlocks = () => {
                 }
             })
             .then(({ data }) => {
-                const itemsLength = data.blocks.length;
-                const newItems = uniqueAndSort([...state.items, ...formatBlocks(data)]);
+                try {
+                    const itemsLength = data.blocks.length;
+                    const newItems = uniqueAndSort([...state.items, ...formatBlocks(data)]);
 
-                // set new state
-                handleSetState({
-                    items: newItems,
-                    isNextPageLoading: false,
-                    hasNextPage: itemsLength === 51
-                });
+                    // set new state
+                    handleSetState({
+                        items: newItems,
+                        isNextPageLoading: false,
+                        hasNextPage: itemsLength === 51
+                    });
+                } catch {
+                    handleSetState({
+                        isNextPageLoading: false
+                    });
+                }
             });
     };
 

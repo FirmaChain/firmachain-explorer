@@ -1,17 +1,30 @@
 import React from 'react';
-import { LinearProgress } from '@mui/material';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
+import { Box, LinearProgress } from '@mui/material';
 
 const LinearLoading: React.FC<{
     className?: string;
 }> = ({ className }) => {
-    const classes = useStyles();
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box
+            className={className}
+            sx={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                minHeight: '150px',
+                p: 2,
+                '& > *': {
+                    width: {
+                        xs: '70%',
+                        md: '40%'
+                    }
+                }
+            }}
+        >
             <LinearProgress />
-        </div>
+        </Box>
     );
 };
 

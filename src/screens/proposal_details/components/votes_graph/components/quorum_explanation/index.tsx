@@ -1,14 +1,10 @@
 import React from 'react';
 import Trans from '@/adapters/i18n/Trans';
-import { Typography } from '@mui/material';
-
-import { useStyles } from './styles';
+import { Box, Typography } from '@mui/material';
 
 const QuorumExplanation = (props: { quorum: number }) => {
-    const classes = useStyles();
-
     return (
-        <div className={classes.root}>
+        <Box sx={{ height: '100%' }}>
             <Typography>
                 <Trans
                     i18nKey="proposals:quorumExplanation"
@@ -18,7 +14,7 @@ const QuorumExplanation = (props: { quorum: number }) => {
                     }}
                 />
             </Typography>
-        </div>
+        </Box>
     );
 };
 

@@ -2,14 +2,13 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
 import { BoxDetails, Layout, LoadAndExist } from '@components';
+import { Box } from '@mui/material';
 
 import { useParams } from './hooks';
-import { useStyles } from './styles';
 import { formatDistribution, formatGov, formatMinting, formatSlashing, formatStaking } from './utils';
 
 const Params = () => {
     const { t } = useTranslation('params');
-    const classes = useStyles();
     const { state } = useParams();
 
     const staking = state.staking
@@ -57,13 +56,27 @@ const Params = () => {
             />
             <Layout navTitle={t('params')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
-                    <span className={classes.root}>
+                    <Box
+                        sx={(theme: any) => ({
+                            ...theme.mixins.layout,
+                            display: 'grid',
+                            gridTemplateRows: 'auto',
+                            gridGap: theme.spacing(1),
+                            '& a': {
+                                color: theme.palette.custom.fonts.highlight
+                            },
+                            [theme.breakpoints.up('lg')]: {
+                                gridGap: theme.spacing(2),
+                                gridTemplateColumns: 'repeat(2, 1fr)'
+                            }
+                        })}
+                    >
                         {staking && <BoxDetails {...staking} />}
                         {slashing && <BoxDetails {...slashing} />}
                         {minting && <BoxDetails {...minting} />}
                         {distribution && <BoxDetails {...distribution} />}
                         {gov && <BoxDetails {...gov} />}
-                    </span>
+                    </Box>
                 </LoadAndExist>
             </Layout>
         </>

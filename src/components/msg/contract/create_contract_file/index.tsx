@@ -1,21 +1,27 @@
 import React from 'react';
 import { Name } from '@components';
 import { MsgCreateContractFile } from '@models';
+import { useTheme } from '@mui/material/styles';
 import { useProfileRecoil } from '@recoil/profiles';
-
-import { useGetStyles } from './styles';
 
 const CreateContrMsgCreateContractFile = (props: { message: MsgCreateContractFile }) => {
     const { message } = props;
 
     const creatorAddress = useProfileRecoil(message.creatorAddress);
     const creatorMoniker = creatorAddress ? creatorAddress?.name : message.creatorAddress;
-
-    const { classes } = useGetStyles();
+    const theme = useTheme();
 
     return (
-        <pre className={classes.root}>
-            <code>
+        <pre
+            style={{
+                overflow: 'auto',
+                padding: '1rem',
+                margin: '0',
+                background: theme.palette.background.default,
+                flex: 1
+            }}
+        >
+            <code style={{ whiteSpace: 'pre-wrap' }}>
                 {'{\n'}
                 {Object.keys(message.json).map((key) => {
                     let result;

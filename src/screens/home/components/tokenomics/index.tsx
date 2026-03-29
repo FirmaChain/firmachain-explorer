@@ -3,18 +3,18 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, CustomToolTip } from '@components';
 import { chainConfig } from '@configs';
 import { Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 import { useTokenomics } from './hooks';
-import { useStyles } from './styles';
 
 const Tokenomics: React.FC<{
     className?: string;
 }> = ({ className }) => {
     const { t } = useTranslation('home');
-    const { classes, theme } = useStyles();
+    const theme = useTheme();
     const { state } = useTokenomics();
 
     const data = [
@@ -44,11 +44,74 @@ const Tokenomics: React.FC<{
     ];
 
     return (
-        <Box className={classnames(className, classes.root)}>
-            <Typography variant="h2" className={classes.label}>
+        <Box
+            className={classnames(className)}
+            sx={{
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                '& .label': {
+                    marginBottom: theme.spacing(2)
+                },
+                '& .data': {
+                    display: 'flex',
+                    '& .data__item': {
+                        width: '50%',
+                        whiteSpace: 'pre-wrap',
+                        '& h4': {
+                            color: theme.palette.custom.fonts.fontTwo
+                        },
+                        '& .MuiTypography-caption': {
+                            color: theme.palette.custom.fonts.fontThree
+                        }
+                    }
+                },
+                '& .content': {
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    flexDirection: 'column'
+                },
+                '& .legends': {
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    flexWrap: 'wrap',
+                    width: '100%',
+                    '& .MuiTypography-caption': {
+                        color: theme.palette.custom.fonts.fontThree
+                    },
+                    '& .legends__item': {
+                        width: '50%',
+                        '&:before': {
+                            content: '""',
+                            display: 'inline-block',
+                            width: '12px',
+                            height: '12px',
+                            marginRight: '5px'
+                        },
+                        '&:first-child:before': {
+                            background: theme.palette.custom.tokenomics.one
+                        },
+                        '&:nth-child(2):before': {
+                            background: theme.palette.custom.tokenomics.two
+                        },
+                        '&:last-child:before': {
+                            background: theme.palette.custom.tokenomics.three
+                        },
+                        '& .caption__percent': {
+                            color: theme.palette.custom.fonts.fontThree
+                        }
+                    }
+                }
+            }}
+        >
+            <Typography variant="h2" className="label">
                 {t('tokenomics')}
             </Typography>
-            <div className={classes.data}>
+            <div className="data">
                 {data.slice(0, 2).map((x) => (
                     <div className="data__item" key={x.percentKey}>
                         <Typography variant="h4">
@@ -62,7 +125,7 @@ const Tokenomics: React.FC<{
                     </div>
                 ))}
             </div>
-            <div className={classes.content}>
+            <div className="content">
                 <PieChart width={200} height={100} cy={100}>
                     <Pie
                         stroke="none"
@@ -102,7 +165,7 @@ const Tokenomics: React.FC<{
                     />
                 </PieChart>
 
-                <div className={classes.legends}>
+                <div className="legends">
                     {data.map((x) => {
                         return (
                             <div className="legends__item" key={x.legendKey}>

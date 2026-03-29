@@ -6,10 +6,8 @@ import { useProfileRecoil } from '@recoil/profiles';
 import classnames from 'classnames';
 
 import { OverviewType } from '../../types';
-import { useStyles } from './styles';
 
 const Profile: React.FC<{ profile: OverviewType } & ComponentDefault> = ({ className, profile }) => {
-    const classes = useStyles();
     const { t } = useTranslation('validators');
     const validator = useProfileRecoil(profile.validator);
 
@@ -29,23 +27,80 @@ const Profile: React.FC<{ profile: OverviewType } & ComponentDefault> = ({ class
     };
 
     return (
-        <Box className={classnames(className)}>
-            <div className={classes.bio}>
-                <Avatar
-                    address={profile.operatorAddress}
-                    imageUrl={validator.imageUrl}
-                    className={classnames(classes.avatar, classes.desktopAvatar)}
-                />
+        <Box
+            className={classnames(className)}
+            sx={(theme) => ({
+                '& .bio': {
+                    display: 'flex',
+                    '& .bio__header': {
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        justifyContent: 'flex-start',
+                        flexDirection: 'column'
+                    },
+                    '& .bio__content': {
+                        marginTop: theme.spacing(2),
+                        color: theme.palette.custom.fonts.fontTwo,
+                        [theme.breakpoints.up('lg')]: { marginTop: theme.spacing(1) }
+                    }
+                },
+                '& .avatar': {
+                    width: '60px',
+                    height: '60px',
+                    minHeight: '60px',
+                    minWidth: '60px'
+                },
+                '& .header': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    '& .header__content': { marginLeft: theme.spacing(1) },
+                    '& .MuiTypography-h2': { marginBottom: theme.spacing(1) },
+                    [theme.breakpoints.up('lg')]: {
+                        '& .header__content': {
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            marginLeft: 0,
+                            '& .MuiTypography-h2': { marginRight: theme.spacing(2), marginBottom: 0 }
+                        }
+                    }
+                },
+                '& .desktopAvatar': {
+                    display: 'none',
+                    [theme.breakpoints.up('lg')]: { display: 'block', marginRight: theme.spacing(2) }
+                },
+                '& .mobile': { [theme.breakpoints.up('lg')]: { display: 'none' } },
+                '& .divider': { margin: theme.spacing(2, 0), [theme.breakpoints.up('lg')]: { margin: theme.spacing(4, 0) } },
+                '& .item': {
+                    '&:not(:last-child)': { marginBottom: theme.spacing(2) },
+                    '& .label': {
+                        marginBottom: theme.spacing(1),
+                        color: theme.palette.custom.fonts.fontThree,
+                        [theme.breakpoints.up('lg')]: { marginBottom: 0 }
+                    },
+                    '& p.value': { color: theme.palette.custom.fonts.fontTwo },
+                    '& a': { color: theme.palette.custom.fonts.highlight },
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'grid',
+                        gridTemplateColumns: '200px auto',
+                        gap: theme.spacing(2),
+                        alignItems: 'center'
+                    }
+                }
+            })}
+        >
+            <div className="bio">
+                <Avatar address={profile.operatorAddress} imageUrl={validator.imageUrl} className={classnames('avatar', 'desktopAvatar')} />
                 <div>
                     <div className="bio__header">
                         {/* ======================== */}
                         {/* mobile header */}
                         {/* ======================== */}
-                        <div className={classes.header}>
+                        <div className="header">
                             <Avatar
                                 address={profile.operatorAddress}
                                 imageUrl={validator.imageUrl}
-                                className={classnames(classes.avatar, classes.mobile)}
+                                className={classnames('avatar', 'mobile')}
                             />
                             <div className="header__content">
                                 <Typography variant="h2">{validator.name}</Typography>
@@ -63,9 +118,9 @@ const Profile: React.FC<{ profile: OverviewType } & ComponentDefault> = ({ class
                 </div>
             </div>
 
-            <Divider className={classes.divider} />
+            <Divider className="divider" />
             <div>
-                <div className={classes.item}>
+                <div className="item">
                     <Typography variant="h4" className="label">
                         {t('website')}
                     </Typography>

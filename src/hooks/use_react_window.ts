@@ -12,13 +12,7 @@ export const useList = () => {
     };
 
     const setRowHeight = (idx, size) => {
-        R.pathOr(
-            () => {
-                console.log('something went wrong');
-            },
-            ['current', 'resetAfterIndex'],
-            listRef
-        )(0);
+        R.pathOr(() => null, ['current', 'resetAfterIndex'], listRef)(0);
         rowHeights.current = {
             ...rowHeights.current,
             [idx]: size

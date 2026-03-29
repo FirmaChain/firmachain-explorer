@@ -1,10 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Tag } from '@components';
-import { Typography } from '@mui/material';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
+import { Box, Typography } from '@mui/material';
 import { getStatusInfo } from './utils';
 
 const SingleProposal: React.FC<{
@@ -15,23 +12,43 @@ const SingleProposal: React.FC<{
     description?: string;
 }> = ({ className, id, title, status, description }) => {
     const { t } = useTranslation('proposals');
-    const classes = useStyles();
     const statusInfo = getStatusInfo(status, t);
 
     return (
-        <div className={classnames(className, classes.root)}>
-            <div className={classes.header}>
-                <Typography variant="h4" className={classes.id}>
+        <Box
+            className={className}
+            sx={(theme: any) => ({
+                my: 2,
+                [theme.breakpoints.up('lg')]: {
+                    display: 'grid',
+                    gridTemplateColumns: '50px auto min-content',
+                    gridGap: theme.spacing(2)
+                }
+            })}
+        >
+            <Box
+                sx={(theme: any) => ({
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    mb: 2.5,
+                    [theme.breakpoints.up('lg')]: {
+                        alignItems: 'flex-start',
+                        mb: 0
+                    }
+                })}
+            >
+                <Typography variant="h4" sx={(theme: any) => ({ color: theme.palette.custom.fonts.fontThree })}>
                     {id}
                 </Typography>
-                <span className={classes.mobile}>
+                <Box component="span" sx={{ display: { lg: 'none' } }}>
                     <Tag theme={statusInfo.tag} value={statusInfo.value} />
-                </span>
-            </div>
+                </Box>
+            </Box>
             {/* ================= */}
             {/* ================= */}
-            <div>
-                <div className={classes.title}>
+            <Box>
+                <Box sx={{ mb: 0.5 }}>
                     {React.isValidElement(title) ? (
                         title
                     ) : (
@@ -39,19 +56,19 @@ const SingleProposal: React.FC<{
                             {title}
                         </Typography>
                     )}
-                </div>
+                </Box>
                 {!!description && (
-                    <Typography variant="body2" className={classnames(classes.content)}>
+                    <Typography variant="body2" sx={{ mb: 2 }}>
                         {description}
                     </Typography>
                 )}
-            </div>
+            </Box>
             {/* ================= */}
             {/* ================= */}
-            <span className={classes.desktop}>
+            <Box component="span" sx={{ display: { xs: 'none', lg: 'block' } }}>
                 <Tag theme={statusInfo.tag} value={statusInfo.value} />
-            </span>
-        </div>
+            </Box>
+        </Box>
     );
 };
 

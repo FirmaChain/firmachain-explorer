@@ -3,6 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import { chainConfig } from '@configs';
 import { Divider, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { readMarket } from '@recoil/market';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
@@ -12,7 +13,6 @@ import * as R from 'ramda';
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 import { useRecoilValue } from 'recoil';
 
-import { useStyles } from './styles';
 import { formatBalanceData } from './utils';
 
 const Balance: React.FC<{
@@ -25,7 +25,7 @@ const Balance: React.FC<{
     total: TokenUnit;
 }> = (props) => {
     const { t } = useTranslation('accounts');
-    const { classes, theme } = useStyles();
+    const theme = useTheme();
     const market = useRecoilValue(readMarket);
     const formattedChartData = formatBalanceData(props);
 
@@ -64,10 +64,63 @@ const Balance: React.FC<{
     const totalDisplay = formatNumber(props.total.value, props.total.exponent);
 
     return (
-        <Box className={classnames(props.className, classes.root)}>
+        <Box
+            className={classnames(props.className)}
+            sx={(theme) => ({
+                '& .MuiTypography-h2': { mb: 2 },
+                [theme.breakpoints.up('lg')]: { display: 'flex', flexDirection: 'column' },
+                '& .chart': {
+                    height: '300px',
+                    [theme.breakpoints.up('md')]: { height: '200px', width: '200px' },
+                    [theme.breakpoints.up('lg')]: { height: '150px', width: '150px' }
+                },
+                '& .chartWrapper': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    [theme.breakpoints.up('md')]: { flexDirection: 'row', alignItems: 'center' }
+                },
+                '& .legends': {
+                    color: theme.palette.custom.fonts.fontTwo,
+                    '& .legends__single--container': {
+                        mb: 1,
+                        [theme.breakpoints.up('md')]: {
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }
+                    },
+                    '& .single__label--container': { display: 'flex', alignItems: 'center', mb: 0.5 },
+                    '& .legend-color': {
+                        width: theme.spacing(1.75),
+                        height: theme.spacing(1.75),
+                        borderRadius: '2px',
+                        mr: 1
+                    },
+                    [theme.breakpoints.up('md')]: { flex: 1, ml: 3 }
+                },
+                '& .divider': { my: 2 },
+                '& .total .total__single--container': {
+                    mb: 1,
+                    '& .label': {
+                        mb: 0.5,
+                        color: theme.palette.custom.fonts.fontTwo,
+                        [theme.breakpoints.up('md')]: { color: theme.palette.custom.fonts.fontOne }
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                    }
+                },
+                '& .total .total__secondary--container': {
+                    [theme.breakpoints.up('md')]: { color: theme.palette.custom.fonts.fontTwo }
+                }
+            })}
+        >
             <Typography variant="h2">{t('balance')}</Typography>
-            <div className={classes.chartWrapper}>
-                <div className={classes.chart}>
+            <div className="chartWrapper">
+                <div className="chart">
                     <ResponsiveContainer width="99%">
                         <PieChart>
                             <Pie
@@ -88,7 +141,7 @@ const Balance: React.FC<{
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <div className={classes.legends}>
+                <div className="legends">
                     {data.map((x) => {
                         if (x.key.toLowerCase() === 'empty') {
                             return null;
@@ -107,8 +160,8 @@ const Balance: React.FC<{
                 </div>
             </div>
             <div>
-                <Divider className={classes.divider} />
-                <div className={classes.total}>
+                <Divider className="divider" />
+                <div className="total">
                     <div className="total__single--container">
                         <Typography variant="h3" className="label">
                             {t('total', {

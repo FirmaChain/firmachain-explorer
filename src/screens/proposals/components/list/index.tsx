@@ -13,7 +13,6 @@ import InfiniteLoader from 'react-window-infinite-loader';
 
 import { ProposalType } from '../../types';
 import { SingleProposal, Total } from './components';
-import { useStyles } from './styles';
 
 const ProposalsList: React.FC<{
     className?: string;
@@ -23,8 +22,6 @@ const ProposalsList: React.FC<{
     itemCount: number;
     loadMoreItems: () => void;
 }> = ({ className, items, rawDataTotal, isItemLoaded, itemCount, loadMoreItems }) => {
-    const classes = useStyles();
-
     const { listRef, getRowHeight, setRowHeight } = useList();
 
     const formattedItems = items.map((x) => {
@@ -44,18 +41,62 @@ const ProposalsList: React.FC<{
     });
 
     return (
-        <Box className={classnames(className, classes.root)}>
-            <div className={classes.topContent}>
-                <Total className={classes.total} total={numeral(rawDataTotal).format('0,0')} />
+        <Box
+            className={classnames(className)}
+            sx={(theme) => ({
+                minHeight: '500px',
+                height: '50vh',
+                display: 'flex',
+                flexDirection: 'column',
+                [theme.breakpoints.up('lg')]: {
+                    height: '100%',
+                    minHeight: '65vh'
+                },
+                '& .list': {
+                    flex: 1,
+                    minHeight: 0
+                },
+                '& .listScroll': {
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    '&::-webkit-scrollbar': {
+                        display: 'none'
+                    }
+                },
+                '& .rowDivider': {
+                    marginLeft: theme.spacing(-2),
+                    marginRight: theme.spacing(-2),
+                    marginTop: theme.spacing(1),
+                    marginBottom: theme.spacing(1)
+                },
+                '& .total': {
+                    color: theme.palette.custom.fonts.fontThree,
+                    textAlign: 'right',
+                    [theme.breakpoints.up('lg')]: {
+                        color: theme.palette.custom.fonts.fontTwo
+                    }
+                },
+                '& .topContent': {
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: theme.spacing(2)
+                    }
+                }
+            })}
+        >
+            <div className="topContent">
+                <Total className="total" total={numeral(rawDataTotal).format('0,0')} />
                 {/* <Search className={classes.search} /> */}
             </div>
-            <div className={classes.list}>
+            <div className="list">
                 <AutoSizer>
                     {({ height, width }) => (
                         <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemCount} loadMoreItems={loadMoreItems}>
                             {({ onItemsRendered, ref }) => (
                                 <List
-                                    className={classes.listScroll}
+                                    className="listScroll"
                                     height={height}
                                     itemCount={itemCount}
                                     itemSize={getRowHeight}
@@ -79,7 +120,7 @@ const ProposalsList: React.FC<{
                                             <div style={style}>
                                                 <div ref={rowRef}>
                                                     <SingleProposal {...item} />
-                                                    {index !== itemCount - 1 && <Divider className={classes.rowDivider} />}
+                                                    {index !== itemCount - 1 && <Divider className="rowDivider" />}
                                                 </div>
                                             </div>
                                         );

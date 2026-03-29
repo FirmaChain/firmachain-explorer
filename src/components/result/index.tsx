@@ -1,24 +1,31 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Cancel, CheckCircle } from '@mui/icons-material';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
 
 const Result: React.FC<{
     className?: string;
     success?: boolean;
 }> = ({ className, success }) => {
     const { t } = useTranslation('common');
-    const classes = useStyles();
 
     return (
-        <div
-            className={classnames(className, classes.root, {
-                [classes.success]: success,
-                [classes.fail]: !success
-            })}
+        <Box
+            className={className}
+            sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                color: (theme: any) => theme.palette.custom.fonts.fontTwo,
+                '& svg': {
+                    width: '16px',
+                    height: '16px',
+                    mr: 0.5
+                },
+                '& .MuiSvgIcon-root': {
+                    fill: (theme: any) => (success ? theme.palette.custom.results.pass : theme.palette.custom.results.fail)
+                }
+            }}
         >
             {success ? (
                 <>
@@ -31,7 +38,7 @@ const Result: React.FC<{
                     <Typography variant="body1">{t('fail')}</Typography>
                 </>
             )}
-        </div>
+        </Box>
     );
 };
 

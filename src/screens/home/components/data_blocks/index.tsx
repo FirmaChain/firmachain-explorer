@@ -1,5 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
+import { Box } from '@mui/material';
 import { readMarket } from '@recoil/market';
 import classnames from 'classnames';
 import numeral from 'numeral';
@@ -7,13 +8,11 @@ import { useRecoilValue } from 'recoil';
 
 import { SingleBlock } from './components';
 import { useDataBlocks } from './hooks';
-import { useStyles } from './styles';
 
 const DataBlocks: React.FC<{
     className?: string;
 }> = ({ className }) => {
     const { t } = useTranslation('home');
-    const classes = useStyles();
     const { state } = useDataBlocks();
     const marketState = useRecoilValue(readMarket);
 
@@ -21,12 +20,12 @@ const DataBlocks: React.FC<{
         {
             key: t('latestBlock'),
             value: numeral(state.blockHeight).format('0,0'),
-            className: classes.blockHeight
+            sx: (theme) => ({ background: theme.palette.custom.primaryData.one })
         },
         {
             key: t('averageBlockTime'),
             value: `${numeral(state.blockTime).format('0.00')} s`,
-            className: classes.blockTime
+            sx: (theme) => ({ background: theme.palette.custom.primaryData.two })
         },
         // {
         //   key: t('price'),
@@ -36,7 +35,7 @@ const DataBlocks: React.FC<{
         {
             key: t('inflationRate'),
             value: `${numeral(Number(marketState.inflation) * 100).format('0.00')} %`,
-            className: classes.price
+            sx: (theme) => ({ background: theme.palette.custom.primaryData.three })
         },
         {
             key: t('activeValidators'),
@@ -44,16 +43,30 @@ const DataBlocks: React.FC<{
             description: t('outOfValidators', {
                 count: numeral(state.validators.total).format('0,0')
             }),
-            className: classes.validators
+            sx: (theme) => ({ background: theme.palette.custom.primaryData.four })
         }
     ];
 
     return (
-        <div className={classnames(classes.root, className)}>
+        <Box
+            className={classnames(className)}
+            sx={(theme) => ({
+                display: 'grid',
+                gap: theme.spacing(1),
+                gridTemplateRows: 'auto',
+                [theme.breakpoints.up('sm')]: {
+                    gridTemplateColumns: 'repeat(2, 1fr)'
+                },
+                [theme.breakpoints.up('lg')]: {
+                    gap: theme.spacing(2),
+                    gridTemplateColumns: 'repeat(4, 1fr)'
+                }
+            })}
+        >
             {data.map((x) => (
-                <SingleBlock key={x.key} label={x.key} value={x.value} description={x.description} className={x.className} />
+                <SingleBlock key={x.key} label={x.key} value={x.value} description={x.description} sx={x.sx} />
             ))}
-        </div>
+        </Box>
     );
 };
 

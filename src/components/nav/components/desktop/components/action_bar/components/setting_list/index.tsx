@@ -3,32 +3,58 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { useRouter } from '@/adapters/routing/router';
 import SettingIcon from '@assets/icon-setting.svg?react';
 import { generalConfig } from '@configs';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, Select, Typography } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import { DATE_LIST, THEME_LIST, TX_LIST } from '@recoil/settings';
 import classnames from 'classnames';
 
 import { useSettingList } from './hooks';
-import { useStyles } from './styles';
 
 const Settings: React.FC<{
     className?: string;
 }> = (props) => {
-    const classes = useStyles();
     const router = useRouter();
     const { t, lang } = useTranslation('common');
     const { open, handleOpen, state, handleChange, handleFormSubmit, handleCancel } = useSettingList({ lang });
 
     return (
-        <div>
-            <div onClick={handleOpen} role="button" className={classnames(props.className, classes.icon)}>
+        <Box>
+            <Box
+                onClick={handleOpen}
+                role="button"
+                className={classnames(props.className)}
+                sx={(theme) => ({
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    '&:hover': {
+                        cursor: 'pointer'
+                    },
+                    '& svg': {
+                        fill: theme.palette.custom.general.icon,
+                        '& path': {
+                            fill: theme.palette.custom.general.icon
+                        }
+                    }
+                })}
+            >
                 <SettingIcon />
-            </div>
-            <Dialog maxWidth="md" onClose={handleCancel} open={open} className={classes.dialog}>
-                <DialogTitle disableTypography className={classes.header}>
-                    <div className={classes.title}>
+            </Box>
+            <Dialog maxWidth="md" onClose={handleCancel} open={open} sx={{ '& .MuiDialog-paper': { width: '500px' } }}>
+                <DialogTitle
+                    disableTypography
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        '& .MuiIconButton-root': {
+                            p: 0
+                        }
+                    }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Typography variant="h2">{t('settings')}</Typography>
-                        <Typography variant="body2" className={classes.version}>
+                        <Typography variant="body2" sx={(theme) => ({ color: theme.palette.custom.fonts.fontFour, ml: 1 })}>
                             ({generalConfig.version})
                         </Typography>
                     </div>
@@ -38,7 +64,13 @@ const Settings: React.FC<{
                 </DialogTitle>
                 <DialogContent dividers>
                     <form onSubmit={handleFormSubmit}>
-                        <div className={classes.formItem}>
+                        <Box
+                            sx={(theme) => ({
+                                mb: 2,
+                                '& .MuiOutlinedInput-root': { width: '100%' },
+                                '& .form-item--label': { mb: 1 }
+                            })}
+                        >
                             <Typography className="form-item--label">{t('theme')}</Typography>
                             <Select
                                 variant="outlined"
@@ -56,9 +88,15 @@ const Settings: React.FC<{
                                     </MenuItem>
                                 ))}
                             </Select>
-                        </div>
+                        </Box>
 
-                        <div className={classes.formItem}>
+                        <Box
+                            sx={(theme) => ({
+                                mb: 2,
+                                '& .MuiOutlinedInput-root': { width: '100%' },
+                                '& .form-item--label': { mb: 1 }
+                            })}
+                        >
                             <Typography className="form-item--label">{t('language')}</Typography>
                             <Select
                                 variant="outlined"
@@ -76,9 +114,15 @@ const Settings: React.FC<{
                                     </MenuItem>
                                 ))}
                             </Select>
-                        </div>
+                        </Box>
 
-                        <div className={classes.formItem}>
+                        <Box
+                            sx={(theme) => ({
+                                mb: 2,
+                                '& .MuiOutlinedInput-root': { width: '100%' },
+                                '& .form-item--label': { mb: 1 }
+                            })}
+                        >
                             <Typography className="form-item--label">{t('dateFormat')}</Typography>
                             <Select
                                 variant="outlined"
@@ -96,9 +140,15 @@ const Settings: React.FC<{
                                     </MenuItem>
                                 ))}
                             </Select>
-                        </div>
+                        </Box>
 
-                        <div className={classes.formItem}>
+                        <Box
+                            sx={(theme) => ({
+                                mb: 2,
+                                '& .MuiOutlinedInput-root': { width: '100%' },
+                                '& .form-item--label': { mb: 1 }
+                            })}
+                        >
                             <Typography className="form-item--label">{t('txListFormat')}</Typography>
                             <Select
                                 variant="outlined"
@@ -116,7 +166,7 @@ const Settings: React.FC<{
                                     </MenuItem>
                                 ))}
                             </Select>
-                        </div>
+                        </Box>
                     </form>
                 </DialogContent>
                 <DialogActions>
@@ -125,7 +175,7 @@ const Settings: React.FC<{
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </Box>
     );
 };
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Paper, Popover } from '@mui/material';
+import { Box, Popover } from '@mui/material';
 import { HelpOutline } from '@mui/icons-material';
 import classnames from 'classnames';
 
 import { useInfoPopover } from './hooks';
-import { useStyles } from './styles';
 
 const InfoPopover: React.FC<{
     className?: string;
@@ -13,22 +12,20 @@ const InfoPopover: React.FC<{
 }> = ({ className, content, display }) => {
     const { handlePopoverOpen, handlePopoverClose, anchorEl, open } = useInfoPopover();
 
-    const classes = useStyles();
-
     return (
         <>
-            <span
+            <Box
+                component="span"
                 aria-owns={open ? 'mouse-over-popover' : undefined}
                 aria-haspopup="true"
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
-                className={classes.root}
+                sx={{ display: 'flex', alignItems: 'center' }}
             >
-                {display || <HelpOutline className={classnames(className, classes.icon)} />}
-            </span>
+                {display || <HelpOutline className={classnames(className)} sx={{ display: 'inline-block', fontSize: '1rem', mx: 0.5 }} />}
+            </Box>
             <Popover
                 id="mouse-over-popover"
-                className={classes.popover}
                 open={open}
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -41,10 +38,20 @@ const InfoPopover: React.FC<{
                 }}
                 onClose={handlePopoverClose}
                 disableRestoreFocus
+                sx={(theme) => ({
+                    pointerEvents: 'none',
+                    '& .MuiPopover-paper': {
+                        p: '1rem',
+                        maxWidth: '300px',
+                        backgroundColor: theme.palette.background.paper,
+                        backgroundImage: 'none',
+                        border: 'none',
+                        boxShadow:
+                            '0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12)'
+                    }
+                })}
             >
-                <Paper elevation={0} className={classnames(className)}>
-                    {content}
-                </Paper>
+                <>{content}</>
             </Popover>
         </>
     );

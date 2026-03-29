@@ -1,17 +1,13 @@
 import React from 'react';
-import { CircularProgress } from '@mui/material';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
+import { Box, CircularProgress } from '@mui/material';
 
 const Loading: React.FC<{
     className?: string;
 }> = ({ className }) => {
-    const classes = useStyles();
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={className} sx={{ py: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <CircularProgress />
-        </div>
+        </Box>
     );
 };
 

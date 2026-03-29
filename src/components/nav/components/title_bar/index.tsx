@@ -1,14 +1,13 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { chainConfig } from '@configs';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { readMarket } from '@recoil/market';
 import { readTheme } from '@recoil/settings';
 import classnames from 'classnames';
 import * as R from 'ramda';
 import { useRecoilValue } from 'recoil';
 
-import { useStyles } from './styles';
 import { formatMarket } from './utils';
 
 const TitleBar: React.FC<{
@@ -17,7 +16,6 @@ const TitleBar: React.FC<{
 }> = ({ className, title }) => {
     const theme = useRecoilValue(readTheme);
     const { t } = useTranslation('common');
-    const classes = useStyles();
     const marketState = useRecoilValue(readMarket);
 
     const market = formatMarket(marketState);
@@ -25,11 +23,80 @@ const TitleBar: React.FC<{
     const logoUrl = R.pathOr(chainConfig.logo.default, ['logo', theme], chainConfig);
 
     return (
-        <div className={classnames(className, classes.root)}>
-            {title ? <Typography variant="h1">{title}</Typography> : <img src={logoUrl} className={classes.logo} alt="logo" />}
-            <div className={classes.content}>
+        <Box
+            className={classnames(className)}
+            sx={(theme) => ({
+                p: theme.spacing(1, 2),
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                [theme.breakpoints.up('lg')]: {
+                    p: theme.spacing(1, 3),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                    width: '100%',
+                    '& .MuiTypography-h1': {
+                        lineHeight: 1,
+                        alignSelf: 'flex-end'
+                    }
+                },
+                '& .logo': {
+                    height: '56px'
+                },
+                '& .content': {
+                    width: '100%',
+                    background: theme.palette.custom.general.surfaceOne,
+                    mt: 2,
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    p: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexWrap: 'wrap',
+                    alignItems: 'flex-start',
+                    [theme.breakpoints.up('md')]: {
+                        flexDirection: 'row'
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        mt: 0,
+                        width: '70%',
+                        p: theme.spacing(1, 3),
+                        flexWrap: 'nowrap'
+                    }
+                },
+                '& .item': {
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    flexDirection: 'column',
+                    p: 1,
+                    width: '100%',
+                    '& .label': {
+                        mr: 1
+                    },
+                    [theme.breakpoints.up('sm')]: {
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        width: '50%'
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        p: 0,
+                        width: 'auto'
+                    }
+                }
+            })}
+        >
+            {title ? <Typography variant="h1">{title}</Typography> : <img src={logoUrl} className="logo" alt="logo" />}
+            <div className="content">
                 {market.map((x) => (
-                    <div key={x.key} className={classes.item}>
+                    <div key={x.key} className="item">
                         <Typography variant="body1" className="label">
                             {t(x.key)}
                         </Typography>
@@ -37,7 +104,7 @@ const TitleBar: React.FC<{
                     </div>
                 ))}
             </div>
-        </div>
+        </Box>
     );
 };
 

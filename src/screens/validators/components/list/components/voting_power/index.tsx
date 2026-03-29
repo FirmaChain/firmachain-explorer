@@ -1,8 +1,7 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import classnames from 'classnames';
-
-import { useStyles } from './styles';
 
 const VotingPower: React.FC<{
     className?: string;
@@ -11,19 +10,51 @@ const VotingPower: React.FC<{
     content: string;
     topVotingPower: boolean;
 }> = ({ className, percentage, content, percentDisplay }) => {
-    const classes = useStyles(percentage, true);
+    const topVotingPower = true;
     return (
-        <div className={classnames(className, classes.root)}>
-            <div className={classes.content}>
+        <Box
+            className={classnames(className)}
+            sx={(theme) => ({
+                '& .MuiTypography-body1': {
+                    color: topVotingPower ? theme.palette.custom.fonts.fontFour : theme.palette.custom.fonts.fontTwo
+                },
+                '& .content': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    mb: 1,
+                    '& .percentage': {
+                        color: topVotingPower ? theme.palette.custom.fonts.fontFour : theme.palette.custom.primaryData.three
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        mb: 0
+                    }
+                },
+                '& .chart': {
+                    display: 'flex',
+                    height: '2px',
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    background: topVotingPower
+                        ? alpha(theme.palette.custom.fonts.fontFour, 0.2)
+                        : alpha(theme.palette.custom.primaryData.three, 0.2),
+                    overflow: 'hidden'
+                },
+                '& .active': {
+                    width: `${percentage}%`,
+                    background: topVotingPower ? theme.palette.custom.fonts.fontFour : theme.palette.custom.primaryData.three
+                }
+            })}
+        >
+            <div className="content">
                 <Typography variant="body1">{content}</Typography>
                 <Typography variant="body1" className="percentage">
                     {percentDisplay}
                 </Typography>
             </div>
-            <div className={classes.chart}>
-                <div className={classes.active} />
+            <div className="chart">
+                <div className="active" />
             </div>
-        </div>
+        </Box>
     );
 };
 

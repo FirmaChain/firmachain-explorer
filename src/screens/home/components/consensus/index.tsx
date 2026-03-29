@@ -2,18 +2,18 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, Box } from '@components';
 import { Typography } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
 import { useProfileRecoil } from '@recoil/profiles';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { PolarAngleAxis, RadialBar, RadialBarChart, Tooltip } from 'recharts';
 
 import { useConsensus } from './hooks';
-import { useStyles } from './styles';
 
 const Consensus: React.FC<{
     className?: string;
 }> = ({ className }) => {
-    const { classes, theme } = useStyles();
+    const theme = useTheme();
     const { state } = useConsensus();
     const { t } = useTranslation('home');
 
@@ -28,16 +28,51 @@ const Consensus: React.FC<{
     const proposerProfile = useProfileRecoil(state.proposer);
 
     return (
-        <Box className={classnames(className, classes.root)}>
-            <Typography variant="h2" className={classes.label}>
+        <Box
+            className={classnames(className)}
+            sx={{
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                overflow: 'auto',
+                '& .content': {
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    flexDirection: 'column'
+                },
+                '& .chart .recharts-radial-bar-background-sector': {
+                    fill: alpha(theme.palette.primary.main, 0.4)
+                },
+                '& .info': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                    color: theme.palette.custom.fonts.fontTwo,
+                    '& > *': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        '& > *': {
+                            width: '50%'
+                        }
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        marginBottom: 0
+                    }
+                }
+            }}
+        >
+            <Typography variant="h2" sx={{ mb: 2 }}>
                 {t('consensus')}
             </Typography>
-            <div className={classes.info}>
+            <div className="info">
                 <div>
-                    <Typography variant="caption" className="label" component="div">
+                    <Typography variant="caption" component="div" sx={{ color: theme.palette.custom.fonts.fontThree, mb: 0.5 }}>
                         {t('height')}
                     </Typography>
-                    <Typography variant="caption" className="label" component="div">
+                    <Typography variant="caption" component="div" sx={{ color: theme.palette.custom.fonts.fontThree, mb: 0.5 }}>
                         {t('proposer')}
                     </Typography>
                 </div>
@@ -50,9 +85,9 @@ const Consensus: React.FC<{
                     )}
                 </div>
             </div>
-            <div className={classes.content}>
+            <div className="content">
                 <RadialBarChart
-                    className={classes.chart}
+                    className="chart"
                     width={circleSize}
                     height={circleSize}
                     cx={circleSize / 2}
@@ -68,14 +103,14 @@ const Consensus: React.FC<{
                     <RadialBar background dataKey="value" cornerRadius={circleSize / 2} />
                     <Tooltip />
                     <text x={circleSize / 2} y={circleSize / 2} textAnchor="middle" dominantBaseline="middle" className="progress-label">
-                        <tspan className={classes.chartPercentLabel}>
+                        <tspan style={{ fontSize: '2rem', fill: theme.palette.custom.fonts.fontOne }}>
                             {t('step', {
                                 step: numeral(state.step).format('0,0')
                             })}
                         </tspan>
                     </text>
-                    <text x={circleSize / 2 - 32} y={circleSize / 2 + 35} className={classes.chartExtraLabel}>
-                        <tspan className={classes.chartLabel}>
+                    <text x={circleSize / 2 - 32} y={circleSize / 2 + 35} style={{ fill: theme.palette.custom.fonts.fontTwo }}>
+                        <tspan style={{ fontSize: '1rem', color: theme.palette.custom.fonts.fontOne }}>
                             {t('round', {
                                 round: numeral(state.round).format('0,0')
                             })}

@@ -6,8 +6,6 @@ import { usePagination, useScreenSize } from '@hooks';
 import { Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 
-import { useStyles } from './styles';
-
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
@@ -17,29 +15,35 @@ const Connections: React.FC<{
     data: ProfileConnectionType[];
 }> = ({ handleClose, open, data }) => {
     const { isDesktop } = useScreenSize();
-    const classes = useStyles();
     const { t } = useTranslation('accounts');
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems } = usePagination({});
     const items = sliceItems(data);
     return (
-        <Dialog maxWidth="xl" onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} className={classes.dialog}>
-            <DialogTitle disableTypography className={classes.header}>
+        <Dialog
+            maxWidth="xl"
+            onClose={handleClose}
+            aria-labelledby="simple-dialog-title"
+            open={open}
+            sx={{ '& .MuiDialog-paper': { width: '1000px' } }}
+        >
+            <DialogTitle disableTypography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& .MuiIconButton-root': { p: 0 } }}>
                 <Typography variant="h2">{t('connectionsTitle')}</Typography>
                 <IconButton aria-label="close" onClick={handleClose}>
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
             <DialogContent dividers>
-                {isDesktop ? <Desktop items={items} className={classes.noWrap} /> : <Mobile items={items} />}
-                <Pagination
-                    className={classes.paginate}
-                    total={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    rowsPerPageOptions={[10, 25, 50, 100]}
-                />
+                {isDesktop ? <div style={{ whiteSpace: 'nowrap' }}><Desktop items={items} /></div> : <Mobile items={items} />}
+                <div style={{ marginTop: '16px' }}>
+                    <Pagination
+                        total={data.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        handleChangePage={handleChangePage}
+                        handleChangeRowsPerPage={handleChangeRowsPerPage}
+                        rowsPerPageOptions={[10, 25, 50, 100]}
+                    />
+                </div>
             </DialogContent>
         </Dialog>
     );

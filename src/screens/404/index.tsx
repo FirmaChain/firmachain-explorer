@@ -1,13 +1,20 @@
 import React from 'react';
 import { Layout, NotFound as NotFoundLogo } from '@components';
-
-import { useStyles } from './styles';
+import { Box } from '@mui/material';
 
 const NotFound = () => {
-    const classes = useStyles();
     return (
-        <Layout className={classes.root}>
-            <NotFoundLogo />
+        <Layout>
+            <Box
+                sx={(theme: any) => ({
+                    ...theme.mixins.layout,
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    }
+                })}
+            >
+                <NotFoundLogo />
+            </Box>
         </Layout>
     );
 };

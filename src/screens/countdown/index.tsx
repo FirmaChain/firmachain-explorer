@@ -3,20 +3,24 @@ import React, { useState } from 'react';
 import { Loading } from '@components';
 import { chainConfig } from '@configs';
 import { useInterval } from '@hooks';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { readTheme } from '@recoil/settings';
 import dayjs from '@utils/dayjs';
 import * as R from 'ramda';
 import { useRecoilValue } from 'recoil';
 
-import { useStyles } from './styles';
-
 const Countdown: React.FC<{
     startGenesis: () => void;
 }> = ({ startGenesis }) => {
     const theme = useRecoilValue(readTheme);
-    const classes = useStyles();
-    const [state, setState] = useState({
+    const [state, setState] = useState<{
+        day: number;
+        hour: number;
+        minute: number;
+        second: number;
+        interval: number | null;
+        loading: boolean;
+    }>({
         day: 0,
         hour: 0,
         minute: 0,
@@ -52,31 +56,63 @@ const Countdown: React.FC<{
     useInterval(intervalCallback, state.interval);
 
     return (
-        <div className={classes.root}>
-            <img src={logoUrl} className={classes.logo} alt="logo" />
-            <div className={classes.timeContainer}>
-                <div className={classes.item}>
+        <Box
+            sx={(muiTheme) => ({
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '100vh',
+                flexDirection: 'column',
+                background: muiTheme.palette.background.default,
+                '& a': {
+                    color: muiTheme.palette.custom.fonts.highlight
+                }
+            })}
+        >
+            <Box component="img" src={logoUrl} alt="logo" sx={{ width: '275px' }} />
+            <Box
+                sx={(muiTheme) => ({
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 65px)',
+                    gridGap: '8px',
+                    my: 3,
+                    '& .count-item': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column'
+                    },
+                    '& .count-item .MuiTypography-h1': {
+                        width: '100%',
+                        textAlign: 'center',
+                        background: muiTheme.palette.background.paper,
+                        p: 2,
+                        mb: 2
+                    }
+                })}
+            >
+                <Box className="count-item">
                     <Typography variant="h1">{state.day}</Typography>
                     <Typography variant="h3">Day</Typography>
-                </div>
-                <div className={classes.item}>
+                </Box>
+                <Box className="count-item">
                     <Typography variant="h1">{state.hour}</Typography>
                     <Typography variant="h3">Hour</Typography>
-                </div>
-                <div className={classes.item}>
+                </Box>
+                <Box className="count-item">
                     <Typography variant="h1">{state.minute}</Typography>
                     <Typography variant="h3">Min</Typography>
-                </div>
-                <div className={classes.item}>
+                </Box>
+                <Box className="count-item">
                     <Typography variant="h1">{state.second}</Typography>
                     <Typography variant="h3">Sec</Typography>
-                </div>
-            </div>
-            <Typography variant="h2" className={classes.chain}>
+                </Box>
+            </Box>
+            <Typography variant="h2" sx={(muiTheme) => ({ color: muiTheme.palette.primary.main })}>
                 {chainConfig.network}
             </Typography>
             {state.loading && <Loading />}
-        </div>
+        </Box>
     );
 };
 

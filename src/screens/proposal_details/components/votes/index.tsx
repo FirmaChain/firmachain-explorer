@@ -3,11 +3,9 @@ import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { useProfilesRecoil } from '@recoil/profiles';
-import classnames from 'classnames';
 
 import { Paginate, Tabs } from './components';
 import { useVotes } from './hooks';
-import { useStyles } from './styles';
 import { filterDataByTab } from './utils';
 
 const Desktop = dynamic(() => import('./components/desktop'));
@@ -16,7 +14,6 @@ const Mobile = dynamic(() => import('./components/mobile'));
 const Votes: React.FC<ComponentDefault> = (props) => {
     const { isDesktop } = useScreenSize();
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems, resetPagination } = usePagination({});
-    const classes = useStyles();
     const { state, handleTabChange } = useVotes(resetPagination);
     const filteredItems = filterDataByTab({
         tab: state.tab,
@@ -35,7 +32,33 @@ const Votes: React.FC<ComponentDefault> = (props) => {
     });
 
     return (
-        <Box className={classnames(props.className, classes.root)}>
+        <Box
+            className={props.className}
+            sx={(theme) => ({
+                overflow: 'hidden',
+                [theme.breakpoints.up('md')]: {
+                    display: 'flex',
+                    flexDirection: 'column'
+                },
+                '& .list': {
+                    flex: 1,
+                    [theme.breakpoints.up('md')]: {
+                        overflow: 'auto'
+                    }
+                },
+                '& .mobile': {
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'none'
+                    }
+                },
+                '& .desktop': {
+                    display: 'none',
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'flex'
+                    }
+                }
+            })}
+        >
             <Tabs
                 data={{
                     yes: state.voteCount.yes,
@@ -47,13 +70,13 @@ const Votes: React.FC<ComponentDefault> = (props) => {
                 tab={state.tab}
                 handleTabChange={handleTabChange}
             />
-            <div className={classes.list}>
+            <div className="list">
                 {items.length ? (
                     <>
                         {isDesktop ? (
-                            <Desktop className={classes.desktop} items={items} />
+                            <Desktop className="desktop" items={items} />
                         ) : (
-                            <Mobile className={classes.mobile} items={items} />
+                            <Mobile className="mobile" items={items} />
                         )}
                     </>
                 ) : (

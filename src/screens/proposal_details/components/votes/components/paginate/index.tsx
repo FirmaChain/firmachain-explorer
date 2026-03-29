@@ -1,20 +1,27 @@
 import React from 'react';
 import { Pagination } from '@components';
+import { Box } from '@mui/material';
 
-import { useStyles } from './styles';
+type Props = {
+    total: number;
+    page: number;
+    rowsPerPage: number;
+    handleChangePage: (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, selectedRowsPerPage: number) => void;
+    handleChangeRowsPerPage: (rowsPerPage: number) => void;
+};
 
-const Paginate = ({ total, page, rowsPerPage, handleChangePage, handleChangeRowsPerPage }) => {
-    const classes = useStyles();
+const Paginate = ({ total, page, rowsPerPage, handleChangePage, handleChangeRowsPerPage }: Props) => {
     return (
-        <Pagination
-            className={classes.root}
-            total={total}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-            rowsPerPageOptions={[10, 25, 50, 100]}
-        />
+        <Box sx={{ mt: 3 }}>
+            <Pagination
+                total={total}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                handleChangePage={handleChangePage}
+                handleChangeRowsPerPage={handleChangeRowsPerPage}
+                rowsPerPageOptions={[10, 25, 50, 100]}
+            />
+        </Box>
     );
 };
 

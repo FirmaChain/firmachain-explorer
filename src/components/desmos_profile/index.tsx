@@ -7,7 +7,6 @@ import numeral from 'numeral';
 
 import { Connections } from './components';
 import { useDesmosProfile } from './hooks';
-import { useStyles } from './styles';
 
 const DesmosProfile: React.FC<
     {
@@ -15,32 +14,109 @@ const DesmosProfile: React.FC<
     } & DesmosProfile
 > = (props) => {
     const { t } = useTranslation('accounts');
-    const classes = useStyles(props.coverUrl);
     const { connectionsOpen, handleConnectionsClose, handleConnectionsOpen } = useDesmosProfile();
-
-    const displayConnections = props.connections.length ? '' : 'hide';
 
     return (
         <>
-            <Box className={classnames(props.className, classes.root)}>
-                <div className={classes.cover}>
+            <Box
+                className={classnames(props.className)}
+                sx={(theme) => ({
+                    overflow: 'hidden',
+                    '& .cover-wrapper': {
+                        height: '150px',
+                        background: theme.palette.custom.fonts.fontFour,
+                        backgroundImage: 'url("/images/default_cover_pattern.png")',
+                        backgroundRepeat: 'repeat',
+                        backgroundPosition: 'center center',
+                        margin: theme.spacing(-2, -2, 0, -2),
+                        overflow: 'hidden',
+                        backgroundSize: 'contain',
+                        [theme.breakpoints.up('sm')]: {
+                            height: '200px'
+                        },
+                        [theme.breakpoints.up('md')]: {
+                            height: '300px'
+                        },
+                        [theme.breakpoints.up('lg')]: {
+                            height: '360px'
+                        }
+                    },
+                    '& .cover': {
+                        width: '100%',
+                        height: '100%',
+                        backgroundImage: `url(${props.coverUrl})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center center'
+                    },
+                    '& .avatar-container': {
+                        position: 'relative',
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        padding: theme.spacing(1, 0),
+                        [theme.breakpoints.up('md')]: {
+                            paddingBottom: theme.spacing(2)
+                        },
+                        [theme.breakpoints.up('lg')]: {
+                            paddingBottom: theme.spacing(3.5)
+                        }
+                    },
+                    '& .profile-avatar': {
+                        position: 'absolute',
+                        width: '75px',
+                        height: '75px',
+                        minHeight: '75px',
+                        minWidth: '75px',
+                        border: `solid 3px ${theme.palette.background.paper}`,
+                        top: theme.spacing(-4),
+                        left: 0,
+                        [theme.breakpoints.up('md')]: {
+                            width: '115px',
+                            height: '115px',
+                            minHeight: '115px',
+                            minWidth: '115px',
+                            top: theme.spacing(-8),
+                            borderWidth: '4px'
+                        },
+                        [theme.breakpoints.up('lg')]: {
+                            width: '150px',
+                            height: '150px',
+                            minHeight: '150px',
+                            minWidth: '150px',
+                            top: theme.spacing(-11),
+                            borderWidth: '5px'
+                        }
+                    },
+                    '& .profile-link': {
+                        color: theme.palette.custom.fonts.highlight,
+                        '&:hover': {
+                            cursor: 'pointer'
+                        },
+                        visibility: props.connections.length ? 'visible' : 'hidden'
+                    },
+                    '& .nickname-wrapper': {
+                        margin: theme.spacing(1, 0)
+                    },
+                    '& .tag': {
+                        color: theme.palette.custom.fonts.fontFour
+                    }
+                })}
+            >
+                <div className="cover-wrapper">
                     <div className="cover" />
                 </div>
 
-                <div className={classes.avatarContainer}>
-                    <Avatar address={props.dtag} imageUrl={props.imageUrl} className={classes.avatar} />
-                    <Typography
-                        variant="body1"
-                        className={classnames(classes.link, displayConnections)}
-                        onClick={handleConnectionsOpen}
-                        role="button"
-                    >
+                <div className="avatar-container">
+                    <Avatar address={props.dtag} imageUrl={props.imageUrl} className="profile-avatar" />
+                    <Typography variant="body1" className="profile-link" onClick={handleConnectionsOpen} role="button">
                         {t('connections', {
                             connections: numeral(props.connections.length).format('0,0')
                         })}
                     </Typography>
                 </div>
-                <div className={classes.nicknameWrapper}>
+                <div className="nickname-wrapper">
                     <Typography variant="h2">{props.nickname}</Typography>
                     <Typography variant="body2" className="tag">
                         @{props.dtag}

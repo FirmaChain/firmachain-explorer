@@ -5,9 +5,6 @@ import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Typography } from '@mui/material';
 import { useProfilesRecoil } from '@recoil/profiles';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
 
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
@@ -19,22 +16,47 @@ const Signatures: React.FC<
 > = ({ className, signatures }) => {
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('blocks');
-    const classes = useStyles();
     const formattedSignatures = useProfilesRecoil(signatures);
 
     return (
-        <Box className={classnames(className, classes.root)}>
-            <Typography className={classes.title} variant="h2">
+        <Box
+            className={className}
+            sx={(theme) => ({
+                display: 'flex',
+                flexDirection: 'column',
+                '& .MuiTypography-h2': {
+                    pb: 2
+                },
+                '& .wrapper': {
+                    flex: 1
+                },
+                '& .title': {
+                    mb: 2
+                },
+                '& .mobile': {
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'none'
+                    }
+                },
+                '& .desktop': {
+                    display: 'none',
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'flex'
+                    }
+                }
+            })}
+        >
+            <Typography className="title" variant="h2">
                 {t('signatures')}
             </Typography>
             {!signatures.length ? (
                 <NoData />
             ) : (
-                <div className={classes.wrapper}>
+                <div className="wrapper">
                     {isDesktop ? (
-                        <Desktop className={classes.desktop} signatures={formattedSignatures} />
+                        <Desktop className="desktop" signatures={formattedSignatures} />
                     ) : (
-                        <Mobile className={classes.mobile} signatures={formattedSignatures} />
+                        <Mobile className="mobile" signatures={formattedSignatures} />
                     )}
                 </div>
             )}

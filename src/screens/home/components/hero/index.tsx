@@ -15,7 +15,11 @@ const Hero: React.FC<ComponentDefault> = (props) => {
         }
     }
 
-    return <Box className={props.className}>{component}</Box>;
+    return (
+        <Box className={props.className} sx={{ height: '100%' }}>
+            {component}
+        </Box>
+    );
 };
 
 export default Hero;

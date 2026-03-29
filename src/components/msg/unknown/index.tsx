@@ -1,15 +1,21 @@
 import React from 'react';
 import { MsgUnknown } from '@models';
-
-import { useGetStyles } from './styles';
+import { useTheme } from '@mui/material/styles';
 
 const Unknown = (props: { message: MsgUnknown }) => {
     const { message } = props;
-
-    const { classes } = useGetStyles();
+    const theme = useTheme();
     return (
-        <pre className={classes.root}>
-            <code>{JSON.stringify(message.json, null, '\t')}</code>
+        <pre
+            style={{
+                overflow: 'auto',
+                padding: '1rem',
+                margin: '0',
+                background: theme.palette.background.default,
+                flex: 1
+            }}
+        >
+            <code style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(message.json, null, '\t')}</code>
         </pre>
     );
 };

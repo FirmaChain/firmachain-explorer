@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +5,7 @@ type LinkHref =
     | string
     | {
           pathname?: string;
-          query?: Record<string, any>;
+          query?: Record<string, unknown>;
       };
 
 type LinkProps = {
@@ -18,7 +17,7 @@ type LinkProps = {
 
 const isExternal = (url: string) => /^https?:\/\//.test(url);
 
-const buildPath = (pathname: string, query?: Record<string, any>) => {
+const buildPath = (pathname: string, query?: Record<string, unknown>) => {
     if (!query) return pathname;
 
     let path = pathname;
@@ -65,9 +64,15 @@ const Link = ({ href, children, passHref }: LinkProps) => {
     };
 
     if (React.isValidElement(children)) {
-        const childProps = (children as any).props || {};
-        return React.cloneElement(children as React.ReactElement, {
-            href: passHref ? to : childProps.href,
+        const child = children as React.ReactElement<{
+            href?: string;
+            onClick?: (event: React.MouseEvent) => void;
+        }>;
+        const childProps = child.props || {};
+        const childType = typeof child.type === 'string' ? child.type.toLowerCase() : '';
+        const shouldInjectHref = passHref || childType === 'a';
+        return React.cloneElement(child, {
+            href: shouldInjectHref ? to : childProps.href,
             onClick: (e: React.MouseEvent) => onClick(e, childProps.onClick)
         });
     }

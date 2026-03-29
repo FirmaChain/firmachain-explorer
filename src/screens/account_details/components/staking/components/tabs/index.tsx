@@ -1,11 +1,9 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Tab, Tabs } from '@mui/material';
+import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
 import classnames from 'classnames';
 import numeral from 'numeral';
-
-import { useStyles } from './styles';
 
 const TabsHeader: React.FC<{
     className?: string;
@@ -18,12 +16,11 @@ const TabsHeader: React.FC<{
         component?: React.ReactNode;
     }[];
 }> = ({ className, tab, handleTabChange, tabs }) => {
-    const classes = useStyles();
     const { t } = useTranslation('accounts');
 
     return (
-        <div className={classnames(className, classes.root)}>
-            <Tabs variant="scrollable" scrollButtons="off" value={tab} onChange={handleTabChange}>
+        <Box className={classnames(className)} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Tabs variant="scrollable" scrollButtons={false} value={tab} onChange={handleTabChange}>
                 {tabs.map((x) => (
                     <Tab
                         key={x.key}
@@ -34,7 +31,7 @@ const TabsHeader: React.FC<{
                     />
                 ))}
             </Tabs>
-        </div>
+        </Box>
     );
 };
 

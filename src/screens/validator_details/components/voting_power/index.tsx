@@ -3,12 +3,12 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 import numeral from 'numeral';
 
 import { VotingPowerType } from '../../types';
-import { useStyles } from './styles';
 
 const VotingPower: React.FC<{
     className?: string;
@@ -17,15 +17,59 @@ const VotingPower: React.FC<{
 }> = ({ className, data, status }) => {
     const { t } = useTranslation('validators');
     const votingPowerPercent = status === 3 ? numeral((data.self / 10 ** 6 / numeral(data.overall.value).value()) * 100) : numeral(0);
-
-    const classes = useStyles(votingPowerPercent.format(0, Math.floor));
-
+    const percentage = votingPowerPercent.format(0, Math.floor);
     const votingPower = status === 3 ? numeral(data.self / 10 ** 6).format('0,0') : '0';
 
     return (
-        <Box className={classnames(className, classes.root)}>
+        <Box
+            className={classnames(className)}
+            sx={(theme) => ({
+                height: '100%',
+                '& .MuiTypography-h2': { mb: 2 },
+                '& .data': {
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    '& .primary__data': {
+                        color: theme.palette.primary.main,
+                        mr: 2,
+                        fontSize: '2.5rem'
+                    }
+                },
+                '& .chart': {
+                    display: 'flex',
+                    height: '8px',
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    background: alpha(theme.palette.primary.main, 0.2),
+                    overflow: 'hidden',
+                    my: 2
+                },
+                '& .active': {
+                    width: `${percentage}%`,
+                    background: theme.palette.primary.main,
+                    transition: '0.3s'
+                },
+                '& .item': {
+                    '&:not(:last-child)': { mb: 2 },
+                    '& .label': {
+                        mb: 1,
+                        color: theme.palette.custom.fonts.fontThree
+                    },
+                    '& p.value': {
+                        color: theme.palette.custom.fonts.fontTwo
+                    },
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                    }
+                }
+            })}
+        >
             <Typography variant="h2">{t('votingPower')}</Typography>
-            <div className={classes.data}>
+            <div className="data">
                 <Typography variant="h3" className="primary__data">
                     {`${votingPowerPercent.format('0,0.00')}%`}
                 </Typography>
@@ -33,10 +77,10 @@ const VotingPower: React.FC<{
                     {votingPower} / {numeral(data.overall.value).format('0,0')}
                 </Typography>
             </div>
-            <div className={classes.chart}>
-                <div className={classes.active} />
+            <div className="chart">
+                <div className="active" />
             </div>
-            <div className={classes.item}>
+            <div className="item">
                 <Typography variant="h4" className="label">
                     {t('block')}
                 </Typography>
@@ -46,7 +90,7 @@ const VotingPower: React.FC<{
                     </Typography>
                 </Link>
             </div>
-            <div className={classes.item}>
+            <div className="item">
                 <Typography variant="h4" className="label">
                     {t('votingPower')}
                 </Typography>
@@ -54,7 +98,7 @@ const VotingPower: React.FC<{
                     {votingPower}
                 </Typography>
             </div>
-            <div className={classes.item}>
+            <div className="item">
                 <Typography variant="h4" className="label">
                     {t('votingPowerPercent')}
                 </Typography>

@@ -2,14 +2,13 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
 import { Layout, LoadAndExist } from '@components';
+import { Box } from '@mui/material';
 
 import { Overview, Signatures, Transactions } from './components';
 import { useBlockDetails } from './hooks';
-import { useStyles } from './styles';
 
 const BlockDetails = () => {
     const { t } = useTranslation('blocks');
-    const classes = useStyles();
     const { state } = useBlockDetails();
     const { overview, signatures, transactions } = state;
 
@@ -23,7 +22,21 @@ const BlockDetails = () => {
             />
             <Layout navTitle={t('blockDetails')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
-                    <span className={classes.root}>
+                    <Box
+                        sx={(theme: any) => ({
+                            ...theme.mixins.layout,
+                            '& a': {
+                                color: theme.palette.custom.fonts.highlight
+                            },
+                            display: 'grid',
+                            gridTemplateRows: 'auto auto 1fr',
+                            gridTemplateColumns: '1fr',
+                            gridGap: theme.spacing(1),
+                            [theme.breakpoints.up('lg')]: {
+                                gridGap: theme.spacing(2)
+                            }
+                        })}
+                    >
                         <Overview
                             height={overview.height}
                             hash={overview.hash}
@@ -31,9 +44,11 @@ const BlockDetails = () => {
                             timestamp={overview.timestamp}
                             txs={overview.txs}
                         />
-                        <Signatures className={classes.signatures} signatures={signatures} />
+                        <Box sx={{ height: '450px' }}>
+                            <Signatures signatures={signatures} />
+                        </Box>
                         <Transactions transactions={transactions} />
-                    </span>
+                    </Box>
                 </LoadAndExist>
             </Layout>
         </>

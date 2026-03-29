@@ -2,38 +2,35 @@ import React from 'react';
 import Trans from '@/adapters/i18n/Trans';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { MsgMultiSend } from '@models';
 import { useProfileRecoil, useProfilesRecoil } from '@recoil/profiles';
 import { formatNumber, formatToken } from '@utils/format_token';
 import * as R from 'ramda';
 
-import { useStyles } from './styles';
-
 const Multisend = (props: { message: MsgMultiSend }) => {
     const { t } = useTranslation('transactions');
-    const classes = useStyles();
 
     const { message } = props;
 
     const sender = R.pathOr({}, ['inputs', 0], message);
     const senderAmount = sender?.coins
-        ?.map((x) => {
+        ?.map((x: any) => {
             const amount = formatToken(x.amount, x.denom);
             return `${formatNumber(amount.value, amount.exponent)} ${amount.displayDenom.toUpperCase()}`;
         })
-        .reduce((text, value, i, array) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value);
+        .reduce((text: string, value: string, i: number, array: string[]) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value);
 
     const userSend = useProfileRecoil(sender?.address);
     const validatorMoniker = userSend ? userSend?.name : sender?.address;
 
     const receivers = message?.outputs?.map((output) => {
         const parsedAmount = output?.coins
-            ?.map((x) => {
+            ?.map((x: any) => {
                 const amount = formatToken(x.amount, x.denom);
                 return `${formatNumber(amount.value, amount.exponent)} ${amount.displayDenom.toUpperCase()}`;
             })
-            .reduce((text, value, i, array) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value);
+            .reduce((text: string, value: string, i: number, array: string[]) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value);
 
         return {
             address: output.address,
@@ -54,7 +51,7 @@ const Multisend = (props: { message: MsgMultiSend }) => {
                     }}
                 />
             </Typography>
-            <div className={classes.multisend}>
+            <Box sx={{ mt: 0 }}>
                 {receivers?.map((x, i) => {
                     const recieverUser = receiverProfiles[i];
                     const recieverMoniker = recieverUser ? recieverUser?.name : x?.address;
@@ -70,7 +67,7 @@ const Multisend = (props: { message: MsgMultiSend }) => {
                         </Typography>
                     );
                 })}
-            </div>
+            </Box>
         </div>
     );
 };

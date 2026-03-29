@@ -2,14 +2,13 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
 import { DesmosProfile, Layout, LoadAndExist } from '@components';
+import { Box } from '@mui/material';
 
 import { Connections } from './components';
 import { useProfileDetails } from './hooks';
-import { useStyles } from './styles';
 
 const ProfileDetails = () => {
     const { t } = useTranslation('profiles');
-    const classes = useStyles();
     const { state } = useProfileDetails();
 
     return (
@@ -23,7 +22,20 @@ const ProfileDetails = () => {
             <Layout navTitle={t('profileDetails')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
                     {!!state.desmosProfile && (
-                        <span className={classes.root}>
+                        <Box
+                            sx={(theme: any) => ({
+                                ...theme.mixins.layout,
+                                display: 'grid',
+                                gridTemplateRows: 'auto',
+                                gridGap: theme.spacing(1),
+                                '& a': {
+                                    color: theme.palette.custom.fonts.highlight
+                                },
+                                [theme.breakpoints.up('lg')]: {
+                                    gridGap: theme.spacing(2)
+                                }
+                            })}
+                        >
                             <DesmosProfile
                                 dtag={state.desmosProfile.dtag}
                                 nickname={state.desmosProfile.nickname}
@@ -33,7 +45,7 @@ const ProfileDetails = () => {
                                 coverUrl={state.desmosProfile.coverUrl}
                             />
                             <Connections data={state.desmosProfile.connections} />
-                        </span>
+                        </Box>
                     )}
                 </LoadAndExist>
             </Layout>

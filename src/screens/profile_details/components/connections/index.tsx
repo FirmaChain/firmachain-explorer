@@ -5,8 +5,6 @@ import { Box, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { Typography } from '@mui/material';
 
-import { useStyles } from './styles';
-
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
@@ -14,18 +12,26 @@ const Connections: React.FC<{
     data: ProfileConnectionType[];
 }> = ({ data }) => {
     const { isDesktop } = useScreenSize();
-    const classes = useStyles();
     const { t } = useTranslation('accounts');
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems } = usePagination({});
     const items = sliceItems(data);
 
     return (
-        <Box>
+        <Box
+            sx={(theme) => ({
+                '& .noWrap': {
+                    whiteSpace: 'nowrap'
+                },
+                '& .paginate': {
+                    mt: theme.spacing(2)
+                }
+            })}
+        >
             <Typography variant="h2">{t('connectionsTitle')}</Typography>
 
-            {isDesktop ? <Desktop items={items} className={classes.noWrap} /> : <Mobile items={items} />}
+            {isDesktop ? <Desktop items={items} className="noWrap" /> : <Mobile items={items} />}
             <Pagination
-                className={classes.paginate}
+                className="paginate"
                 total={data.length}
                 rowsPerPage={rowsPerPage}
                 page={page}

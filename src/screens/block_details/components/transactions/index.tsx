@@ -1,12 +1,9 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Box, TransactionListDetails, TransactionsList } from '@components';
-import { Typography } from '@mui/material';
+import { TransactionListDetails, TransactionsList } from '@components';
+import { Box as MuiBox, Typography } from '@mui/material';
 import { readTx } from '@recoil/settings';
-import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';
-
-import { useStyles } from './styles';
 
 const Transactions: React.FC<
     ComponentDefault & {
@@ -15,17 +12,32 @@ const Transactions: React.FC<
 > = ({ className, transactions }) => {
     const txListFormat = useRecoilValue(readTx);
     const { t } = useTranslation('transactions');
-    const classes = useStyles();
     return (
-        <Box className={classnames(className, classes.root)}>
-            <div className={classes.header}>
+        <MuiBox
+            className={className}
+            sx={{
+                minHeight: '500px',
+                height: { xs: '50vh', lg: '100%' },
+                display: 'flex',
+                flexDirection: 'column'
+            }}
+        >
+            <MuiBox
+                sx={(theme) => ({
+                    mb: 2,
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                    }
+                })}
+            >
                 <Typography variant="h2">{t('transactions')}</Typography>
-            </div>
+            </MuiBox>
             {txListFormat === 'compact' ? (
                 <TransactionsList
                     transactions={transactions}
                     itemCount={transactions.length}
-                    className={classes.list}
                     hasNextPage={false}
                     isNextPageLoading={false}
                     loadNextPage={() => null}
@@ -36,7 +48,6 @@ const Transactions: React.FC<
                 <TransactionListDetails
                     transactions={transactions}
                     itemCount={transactions.length}
-                    className={classes.list}
                     hasNextPage={false}
                     isNextPageLoading={false}
                     loadNextPage={() => null}
@@ -44,7 +55,7 @@ const Transactions: React.FC<
                     isItemLoaded={() => true}
                 />
             )}
-        </Box>
+        </MuiBox>
     );
 };
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     TransactionsListenerSubscription,
     TransactionsQuery,
@@ -40,11 +40,17 @@ export const useTransactions = () => {
             offset: 0
         },
         onSubscriptionData: (data) => {
-            const newItems = uniqueAndSort([...formatTransactions(data.subscriptionData.data), ...state.items]);
-            handleSetState({
-                loading: false,
-                items: newItems
-            });
+            try {
+                const newItems = uniqueAndSort([...formatTransactions(data.subscriptionData.data), ...state.items]);
+                handleSetState({
+                    loading: false,
+                    items: newItems
+                });
+            } catch {
+                handleSetState({
+                    loading: false
+                });
+            }
         }
     });
 
@@ -63,16 +69,52 @@ export const useTransactions = () => {
             });
         },
         onCompleted: (data) => {
-            const itemsLength = data.transactions.length;
-            const newItems = uniqueAndSort([...state.items, ...formatTransactions(data)]);
+            try {
+                const itemsLength = data.transactions.length;
+                const newItems = uniqueAndSort([...state.items, ...formatTransactions(data)]);
+                handleSetState({
+                    loading: false,
+                    items: newItems,
+                    hasNextPage: itemsLength === 51,
+                    isNextPageLoading: false
+                });
+            } catch {
+                handleSetState({
+                    loading: false,
+                    isNextPageLoading: false
+                });
+            }
+        }
+    });
+
+    useEffect(() => {
+        if (transactionQuery.data) {
+            try {
+                const itemsLength = transactionQuery.data.transactions.length;
+                const newItems = uniqueAndSort([...state.items, ...formatTransactions(transactionQuery.data)]);
+                handleSetState({
+                    loading: false,
+                    items: newItems,
+                    hasNextPage: itemsLength === 51,
+                    isNextPageLoading: false
+                });
+                return;
+            } catch {
+                handleSetState({
+                    loading: false,
+                    isNextPageLoading: false
+                });
+                return;
+            }
+        }
+
+        if (transactionQuery.error || !transactionQuery.loading) {
             handleSetState({
                 loading: false,
-                items: newItems,
-                hasNextPage: itemsLength === 51,
                 isNextPageLoading: false
             });
         }
-    });
+    }, [transactionQuery.data, transactionQuery.loading, transactionQuery.error]);
 
     const loadNextPage = async () => {
         handleSetState({
@@ -96,14 +138,20 @@ export const useTransactions = () => {
                 }
             })
             .then(({ data }) => {
-                const itemsLength = data.transactions.length;
-                // Format the merged data and update your state
-                const newItems = uniqueAndSort([...state.items, ...formatTransactions(data)]);
-                handleSetState({
-                    items: newItems,
-                    isNextPageLoading: false,
-                    hasNextPage: itemsLength === 51
-                });
+                try {
+                    const itemsLength = data.transactions.length;
+                    // Format the merged data and update your state
+                    const newItems = uniqueAndSort([...state.items, ...formatTransactions(data)]);
+                    handleSetState({
+                        items: newItems,
+                        isNextPageLoading: false,
+                        hasNextPage: itemsLength === 51
+                    });
+                } catch {
+                    handleSetState({
+                        isNextPageLoading: false
+                    });
+                }
             });
     };
 

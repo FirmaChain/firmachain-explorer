@@ -1,13 +1,13 @@
 import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Loading, NoData, Pagination } from '@components';
+import { Box } from '@mui/material';
 import { usePagination, useScreenSize } from '@hooks';
 import { useProfilesRecoil } from '@recoil/profiles';
 import classnames from 'classnames';
 import * as R from 'ramda';
 
 import { DelegationsType } from '../../types';
-import { useStyles } from './styles';
 
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
@@ -18,14 +18,13 @@ const Delegations: React.FC<
     } & ComponentDefault
 > = (props) => {
     const { isDesktop } = useScreenSize();
-    const classes = useStyles();
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = usePagination({});
 
     const pageItems = R.pathOr([], ['delegations', 'data', page], props);
 
-    const dataProfiles = useProfilesRecoil(pageItems.map((x) => x.validator));
+    const dataProfiles = useProfilesRecoil(pageItems.map((x: any) => x.validator));
 
-    const mergedDataWithProfiles = pageItems.map((x, i) => {
+    const mergedDataWithProfiles = pageItems.map((x: any, i: number) => {
         return {
             ...x,
             validator: dataProfiles[i]
@@ -49,14 +48,15 @@ const Delegations: React.FC<
     return (
         <div className={classnames(props.className)}>
             {component}
-            <Pagination
-                className={classes.paginate}
-                total={props.delegations.count}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            <Box sx={{ mt: 3 }}>
+                <Pagination
+                    total={props.delegations.count}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    handleChangePage={handleChangePage}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            </Box>
         </div>
     );
 };

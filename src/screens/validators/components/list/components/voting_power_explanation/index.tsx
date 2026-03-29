@@ -1,18 +1,14 @@
 import React from 'react';
 import Trans from '@/adapters/i18n/Trans';
-import { Typography } from '@mui/material';
-
-import { useStyles } from './styles';
+import { Box, Typography } from '@mui/material';
 
 const VotingPowerExplanation = () => {
-    const classes = useStyles();
-
     return (
-        <div className={classes.root}>
+        <Box sx={{ height: '100%' }}>
             <Typography>
                 <Trans i18nKey="validators:votingPowerExplanation" components={[<b />]} />
             </Typography>
-        </div>
+        </Box>
     );
 };
 

@@ -4,18 +4,16 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { chainConfig, generalConfig } from '@/configs';
 import FooterLogoLight from '@assets/big-dipper-red.svg?react';
 import FooterLogoDark from '@assets/big-dipper-white.svg?react';
-import { Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { readTheme } from '@recoil/settings/selectors';
-import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';
 
 import { SocialMedia } from './components';
-import { useStyles } from './styles';
 import { donateLink, footerLinks } from './utils';
 
 const Footer: React.FC<{ className?: string }> = ({ className }) => {
     const { t } = useTranslation();
-    const classes = useStyles();
     const theme = useRecoilValue(readTheme);
 
     // ============================
@@ -24,8 +22,118 @@ const Footer: React.FC<{ className?: string }> = ({ className }) => {
     const year = new Date().getFullYear();
 
     return (
-        <div className={classnames(className, classes.root)}>
-            <div className={classnames('footer')}>
+        <Box
+            className={className}
+            sx={(muiTheme: any) => ({
+                background: muiTheme.palette.background.paper,
+                padding: muiTheme.spacing(6, 3, 6),
+                color: muiTheme.palette.custom.fonts.fontOne,
+                '& .footer__closing--container a': {
+                    color: muiTheme.palette.custom.fonts.highlight
+                },
+                '& .MuiDivider-root': {
+                    margin: muiTheme.spacing(4, 0)
+                },
+                '& p': {
+                    marginTop: muiTheme.spacing(2),
+                    marginBottom: muiTheme.spacing(2)
+                },
+                '& .footer__logo--container p': {
+                    marginTop: muiTheme.spacing(1),
+                    marginBottom: 0
+                },
+                '& .footer__logo': {
+                    width: '180px'
+                },
+                '& .footer__closing--text': {
+                    color: muiTheme.palette.custom.fonts.fontThree
+                },
+                '& .footer__links': {
+                    marginTop: '1rem'
+                },
+                '& h3': {
+                    color: muiTheme.palette.custom.fonts.fontThree,
+                    fontWeight: 500,
+                    marginBottom: muiTheme.spacing(2),
+                    marginTop: muiTheme.spacing(2)
+                },
+                '& .links__group': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    '& a': {
+                        margin: '0.5rem 0',
+                        color: 'inherit',
+                        textDecoration: 'none',
+                        paddingBottom: { xs: '1rem', lg: 0 },
+                        borderBottom: {
+                            xs: `solid 1px ${muiTheme.palette.custom.fonts.fontFour}`,
+                            lg: 'none'
+                        },
+                        transition: '0.2s',
+                        width: { xs: '100%', lg: 'auto' },
+                        '&:hover': {
+                            color: alpha(muiTheme.palette.custom.fonts.fontOne, 0.6)
+                        }
+                    },
+                    '&.forbole a:last-child': {
+                        paddingBottom: '0',
+                        borderBottom: 'none'
+                    },
+                    '&.media': {
+                        display: 'none'
+                    },
+                    [muiTheme.breakpoints.up('lg')]: {
+                        '& a': {
+                            borderBottom: 'none',
+                            padding: 0,
+                            width: 'auto'
+                        },
+                        '&.media': {
+                            display: 'grid'
+                        }
+                    }
+                },
+                [muiTheme.breakpoints.up('md')]: {
+                    paddingBottom: 0,
+                    '& .MuiDivider-root': {
+                        marginBottom: 0
+                    },
+                    '& .footer__closing--container': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: muiTheme.spacing(1, 0)
+                    }
+                },
+                [muiTheme.breakpoints.up('lg')]: {
+                    '& .MuiDivider-root': {
+                        marginTop: muiTheme.spacing(5)
+                    },
+                    '& .footer': {
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(4, 1fr)'
+                    },
+                    '& .footer__links': {
+                        gridColumn: '2/5',
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(3, 1fr)',
+                        marginTop: 0
+                    },
+                    '& .links__group.media': {
+                        display: 'grid'
+                    },
+                    '& h3': {
+                        fontSize: '1.125rem',
+                        marginTop: 0
+                    },
+                    '& .footer__social': {
+                        justifyContent: 'flex-end'
+                    }
+                }
+            })}
+        >
+            <div className="footer">
                 {/* ============================= */}
                 {/* logo */}
                 {/* ============================= */}
@@ -107,7 +215,7 @@ const Footer: React.FC<{ className?: string }> = ({ className }) => {
                     />
                 </Typography>
             </div>
-        </div>
+        </Box>
     );
 };
 

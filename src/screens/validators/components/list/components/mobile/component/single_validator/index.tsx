@@ -1,9 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import classnames from 'classnames';
-
-import { useStyles } from './styles';
 
 const SingleValidator: React.FC<{
     className?: string;
@@ -17,23 +15,56 @@ const SingleValidator: React.FC<{
     };
 }> = ({ className, validator, commission, votingPower, status }) => {
     const { t } = useTranslation('validators');
-    const classes = useStyles();
     return (
-        <div className={classnames(className, classes.root)}>
-            <div className={classes.item}>
+        <Box
+            className={classnames(className)}
+            sx={(theme) => ({
+                my: 2,
+                '& .item': {
+                    mb: 2,
+                    '& .label': {
+                        mb: 1,
+                        color: theme.palette.custom.fonts.fontThree,
+                        '&.popover': {
+                            display: 'flex',
+                            alignItems: 'flex-start'
+                        }
+                    },
+                    '& p.value': {
+                        color: theme.palette.custom.fonts.fontTwo
+                    },
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    },
+                    '& .status.one': { color: theme.palette.custom.tags.one },
+                    '& .status.two': { color: theme.palette.custom.tags.two },
+                    '& .status.three': { color: theme.palette.custom.tags.three },
+                    '& .status.zero': { color: theme.palette.custom.tags.zero }
+                },
+                '& .flex': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    '& > div': {
+                        width: '50%'
+                    }
+                }
+            })}
+        >
+            <div className="item">
                 <Typography variant="h4" className="label">
                     {t('validator')}
                 </Typography>
                 {validator}
             </div>
-            <div className={classes.item}>
+            <div className="item">
                 <Typography variant="h4" className="label">
                     {t('votingPower')}
                 </Typography>
                 {votingPower}
             </div>
-            <div className={classes.flex}>
-                <div className={classes.item}>
+            <div className="flex">
+                <div className="item">
                     <Typography variant="h4" className="label">
                         {t('status')}
                     </Typography>
@@ -41,7 +72,7 @@ const SingleValidator: React.FC<{
                         {t(status.status)}
                     </Typography>
                 </div>
-                <div className={classes.item}>
+                <div className="item">
                     <Typography variant="h4" className="label">
                         {t('commission')}
                     </Typography>
@@ -50,7 +81,7 @@ const SingleValidator: React.FC<{
                     </Typography>
                 </div>
             </div>
-        </div>
+        </Box>
     );
 };
 

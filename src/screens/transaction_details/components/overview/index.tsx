@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { BoxDetails, Result } from '@components';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { formatNumber } from '@utils/format_token';
@@ -12,14 +12,12 @@ import numeral from 'numeral';
 import { useRecoilValue } from 'recoil';
 
 import { OverviewType } from '../../types';
-import { useStyles } from './styles';
 
 const Overview: React.FC<{
     className?: string;
     data: OverviewType;
 }> = ({ className, data }) => {
     const { t } = useTranslation('transactions');
-    const classes = useStyles();
     const dateFormat = useRecoilValue(readDate);
 
     const details = [
@@ -78,7 +76,21 @@ const Overview: React.FC<{
         });
     }
 
-    return <BoxDetails className={classnames(className, classes.root)} title={t('overview')} details={details} />;
+    return (
+        <Box
+            className={classnames(className)}
+            sx={(theme: any) => ({
+                '& .memo': {
+                    alignItems: 'flex-start',
+                    '& .label': {
+                        marginRight: theme.spacing(5)
+                    }
+                }
+            })}
+        >
+            <BoxDetails title={t('overview')} details={details} />
+        </Box>
+    );
 };
 
 export default Overview;

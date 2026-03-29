@@ -30,13 +30,7 @@ type Props =
       };
 
 function ParamsChangeBlock({ content, classes }: { content: OverviewType['content'][number]; classes: Record<string, string> }) {
-    console.log('------------------------------------------------------');
-    console.log(content);
-    console.log('------------------------------------------------------');
     const changes = getChanges(content);
-    console.log('------------------------------------------------------');
-    console.log(changes);
-    console.log('------------------------------------------------------');
     return (
         <div className={classes.messageBodyBlock ?? ''}>
             {changes.length > 0 && <ParamsChange changes={changes} />}

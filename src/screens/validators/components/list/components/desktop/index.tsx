@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, InfoPopover, SortArrows } from '@components';
 import { useGrid } from '@hooks';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import classnames from 'classnames';
@@ -12,7 +12,6 @@ import { VariableSizeGrid as Grid } from 'react-window';
 
 import { Condition, VotingPower, VotingPowerExplanation } from '..';
 import { ItemType } from '../../types';
-import { useStyles } from './styles';
 import { fetchColumns } from './utils';
 
 const Desktop: React.FC<{
@@ -23,7 +22,6 @@ const Desktop: React.FC<{
     items: ItemType[];
 }> = (props) => {
     const { t } = useTranslation('validators');
-    const classes = useStyles();
     const columns = fetchColumns(t);
 
     const { gridRef, columnRef, onResize, getColumnWidth, getRowHeight } = useGrid(columns);
@@ -55,7 +53,35 @@ const Desktop: React.FC<{
     });
 
     return (
-        <div className={classnames(props.className, classes.root)}>
+        <Box
+            className={classnames(props.className)}
+            sx={(theme) => ({
+                height: '100%',
+                '& .status.one': { color: theme.palette.custom.tags.one },
+                '& .status.two': { color: theme.palette.custom.tags.two },
+                '& .status.three': { color: theme.palette.custom.tags.three },
+                '& .status.zero': { color: theme.palette.custom.tags.zero },
+                '& .cell': {
+                    ...theme.mixins.tableCell,
+                    '&.sort:hover': {
+                        cursor: 'pointer'
+                    }
+                },
+                '& .flexCells > *': {
+                    display: 'flex',
+                    alignItems: 'center'
+                },
+                '& .flexCells.right > *': {
+                    justifyContent: 'flex-end'
+                },
+                '& .flexCells.center > *': {
+                    justifyContent: 'center'
+                },
+                '& .body': {
+                    color: theme.palette.custom.fonts.fontTwo
+                }
+            })}
+        >
             <AutoSizer onResize={onResize}>
                 {({ height, width }) => {
                     return (
@@ -92,8 +118,8 @@ const Desktop: React.FC<{
                                     return (
                                         <div
                                             style={style}
-                                            className={classnames(classes.cell, {
-                                                [classes.flexCells]: component || sort,
+                                            className={classnames('cell', {
+                                                flexCells: component || sort,
                                                 [align]: sort || component,
                                                 sort
                                             })}
@@ -131,7 +157,7 @@ const Desktop: React.FC<{
                                     return (
                                         <div
                                             style={style}
-                                            className={classnames(classes.cell, classes.body, {
+                                            className={classnames('cell', 'body', {
                                                 odd: !(rowIndex % 2)
                                             })}
                                         >
@@ -146,7 +172,7 @@ const Desktop: React.FC<{
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

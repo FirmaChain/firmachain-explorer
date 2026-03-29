@@ -1,9 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { Typography } from '@mui/material';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
+import { Box, Typography } from '@mui/material';
 
 const SingleBlockMobile: React.FC<{
     className?: string;
@@ -15,59 +12,142 @@ const SingleBlockMobile: React.FC<{
     proposer: React.ReactNode;
 }> = ({ className, height, hash, parentHash, txs, time, proposer }) => {
     const { t } = useTranslation('blocks');
-    const classes = useStyles();
 
     return (
-        <div className={classnames(className, classes.root)}>
-            <div className={classes.item}>
+        <Box className={className} sx={{ my: 2 }}>
+            <Box
+                sx={(theme: any) => ({
+                    mb: 2,
+                    '& .label': {
+                        mb: 1,
+                        color: theme.palette.custom.fonts.fontThree
+                    },
+                    '& p.value': {
+                        color: theme.palette.custom.fonts.fontTwo
+                    },
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    }
+                })}
+            >
                 <Typography variant="h4" className="label">
                     {t('height')}
                 </Typography>
                 {height}
-            </div>
-            <div className={classes.item}>
+            </Box>
+            <Box
+                sx={(theme: any) => ({
+                    mb: 2,
+                    '& .label': {
+                        mb: 1,
+                        color: theme.palette.custom.fonts.fontThree
+                    },
+                    '& p.value': {
+                        color: theme.palette.custom.fonts.fontTwo
+                    },
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    }
+                })}
+            >
                 <Typography variant="h4" className="label">
                     {t('proposer')}
                 </Typography>
                 {proposer}
-            </div>
-            <div className={classes.item}>
+            </Box>
+            <Box
+                sx={(theme: any) => ({
+                    mb: 2,
+                    '& .label': {
+                        mb: 1,
+                        color: theme.palette.custom.fonts.fontThree
+                    },
+                    '& p.value': {
+                        color: theme.palette.custom.fonts.fontTwo
+                    },
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    }
+                })}
+            >
                 <Typography variant="h4" className="label">
                     {t('hash')}
                 </Typography>
                 <Typography variant="body1" className="value">
                     {hash}
                 </Typography>
-            </div>
+            </Box>
             {parentHash && (
-                <div className={classes.item}>
+                <Box
+                    sx={(theme: any) => ({
+                        mb: 2,
+                        '& .label': {
+                            mb: 1,
+                            color: theme.palette.custom.fonts.fontThree
+                        },
+                        '& p.value': {
+                            color: theme.palette.custom.fonts.fontTwo
+                        },
+                        '& a': {
+                            color: theme.palette.custom.fonts.highlight
+                        }
+                    })}
+                >
                     <Typography variant="h4" className="label">
                         {t('parentHash')}
                     </Typography>
                     <Typography variant="body1" className="value">
                         {parentHash}
                     </Typography>
-                </div>
+                </Box>
             )}
-            <div className={classes.flex}>
-                <div className={classes.item}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', '& > div': { width: '50%' } }}>
+                <Box
+                    sx={(theme: any) => ({
+                        mb: 2,
+                        '& .label': {
+                            mb: 1,
+                            color: theme.palette.custom.fonts.fontThree
+                        },
+                        '& p.value': {
+                            color: theme.palette.custom.fonts.fontTwo
+                        },
+                        '& a': {
+                            color: theme.palette.custom.fonts.highlight
+                        }
+                    })}
+                >
                     <Typography variant="h4" className="label">
                         {t('txs')}
                     </Typography>
                     <Typography variant="body1" className="value">
                         {txs}
                     </Typography>
-                </div>
-                <div className={classes.item}>
+                </Box>
+                <Box
+                    sx={(theme: any) => ({
+                        mb: 2,
+                        '& .label': {
+                            mb: 1,
+                            color: theme.palette.custom.fonts.fontThree
+                        },
+                        '& p.value': {
+                            color: theme.palette.custom.fonts.fontTwo
+                        },
+                        '& a': {
+                            color: theme.palette.custom.fonts.highlight
+                        }
+                    })}
+                >
                     <Typography variant="h4" className="label">
                         {t('time')}
                     </Typography>
                     <Typography variant="body1" className="value">
                         {time}
                     </Typography>
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Box>
+        </Box>
     );
 };
 

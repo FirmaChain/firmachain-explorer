@@ -18,7 +18,7 @@ export const darkThemeOverride = {
         }
     },
     palette: {
-        type: 'dark',
+        mode: 'dark',
         primary: {
             main: Color('#FD3B4C').alpha(0.7).string(),
             contrastText: '#fff'
@@ -56,29 +56,33 @@ export const darkThemeOverride = {
             }
         }
     },
-    overrides: {
+    components: {
         MuiTableBody: {
-            root: {
-                '& .MuiTableRow-root': {
-                    '&:nth-child(odd)': {
-                        backgroundColor: surfaceTwo // surface two
+            styleOverrides: {
+                root: {
+                    '& .MuiTableRow-root': {
+                        '&:nth-child(odd)': {
+                            backgroundColor: surfaceTwo // surface two
+                        }
+                    },
+                    '& .MuiTableCell-root': {
+                        color: fontTwo // font two
                     }
-                },
-                '& .MuiTableCell-root': {
-                    color: fontTwo // font two
                 }
             }
         },
         MuiTabs: {
-            root: {
-                '& .MuiTab-textColorInherit': {
-                    color: fontThree // font three
-                },
-                '& .MuiTab-textColorInherit.Mui-selected': {
-                    color: fontOne // font one
-                },
-                '& .MuiTabs-indicator': {
-                    backgroundColor: fontOne // font one (?)
+            styleOverrides: {
+                root: {
+                    '& .MuiTab-textColorInherit': {
+                        color: fontThree // font three
+                    },
+                    '& .MuiTab-textColorInherit.Mui-selected': {
+                        color: fontOne // font one
+                    },
+                    '& .MuiTabs-indicator': {
+                        backgroundColor: fontOne // font one (?)
+                    }
                 }
             }
         }

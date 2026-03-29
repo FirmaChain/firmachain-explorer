@@ -1,15 +1,12 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import Link from '@/adapters/routing/link';
 import { useRouter } from '@/adapters/routing/router';
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import classnames from 'classnames';
-
-import { useStyles } from './styles';
+import Color from 'color';
 import { getMenuItems } from './utils';
 
 const MenuItems = () => {
-    const classes = useStyles();
     const router = useRouter();
     const { t } = useTranslation('common');
     const items = getMenuItems();
@@ -26,18 +23,32 @@ const MenuItems = () => {
                 }
 
                 return (
-                    <Link href={x.url} key={x.key} passHref>
-                        <ListItem
-                            button
-                            className={classnames(classes.root, {
-                                active: isActive
-                            })}
-                            component="a"
-                        >
-                            <ListItemIcon>{x.icon}</ListItemIcon>
-                            <ListItemText primary={t(x.key)} />
-                        </ListItem>
-                    </Link>
+                    <ListItemButton
+                        key={x.key}
+                        className={classnames({ active: isActive })}
+                        onClick={() => router.push(x.url)}
+                        sx={(theme) => ({
+                            p: theme.spacing(2, 2.5),
+                            '& .MuiListItemIcon-root': {
+                                minWidth: '48px'
+                            },
+                            '& .MuiListItemText-root': {
+                                color: theme.palette.custom.general.icon
+                            },
+                            '&.active': {
+                                background: Color(theme.palette.background.paper).lighten(0.5).string(),
+                                '& .MuiListItemIcon-root svg': {
+                                    fill: theme.palette.primary.main
+                                },
+                                '& .MuiListItemText-root': {
+                                    color: theme.palette.primary.main
+                                }
+                            }
+                        })}
+                    >
+                        <ListItemIcon>{x.icon}</ListItemIcon>
+                        <ListItemText primary={t(x.key)} />
+                    </ListItemButton>
                 );
             })}
         </List>

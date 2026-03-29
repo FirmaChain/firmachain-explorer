@@ -1,9 +1,6 @@
 import React from 'react';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
 
 const BoxDetails: React.FC<{
     className?: string;
@@ -15,18 +12,51 @@ const BoxDetails: React.FC<{
         className?: string;
     }[];
 }> = ({ className, title, titleAction, details }) => {
-    const classes = useStyles();
     return (
-        <Box className={classnames(className, classes.root)}>
+        <Box
+            className={className}
+            sx={(theme) => ({
+                overflow: 'hidden',
+                '& .item': {
+                    padding: theme.spacing(2, 0),
+                    color: theme.palette.custom.fonts.fontTwo,
+                    '&:first-child': {
+                        paddingTop: 0
+                    },
+                    '&:last-child': {
+                        paddingBottom: 0
+                    },
+                    '&:not(:last-child)': {
+                        borderBottom: `solid 1px ${theme.palette.divider}`
+                    },
+                    '& .label': {
+                        marginBottom: theme.spacing(1)
+                    },
+                    '& .detail': {
+                        '&.MuiTypography-body1': {
+                            wordWrap: 'break-word'
+                        }
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        '& .label': {
+                            marginBottom: 0
+                        }
+                    }
+                }
+            })}
+        >
             {!!title && (
-                <div className={classnames(classes.header, classes.item)}>
+                <div className="header item">
                     {React.isValidElement(title) ? title : <Typography variant="h2">{title}</Typography>}
                     {!!titleAction && titleAction}
                 </div>
             )}
             {details.map((x, i) => {
                 return (
-                    <div className={classnames(classes.item, x.className)} key={`box-detail__item--${i}`}>
+                    <div className={`item ${x.className ?? ''}`.trim()} key={`box-detail__item--${i}`}>
                         {React.isValidElement(x.label) ? (
                             <div className="label">{x.label}</div>
                         ) : (

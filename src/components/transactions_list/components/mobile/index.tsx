@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Loading, Result, SingleTransactionMobile } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
@@ -17,11 +17,9 @@ import InfiniteLoader from 'react-window-infinite-loader';
 import { getMessageByType } from '@/components/msg';
 
 import { TransactionsListState } from '../../types';
-import { useStyles } from './styles';
 
 const Mobile: React.FC<TransactionsListState> = ({ className, itemCount, loadMoreItems, isItemLoaded, transactions }) => {
     const { t } = useTranslation('transactions');
-    const classes = useStyles();
 
     const { listRef, getRowHeight, setRowHeight } = useList();
 
@@ -59,7 +57,7 @@ const Mobile: React.FC<TransactionsListState> = ({ className, itemCount, loadMor
     });
 
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer>
                 {({ height, width }) => {
                     return (
@@ -101,7 +99,7 @@ const Mobile: React.FC<TransactionsListState> = ({ className, itemCount, loadMor
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

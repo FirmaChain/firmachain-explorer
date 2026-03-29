@@ -1,14 +1,30 @@
 import React from 'react';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
+import { Box } from '@mui/material';
 
 const Condition: React.FC<{
     className?: string;
 }> = ({ className }) => {
-    const classes = useStyles();
-
-    return <div className={classnames(className, classes.root)} />;
+    return (
+        <Box
+            className={className}
+            sx={(theme: any) => ({
+                width: '10px',
+                height: '10px',
+                background: theme.palette.custom.condition.zero,
+                margin: '0 auto',
+                borderRadius: '50%',
+                '&.green': {
+                    background: theme.palette.custom.condition.one
+                },
+                '&.yellow': {
+                    background: theme.palette.custom.condition.two
+                },
+                '&.red': {
+                    background: theme.palette.custom.condition.three
+                }
+            })}
+        />
+    );
 };
 
 export default Condition;

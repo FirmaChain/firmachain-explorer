@@ -1,24 +1,30 @@
 import React from 'react';
+import { Box } from '@mui/material';
+import { defaultTooltipSx } from '@/styles/ui';
 import classnames from 'classnames';
-
-import { useStyles } from './styles';
 
 /**
  * Custom tooltips for recharts
  */
 const CustomToolTip: React.FC<{
     className?: string;
-    children: (data) => React.ReactNode;
+    children: (data: any) => React.ReactNode;
     active?: boolean;
     payload?: any;
 }> = (props) => {
     const { active, payload, className, children } = props;
+    const firstPayload = Array.isArray(payload) && payload.length ? payload[0] : null;
+    const data = firstPayload?.payload;
 
-    const classes = useStyles();
-
-    if (payload && active) {
-        const { payload: data } = payload?.[0];
-        return <div className={classnames(classes.root, className)}>{children(data)}</div>;
+    if (data && active) {
+        return (
+            <Box
+                className={classnames(className)}
+                sx={(theme) => defaultTooltipSx(theme)}
+            >
+                {children(data)}
+            </Box>
+        );
     }
 
     return null;

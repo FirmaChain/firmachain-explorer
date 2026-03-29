@@ -2,14 +2,13 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
 import { DesmosProfile, Layout, LoadAndExist } from '@components';
+import { Box } from '@mui/material';
 
 import { Balance, OtherTokens, Overview, Staking, Transactions } from './components';
 import { useAccountDetails } from './hooks';
-import { useStyles } from './styles';
 
 const AccountDetails = () => {
     const { t } = useTranslation('accounts');
-    const classes = useStyles();
     const { state } = useAccountDetails();
 
     return (
@@ -22,7 +21,20 @@ const AccountDetails = () => {
             />
             <Layout navTitle={t('accountDetails')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
-                    <span className={classes.root}>
+                    <Box
+                        sx={(theme: any) => ({
+                            ...theme.mixins.layout,
+                            display: 'grid',
+                            gridTemplateRows: 'auto',
+                            gridGap: theme.spacing(1),
+                            '& a': {
+                                color: theme.palette.custom.fonts.highlight
+                            },
+                            [theme.breakpoints.up('lg')]: {
+                                gridGap: theme.spacing(2)
+                            }
+                        })}
+                    >
                         {!!state.desmosProfile && (
                             <DesmosProfile
                                 dtag={state.desmosProfile.dtag}
@@ -33,13 +45,8 @@ const AccountDetails = () => {
                                 coverUrl={state.desmosProfile.coverUrl}
                             />
                         )}
-                        <Overview
-                            className={classes.overview}
-                            withdrawalAddress={state.overview.withdrawalAddress}
-                            address={state.overview.address}
-                        />
+                        <Overview withdrawalAddress={state.overview.withdrawalAddress} address={state.overview.address} />
                         <Balance
-                            className={classes.balance}
                             available={state.balance.available}
                             delegate={state.balance.delegate}
                             unbonding={state.balance.unbonding}
@@ -47,10 +54,10 @@ const AccountDetails = () => {
                             commission={state.balance.commission}
                             total={state.balance.total}
                         />
-                        <OtherTokens className={classes.otherTokens} otherTokens={state.otherTokens} />
-                        <Staking className={classes.staking} rewards={state.rewards} />
-                        <Transactions className={classes.transactions} />
-                    </span>
+                        <OtherTokens otherTokens={state.otherTokens} />
+                        <Staking rewards={state.rewards} />
+                        <Transactions />
+                    </Box>
                 </LoadAndExist>
             </Layout>
         </>

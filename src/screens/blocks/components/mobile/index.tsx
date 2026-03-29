@@ -2,7 +2,7 @@ import React from 'react';
 import Link from '@/adapters/routing/link';
 import { AvatarName, Loading, SingleBlockMobile } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
@@ -14,7 +14,6 @@ import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 
 import { ItemType } from '../../types';
-import { useStyles } from './styles';
 
 const Mobile: React.FC<{
     className?: string;
@@ -23,8 +22,6 @@ const Mobile: React.FC<{
     loadMoreItems: (any) => void;
     isItemLoaded?: (index: number) => boolean;
 }> = ({ className, items, itemCount, loadMoreItems, isItemLoaded }) => {
-    const classes = useStyles();
-
     const { listRef, getRowHeight, setRowHeight } = useList();
 
     const formattedItems = items.map((x) => {
@@ -47,7 +44,7 @@ const Mobile: React.FC<{
     });
 
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer>
                 {({ height, width }) => {
                     return (
@@ -89,7 +86,7 @@ const Mobile: React.FC<{
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

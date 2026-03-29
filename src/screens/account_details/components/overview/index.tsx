@@ -22,7 +22,6 @@ import {
 } from 'react-share';
 
 import { useOverview } from './hooks';
-import { useStyles } from './styles';
 
 const Overview: React.FC<{
     className?: string;
@@ -31,7 +30,6 @@ const Overview: React.FC<{
 }> = ({ className, address, withdrawalAddress }) => {
     const { isDesktop } = useScreenSize();
     const { location } = useWindowOrigin();
-    const classes = useStyles();
     const { t } = useTranslation('accounts');
     const { open, handleClose, handleOpen, handleCopyToClipboard } = useOverview(t);
 
@@ -40,14 +38,26 @@ const Overview: React.FC<{
     return (
         <>
             <Dialog maxWidth="xl" onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-                <Box className={classes.dialog}>
+                <Box
+                    sx={(theme) => ({
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
+                        '& .MuiTypography-body1': { mb: 2 },
+                        '& .dialog__share--wrapper': { mt: 2 },
+                        '& .share-buttons:not(:last-child)': { mr: 1 },
+                        '& .share-buttons.email circle': { fill: theme.palette.primary.main },
+                        '& .icons svg': { width: theme.spacing(4.5), height: theme.spacing(4.5) }
+                    })}
+                >
                     <Typography variant="body1" align="center">
                         {t('scanForAddress')}
                     </Typography>
                     <QRCode value={address} size={200} bgColor="#ffffff" fgColor="#000000" renderAs="svg" />
                     <div className="dialog__share--wrapper">
                         <Typography variant="body1">{t('shareTo')}</Typography>
-                        <div className={classes.icons}>
+                        <div className="icons">
                             <FacebookShareButton url={url} quote={address} hashtag={hashTags[0]} className="share-buttons">
                                 <FacebookIcon round />
                             </FacebookShareButton>
@@ -69,14 +79,40 @@ const Overview: React.FC<{
                     </div>
                 </Box>
             </Dialog>
-            <Box className={classnames(className, classes.root)}>
-                <div className={classnames(classes.copyText, classes.item)}>
+            <Box
+                className={classnames(className)}
+                sx={(theme) => ({
+                    [theme.breakpoints.up('md')]: { display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' },
+                    '& .item': {
+                        p: theme.spacing(2, 0),
+                        color: theme.palette.custom.fonts.fontTwo,
+                        '&:first-child': { pt: 0 },
+                        '&:last-child': { pb: 0 },
+                        '&:not(:last-child)': { borderBottom: `solid 1px ${theme.palette.divider}` },
+                        '& .label': { mb: 1 },
+                        [theme.breakpoints.up('md')]: {
+                            p: 0,
+                            '&:not(:last-child)': { borderBottom: 'none' },
+                            '& .label': { mb: 0 }
+                        }
+                    },
+                    '& .copyText .detail': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'row-reverse',
+                        justifyContent: 'flex-end',
+                        '& svg': { width: '1rem', ml: 1 }
+                    },
+                    '& .actionIcon:hover': { cursor: 'pointer' }
+                })}
+            >
+                <div className={classnames('copyText', 'item')}>
                     <Typography variant="body1" className="label">
                         {t('address')}
                     </Typography>
                     <div className="detail">
-                        <CopyIcon onClick={() => handleCopyToClipboard(address)} className={classes.actionIcons} />
-                        <ShareIcon onClick={handleOpen} className={classes.actionIcons} />
+                        <CopyIcon onClick={() => handleCopyToClipboard(address)} className="actionIcon" />
+                        <ShareIcon onClick={handleOpen} className="actionIcon" />
                         <Typography variant="body1" className="value">
                             {!isDesktop
                                 ? getMiddleEllipsis(address, {
@@ -88,12 +124,12 @@ const Overview: React.FC<{
                     </div>
                 </div>
 
-                <div className={classnames(classes.copyText, classes.item)}>
+                <div className={classnames('copyText', 'item')}>
                     <Typography variant="body1" className="label">
                         {t('rewardAddress')}
                     </Typography>
                     <div className="detail">
-                        <CopyIcon className={classes.actionIcons} onClick={() => handleCopyToClipboard(withdrawalAddress)} />
+                        <CopyIcon className="actionIcon" onClick={() => handleCopyToClipboard(withdrawalAddress)} />
                         <Typography variant="body1" className="value">
                             {!isDesktop
                                 ? getMiddleEllipsis(withdrawalAddress, {

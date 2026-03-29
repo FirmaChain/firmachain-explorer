@@ -4,7 +4,7 @@ import Link from '@/adapters/routing/link';
 import { mergeRefs } from '@/utils/merge_refs';
 import { AvatarName, Loading } from '@components';
 import { useGrid } from '@hooks';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
@@ -15,7 +15,6 @@ import { VariableSizeGrid as Grid } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 
 import { ItemType } from '../../types';
-import { useStyles } from './styles';
 import { columns } from './utils';
 
 const Desktop: React.FC<{
@@ -26,7 +25,6 @@ const Desktop: React.FC<{
     isItemLoaded?: (index: number) => boolean;
 }> = ({ className, items, itemCount, loadMoreItems, isItemLoaded }) => {
     const { t } = useTranslation('blocks');
-    const classes = useStyles();
     const { gridRef, columnRef, onResize, getColumnWidth, getRowHeight } = useGrid(columns);
 
     const formattedItems = items.map((x) => {
@@ -49,7 +47,7 @@ const Desktop: React.FC<{
     });
 
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer onResize={onResize}>
                 {({ height, width }) => {
                     return (
@@ -70,11 +68,16 @@ const Desktop: React.FC<{
                                     const { key, align } = columns[columnIndex];
 
                                     return (
-                                        <div style={style} className={classes.cell}>
+                                        <Box
+                                            style={style}
+                                            sx={(theme: any) => ({
+                                                ...theme.mixins.tableCell
+                                            })}
+                                        >
                                             <Typography variant="h4" align={align}>
                                                 {t(key)}
                                             </Typography>
-                                        </div>
+                                        </Box>
                                     );
                                 }}
                             </Grid>
@@ -128,16 +131,17 @@ const Desktop: React.FC<{
                                                 const { key, align } = columns[columnIndex];
                                                 const item = formattedItems[rowIndex][key];
                                                 return (
-                                                    <div
+                                                    <Box
                                                         style={style}
-                                                        className={classnames(classes.cell, classes.body, {
-                                                            odd: !(rowIndex % 2)
+                                                        sx={(theme: any) => ({
+                                                            ...theme.mixins.tableCell,
+                                                            color: theme.palette.custom.fonts.fontTwo
                                                         })}
                                                     >
                                                         <Typography variant="body1" align={align} component="div">
                                                             {item}
                                                         </Typography>
-                                                    </div>
+                                                    </Box>
                                                 );
                                             }}
                                         </Grid>
@@ -148,7 +152,7 @@ const Desktop: React.FC<{
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

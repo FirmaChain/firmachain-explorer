@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Loading, Result } from '@components';
 import { useList, useListRow, useScreenSize } from '@hooks';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { getMessageByType } from '@msg';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -19,12 +19,10 @@ import { useRecoilValue } from 'recoil';
 
 import { TransactionsListDetailsState } from '../../types';
 import { SingleTransaction } from './components';
-import { useStyles } from './styles';
 
 const TransactionList: React.FC<TransactionsListDetailsState> = ({ className, itemCount, loadMoreItems, isItemLoaded, transactions }) => {
     const { isMobile } = useScreenSize();
     const { t } = useTranslation('transactions');
-    const classes = useStyles();
     const dateFormat = useRecoilValue(readDate);
 
     const { listRef, getRowHeight, setRowHeight } = useList();
@@ -58,7 +56,7 @@ const TransactionList: React.FC<TransactionsListDetailsState> = ({ className, it
     }));
 
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer>
                 {({ height, width }) => {
                     return (
@@ -99,7 +97,7 @@ const TransactionList: React.FC<TransactionsListDetailsState> = ({ className, it
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

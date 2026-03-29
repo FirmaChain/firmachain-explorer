@@ -6,10 +6,8 @@ import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
 import { TRANSACTIONS } from '@utils/go_to_page';
-import classnames from 'classnames';
 
 import { useTransactions } from './hooks';
-import { useStyles } from './styles';
 
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
@@ -20,10 +18,47 @@ const Transactions: React.FC<{
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('home');
     const { state } = useTransactions();
-    const classes = useStyles();
     return (
-        <Box className={classnames(className, classes.root)}>
-            <div className={classes.label}>
+        <Box
+            className={className}
+            sx={(theme) => ({
+                display: 'flex',
+                flexDirection: 'column',
+                '& a': {
+                    color: theme.palette.custom.fonts.highlight
+                },
+                '& .button': {
+                    color: theme.palette.custom.fonts.fontTwo,
+                    '&:hover': {
+                        cursor: 'pointer'
+                    }
+                },
+                '& .label': {
+                    marginBottom: theme.spacing(2),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                },
+                '& .seeMoreFooter': {
+                    paddingTop: theme.spacing(2),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                },
+                '& .mobile': {
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'none'
+                    }
+                },
+                '& .desktop': {
+                    display: 'none',
+                    [theme.breakpoints.up('lg')]: {
+                        display: 'block'
+                    }
+                }
+            })}
+        >
+            <div className="label">
                 <Typography variant="h2">{t('latestTransactions')}</Typography>
                 <Link href={TRANSACTIONS} passHref>
                     <Typography variant="h4" className="button" component="a">
@@ -36,13 +71,13 @@ const Transactions: React.FC<{
             ) : (
                 <>
                     {isDesktop ? (
-                        <Desktop className={classes.desktop} items={state.items} />
+                        <Desktop className="desktop" items={state.items} />
                     ) : (
-                        <Mobile className={classes.mobile} items={state.items} />
+                        <Mobile className="mobile" items={state.items} />
                     )}
-                    <Divider className={classes.mobile} />
+                    <Divider className="mobile" />
                     <Link href={TRANSACTIONS} passHref>
-                        <Typography variant="h4" component="a" className={classnames(classes.seeMoreFooter, classes.mobile, 'button')}>
+                        <Typography variant="h4" component="a" className="seeMoreFooter mobile button">
                             {t('seeMore')}
                         </Typography>
                     </Link>

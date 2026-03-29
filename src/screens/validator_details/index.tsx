@@ -2,14 +2,13 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
 import { DesmosProfile, Layout, LoadAndExist } from '@components';
+import { Box } from '@mui/material';
 
 import { Blocks, Profile, Staking, Transactions, ValidatorOverview, VotingPower } from './components';
 import { useValidatorDetails } from './hooks';
-import { useStyles } from './styles';
 
 const ValidatorDetails = () => {
     const { t } = useTranslation('validators');
-    const classes = useStyles();
     const { state } = useValidatorDetails();
     const { desmosProfile, status } = state;
 
@@ -23,18 +22,41 @@ const ValidatorDetails = () => {
             />
             <Layout navTitle={t('validatorDetails')}>
                 <LoadAndExist exists={state.exists} loading={state.loading}>
-                    <span className={classes.root}>
-                        {desmosProfile ? (
-                            <DesmosProfile className={classes.profile} {...desmosProfile} />
-                        ) : (
-                            <Profile className={classes.profile} profile={state.overview} />
-                        )}
-                        <ValidatorOverview className={classes.address} overview={state.overview} status={state.status} />
-                        <VotingPower className={classes.votingPower} data={state.votingPower} status={status.status} />
-                        <Blocks className={classes.blocks} />
-                        <Staking className={classes.staking} />
-                        <Transactions className={classes.transactions} />
-                    </span>
+                    <Box
+                        sx={(theme: any) => ({
+                            ...theme.mixins.layout,
+                            display: 'grid',
+                            gridTemplateColumns: '1fr',
+                            gridTemplateRows: 'auto',
+                            gridGap: theme.spacing(1),
+                            '& a': {
+                                color: theme.palette.custom.fonts.highlight
+                            },
+                            [theme.breakpoints.up('lg')]: {
+                                gridGap: theme.spacing(2),
+                                gridTemplateColumns: 'repeat(2, 1fr) 500px'
+                            }
+                        })}
+                    >
+                        <Box sx={{ gridColumn: { lg: '1 / 4' } }}>
+                            {desmosProfile ? <DesmosProfile {...desmosProfile} /> : <Profile profile={state.overview} />}
+                        </Box>
+                        <Box sx={{ gridColumn: { lg: '1 / 4' } }}>
+                            <ValidatorOverview overview={state.overview} status={state.status} />
+                        </Box>
+                        <Box sx={{ gridColumn: { lg: '1 / 3' } }}>
+                            <VotingPower data={state.votingPower} status={status.status} />
+                        </Box>
+                        <Box sx={{ gridColumn: { lg: '3 / 4' } }}>
+                            <Blocks />
+                        </Box>
+                        <Box sx={{ gridColumn: { lg: '1 / 4' } }}>
+                            <Staking />
+                        </Box>
+                        <Box sx={{ gridColumn: { lg: '1 / 4' } }}>
+                            <Transactions />
+                        </Box>
+                    </Box>
                 </LoadAndExist>
             </Layout>
         </>

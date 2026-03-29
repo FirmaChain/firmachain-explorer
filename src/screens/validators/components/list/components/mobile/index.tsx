@@ -1,7 +1,7 @@
 import React from 'react';
 import { AvatarName } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import classnames from 'classnames';
@@ -42,7 +42,7 @@ const Mobile: React.FC<{
     });
 
     return (
-        <div className={classnames(className)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer>
                 {({ height, width }) => {
                     return (
@@ -70,7 +70,7 @@ const Mobile: React.FC<{
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

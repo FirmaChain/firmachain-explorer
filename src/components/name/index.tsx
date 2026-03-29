@@ -3,9 +3,6 @@ import Link from '@/adapters/routing/link';
 import { ibcConfig } from '@/configs';
 import { Typography } from '@mui/material';
 import { ADDRESS_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
 
 const Name: React.FC<{
     className?: string;
@@ -13,8 +10,6 @@ const Name: React.FC<{
     name: string;
     href?: (address: string) => string;
 }> = ({ className, address, name, href = ADDRESS_DETAILS }) => {
-    const classes = useStyles();
-
     const getExplorerUrlForAddress = (addressIn: string): string | null => {
         const configEntry = Object.entries(ibcConfig).find(([_, config]) => config.display && addressIn.startsWith(config.display));
         return configEntry ? configEntry[1].explorer : null;
@@ -24,7 +19,19 @@ const Name: React.FC<{
 
     return (
         <Link href={explorerUrl ? `${explorerUrl}/${address}` : href(address)} passHref>
-            <Typography variant="body1" className={classnames(className, classes.root)} component="a" target={explorerUrl ? '_blank' : ''}>
+            <Typography
+                variant="body1"
+                className={className}
+                component="a"
+                target={explorerUrl ? '_blank' : ''}
+                sx={(theme: any) => ({
+                    color: theme.palette.custom.fonts.highlight,
+                    wordBreak: 'break-all',
+                    '&:hover': {
+                        cursor: 'pointer'
+                    }
+                })}
+            >
                 {name}
             </Typography>
         </Link>

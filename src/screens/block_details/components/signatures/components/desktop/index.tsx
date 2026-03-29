@@ -1,12 +1,11 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { useGrid } from '@hooks';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import classnames from 'classnames';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeGrid as Grid } from 'react-window';
 
-import { useStyles } from './styles';
 import { columns, formatRows } from './utils';
 
 const Desktop: React.FC<{
@@ -14,12 +13,11 @@ const Desktop: React.FC<{
     signatures: AvatarName[];
 }> = ({ className, signatures }) => {
     const { t } = useTranslation('blocks');
-    const classes = useStyles();
     const { gridRef, columnRef, onResize, getColumnWidth, getRowHeight } = useGrid(columns);
     const rows = formatRows(signatures);
 
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer onResize={onResize}>
                 {({ height, width }) => {
                     return (
@@ -40,11 +38,11 @@ const Desktop: React.FC<{
                                     const { key, align } = columns[columnIndex];
 
                                     return (
-                                        <div style={style} className={classes.cell}>
+                                        <Box style={style} sx={(theme: any) => ({ ...theme.mixins.tableCell })}>
                                             <Typography variant="h4" align={align}>
                                                 {t(key)}
                                             </Typography>
-                                        </div>
+                                        </Box>
                                     );
                                 }}
                             </Grid>
@@ -64,16 +62,17 @@ const Desktop: React.FC<{
                                     const { key, align } = columns[columnIndex];
                                     const selectedItem = rows[rowIndex][key];
                                     return (
-                                        <div
+                                        <Box
                                             style={style}
-                                            className={classnames(classes.cell, classes.body, {
-                                                odd: !(rowIndex % 2)
+                                            sx={(theme: any) => ({
+                                                ...theme.mixins.tableCell,
+                                                color: theme.palette.custom.fonts.fontTwo
                                             })}
                                         >
                                             <Typography variant="body1" align={align} component="div">
                                                 {selectedItem}
                                             </Typography>
-                                        </div>
+                                        </Box>
                                     );
                                 }}
                             </Grid>
@@ -81,7 +80,7 @@ const Desktop: React.FC<{
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

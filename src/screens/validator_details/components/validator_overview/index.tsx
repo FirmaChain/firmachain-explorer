@@ -14,7 +14,6 @@ import numeral from 'numeral';
 
 import { OverviewType, StatusType } from '../../types';
 import { useAddress } from './hooks';
-import { useStyles } from './styles';
 import { getCondition } from './utils';
 
 const ValidatorOverview: React.FC<
@@ -24,7 +23,6 @@ const ValidatorOverview: React.FC<
     } & ComponentDefault
 > = ({ status, overview, className }) => {
     const { isDesktop } = useScreenSize();
-    const classes = useStyles();
     const { t } = useTranslation('validators');
     const { handleCopyToClipboard } = useAddress(t);
 
@@ -38,7 +36,7 @@ const ValidatorOverview: React.FC<
                     {t('status')}
                 </Typography>
             ),
-            value: <Tag value={t(statusTheme.status)} theme={statusTheme.theme as any} className={classes.statusTag} />
+            value: <Tag value={t(statusTheme.status)} theme={statusTheme.theme as any} className="statusTag" />
         },
         {
             key: (
@@ -106,14 +104,74 @@ const ValidatorOverview: React.FC<
 
     return (
         <>
-            <Box className={classnames(className)}>
-                <div className={classes.addressRoot}>
-                    <div className={classnames(classes.copyText, classes.item)}>
+            <Box
+                className={classnames(className)}
+                sx={(theme) => ({
+                    '& .addressRoot': {
+                        [theme.breakpoints.up('md')]: { display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' }
+                    },
+                    '& .item': {
+                        padding: theme.spacing(2, 0),
+                        color: theme.palette.custom.fonts.fontTwo,
+                        '&:first-child': { paddingTop: 0 },
+                        '&:last-child': { paddingBottom: 0 },
+                        '&:not(:last-child)': { borderBottom: `solid 1px ${theme.palette.divider}` },
+                        '& .label': { marginBottom: theme.spacing(1) },
+                        '& a': { color: theme.palette.custom.fonts.highlight },
+                        [theme.breakpoints.up('md')]: {
+                            padding: 0,
+                            '&:not(:last-child)': { borderBottom: 'none' },
+                            '& .label': { marginBottom: 0 }
+                        }
+                    },
+                    '& .copyText .detail': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'row-reverse',
+                        justifyContent: 'flex-end',
+                        '& svg': { width: '1rem', marginLeft: theme.spacing(1) }
+                    },
+                    '& .copyText .detail .value': {
+                        textDecoration: 'none'
+                    },
+                    '& .copyText .detail a': {
+                        textDecoration: 'none'
+                    },
+                    '& .addressRoot .item': {
+                        borderBottom: 'none !important'
+                    },
+                    '& .actionIcon:hover': { cursor: 'pointer' },
+                    '& .statusRoot': {
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(1, 1fr)',
+                        gap: theme.spacing(2),
+                        [theme.breakpoints.up('md')]: { gridTemplateColumns: 'repeat(2, 1fr)' },
+                        [theme.breakpoints.up('lg')]: { gridTemplateColumns: 'repeat(4, 1fr)' }
+                    },
+                    '& .statusItem .label': {
+                        marginBottom: theme.spacing(1),
+                        color: theme.palette.custom.fonts.fontThree,
+                        '&.condition': { display: 'flex', alignItems: 'center' }
+                    },
+                    '& .statusItem .condition__body': { justifySelf: 'flex-start' },
+                    '& .statusItem p.value': {
+                        color: theme.palette.custom.fonts.fontTwo
+                    },
+                    '& .statusItem p.value.good': { color: theme.palette.custom.condition.one },
+                    '& .statusItem p.value.moderate': { color: theme.palette.custom.condition.two },
+                    '& .statusItem p.value.bad': { color: theme.palette.custom.condition.three },
+                    '& .statusItem p.value.condition': { color: theme.palette.custom.condition.zero },
+                    '& .statusTag .MuiTypography-body1': { lineHeight: 1 },
+                    '& .divider': { margin: theme.spacing(3, 0) }
+                })}
+            >
+                <div className="addressRoot">
+                    <div className={classnames('copyText', 'item')}>
                         <Typography variant="body1" className="label">
                             {t('operatorAddress')}
                         </Typography>
                         <div className="detail">
-                            <CopyIcon onClick={() => handleCopyToClipboard(overview.operatorAddress)} className={classes.actionIcons} />
+                            <CopyIcon onClick={() => handleCopyToClipboard(overview.operatorAddress)} className="actionIcon" />
                             <Typography variant="body1" className="value">
                                 {!isDesktop
                                     ? getMiddleEllipsis(overview.operatorAddress, {
@@ -125,12 +183,12 @@ const ValidatorOverview: React.FC<
                         </div>
                     </div>
 
-                    <div className={classnames(classes.copyText, classes.item)}>
+                    <div className={classnames('copyText', 'item')}>
                         <Typography variant="body1" className="label">
                             {t('selfDelegateAddress')}
                         </Typography>
                         <div className="detail">
-                            <CopyIcon className={classes.actionIcons} onClick={() => handleCopyToClipboard(overview.selfDelegateAddress)} />
+                            <CopyIcon className="actionIcon" onClick={() => handleCopyToClipboard(overview.selfDelegateAddress)} />
                             <Link href={ACCOUNT_DETAILS(overview.selfDelegateAddress)} passHref>
                                 <Typography variant="body1" className="value" component="a">
                                     {!isDesktop
@@ -144,11 +202,11 @@ const ValidatorOverview: React.FC<
                         </div>
                     </div>
                 </div>
-                <Divider className={classes.divider} />
-                <div className={classes.statusRoot}>
+                <Divider className="divider" />
+                <div className="statusRoot">
                     {statusItems.map((x, i) => {
                         return (
-                            <div className={classes.statusItem} key={`status-item-${i}`}>
+                            <div className="statusItem" key={`status-item-${i}`}>
                                 {x.key}
                                 {x.value}
                             </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { CustomToolTip } from '@components';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { readDate } from '@recoil/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import numeral from 'numeral';
@@ -10,10 +11,9 @@ import { useRecoilValue } from 'recoil';
 
 import { TokenPriceType } from '../../types';
 import { usePrice } from './hooks';
-import { useStyles } from './styles';
 
 const TokenPrice: React.FC<{ items: TokenPriceType[] } & ComponentDefault> = (props) => {
-    const { classes, theme } = useStyles();
+    const theme = useTheme();
     const { t } = useTranslation('home');
     const { tickPriceFormatter, formatTime } = usePrice();
     const dateFormat = useRecoilValue(readDate);
@@ -28,7 +28,15 @@ const TokenPrice: React.FC<{ items: TokenPriceType[] } & ComponentDefault> = (pr
     return (
         <div>
             <Typography variant="h2">{t('priceHistory')}</Typography>
-            <div className={classes.chart}>
+            <Box
+                sx={{
+                    height: '285px',
+                    width: '100%',
+                    '& .yAxis .recharts-cartesian-axis-tick:first-child': {
+                        display: 'none'
+                    }
+                }}
+            >
                 <ResponsiveContainer width="99%">
                     <AreaChart
                         data={formatItems}
@@ -78,7 +86,7 @@ const TokenPrice: React.FC<{ items: TokenPriceType[] } & ComponentDefault> = (pr
                         />
                     </AreaChart>
                 </ResponsiveContainer>
-            </div>
+            </Box>
         </div>
     );
 };

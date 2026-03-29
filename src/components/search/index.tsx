@@ -1,21 +1,35 @@
 import React from 'react';
-import { InputAdornment, InputBase } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
-import classnames from 'classnames';
+import { Box, InputAdornment, InputBase } from '@mui/material';
 
 import { useSearch } from './hooks';
-import { useStyles } from './styles';
 
 const Search: React.FC<{
     className?: string;
     placeholder: string;
     callback: (value: string) => void;
 }> = ({ className, placeholder, callback }) => {
-    const classes = useStyles();
-
     const { handleOnSubmit, handleOnChange, handleKeyDown, value } = useSearch(callback);
     return (
-        <form className={classnames(className, classes.root)} onSubmit={handleOnSubmit}>
+        <Box
+            component="form"
+            className={className}
+            onSubmit={handleOnSubmit}
+            sx={(theme: any) => ({
+                '& .MuiInputBase-root': {
+                    width: '100%',
+                    background: theme.palette.background.paper,
+                    padding: theme.spacing(0.4, 1.2),
+                    borderRadius: `${theme.shape.borderRadius}px`
+                },
+                '& .MuiInputBase-input': {
+                    textOverflow: 'ellipsis',
+                    '&::placeholder': {
+                        color: theme.palette.custom.fonts.fontFour
+                    }
+                }
+            })}
+        >
             <InputBase
                 placeholder={placeholder}
                 onChange={handleOnChange}
@@ -30,7 +44,7 @@ const Search: React.FC<{
                     </InputAdornment>
                 }
             />
-        </form>
+        </Box>
     );
 };
 

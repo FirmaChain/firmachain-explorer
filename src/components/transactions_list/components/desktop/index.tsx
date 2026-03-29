@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Loading, Result } from '@components';
 import { useGrid } from '@hooks';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
@@ -17,13 +17,10 @@ import InfiniteLoader from 'react-window-infinite-loader';
 import { getMessageByType } from '@/components/msg';
 
 import { TransactionsListState } from '../../types';
-import { useStyles } from './styles';
 import { columns } from './utils';
 
 const Desktop: React.FC<TransactionsListState> = ({ className, itemCount, loadMoreItems, isItemLoaded, transactions }) => {
     const { gridRef, columnRef, onResize, getColumnWidth, getRowHeight } = useGrid(columns);
-
-    const classes = useStyles();
     const { t } = useTranslation('transactions');
 
     const items = transactions.map((x: any) => {
@@ -59,7 +56,7 @@ const Desktop: React.FC<TransactionsListState> = ({ className, itemCount, loadMo
     });
 
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer onResize={onResize}>
                 {({ height, width }) => {
                     return (
@@ -80,11 +77,11 @@ const Desktop: React.FC<TransactionsListState> = ({ className, itemCount, loadMo
                                     const { key, align } = columns[columnIndex];
 
                                     return (
-                                        <div style={style} className={classes.cell}>
+                                        <Box style={style} sx={(theme: any) => ({ ...theme.mixins.tableCell })}>
                                             <Typography variant="h4" align={align}>
                                                 {t(key)}
                                             </Typography>
-                                        </div>
+                                        </Box>
                                     );
                                 }}
                             </Grid>
@@ -138,16 +135,17 @@ const Desktop: React.FC<TransactionsListState> = ({ className, itemCount, loadMo
                                                 const { key, align } = columns[columnIndex];
                                                 const item = items[rowIndex][key];
                                                 return (
-                                                    <div
+                                                    <Box
                                                         style={style}
-                                                        className={classnames(classes.cell, classes.body, {
-                                                            odd: !(rowIndex % 2)
+                                                        sx={(theme: any) => ({
+                                                            ...theme.mixins.tableCell,
+                                                            color: theme.palette.custom.fonts.fontTwo
                                                         })}
                                                     >
                                                         <Typography variant="body1" align={align} component="div">
                                                             {item}
                                                         </Typography>
-                                                    </div>
+                                                    </Box>
                                                 );
                                             }}
                                         </Grid>
@@ -158,7 +156,7 @@ const Desktop: React.FC<TransactionsListState> = ({ className, itemCount, loadMo
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

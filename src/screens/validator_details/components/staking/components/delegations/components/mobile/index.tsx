@@ -1,46 +1,72 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName } from '@components';
-import { Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
 import classnames from 'classnames';
 
 import { ItemType } from '../../types';
-import { useStyles } from './styles';
 
 const Mobile: React.FC<{
     className?: string;
     items?: ItemType[];
 }> = ({ className, items }) => {
-    const classes = useStyles();
     const { t } = useTranslation('accounts');
 
     return (
-        <div className={classnames(className)}>
+        <Box className={classnames(className)}>
             {items.map((x, i) => {
                 return (
                     <React.Fragment key={`votes-mobile-${i}`}>
-                        <div className={classes.list}>
-                            <div className={classes.item}>
+                        <Box sx={{ my: 2 }}>
+                            <Box
+                                sx={(theme) => ({
+                                    mb: 2,
+                                    '& .label': { mb: 1, color: theme.palette.custom.fonts.fontThree },
+                                    '& p.value': {
+                                        color: theme.palette.custom.fonts.fontTwo,
+                                        '&.unknown': { color: theme.palette.custom.condition.zero },
+                                        '&.unbonded': { color: theme.palette.custom.condition.zero },
+                                        '&.active': { color: theme.palette.custom.condition.one },
+                                        '&.jailed': { color: theme.palette.custom.condition.two },
+                                        '&.unbonding': { color: theme.palette.custom.condition.three }
+                                    },
+                                    '& a': { color: theme.palette.custom.fonts.highlight }
+                                })}
+                            >
                                 <Typography variant="h4" className="label">
                                     {t('address')}
                                 </Typography>
                                 <AvatarName name={x.address.name} address={x.address.address} imageUrl={x.address.imageUrl} />
-                            </div>
-                            <div className={classes.item}>
+                            </Box>
+                            <Box
+                                sx={(theme) => ({
+                                    mb: 2,
+                                    '& .label': { mb: 1, color: theme.palette.custom.fonts.fontThree },
+                                    '& p.value': {
+                                        color: theme.palette.custom.fonts.fontTwo,
+                                        '&.unknown': { color: theme.palette.custom.condition.zero },
+                                        '&.unbonded': { color: theme.palette.custom.condition.zero },
+                                        '&.active': { color: theme.palette.custom.condition.one },
+                                        '&.jailed': { color: theme.palette.custom.condition.two },
+                                        '&.unbonding': { color: theme.palette.custom.condition.three }
+                                    },
+                                    '& a': { color: theme.palette.custom.fonts.highlight }
+                                })}
+                            >
                                 <Typography variant="h4" className="label">
                                     {t('amount')}
                                 </Typography>
                                 <Typography variant="body1" className="value">
                                     {formatNumber(x.amount.value, x.amount.exponent)} {x.amount.displayDenom.toUpperCase()}
                                 </Typography>
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
                         {i !== items.length - 1 && <Divider />}
                     </React.Fragment>
                 );
             })}
-        </div>
+        </Box>
     );
 };
 

@@ -1,21 +1,34 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { readNetworks } from '@recoil/big_dipper_networks';
 import { useRecoilValue } from 'recoil';
 
 import { SingleNetwork } from './components';
-import { useStyles } from './styles';
 
 const Networks: React.FC<{
     className?: string;
 }> = ({ className }) => {
     const networks = useRecoilValue(readNetworks);
-    const classes = useStyles();
 
     return (
-        <div className={className}>
+        <Box className={className}>
             {networks.map((x) => (
-                <div className={classes.networkList} key={x.name}>
+                <Box
+                    key={x.name}
+                    sx={(theme) => ({
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        justifyContent: 'flex-start',
+                        '& img': {
+                            width: '25px',
+                            mr: 2
+                        },
+                        '& .network': {
+                            flex: 1,
+                            minWidth: 0
+                        }
+                    })}
+                >
                     <img src={x.logo} alt="logo" />
                     <div className="network">
                         <Typography variant="h4">{x.name}</Typography>
@@ -56,9 +69,9 @@ const Networks: React.FC<{
                             />
                         ))}
                     </div>
-                </div>
+                </Box>
             ))}
-        </div>
+        </Box>
     );
 };
 

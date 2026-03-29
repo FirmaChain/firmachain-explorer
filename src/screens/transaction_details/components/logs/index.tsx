@@ -2,8 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
-
-import { useGetStyles } from './styles';
+import { useTheme } from '@mui/material/styles';
 
 const Logs: React.FC<
     {
@@ -11,17 +10,28 @@ const Logs: React.FC<
         isEvents: boolean;
     } & ComponentDefault
 > = ({ datas, isEvents = false }) => {
-    const { classes } = useGetStyles();
+    const theme = useTheme();
     const { t } = useTranslation('transactions');
     return (
-        <Box className={classes.root}>
-            <Typography variant="h2" className={classes.header}>
-                {isEvents ? t('events') : t('logs')}
-            </Typography>
-            <pre className={classes.pre}>
-                <code>{JSON.stringify(datas, null, 4)}</code>
-            </pre>
-        </Box>
+        <div style={{ overflow: 'hidden' }}>
+            <Box>
+                <Typography variant="h2" sx={{ pb: 2 }}>
+                    {isEvents ? t('events') : t('logs')}
+                </Typography>
+                <pre
+                    style={{
+                        maxHeight: '400px',
+                        overflow: 'auto',
+                        padding: '1rem',
+                        margin: '0',
+                        background: theme.palette.background.default,
+                        flex: 1
+                    }}
+                >
+                    <code style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(datas, null, 4)}</code>
+                </pre>
+            </Box>
+        </div>
     );
 };
 

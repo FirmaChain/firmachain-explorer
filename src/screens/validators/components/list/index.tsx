@@ -1,13 +1,12 @@
 import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, LoadAndExist, NoData } from '@components';
-import { useScreenSize } from '@hooks';
+import { Box as MuiBox } from '@mui/material';
 import { useProfilesRecoil } from '@recoil/profiles';
 import classnames from 'classnames';
 
 import { Tabs } from './components';
 import { useValidators } from './hooks';
-import { useStyles } from './styles';
 
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
@@ -15,8 +14,6 @@ const Mobile = dynamic(() => import('./components/mobile'));
 const List: React.FC<{
     className?: string;
 }> = ({ className }) => {
-    const { isDesktop } = useScreenSize();
-    const classes = useStyles();
     const { state, handleTabChange, handleSearch, handleSort, sortItems } = useValidators();
     const dataProfiles = useProfilesRecoil(state.items.map((x) => x.validator));
     const mergedDataWithProfiles = state.items.map((x, i) => {
@@ -31,25 +28,30 @@ const List: React.FC<{
         <LoadAndExist loading={state.loading} exists={state.exists}>
             <Box className={classnames(className)}>
                 <Tabs tab={state.tab} handleTabChange={handleTabChange} handleSearch={handleSearch} />
-                <div className={classes.list}>
+                <MuiBox
+                    sx={(theme) => ({
+                        minHeight: { xs: '500px', lg: '65vh' },
+                        height: '50vh'
+                    })}
+                >
                     {items.length ? (
                         <>
-                            {isDesktop ? (
+                            <MuiBox sx={{ display: { xs: 'none', lg: 'block' }, height: '100%' }}>
                                 <Desktop
-                                    className={classes.desktop}
                                     sortDirection={state.sortDirection}
                                     sortKey={state.sortKey}
                                     handleSort={handleSort}
                                     items={items}
                                 />
-                            ) : (
-                                <Mobile className={classes.mobile} items={items} />
-                            )}
+                            </MuiBox>
+                            <MuiBox sx={{ display: { lg: 'none' }, height: '100%' }}>
+                                <Mobile items={items} />
+                            </MuiBox>
                         </>
                     ) : (
                         <NoData />
                     )}
-                </div>
+                </MuiBox>
             </Box>
         </LoadAndExist>
     );

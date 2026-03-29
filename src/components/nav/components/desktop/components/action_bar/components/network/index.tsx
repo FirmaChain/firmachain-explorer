@@ -1,26 +1,46 @@
 import React from 'react';
 import { chainConfig } from '@configs';
-import { Typography } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
 import { readSelectedNetwork } from '@recoil/big_dipper_networks';
 import classnames from 'classnames';
 import { useRecoilValue } from 'recoil';
-
-import { useStyles } from './styles';
 
 const Network: React.FC<{
     className?: string;
     toggleNetwork: () => void;
 }> = ({ className, toggleNetwork }) => {
-    const classes = useStyles();
     const selected = useRecoilValue(readSelectedNetwork);
 
     return (
-        <div className={classnames(className, classes.root)} onClick={toggleNetwork} role="button">
-            <img src={chainConfig.icon} className={classes.icon} alt="icon" />
+        <Box
+            className={classnames(className)}
+            onClick={toggleNetwork}
+            role="button"
+            sx={(theme) => ({
+                p: theme.spacing(0.8, 2),
+                background: theme.palette.background.paper,
+                color: theme.palette.custom.fonts.fontTwo,
+                borderRadius: `${theme.shape.borderRadius}px`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                '&:hover': {
+                    cursor: 'pointer'
+                },
+                '& .MuiSvgIcon-root': {
+                    ml: '0.1rem'
+                },
+                '& .icon': {
+                    width: 24,
+                    mr: 1
+                }
+            })}
+        >
+            <img src={chainConfig.icon} className="icon" alt="icon" />
             <Typography variant="body1">{selected}</Typography>
             <ExpandMore />
-        </div>
+        </Box>
     );
 };
 

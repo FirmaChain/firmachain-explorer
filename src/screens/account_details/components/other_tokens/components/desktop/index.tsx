@@ -16,7 +16,7 @@ const Desktop: React.FC<{
     const { t } = useTranslation('accounts');
 
     const formattedItems = items.map((x) => {
-        let available = {
+        const available = {
             value: x.available.value,
             exponent: x.available.exponent
         };
@@ -40,8 +40,8 @@ const Desktop: React.FC<{
     });
 
     return (
-        <div className={classnames(className)}>
-            <Table>
+        <div className={classnames(className)} style={{ width: '100%' }}>
+            <Table sx={{ width: '100%' }}>
                 <TableHead>
                     <TableRow>
                         {columns.map((column) => {

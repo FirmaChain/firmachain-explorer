@@ -2,12 +2,10 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName } from '@components';
 import { useList, useListRow } from '@hooks';
-import { Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import classnames from 'classnames';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
-
-import { useStyles } from './styles';
 
 const Mobile: React.FC<{
     className?: string;
@@ -16,10 +14,9 @@ const Mobile: React.FC<{
     const { t } = useTranslation('blocks');
 
     const { listRef, getRowHeight, setRowHeight } = useList();
-    const classes = useStyles();
 
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box className={classnames(className)} sx={{ height: '100%' }}>
             <AutoSizer>
                 {({ height, width }) => {
                     return (
@@ -38,8 +35,22 @@ const Mobile: React.FC<{
                                     <div style={style}>
                                         <div ref={rowRef}>
                                             {/* single signature start */}
-                                            <div className={classes.itemWrapper}>
-                                                <div className={classes.item}>
+                                            <Box sx={{ my: 2 }}>
+                                                <Box
+                                                    sx={(theme) => ({
+                                                        mb: 2,
+                                                        '& .label': {
+                                                            mb: 1,
+                                                            color: theme.palette.custom.fonts.fontThree
+                                                        },
+                                                        '& p.value': {
+                                                            color: theme.palette.custom.fonts.fontTwo
+                                                        },
+                                                        '& a': {
+                                                            color: theme.palette.custom.fonts.highlight
+                                                        }
+                                                    })}
+                                                >
                                                     <Typography variant="h4" className="label">
                                                         {t('validator')}
                                                     </Typography>
@@ -48,8 +59,8 @@ const Mobile: React.FC<{
                                                         imageUrl={selectedItem.imageUrl}
                                                         name={selectedItem.name}
                                                     />
-                                                </div>
-                                            </div>
+                                                </Box>
+                                            </Box>
                                             {/* single signature end */}
                                             {index !== signatures.length - 1 && <Divider />}
                                         </div>
@@ -60,7 +71,7 @@ const Mobile: React.FC<{
                     );
                 }}
             </AutoSizer>
-        </div>
+        </Box>
     );
 };
 

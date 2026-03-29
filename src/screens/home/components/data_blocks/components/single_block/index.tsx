@@ -1,19 +1,45 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import classnames from 'classnames';
-
-import { useStyles } from './styles';
+import { Box, Typography } from '@mui/material';
+import { SxProps, Theme } from '@mui/material/styles';
 
 const SingleBlock: React.FC<{
-    className?: string;
+    sx?: SxProps<Theme>;
     label: string;
     value: string;
     description?: string;
-}> = ({ className, label, value, description }) => {
-    const classes = useStyles();
-
+}> = ({ sx, label, value, description }) => {
     return (
-        <div className={classnames(className, classes.root)}>
+        <Box
+            sx={[
+                (theme) => ({
+                    p: 2,
+                    background: theme.palette.primary.main,
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    height: '110px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    color: theme.palette.custom.fonts.fontFive,
+                    '& .label': {
+                        mb: 2
+                    },
+                    '& .content': {
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        justifyContent: 'space-between'
+                    },
+                    '& .description': {
+                        display: 'none',
+                        [theme.breakpoints.up('md')]: {
+                            display: 'block'
+                        }
+                    }
+                }),
+                ...(Array.isArray(sx) ? sx : sx ? [sx] : [])
+            ]}
+        >
             <Typography variant="body2" className="label">
                 {label}
             </Typography>
@@ -25,7 +51,7 @@ const SingleBlock: React.FC<{
                     </Typography>
                 )}
             </div>
-        </div>
+        </Box>
     );
 };
 

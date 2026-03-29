@@ -8,25 +8,41 @@ import { useRecoilValue } from 'recoil';
 
 import { Networks } from '@/components/nav/components';
 
-import { useStyles } from './styles';
-
 const NetworkList: React.FC<{
     className?: string;
     actionHeight?: number;
 }> = ({ className, actionHeight }) => {
-    const classes = useStyles();
     const theme = useRecoilValue(readTheme);
 
     return (
-        <Box boxShadow={3} className={classnames(className, classes.root)}>
+        <Box
+            boxShadow={3}
+            className={classnames(className)}
+            sx={(theme) => ({
+                background: theme.palette.background.paper,
+                '& .logo': {
+                    width: '216px',
+                    padding: theme.spacing(2, 1.75, 2.5),
+                    display: 'block'
+                },
+                '& .content': {
+                    p: 3,
+                    height: '400px',
+                    overflow: 'auto',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: theme.spacing(3, 2)
+                }
+            })}
+        >
             <div
                 style={{
                     height: actionHeight
                 }}
             >
-                {theme === 'light' ? <BigDipperLogoRed /> : <BigDipperLogoWhite />}
+                {theme === 'light' ? <BigDipperLogoRed className="logo" /> : <BigDipperLogoWhite className="logo" />}
             </div>
-            <Networks className={classes.content} />
+            <Networks className="content" />
         </Box>
     );
 };
