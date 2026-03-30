@@ -7,7 +7,7 @@ import { useScreenSize, useWindowOrigin } from '@hooks';
 import { Dialog, Typography } from '@mui/material';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import classnames from 'classnames';
-import QRCode from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 import {
     EmailIcon,
     EmailShareButton,
@@ -54,7 +54,7 @@ const Overview: React.FC<{
                     <Typography variant="body1" align="center">
                         {t('scanForAddress')}
                     </Typography>
-                    <QRCode value={address} size={200} bgColor="#ffffff" fgColor="#000000" renderAs="svg" />
+                    <QRCodeSVG value={address} size={200} bgColor="#ffffff" fgColor="#000000" />
                     <div className="dialog__share--wrapper">
                         <Typography variant="body1">{t('shareTo')}</Typography>
                         <div className="icons">
