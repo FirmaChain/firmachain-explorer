@@ -3,7 +3,6 @@ import { ApolloClient, ApolloLink, concat, HttpLink, InMemoryCache, split } from
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { ENV } from '@configs/env';
-import WebSocket from 'isomorphic-ws';
 
 const defaultOptions: any = {
     watchQuery: {

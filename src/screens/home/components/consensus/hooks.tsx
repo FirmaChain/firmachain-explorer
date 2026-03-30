@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { chainConfig } from '@configs';
 import { ENV } from '@configs/env';
 import { hexToBech32 } from '@utils/hex_to_bech32';
-import WebSocket from 'isomorphic-ws';
 import numeral from 'numeral';
 import * as R from 'ramda';
 

@@ -1,9 +1,9 @@
-import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { useRouter } from '@/adapters/routing/router';
+import { lighten } from '@/utils/color';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import classnames from 'classnames';
-import Color from 'color';
+
 import { getMenuItems } from './utils';
 
 const MenuItems = () => {
@@ -36,7 +36,8 @@ const MenuItems = () => {
                                 color: theme.palette.custom.general.icon
                             },
                             '&.active': {
-                                background: Color(theme.palette.background.paper).lighten(0.5).string(),
+                                // background: Color(theme.palette.background.paper).lighten(0.5).string(),
+                                background: lighten(theme.palette.background.paper, 0.5),
                                 '& .MuiListItemIcon-root svg': {
                                     fill: theme.palette.primary.main
                                 },

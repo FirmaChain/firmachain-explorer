@@ -37,5 +37,5 @@
         }
     },
     "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "declarations.d.ts", "vite.config.ts"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", ".misc"]
 }

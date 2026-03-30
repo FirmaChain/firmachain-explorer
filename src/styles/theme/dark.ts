@@ -1,4 +1,4 @@
-import Color from 'color';
+import { setAlpha } from '@/utils/color';
 
 const backgroundDefault = '#0A0A0A';
 const surfaceOne = '#131316';
@@ -20,7 +20,8 @@ export const darkThemeOverride = {
     palette: {
         mode: 'dark',
         primary: {
-            main: Color('#FD3B4C').alpha(0.7).string(),
+            // main: Color('#FD3B4C').alpha(0.7).string(),
+            main: setAlpha('#FD3B4C', 0.7),
             contrastText: '#fff'
         },
         background: {

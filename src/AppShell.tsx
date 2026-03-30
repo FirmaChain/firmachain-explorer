@@ -13,7 +13,7 @@ import TransactionDetails from '@screens/transaction_details';
 import Transactions from '@screens/transactions';
 import ValidatorDetails from '@screens/validator_details';
 import Validators from '@screens/validators';
-import { Navigate, Route, Routes, useParams } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router';
 
 function RoutedComponent({ Component }: { Component: React.ComponentType<any> }) {
     return <App Component={Component} pageProps={{}} />;

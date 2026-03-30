@@ -1,6 +1,6 @@
 /* eslint-disable */
 import i18n from '@/i18n';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
 type UrlObject = {
     pathname?: string;
