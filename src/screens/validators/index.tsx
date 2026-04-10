@@ -1,7 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { Layout } from '@components';
 import { Box } from '@mui/material';
 
 import { List } from './components';
@@ -16,7 +15,6 @@ const Validators = () => {
                     title: t('validators')
                 }}
             />
-            <Layout navTitle={t('validators')}>
                 <Box
                     sx={(theme: any) => ({
                         ...theme.mixins.layout,
@@ -27,7 +25,6 @@ const Validators = () => {
                 >
                     <List />
                 </Box>
-            </Layout>
         </>
     );
 };

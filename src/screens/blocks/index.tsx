@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import { NextSeo } from '@/adapters/seo/seo';
-import { Box, Layout, LoadAndExist, NoData } from '@components';
+import { Box, LoadAndExist, NoData } from '@components';
 import { Box as MuiBox } from '@mui/material';
 import { useScreenSize } from '@hooks';
 import { useProfilesRecoil } from '@zustand/profiles';
@@ -33,7 +33,6 @@ const Blocks = () => {
                     title: t('blocks')
                 }}
             />
-            <Layout navTitle={t('blocks')}>
                 <MuiBox
                     sx={(theme: any) => ({
                         ...theme.mixins.layout,
@@ -79,7 +78,6 @@ const Blocks = () => {
                         </Box>
                     </LoadAndExist>
                 </MuiBox>
-            </Layout>
         </>
     );
 };

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Layout, NotFound as NotFoundLogo } from '@components';
+import { NotFound as NotFoundLogo } from '@components';
 import { Box } from '@mui/material';
 
 const NotFound = () => {
     return (
-        <Layout>
             <Box
                 sx={(theme: any) => ({
                     ...theme.mixins.layout,
@@ -15,7 +14,6 @@ const NotFound = () => {
             >
                 <NotFoundLogo />
             </Box>
-        </Layout>
     );
 };
 

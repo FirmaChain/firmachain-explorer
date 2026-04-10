@@ -1,12 +1,10 @@
 import React from 'react';
-import { Layout } from '@components';
 import { Box } from '@mui/material';
 
 import { Blocks, Consensus, DataBlocks, Hero, Tokenomics, Transactions } from './components';
 
 const Home = () => {
     return (
-        <Layout navTitle="Block Explorer">
             <Box
                 sx={(theme: any) => ({
                     ...theme.mixins.layout,
@@ -45,7 +43,6 @@ const Home = () => {
                     <Transactions />
                 </Box>
             </Box>
-        </Layout>
     );
 };
 

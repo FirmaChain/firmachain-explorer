@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { Layout, LoadAndExist } from '@components';
+import { LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
 import { Deposits, Overview, Votes, VotesGraph } from './components';
@@ -21,7 +21,6 @@ const ProposalDetails = () => {
                     title: t('proposalDetails')
                 }}
             />
-            <Layout navTitle={t('proposalDetails')}>
                 <LoadAndExist exists={state.exists} loading={state.loading}>
                     <Box
                         sx={(theme: any) => ({
@@ -54,7 +53,6 @@ const ProposalDetails = () => {
                         </Box>
                     </Box>
                 </LoadAndExist>
-            </Layout>
         </>
     );
 };

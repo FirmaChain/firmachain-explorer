@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { Layout, LoadAndExist } from '@components';
+import { LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
 import { Overview, Signatures, Transactions } from './components';
@@ -20,7 +20,6 @@ const BlockDetails = () => {
                     title: t('blockDetails')
                 }}
             />
-            <Layout navTitle={t('blockDetails')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
                     <Box
                         sx={(theme: any) => ({
@@ -50,7 +49,6 @@ const BlockDetails = () => {
                         <Transactions transactions={transactions} />
                     </Box>
                 </LoadAndExist>
-            </Layout>
         </>
     );
 };

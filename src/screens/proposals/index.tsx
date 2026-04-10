@@ -1,7 +1,6 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { Layout } from '@components';
 import { Box } from '@mui/material';
 
 import { List } from './components';
@@ -19,7 +18,6 @@ const Proposals = () => {
                     title: t('proposals')
                 }}
             />
-            <Layout navTitle={t('proposals')}>
                 <Box
                     sx={(theme: any) => ({
                         ...theme.mixins.layout,
@@ -36,7 +34,6 @@ const Proposals = () => {
                         loadMoreItems={loadMoreItems}
                     />
                 </Box>
-            </Layout>
         </>
     );
 };

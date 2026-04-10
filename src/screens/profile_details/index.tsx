@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { DesmosProfile, Layout, LoadAndExist } from '@components';
+import { DesmosProfile, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
 import { Connections } from './components';
@@ -19,7 +19,6 @@ const ProfileDetails = () => {
                     title: t('profileDetails')
                 }}
             />
-            <Layout navTitle={t('profileDetails')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
                     {!!state.desmosProfile && (
                         <Box
@@ -48,7 +47,6 @@ const ProfileDetails = () => {
                         </Box>
                     )}
                 </LoadAndExist>
-            </Layout>
         </>
     );
 };

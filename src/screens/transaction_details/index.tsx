@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { Layout, LoadAndExist } from '@components';
+import { LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
 import { Logs, Messages, Overview } from './components';
@@ -21,7 +21,6 @@ const TransactionDetails = () => {
                     title: t('transactionDetails')
                 }}
             />
-            <Layout navTitle={t('transactionDetails')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
                     <Box
                         sx={(theme: any) => ({
@@ -49,7 +48,6 @@ const TransactionDetails = () => {
                         {!!events && events.length > 0 && <Logs datas={events} isEvents />}
                     </Box>
                 </LoadAndExist>
-            </Layout>
         </>
     );
 };

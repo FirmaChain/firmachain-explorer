@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { Box as ContentBox, Layout, LoadAndExist, TransactionListDetails, TransactionsList } from '@components';
+import { Box as ContentBox, LoadAndExist, TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox } from '@mui/material';
 import { useSettingsStore,  readTx  } from '@zustand/settings';
 
@@ -22,7 +22,6 @@ const Transactions = () => {
                     title: t('transactions')
                 }}
             />
-            <Layout navTitle={t('transactions')}>
                 <MuiBox
                     sx={(theme: any) => ({
                         ...theme.mixins.layout,
@@ -68,7 +67,6 @@ const Transactions = () => {
                         </ContentBox>
                     </LoadAndExist>
                 </MuiBox>
-            </Layout>
         </>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { BoxDetails, Layout, LoadAndExist } from '@components';
+import { BoxDetails, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
 import { useParams } from './hooks';
@@ -54,7 +54,6 @@ const Params = () => {
                     title: t('params')
                 }}
             />
-            <Layout navTitle={t('params')}>
                 <LoadAndExist loading={state.loading} exists={state.exists}>
                     <Box
                         sx={(theme: any) => ({
@@ -78,7 +77,6 @@ const Params = () => {
                         {gov && <BoxDetails {...gov} />}
                     </Box>
                 </LoadAndExist>
-            </Layout>
         </>
     );
 };

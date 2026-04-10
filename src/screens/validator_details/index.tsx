@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
-import { DesmosProfile, Layout, LoadAndExist } from '@components';
+import { DesmosProfile, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
 import { Blocks, Profile, Staking, Transactions, ValidatorOverview, VotingPower } from './components';
@@ -20,7 +20,6 @@ const ValidatorDetails = () => {
                     title: t('validatorDetails')
                 }}
             />
-            <Layout navTitle={t('validatorDetails')}>
                 <LoadAndExist exists={state.exists} loading={state.loading}>
                     <Box
                         sx={(theme: any) => ({
@@ -58,7 +57,6 @@ const ValidatorDetails = () => {
                         </Box>
                     </Box>
                 </LoadAndExist>
-            </Layout>
         </>
     );
 };
