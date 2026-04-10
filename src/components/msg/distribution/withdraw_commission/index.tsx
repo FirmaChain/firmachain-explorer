@@ -3,7 +3,7 @@ import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
 import { Typography } from '@mui/material';
 import { MsgWithdrawValidatorCommission } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 import { formatNumber } from '@utils/format_token';
 
 const WithdrawCommission = (props: { message: MsgWithdrawValidatorCommission }) => {

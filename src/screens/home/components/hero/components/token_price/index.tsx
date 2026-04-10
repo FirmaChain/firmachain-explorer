@@ -3,11 +3,10 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { CustomToolTip } from '@components';
 import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { readDate } from '@recoil/settings';
+import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import numeral from 'numeral';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { useRecoilValue } from 'recoil';
 
 import { TokenPriceType } from '../../types';
 import { usePrice } from './hooks';
@@ -16,7 +15,7 @@ const TokenPrice: React.FC<{ items: TokenPriceType[] } & ComponentDefault> = (pr
     const theme = useTheme();
     const { t } = useTranslation('home');
     const { tickPriceFormatter, formatTime } = usePrice();
-    const dateFormat = useRecoilValue(readDate);
+    const dateFormat = useSettingsStore(readDate);
 
     const formatItems = props.items.map((x) => {
         return {

@@ -5,7 +5,7 @@ import { ENV } from '@configs/env';
 import { useValidatorDetailsQuery, ValidatorDetailsQuery } from '@graphql/types';
 import { useDesmosProfile } from '@hooks';
 import { SlashingParams } from '@models';
-import { validatorToDelegatorAddress } from '@recoil/profiles';
+import { validatorToDelegatorAddress } from '@zustand/profiles';
 import { formatToken } from '@utils/format_token';
 import { getValidatorCondition } from '@utils/get_validator_condition';
 import axios from 'axios';

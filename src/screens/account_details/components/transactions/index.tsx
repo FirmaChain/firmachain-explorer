@@ -2,13 +2,12 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, TransactionListDetails, TransactionsList } from '@components';
 import { Typography, Box as MuiBox } from '@mui/material';
-import { readTx } from '@recoil/settings';
-import { useRecoilValue } from 'recoil';
+import { useSettingsStore,  readTx  } from '@zustand/settings';
 
 import { useTransactions } from './hooks';
 
 const Transactions: React.FC<ComponentDefault> = (props) => {
-    const txListFormat = useRecoilValue(readTx);
+    const txListFormat = useSettingsStore(readTx);
     const { t } = useTranslation('validators');
 
     const { state, loadNextPage } = useTransactions();

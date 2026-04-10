@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { formatNumber, formatTokenByExponent } from '@/utils/format_token';
 import { Name } from '@components';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 
 type Recipient = {
     address: string;

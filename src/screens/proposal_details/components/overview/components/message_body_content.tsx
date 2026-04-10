@@ -2,7 +2,7 @@ import React from 'react';
 import { formatNumber, formatTokenByExponent } from '@/utils/format_token';
 import { Markdown, Name } from '@components';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 import * as R from 'ramda';
 
 import type { MsgUpdateParamsContent, OverviewType } from '../../../types';

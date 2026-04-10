@@ -2,11 +2,10 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { chainConfig } from '@configs';
 import { Box, Typography } from '@mui/material';
-import { readMarket } from '@recoil/market';
-import { readTheme } from '@recoil/settings';
+import { useMarketStore,  readMarket  } from '@zustand/market';
+import { useSettingsStore,  readTheme  } from '@zustand/settings';
 import classnames from 'classnames';
 import * as R from 'ramda';
-import { useRecoilValue } from 'recoil';
 
 import { formatMarket } from './utils';
 
@@ -14,9 +13,9 @@ const TitleBar: React.FC<{
     className?: string;
     title: string;
 }> = ({ className, title }) => {
-    const theme = useRecoilValue(readTheme);
+    const theme = useSettingsStore(readTheme);
     const { t } = useTranslation('common');
-    const marketState = useRecoilValue(readMarket);
+    const marketState = useMarketStore(readMarket);
 
     const market = formatMarket(marketState);
 

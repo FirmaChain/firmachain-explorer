@@ -1,14 +1,13 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { readNetworks } from '@recoil/big_dipper_networks';
-import { useRecoilValue } from 'recoil';
+import { useBigDipperNetworksStore,  readNetworks  } from '@zustand/big_dipper_networks';
 
 import { SingleNetwork } from './components';
 
 const Networks: React.FC<{
     className?: string;
 }> = ({ className }) => {
-    const networks = useRecoilValue(readNetworks);
+    const networks = useBigDipperNetworksStore(readNetworks);
 
     return (
         <Box className={className}>

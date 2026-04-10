@@ -4,7 +4,7 @@ import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Typography } from '@mui/material';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));

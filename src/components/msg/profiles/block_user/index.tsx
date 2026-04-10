@@ -3,7 +3,7 @@ import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
 import { Typography } from '@mui/material';
 import { MsgBlockUser } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 
 const BlockUser = (props: { message: MsgBlockUser }) => {
     const { message } = props;

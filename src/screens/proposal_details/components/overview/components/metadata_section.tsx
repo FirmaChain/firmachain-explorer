@@ -2,10 +2,9 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Markdown, Name } from '@components';
 import { Typography } from '@mui/material';
-import { useProfileRecoil } from '@recoil/profiles';
-import { readDate } from '@recoil/settings';
+import { useProfileRecoil } from '@zustand/profiles';
+import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
-import { useRecoilValue } from 'recoil';
 
 import type { OverviewType } from '../../../types';
 import type { OverviewDisplayType } from '../utils';
@@ -22,7 +21,7 @@ const DATE_FIELDS: {
 
 const MetadataSection: React.FC<Props> = ({ overview, overviewType, classes }) => {
     const { t } = useTranslation('proposals');
-    const dateFormat = useRecoilValue(readDate);
+    const dateFormat = useSettingsStore(readDate);
     const proposer = useProfileRecoil(overview.proposer);
     const proposerMoniker = proposer?.name ?? overview.proposer;
 

@@ -4,14 +4,13 @@ import { Box } from '@components';
 import { chainConfig } from '@configs';
 import { Divider, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { readMarket } from '@recoil/market';
+import { useMarketStore,  readMarket  } from '@zustand/market';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import * as R from 'ramda';
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
-import { useRecoilValue } from 'recoil';
 
 import { formatBalanceData } from './utils';
 
@@ -26,7 +25,7 @@ const Balance: React.FC<{
 }> = (props) => {
     const { t } = useTranslation('accounts');
     const theme = useTheme();
-    const market = useRecoilValue(readMarket);
+    const market = useMarketStore(readMarket);
     const formattedChartData = formatBalanceData(props);
 
     const empty = {

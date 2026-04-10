@@ -5,7 +5,7 @@ import { Loading, Result } from '@components';
 import { useList, useListRow, useScreenSize } from '@hooks';
 import { Box, Typography } from '@mui/material';
 import { getMessageByType } from '@msg';
-import { readDate } from '@recoil/settings';
+import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
@@ -15,7 +15,6 @@ import numeral from 'numeral';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
-import { useRecoilValue } from 'recoil';
 
 import { TransactionsListDetailsState } from '../../types';
 import { SingleTransaction } from './components';
@@ -23,7 +22,7 @@ import { SingleTransaction } from './components';
 const TransactionList: React.FC<TransactionsListDetailsState> = ({ className, itemCount, loadMoreItems, isItemLoaded, transactions }) => {
     const { isMobile } = useScreenSize();
     const { t } = useTranslation('transactions');
-    const dateFormat = useRecoilValue(readDate);
+    const dateFormat = useSettingsStore(readDate);
 
     const { listRef, getRowHeight, setRowHeight } = useList();
 

@@ -2,15 +2,14 @@ import React from 'react';
 import { chainConfig } from '@configs';
 import { ExpandMore } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
-import { readSelectedNetwork } from '@recoil/big_dipper_networks';
+import { useBigDipperNetworksStore,  readSelectedNetwork  } from '@zustand/big_dipper_networks';
 import classnames from 'classnames';
-import { useRecoilValue } from 'recoil';
 
 const Network: React.FC<{
     className?: string;
     toggleNetwork: () => void;
 }> = ({ className, toggleNetwork }) => {
-    const selected = useRecoilValue(readSelectedNetwork);
+    const selected = useBigDipperNetworksStore(readSelectedNetwork);
 
     return (
         <Box

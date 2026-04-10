@@ -28,7 +28,7 @@
             "@styles": ["styles"],
             "@utils/*": ["utils/*"],
             "@contexts": ["contexts"],
-            "@recoil/*": ["recoil/*"],
+            "@zustand/*": ["zustand/*"],
             "@graphql": ["graphql"],
             "@configs": ["configs"],
             "@configs/*": ["configs/*"],

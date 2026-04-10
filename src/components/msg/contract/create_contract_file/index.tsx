@@ -2,7 +2,7 @@ import React from 'react';
 import { Name } from '@components';
 import { MsgCreateContractFile } from '@models';
 import { useTheme } from '@mui/material/styles';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 
 const CreateContrMsgCreateContractFile = (props: { message: MsgCreateContractFile }) => {
     const { message } = props;

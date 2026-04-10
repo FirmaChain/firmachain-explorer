@@ -4,17 +4,16 @@ import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
 import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
 import { Box } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
-import { readSelectedNetwork } from '@recoil/big_dipper_networks';
-import { readTheme } from '@recoil/settings';
+import { useBigDipperNetworksStore,  readSelectedNetwork  } from '@zustand/big_dipper_networks';
+import { useSettingsStore,  readTheme  } from '@zustand/settings';
 import { HOME } from '@utils/go_to_page';
 import classnames from 'classnames';
-import { useRecoilValue } from 'recoil';
 
 import { NavbarProps } from './types';
 
 const Navbar = (props: NavbarProps) => {
-    const theme = useRecoilValue(readTheme);
-    const selected = useRecoilValue(readSelectedNetwork);
+    const theme = useSettingsStore(readTheme);
+    const selected = useBigDipperNetworksStore(readSelectedNetwork);
     const { isOpen, openNetwork, toggleNavMenus } = props;
 
     return (

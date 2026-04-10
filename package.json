@@ -45,9 +45,9 @@
         "react-window": "^1.8.6",
         "react-window-infinite-loader": "^1.0.7",
         "recharts": "^2.0.8",
-        "recoil": "^0.4.1",
         "styled-components": "6.1.15",
-        "subscriptions-transport-ws": "^0.10.0"
+        "subscriptions-transport-ws": "^0.10.0",
+        "zustand": "^5.0.12"
     },
     "devDependencies": {
         "@babel/core": "^7.29.0",

@@ -3,13 +3,12 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { NextSeo } from '@/adapters/seo/seo';
 import { Box as ContentBox, Layout, LoadAndExist, TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox } from '@mui/material';
-import { readTx } from '@recoil/settings';
-import { useRecoilValue } from 'recoil';
+import { useSettingsStore,  readTx  } from '@zustand/settings';
 
 import { useTransactions } from './hooks';
 
 const Transactions = () => {
-    const txListFormat = useRecoilValue(readTx);
+    const txListFormat = useSettingsStore(readTx);
     const { t } = useTranslation('transactions');
     const { state, loadNextPage } = useTransactions();
     const loadMoreItems = state.isNextPageLoading ? () => null : loadNextPage;

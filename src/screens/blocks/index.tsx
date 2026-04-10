@@ -5,7 +5,7 @@ import { NextSeo } from '@/adapters/seo/seo';
 import { Box, Layout, LoadAndExist, NoData } from '@components';
 import { Box as MuiBox } from '@mui/material';
 import { useScreenSize } from '@hooks';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 
 import { useBlocks } from './hooks';
 

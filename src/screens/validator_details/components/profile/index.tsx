@@ -2,7 +2,7 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Avatar, Box, Markdown } from '@components';
 import { Divider, Typography } from '@mui/material';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 import classnames from 'classnames';
 
 import { OverviewType } from '../../types';

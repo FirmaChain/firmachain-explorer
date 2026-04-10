@@ -3,14 +3,13 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import NotFoundDark from '@assets/not-found-dark.svg?react';
 import NotFoundLight from '@assets/not-found-light.svg?react';
 import { Box, Typography } from '@mui/material';
-import { readTheme } from '@recoil/settings/selectors';
-import { useRecoilValue } from 'recoil';
+import { useSettingsStore,  readTheme  } from '@zustand/settings';
 
 const NoData: React.FC<{
     className?: string;
 }> = ({ className }) => {
     const { t } = useTranslation('common');
-    const theme = useRecoilValue(readTheme);
+    const theme = useSettingsStore(readTheme);
 
     return (
         <Box

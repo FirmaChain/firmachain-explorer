@@ -2,11 +2,10 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName } from '@components';
 import { Box, Divider, Typography } from '@mui/material';
-import { readDate } from '@recoil/settings';
+import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { formatNumber } from '@utils/format_token';
 import classnames from 'classnames';
-import { useRecoilValue } from 'recoil';
 
 import { ItemType } from '../../types';
 
@@ -15,7 +14,7 @@ const Mobile: React.FC<{
     items: ItemType[];
 }> = ({ className, items }) => {
     const { t } = useTranslation('accounts');
-    const dateFormat = useRecoilValue(readDate);
+    const dateFormat = useSettingsStore(readDate);
     const formattedItems = items.map((x) => {
         return {
             validator: <AvatarName address={x.validator.address} imageUrl={x.validator.imageUrl} name={x.validator.name} />,

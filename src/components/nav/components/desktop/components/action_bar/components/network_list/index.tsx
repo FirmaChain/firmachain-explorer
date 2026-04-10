@@ -2,9 +2,8 @@ import React from 'react';
 import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
 import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
 import { Box } from '@mui/material';
-import { readTheme } from '@recoil/settings/selectors';
+import { useSettingsStore,  readTheme  } from '@zustand/settings';
 import classnames from 'classnames';
-import { useRecoilValue } from 'recoil';
 
 import { Networks } from '@/components/nav/components';
 
@@ -12,7 +11,7 @@ const NetworkList: React.FC<{
     className?: string;
     actionHeight?: number;
 }> = ({ className, actionHeight }) => {
-    const theme = useRecoilValue(readTheme);
+    const theme = useSettingsStore(readTheme);
 
     return (
         <Box

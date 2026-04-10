@@ -4028,7 +4028,6 @@ __metadata:
     react-window: "npm:^1.8.6"
     react-window-infinite-loader: "npm:^1.0.7"
     recharts: "npm:^2.0.8"
-    recoil: "npm:^0.4.1"
     styled-components: "npm:6.1.15"
     subscriptions-transport-ws: "npm:^0.10.0"
     typescript: "npm:^5.7.3"
@@ -4036,6 +4035,7 @@ __metadata:
     vite: "npm:7.3.1"
     vite-plugin-svgr: "npm:^4.3.0"
     vite-tsconfig-paths: "npm:^6.1.1"
+    zustand: "npm:^5.0.12"
   languageName: unknown
   linkType: soft
 
@@ -5949,13 +5949,6 @@ __metadata:
   version: 15.5.0
   resolution: "graphql@npm:15.5.0"
   checksum: 10c0/b856750240ae12d852c918dc03699cfab61b5b4d1822ae0e4dfe201673eb0b5d99dbb7ff7c9cf83c43d0a87428555640ec392580364685f544e61192f7ffc274
-  languageName: node
-  linkType: hard
-
-"hamt_plus@npm:1.0.2":
-  version: 1.0.2
-  resolution: "hamt_plus@npm:1.0.2"
-  checksum: 10c0/c5aa5cc08228e8cc2a90150fef680bd5b09f16a327bdab799daeb80fd3c987663308b14e2c6718abdf75afce21d29607e35f2705eb336a14aa935c0ca5949ce7
   languageName: node
   linkType: hard
 
@@ -7956,22 +7949,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "recoil@npm:0.4.1"
-  dependencies:
-    hamt_plus: "npm:1.0.2"
-  peerDependencies:
-    react: ">=16.13.1"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 10c0/e4095d148054f9f57e988a920698e6e2c3426ce4f186ed0440ad282e1b0409721a84baf7ef6549fee3708026a8af6af91cfd8852ac26a64e278db62092dd163b
-  languageName: node
-  linkType: hard
-
 "reduce-css-calc@npm:^2.1.8":
   version: 2.1.8
   resolution: "reduce-css-calc@npm:2.1.8"
@@ -9499,5 +9476,26 @@ __metadata:
   version: 0.8.15
   resolution: "zen-observable@npm:0.8.15"
   checksum: 10c0/71cc2f2bbb537300c3f569e25693d37b3bc91f225cefce251a71c30bc6bb3e7f8e9420ca0eb57f2ac9e492b085b8dfa075fd1e8195c40b83c951dd59c6e4fbf8
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^5.0.12":
+  version: 5.0.12
+  resolution: "zustand@npm:5.0.12"
+  peerDependencies:
+    "@types/react": ">=18.0.0"
+    immer: ">=9.0.6"
+    react: ">=18.0.0"
+    use-sync-external-store: ">=1.2.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    immer:
+      optional: true
+    react:
+      optional: true
+    use-sync-external-store:
+      optional: true
+  checksum: 10c0/304c1dfb6033d758ddc7606c15df8566e6cace83ee4eeec721e8975f7813fd4cca2c68ff6b3eaa1841a9e53f0cf8486007217479785eccb845e3596de4df7f1e
   languageName: node
   linkType: hard

@@ -3,7 +3,7 @@ import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
 import { Typography } from '@mui/material';
 import { MsgSubmitMisbehaviour } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 
 const SubmitMisbehaviour = (props: { message: MsgSubmitMisbehaviour }) => {
     const { message } = props;

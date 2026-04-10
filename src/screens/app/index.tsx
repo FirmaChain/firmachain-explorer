@@ -6,7 +6,6 @@ import { useApollo } from '@/graphql/client';
 import { ApolloProvider } from '@apollo/client';
 import { chainConfig } from '@configs';
 import { useWindowOrigin } from '@hooks';
-import { RecoilRoot } from 'recoil';
 
 import { Main } from './components';
 import { useApp } from './hooks';
@@ -36,9 +35,7 @@ function App(props: AppProps) {
                 additionalMetaTags={ADDITIONAL_META_TAGS}
             />
             <ApolloProvider client={apolloClient}>
-                <RecoilRoot>
-                    <Main {...props} />
-                </RecoilRoot>
+                <Main {...props} />
             </ApolloProvider>
         </>
     );

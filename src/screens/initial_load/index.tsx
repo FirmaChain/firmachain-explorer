@@ -5,12 +5,11 @@ import FirmachainTitle from '@assets/firma_chain_title.svg?react';
 import { Box, LinearProgress } from '@mui/material';
 import { firmachainTitleLogoSx } from '@/styles/ui';
 // import { chainConfig } from '@configs';
-import { readTheme } from '@recoil/settings';
+import { useSettingsStore,  readTheme  } from '@zustand/settings';
 // import * as R from 'ramda';
-import { useRecoilValue } from 'recoil';
 
 const InitialLoad = () => {
-    const theme = useRecoilValue(readTheme);
+    const theme = useSettingsStore(readTheme);
 
     // const logoUrl = R.pathOr(chainConfig.logo.default, ['logo', theme], chainConfig);
 

@@ -7,7 +7,7 @@ import ThemeIcon from '@assets/icon-theme.svg?react';
 import { Box, Drawer, MenuItem, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { ExpandMoreOutlined } from '@mui/icons-material';
-import { THEME_LIST } from '@recoil/settings';
+import { THEME_LIST } from '@zustand/settings';
 import classnames from 'classnames';
 
 import { MenuItems } from '../../..';

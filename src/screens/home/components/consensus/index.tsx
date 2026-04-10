@@ -3,7 +3,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, Box } from '@components';
 import { Typography } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { PolarAngleAxis, RadialBar, RadialBarChart, Tooltip } from 'recharts';

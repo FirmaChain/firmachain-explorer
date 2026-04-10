@@ -2,15 +2,14 @@ import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox, Typography } from '@mui/material';
-import { readTx } from '@recoil/settings';
-import { useRecoilValue } from 'recoil';
+import { useSettingsStore,  readTx  } from '@zustand/settings';
 
 const Transactions: React.FC<
     ComponentDefault & {
         transactions: Transactions[];
     }
 > = ({ className, transactions }) => {
-    const txListFormat = useRecoilValue(readTx);
+    const txListFormat = useSettingsStore(readTx);
     const { t } = useTranslation('transactions');
     return (
         <MuiBox

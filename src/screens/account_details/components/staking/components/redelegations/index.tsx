@@ -3,7 +3,7 @@ import dynamic from '@/adapters/routing/dynamic';
 import { Loading, NoData, Pagination } from '@components';
 import { Box } from '@mui/material';
 import { usePagination, useScreenSize } from '@hooks';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 import classnames from 'classnames';
 import * as R from 'ramda';
 

@@ -5,7 +5,7 @@ import Link from '@/adapters/routing/link';
 import { Name } from '@components';
 import { Typography } from '@mui/material';
 import { MsgDeposit } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 import { formatNumber, formatToken } from '@utils/format_token';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
 

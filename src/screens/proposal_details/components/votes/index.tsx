@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 
 import { Paginate, Tabs } from './components';
 import { useVotes } from './hooks';

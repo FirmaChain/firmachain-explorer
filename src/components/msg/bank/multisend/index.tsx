@@ -4,7 +4,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { Name } from '@components';
 import { Box, Typography } from '@mui/material';
 import { MsgMultiSend } from '@models';
-import { useProfileRecoil, useProfilesRecoil } from '@recoil/profiles';
+import { useProfileRecoil, useProfilesRecoil } from '@zustand/profiles';
 import { formatNumber, formatToken } from '@utils/format_token';
 import * as R from 'ramda';
 

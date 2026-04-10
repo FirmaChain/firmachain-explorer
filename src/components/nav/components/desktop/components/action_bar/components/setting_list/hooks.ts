@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import setLanguage from '@/adapters/i18n/setLanguage';
-import { THEME_DICTIONARY, writeDate, writeTheme, writeTx } from '@recoil/settings';
-import { Date, Theme, Tx } from '@recoil/settings/types';
+import { readDate, readTheme, readTx, THEME_DICTIONARY, useSettingsStore, writeDate, writeTheme, writeTx } from '@zustand/settings';
+import { Date, Theme, Tx } from '@zustand/settings/types';
 import * as R from 'ramda';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
 
 export const useSettingList = ({ lang }) => {
-    const [theme, setTheme] = useRecoilState(writeTheme) as [Theme, SetterOrUpdater<Theme>];
-    const [date, setDate] = useRecoilState(writeDate) as [Date, SetterOrUpdater<Date>];
-    const [tx, setTx] = useRecoilState(writeTx) as [Tx, SetterOrUpdater<Tx>];
+    const theme = useSettingsStore(readTheme);
+    const setTheme = useSettingsStore(writeTheme);
+    const date = useSettingsStore(readDate);
+    const setDate = useSettingsStore(writeDate);
+    const tx = useSettingsStore(readTx);
+    const setTx = useSettingsStore(writeTx);
 
     const [open, setOpen] = useState(false);
     const [state, setState] = useState({

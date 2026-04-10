@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { writeTheme } from '@recoil/settings';
-import { Theme } from '@recoil/settings/types';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { readTheme, useSettingsStore, writeTheme } from '@zustand/settings';
+import { Theme } from '@zustand/settings/types';
 
 export const useLanguageDrawer = (lang: string, toggleNavMenus: () => void) => {
     const [currentLang, setLang] = useState(lang);
@@ -26,7 +25,8 @@ export const useLanguageDrawer = (lang: string, toggleNavMenus: () => void) => {
 };
 
 export const useThemeDrawer = (toggleNavMenus: () => void) => {
-    const [theme, setTheme] = useRecoilState(writeTheme) as [Theme, SetterOrUpdater<Theme>];
+    const theme = useSettingsStore(readTheme);
+    const setTheme = useSettingsStore(writeTheme);
 
     const [currentTheme, setCurrentTheme] = useState(theme);
     const [drawerOpen, setDrawerOpen] = useState(false);

@@ -3,11 +3,10 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { chainConfig } from '@configs';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
-import { readDate } from '@recoil/settings';
+import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
-import { useRecoilValue } from 'recoil';
 
 import { columns } from './utils';
 
@@ -15,7 +14,7 @@ const Desktop: React.FC<{
     className?: string;
     items?: ProfileConnectionType[];
 }> = ({ className, items }) => {
-    const dateFormat = useRecoilValue(readDate);
+    const dateFormat = useSettingsStore(readDate);
     const { t } = useTranslation('accounts');
 
     const formattedItems = items.map((x) => {

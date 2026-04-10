@@ -3,13 +3,12 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { BoxDetails, Result } from '@components';
 import { Box, Typography } from '@mui/material';
-import { readDate } from '@recoil/settings';
+import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { formatNumber } from '@utils/format_token';
 import { ACCOUNT_DETAILS, BLOCK_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 import numeral from 'numeral';
-import { useRecoilValue } from 'recoil';
 
 import { OverviewType } from '../../types';
 
@@ -18,7 +17,7 @@ const Overview: React.FC<{
     data: OverviewType;
 }> = ({ className, data }) => {
     const { t } = useTranslation('transactions');
-    const dateFormat = useRecoilValue(readDate);
+    const dateFormat = useSettingsStore(readDate);
 
     const details = [
         {

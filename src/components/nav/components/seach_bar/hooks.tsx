@@ -1,22 +1,21 @@
 import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@configs';
-import { readValidator } from '@recoil/validators';
+import { readValidator, useValidatorsStore } from '@zustand/validators';
 import { ACCOUNT_DETAILS, BLOCK_DETAILS, PROFILE_DETAILS, TRANSACTION_DETAILS, VALIDATOR_DETAILS } from '@utils/go_to_page';
 import numeral from 'numeral';
 import { toast } from 'react-toastify';
-import { useRecoilCallback } from 'recoil';
 
 export const useSearchBar = (t) => {
     const router = useRouter();
 
-    const handleOnSubmit = useRecoilCallback(({ snapshot }) => async (value: string, clear?: () => void) => {
+    const handleOnSubmit = async (value: string, clear?: () => void) => {
         const consensusRegex = `^(${chainConfig.prefix.consensus})`;
         const validatorRegex = `^(${chainConfig.prefix.validator})`;
         const userRegex = `^(${chainConfig.prefix.account})`;
         const parsedValue = value.replace(/\s+/g, '');
 
         if (new RegExp(consensusRegex).test(parsedValue)) {
-            const validatorAddress = await snapshot.getPromise(readValidator(parsedValue));
+            const validatorAddress = readValidator(parsedValue)(useValidatorsStore.getState());
             if (validatorAddress) {
                 router.push(VALIDATOR_DETAILS(validatorAddress.validator));
             } else {
@@ -44,7 +43,7 @@ export const useSearchBar = (t) => {
         if (clear) {
             clear();
         }
-    });
+    };
 
     return {
         handleOnSubmit

@@ -5,7 +5,7 @@ import SettingIcon from '@assets/icon-setting.svg?react';
 import { generalConfig } from '@configs';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, Select, Typography } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
-import { DATE_LIST, THEME_LIST, TX_LIST } from '@recoil/settings';
+import { DATE_LIST, THEME_LIST, TX_LIST } from '@zustand/settings';
 import classnames from 'classnames';
 
 import { useSettingList } from './hooks';

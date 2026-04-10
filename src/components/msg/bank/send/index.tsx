@@ -4,7 +4,7 @@ import useTranslation from '@/adapters/i18n/useTranslation';
 import { Name } from '@components';
 import { Typography } from '@mui/material';
 import { MsgSend } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 import { formatNumber, formatToken } from '@utils/format_token';
 
 const Send = (props: { message: MsgSend }) => {

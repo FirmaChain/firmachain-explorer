@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, LoadAndExist, NoData } from '@components';
 import { Box as MuiBox } from '@mui/material';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 import classnames from 'classnames';
 
 import { Tabs } from './components';

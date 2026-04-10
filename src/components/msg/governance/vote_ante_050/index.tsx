@@ -5,7 +5,7 @@ import Link from '@/adapters/routing/link';
 import { Name } from '@components';
 import { Typography } from '@mui/material';
 import { MsgVoteAnte050 } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import { useProfileRecoil } from '@zustand/profiles';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
 
 const VoteAnte050 = (props: { message: MsgVoteAnte050 }) => {

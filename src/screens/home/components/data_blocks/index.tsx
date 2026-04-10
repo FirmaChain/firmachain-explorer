@@ -1,10 +1,9 @@
 import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@mui/material';
-import { readMarket } from '@recoil/market';
+import { useMarketStore,  readMarket  } from '@zustand/market';
 import classnames from 'classnames';
 import numeral from 'numeral';
-import { useRecoilValue } from 'recoil';
 
 import { SingleBlock } from './components';
 import { useDataBlocks } from './hooks';
@@ -14,7 +13,7 @@ const DataBlocks: React.FC<{
 }> = ({ className }) => {
     const { t } = useTranslation('home');
     const { state } = useDataBlocks();
-    const marketState = useRecoilValue(readMarket);
+    const marketState = useMarketStore(readMarket);
 
     const data = [
         {

@@ -5,7 +5,7 @@ import Link from '@/adapters/routing/link';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
-import { useProfilesRecoil } from '@recoil/profiles';
+import { useProfilesRecoil } from '@zustand/profiles';
 import { BLOCKS } from '@utils/go_to_page';
 
 import { useBlocks } from './hooks';

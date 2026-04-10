@@ -1,6 +1,7 @@
 import React from 'react';
 import { Footer, Nav } from '@components';
 import { Box } from '@mui/material';
+
 import { LayoutProps } from './types';
 
 const Layout = (props: LayoutProps) => {

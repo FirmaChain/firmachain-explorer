@@ -2,12 +2,11 @@ import { useState } from 'react';
 
 import { chainConfig } from '@configs';
 import { createTheme as createMuiTheme } from '@mui/material/styles';
-import { getThemeTemplate, readTheme } from '@recoil/settings';
+import { useSettingsStore,  getThemeTemplate, readTheme  } from '@zustand/settings';
 import dayjs from '@utils/dayjs';
-import { useRecoilValue } from 'recoil';
 
 export const useTheme = () => {
-    const theme = useRecoilValue(readTheme);
+    const theme = useSettingsStore(readTheme);
 
     return {
         muiTheme: createMuiTheme(getThemeTemplate(theme))
