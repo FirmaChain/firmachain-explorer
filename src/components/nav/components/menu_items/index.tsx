@@ -37,7 +37,7 @@ const MenuItems = () => {
                             },
                             '&.active': {
                                 // background: Color(theme.palette.background.paper).lighten(0.5).string(),
-                                background: lighten(theme.palette.background.paper, 0.5),
+                                background: lighten(theme.palette.background.paper, 0.05),
                                 '& .MuiListItemIcon-root svg': {
                                     fill: theme.palette.primary.main
                                 },
