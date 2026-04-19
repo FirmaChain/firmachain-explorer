@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from '@/adapters/routing/router';
 import { ProposalDetailsVotesQuery, useProposalDetailsVotesQuery } from '@graphql/types';
 import { toValidatorAddress } from '@utils/prefix_convert';
-import * as lodash from 'lodash';
 import * as R from 'ramda';
 
 import { VoteState } from './types';
@@ -51,12 +50,23 @@ export const useVotes = (resetPagination: any) => {
             validatorDict[selfDelegateAddress] = false;
             return selfDelegateAddress;
         });
-        const latestVotesByVoter = lodash
-            .chain(data.proposalVote)
-            .groupBy('voterAddress')
-            .values()
-            .map((votes: any[]) => votes[0])
-            .value();
+        const latestVotesByVoter = Array.from(
+            data.proposalVote
+                .reduce((acc, vote) => {
+                    // keep first occurrence only
+                    if (!acc.has(vote.voterAddress)) {
+                        acc.set(vote.voterAddress, vote);
+                    }
+                    return acc;
+                }, new Map<string, any>())
+                .values()
+        );
+        // const latestVotesByVoter = lodash
+        //     .chain(data.proposalVote)
+        //     .groupBy('voterAddress')
+        //     .values()
+        //     .map((votes: any[]) => votes[0])
+        //     .value();
 
         let yes = 0;
         let no = 0;
