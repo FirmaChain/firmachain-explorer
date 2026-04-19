@@ -72,7 +72,7 @@ function RoutedLayout() {
     return <RoutedComponent Component={AppLayoutRoute} />;
 }
 
-const AppShell = () => {
+const Router = () => {
     return (
         <Routes>
             <Route path="/account/:address" element={<LegacyAccountRedirect />} />
@@ -98,4 +98,4 @@ const AppShell = () => {
     );
 };
 
-export default AppShell;
+export default Router;

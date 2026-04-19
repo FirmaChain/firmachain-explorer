@@ -1,6 +1,4 @@
-import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { NextSeo } from '@/adapters/seo/seo';
 import { LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
@@ -13,43 +11,35 @@ const BlockDetails = () => {
     const { overview, signatures, transactions } = state;
 
     return (
-        <>
-            <NextSeo
-                title={t('blockDetails')}
-                openGraph={{
-                    title: t('blockDetails')
-                }}
-            />
-                <LoadAndExist loading={state.loading} exists={state.exists}>
-                    <Box
-                        sx={(theme: any) => ({
-                            ...theme.mixins.layout,
-                            '& a': {
-                                color: theme.palette.custom.fonts.highlight
-                            },
-                            display: 'grid',
-                            gridTemplateRows: 'auto auto 1fr',
-                            gridTemplateColumns: '1fr',
-                            gridGap: theme.spacing(1),
-                            [theme.breakpoints.up('lg')]: {
-                                gridGap: theme.spacing(2)
-                            }
-                        })}
-                    >
-                        <Overview
-                            height={overview.height}
-                            hash={overview.hash}
-                            proposer={overview.proposer}
-                            timestamp={overview.timestamp}
-                            txs={overview.txs}
-                        />
-                        <Box sx={{ height: '450px' }}>
-                            <Signatures signatures={signatures} />
-                        </Box>
-                        <Transactions transactions={transactions} />
-                    </Box>
-                </LoadAndExist>
-        </>
+        <LoadAndExist loading={state.loading} exists={state.exists}>
+            <Box
+                sx={(theme: any) => ({
+                    ...theme.mixins.layout,
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    },
+                    display: 'grid',
+                    gridTemplateRows: 'auto auto 1fr',
+                    gridTemplateColumns: '1fr',
+                    gridGap: theme.spacing(1),
+                    [theme.breakpoints.up('lg')]: {
+                        gridGap: theme.spacing(2)
+                    }
+                })}
+            >
+                <Overview
+                    height={overview.height}
+                    hash={overview.hash}
+                    proposer={overview.proposer}
+                    timestamp={overview.timestamp}
+                    txs={overview.txs}
+                />
+                <Box sx={{ height: '450px' }}>
+                    <Signatures signatures={signatures} />
+                </Box>
+                <Transactions transactions={transactions} />
+            </Box>
+        </LoadAndExist>
     );
 };
 

@@ -1,6 +1,4 @@
-import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { NextSeo } from '@/adapters/seo/seo';
 import { LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
@@ -14,41 +12,33 @@ const TransactionDetails = () => {
     const filteredMessages = filterMessages(messages.items);
 
     return (
-        <>
-            <NextSeo
-                title={t('transactionDetails')}
-                openGraph={{
-                    title: t('transactionDetails')
-                }}
-            />
-                <LoadAndExist loading={state.loading} exists={state.exists}>
-                    <Box
-                        sx={(theme: any) => ({
-                            ...theme.mixins.layout,
-                            display: 'grid',
-                            gridTemplateRows: 'auto auto',
-                            gridTemplateColumns: '1fr',
-                            gridGap: theme.spacing(1),
-                            '& a': {
-                                color: theme.palette.custom.fonts.highlight
-                            },
-                            [theme.breakpoints.up('lg')]: {
-                                gridGap: theme.spacing(2)
-                            }
-                        })}
-                    >
-                        <Overview data={overview} />
-                        <Messages
-                            messages={filteredMessages}
-                            viewRaw={messages.viewRaw}
-                            toggleMessageDisplay={toggleMessageDisplay}
-                            onMessageFilterCallback={onMessageFilterCallback}
-                        />
-                        {!!logs && logs.length > 0 && <Logs datas={logs} isEvents={false} />}
-                        {!!events && events.length > 0 && <Logs datas={events} isEvents />}
-                    </Box>
-                </LoadAndExist>
-        </>
+        <LoadAndExist loading={state.loading} exists={state.exists}>
+            <Box
+                sx={(theme: any) => ({
+                    ...theme.mixins.layout,
+                    display: 'grid',
+                    gridTemplateRows: 'auto auto',
+                    gridTemplateColumns: '1fr',
+                    gridGap: theme.spacing(1),
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        gridGap: theme.spacing(2)
+                    }
+                })}
+            >
+                <Overview data={overview} />
+                <Messages
+                    messages={filteredMessages}
+                    viewRaw={messages.viewRaw}
+                    toggleMessageDisplay={toggleMessageDisplay}
+                    onMessageFilterCallback={onMessageFilterCallback}
+                />
+                {!!logs && logs.length > 0 && <Logs datas={logs} isEvents={false} />}
+                {!!events && events.length > 0 && <Logs datas={events} isEvents />}
+            </Box>
+        </LoadAndExist>
     );
 };
 

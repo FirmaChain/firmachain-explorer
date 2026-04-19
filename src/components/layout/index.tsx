@@ -53,6 +53,7 @@ const Layout = (props: LayoutProps) => {
                         <div className="children">
                             <DesktopHeader title={navTitle ?? ''} controls={desktopControls} />
                             <div className={`${className ?? ''} main-content`.trim()}>{children}</div>
+                            <Footer className="footer" />
                         </div>
                     </div>
                 </ClickAwayListener>
@@ -63,9 +64,9 @@ const Layout = (props: LayoutProps) => {
                         <div className="appBarPlaceholder" />
                         <div className={`${className ?? ''} main-content`.trim()}>{children}</div>
                     </div>
+                    <Footer className="footer" />
                 </div>
             )}
-            <Footer className="footer" />
         </Box>
     );
 };

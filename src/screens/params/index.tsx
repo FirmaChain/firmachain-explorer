@@ -1,6 +1,4 @@
-import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import { NextSeo } from '@/adapters/seo/seo';
 import { BoxDetails, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
@@ -47,37 +45,29 @@ const Params = () => {
         : null;
 
     return (
-        <>
-            <NextSeo
-                title={t('params')}
-                openGraph={{
-                    title: t('params')
-                }}
-            />
-                <LoadAndExist loading={state.loading} exists={state.exists}>
-                    <Box
-                        sx={(theme: any) => ({
-                            ...theme.mixins.layout,
-                            display: 'grid',
-                            gridTemplateRows: 'auto',
-                            gridGap: theme.spacing(1),
-                            '& a': {
-                                color: theme.palette.custom.fonts.highlight
-                            },
-                            [theme.breakpoints.up('lg')]: {
-                                gridGap: theme.spacing(2),
-                                gridTemplateColumns: 'repeat(2, 1fr)'
-                            }
-                        })}
-                    >
-                        {staking && <BoxDetails {...staking} />}
-                        {slashing && <BoxDetails {...slashing} />}
-                        {minting && <BoxDetails {...minting} />}
-                        {distribution && <BoxDetails {...distribution} />}
-                        {gov && <BoxDetails {...gov} />}
-                    </Box>
-                </LoadAndExist>
-        </>
+        <LoadAndExist loading={state.loading} exists={state.exists}>
+            <Box
+                sx={(theme: any) => ({
+                    ...theme.mixins.layout,
+                    display: 'grid',
+                    gridTemplateRows: 'auto',
+                    gridGap: theme.spacing(1),
+                    '& a': {
+                        color: theme.palette.custom.fonts.highlight
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        gridGap: theme.spacing(2),
+                        gridTemplateColumns: 'repeat(2, 1fr)'
+                    }
+                })}
+            >
+                {staking && <BoxDetails {...staking} />}
+                {slashing && <BoxDetails {...slashing} />}
+                {minting && <BoxDetails {...minting} />}
+                {distribution && <BoxDetails {...distribution} />}
+                {gov && <BoxDetails {...gov} />}
+            </Box>
+        </LoadAndExist>
     );
 };
 
