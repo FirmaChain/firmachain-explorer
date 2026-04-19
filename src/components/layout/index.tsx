@@ -1,11 +1,16 @@
-import React from 'react';
 import { Footer, Nav } from '@components';
-import { Box } from '@mui/material';
+import { useScreenSize } from '@hooks';
+import { Box, ClickAwayListener } from '@mui/material';
 
+import { DesktopHeader, DesktopSidebar } from '../nav/components/desktop';
+import { useDesktop } from '../nav/components/desktop/hooks';
 import { LayoutProps } from './types';
 
 const Layout = (props: LayoutProps) => {
     const { children, navTitle, className } = props;
+    const { isDesktop } = useScreenSize();
+    const { isMenu, isNetwork, toggleMenu, toggleNetwork, turnOffAll } = useDesktop();
+    const desktopControls = { isMenu, isNetwork, toggleMenu, toggleNetwork };
 
     return (
         <Box
@@ -41,13 +46,25 @@ const Layout = (props: LayoutProps) => {
                 }
             })}
         >
-            <div className="contentWrapper">
-                <Nav title={navTitle} />
-                <div className="children">
-                    <div className="appBarPlaceholder" />
-                    <div className={`${className ?? ''} main-content`.trim()}>{children}</div>
+            {isDesktop ? (
+                <ClickAwayListener onClickAway={turnOffAll}>
+                    <div className="contentWrapper">
+                        <DesktopSidebar controls={desktopControls} />
+                        <div className="children">
+                            <DesktopHeader title={navTitle ?? ''} controls={desktopControls} />
+                            <div className={`${className ?? ''} main-content`.trim()}>{children}</div>
+                        </div>
+                    </div>
+                </ClickAwayListener>
+            ) : (
+                <div className="contentWrapper">
+                    <Nav title={navTitle} />
+                    <div className="children">
+                        <div className="appBarPlaceholder" />
+                        <div className={`${className ?? ''} main-content`.trim()}>{children}</div>
+                    </div>
                 </div>
-            </div>
+            )}
             <Footer className="footer" />
         </Box>
     );
