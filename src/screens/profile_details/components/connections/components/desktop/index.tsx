@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { chainConfig } from '@configs';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -7,6 +6,7 @@ import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import { readDate, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { columns } from './utils';
 
@@ -21,7 +21,7 @@ const Desktop: React.FC<{
         let identity: string | React.ReactNode = x.identifier;
         if (new RegExp(`^(${chainConfig.prefix.account})`).test(x.identifier)) {
             identity = (
-                <Link href={ACCOUNT_DETAILS(x.identifier)} passHref>
+                <Link to={ACCOUNT_DETAILS(x.identifier)}>
                     <Typography variant="body1" className="value" component="a">
                         {x.identifier}
                     </Typography>

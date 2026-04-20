@@ -1,11 +1,11 @@
 import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
-import Link from '@/adapters/routing/link';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
 import { TRANSACTIONS } from '@utils/go_to_page';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { useTransactions } from './hooks';
 
@@ -60,7 +60,7 @@ const Transactions: React.FC<{
         >
             <div className="label">
                 <Typography variant="h2">{t('latestTransactions')}</Typography>
-                <Link href={TRANSACTIONS} passHref>
+                <Link to={TRANSACTIONS}>
                     <Typography variant="h4" className="button" component="a">
                         {t('seeMore')}
                     </Typography>
@@ -72,7 +72,7 @@ const Transactions: React.FC<{
                 <>
                     {isDesktop ? <Desktop className="desktop" items={state.items} /> : <Mobile className="mobile" items={state.items} />}
                     <Divider className="mobile" />
-                    <Link href={TRANSACTIONS} passHref>
+                    <Link to={TRANSACTIONS}>
                         <Typography variant="h4" component="a" className="seeMoreFooter mobile button">
                             {t('seeMore')}
                         </Typography>

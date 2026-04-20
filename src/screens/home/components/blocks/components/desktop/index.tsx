@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { AvatarName } from '@components';
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
@@ -8,6 +7,7 @@ import { BLOCK_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { ItemType } from '../../types';
 import { columns } from './utils';
@@ -21,7 +21,7 @@ const Desktop: React.FC<{
     const formattedData = items.map((x) => {
         return {
             height: (
-                <Link href={BLOCK_DETAILS(x.height)} passHref>
+                <Link to={BLOCK_DETAILS(x.height)}>
                     <Typography variant="body1" className="value" component="a">
                         {numeral(x.height).format('0,0')}
                     </Typography>

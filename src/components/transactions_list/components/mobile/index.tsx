@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { Loading, Result, SingleTransactionMobile } from '@components';
 import { useList, useListRow } from '@hooks';
 import { Box, Divider, Typography } from '@mui/material';
@@ -10,6 +9,7 @@ import { mergeRefs } from '@utils/merge_refs';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -29,14 +29,14 @@ const Mobile: React.FC<TransactionsListState> = ({ className, itemCount, loadMor
 
         return {
             block: (
-                <Link href={BLOCK_DETAILS(x.height)} passHref>
+                <Link to={BLOCK_DETAILS(x.height)}>
                     <Typography variant="body1" component="a">
                         {numeral(x.height).format('0,0')}
                     </Typography>
                 </Link>
             ),
             hash: (
-                <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
+                <Link to={TRANSACTION_DETAILS(x.hash)}>
                     <Typography variant="body1" component="a">
                         {getMiddleEllipsis(x.hash, {
                             beginning: 15,

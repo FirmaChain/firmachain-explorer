@@ -1,13 +1,12 @@
-import React from 'react';
-import Link from '@/adapters/routing/link';
 import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
 import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
-import { Box } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
-import { useBigDipperNetworksStore,  readSelectedNetwork  } from '@zustand/big_dipper_networks';
-import { useSettingsStore,  readTheme  } from '@zustand/settings';
+import { Box } from '@mui/material';
 import { HOME } from '@utils/go_to_page';
+import { readSelectedNetwork, useBigDipperNetworksStore } from '@zustand/big_dipper_networks';
+import { readTheme, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
+import { Link } from 'react-router';
 
 import { NavbarProps } from './types';
 
@@ -83,10 +82,8 @@ const Navbar = (props: NavbarProps) => {
                 }
             })}
         >
-            <Link href={HOME}>
-                <a className="logo-link">
-                    {theme === 'light' ? <BigDipperLogoRed className="logo" /> : <BigDipperLogoWhite className="logo" />}
-                </a>
+            <Link to={HOME} className="logo-link">
+                {theme === 'light' ? <BigDipperLogoRed className="logo" /> : <BigDipperLogoWhite className="logo" />}
             </Link>
             <div className="actions">
                 {/* =================================== */}

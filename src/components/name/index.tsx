@@ -1,8 +1,8 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { ibcConfig } from '@/configs';
 import { Typography } from '@mui/material';
 import { ADDRESS_DETAILS } from '@utils/go_to_page';
+import { Link } from 'react-router';
 
 const Name: React.FC<{
     className?: string;
@@ -18,7 +18,7 @@ const Name: React.FC<{
     const explorerUrl = getExplorerUrlForAddress(address);
 
     return (
-        <Link href={explorerUrl ? `${explorerUrl}/${address}` : href(address)} passHref>
+        <Link to={explorerUrl ? `${explorerUrl}/${address}` : href(address)}>
             <Typography
                 variant="body1"
                 className={className}

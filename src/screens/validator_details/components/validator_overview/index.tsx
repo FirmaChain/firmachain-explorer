@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import CopyIcon from '@assets/icon-copy.svg?react';
 import { Box, ConditionExplanation, InfoPopover, Tag } from '@components';
 import { useScreenSize } from '@hooks';
@@ -11,6 +10,7 @@ import Big from 'big.js';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { OverviewType, StatusType } from '../../types';
 import { useAddress } from './hooks';
@@ -189,7 +189,7 @@ const ValidatorOverview: React.FC<
                         </Typography>
                         <div className="detail">
                             <CopyIcon className="actionIcon" onClick={() => handleCopyToClipboard(overview.selfDelegateAddress)} />
-                            <Link href={ACCOUNT_DETAILS(overview.selfDelegateAddress)} passHref>
+                            <Link to={ACCOUNT_DETAILS(overview.selfDelegateAddress)}>
                                 <Typography variant="body1" className="value" component="a">
                                     {!isDesktop
                                         ? getMiddleEllipsis(overview.selfDelegateAddress, {

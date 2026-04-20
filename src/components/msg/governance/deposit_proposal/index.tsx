@@ -1,5 +1,3 @@
-import React from 'react';
-import Link from '@/adapters/routing/link';
 import { Name } from '@components';
 import { MsgDeposit } from '@models';
 import { Typography } from '@mui/material';
@@ -7,6 +5,7 @@ import { formatNumber, formatToken } from '@utils/format_token';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
 import { useProfileRecoil } from '@zustand/profiles';
 import { Trans, useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 const DepositProposal = (props: { message: MsgDeposit }) => {
     const { t } = useTranslation('transactions');
@@ -24,7 +23,7 @@ const DepositProposal = (props: { message: MsgDeposit }) => {
 
     const Proposal = () => {
         return (
-            <Link href={PROPOSAL_DETAILS(message.proposalId)} passHref>
+            <Link to={PROPOSAL_DETAILS(message.proposalId)}>
                 <Typography component="a">#{message.proposalId}</Typography>
             </Link>
         );

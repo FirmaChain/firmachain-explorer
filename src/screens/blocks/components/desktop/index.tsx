@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { mergeRefs } from '@/utils/merge_refs';
 import { AvatarName, Loading } from '@components';
 import { useGrid } from '@hooks';
@@ -10,6 +9,7 @@ import { BLOCK_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeGrid as Grid } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -30,7 +30,7 @@ const Desktop: React.FC<{
     const formattedItems = items.map((x) => {
         return {
             height: (
-                <Link href={BLOCK_DETAILS(x.height)} passHref>
+                <Link to={BLOCK_DETAILS(x.height)}>
                     <Typography variant="body1" className="value" component="a">
                         {numeral(x.height).format('0,0')}
                     </Typography>

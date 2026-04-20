@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { BoxDetails, Result } from '@components';
 import { Box, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -9,6 +8,7 @@ import { readDate, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { OverviewType } from '../../types';
 
@@ -27,7 +27,7 @@ const Overview: React.FC<{
         {
             label: t('height'),
             detail: (
-                <Link href={BLOCK_DETAILS(data.height)} passHref>
+                <Link to={BLOCK_DETAILS(data.height)}>
                     <Typography variant="body1" className="value" component="a">
                         {numeral(data.height).format('0,0')}
                     </Typography>
@@ -45,7 +45,7 @@ const Overview: React.FC<{
         {
             label: t('feegrant'),
             detail: (
-                <Link href={ACCOUNT_DETAILS(data.feeGrant)} passHref>
+                <Link to={ACCOUNT_DETAILS(data.feeGrant)}>
                     <Typography variant="body1" className="value" component="a">
                         {data.feeGrant}
                     </Typography>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { AvatarName, Loading, SingleBlockMobile } from '@components';
 import { useList, useListRow } from '@hooks';
 import { Box, Divider, Typography } from '@mui/material';
@@ -9,6 +8,7 @@ import { BLOCK_DETAILS } from '@utils/go_to_page';
 import { mergeRefs } from '@utils/merge_refs';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { Link } from 'react-router';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -27,7 +27,7 @@ const Mobile: React.FC<{
     const formattedItems = items.map((x) => {
         return {
             height: (
-                <Link href={BLOCK_DETAILS(x.height)} passHref>
+                <Link to={BLOCK_DETAILS(x.height)}>
                     <Typography variant="body1" className="value" component="a">
                         {numeral(x.height).format('0,0')}
                     </Typography>

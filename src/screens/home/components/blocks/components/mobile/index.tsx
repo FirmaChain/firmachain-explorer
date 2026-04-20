@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { AvatarName, SingleBlockMobile } from '@components';
 import { Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
@@ -7,6 +6,7 @@ import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { Link } from 'react-router';
 
 import { ItemType } from '../../types';
 
@@ -21,7 +21,7 @@ const Mobile: React.FC<{
                     <React.Fragment key={`${x.height}-${i}`}>
                         <SingleBlockMobile
                             height={
-                                <Link href={BLOCK_DETAILS(x.height)} passHref>
+                                <Link to={BLOCK_DETAILS(x.height)}>
                                     <Typography variant="body1" className="value" component="a">
                                         {numeral(x.height).format('0,0')}
                                     </Typography>

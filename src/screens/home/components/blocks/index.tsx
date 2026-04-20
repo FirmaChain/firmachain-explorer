@@ -1,12 +1,12 @@
 import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
-import Link from '@/adapters/routing/link';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
 import { BLOCKS } from '@utils/go_to_page';
 import { useProfilesRecoil } from '@zustand/profiles';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { useBlocks } from './hooks';
 
@@ -67,7 +67,7 @@ const Blocks: React.FC<{
         >
             <div className="label">
                 <Typography variant="h2">{t('latestBlocks')}</Typography>
-                <Link href={BLOCKS} passHref>
+                <Link to={BLOCKS}>
                     <Typography variant="h4" className="button" component="a">
                         {t('seeMore')}
                     </Typography>
@@ -83,7 +83,7 @@ const Blocks: React.FC<{
                         <Mobile className="mobile" items={mergedDataWithProfiles} />
                     )}
                     <Divider className="mobile" />
-                    <Link href={BLOCKS} passHref>
+                    <Link to={BLOCKS}>
                         <Typography variant="h4" component="a" className="seeMoreFooter mobile button">
                             {t('seeMore')}
                         </Typography>

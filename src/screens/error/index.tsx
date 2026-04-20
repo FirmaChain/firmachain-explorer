@@ -1,10 +1,8 @@
-// /* eslint-disable */
-import React from 'react';
-import Link from '@/adapters/routing/link';
 import { generalConfig } from '@configs';
 import { Box, Typography } from '@mui/material';
 import { HOME } from '@utils/go_to_page';
 import { Trans, useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 const Error = () => {
     const { t } = useTranslation();
@@ -43,7 +41,7 @@ const Error = () => {
                         }}
                     />
                 </Typography>
-                <Link href={HOME} passHref>
+                <Link to={HOME}>
                     <Typography component="a">{t('common:errorHome')}</Typography>
                 </Link>
             </Box>

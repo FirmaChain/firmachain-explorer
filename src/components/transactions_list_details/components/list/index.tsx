@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { Loading, Result } from '@components';
 import { useList, useListRow, useScreenSize } from '@hooks';
 import { getMessageByType } from '@msg';
@@ -12,6 +11,7 @@ import { readDate, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -28,14 +28,14 @@ const TransactionList: React.FC<TransactionsListDetailsState> = ({ className, it
 
     const items = transactions.map((x) => ({
         block: (
-            <Link href={BLOCK_DETAILS(x.height)} passHref>
+            <Link to={BLOCK_DETAILS(x.height)}>
                 <Typography variant="body1" component="a">
                     {numeral(x.height).format('0,0')}
                 </Typography>
             </Link>
         ),
         hash: (
-            <Link href={TRANSACTION_DETAILS(x.hash)} passHref>
+            <Link to={TRANSACTION_DETAILS(x.hash)}>
                 <Typography variant="body1" component="a">
                     {isMobile
                         ? getMiddleEllipsis(x.hash, {

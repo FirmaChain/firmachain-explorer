@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { Box, Loading } from '@components';
 import { useList, useListRow } from '@hooks';
 import { Divider, Typography } from '@mui/material';
@@ -7,6 +6,7 @@ import { PROPOSAL_DETAILS } from '@utils/go_to_page';
 import { mergeRefs } from '@utils/merge_refs';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { Link } from 'react-router';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -30,7 +30,7 @@ const ProposalsList: React.FC<{
             status: x.status,
             types: x.types,
             title: (
-                <Link href={PROPOSAL_DETAILS(x.id)} passHref>
+                <Link to={PROPOSAL_DETAILS(x.id)}>
                     <Typography variant="h3" className="value" component="a">
                         {x.title}
                     </Typography>

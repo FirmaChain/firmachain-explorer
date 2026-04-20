@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@/adapters/routing/link';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
@@ -7,6 +6,7 @@ import { BLOCK_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 import { VotingPowerType } from '../../types';
 
@@ -84,7 +84,7 @@ const VotingPower: React.FC<{
                 <Typography variant="h4" className="label">
                     {t('block')}
                 </Typography>
-                <Link href={BLOCK_DETAILS(data.height)} passHref>
+                <Link to={BLOCK_DETAILS(data.height)}>
                     <Typography variant="body1" className="value" component="a">
                         {numeral(data.height).format('0,0')}
                     </Typography>
