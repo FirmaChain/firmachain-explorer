@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@/configs';
 import { ENV } from '@configs/env';
 import { useValidatorDetailsQuery, ValidatorDetailsQuery } from '@graphql/types';
 import { useDesmosProfile } from '@hooks';
 import { SlashingParams } from '@models';
-import { validatorToDelegatorAddress } from '@zustand/profiles';
 import { formatToken } from '@utils/format_token';
 import { getValidatorCondition } from '@utils/get_validator_condition';
+import { validatorToDelegatorAddress } from '@zustand/profiles';
 import axios from 'axios';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { ValidatorDetailsState } from './types';
 
@@ -49,7 +49,8 @@ const initialState: ValidatorDetailsState = {
 };
 
 export const useValidatorDetails = () => {
-    const router = useRouter();
+    const { address } = useParams();
+
     const [state, setState] = useState<ValidatorDetailsState>(initialState);
 
     const handleSetState = (stateChange: any) => {
@@ -68,23 +69,22 @@ export const useValidatorDetails = () => {
     });
 
     useEffect(() => {
+        if (!address) return;
         // ryuash
         // why did i do this again
         handleSetState(initialState);
         if (chainConfig.extra.profile) {
-            const address = validatorToDelegatorAddress(router.query.address as string);
+            const v = validatorToDelegatorAddress(address);
 
-            fetchDesmosProfile(address);
+            fetchDesmosProfile(v);
         }
-    }, [router.query.address]);
+    }, [address]);
 
     // ==========================
     // Fetch Data
     // ==========================
     useValidatorDetailsQuery({
-        variables: {
-            address: router.query.address as string
-        },
+        variables: { address },
         onCompleted: (data) => {
             axios
                 .get(

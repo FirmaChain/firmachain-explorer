@@ -1,4 +1,3 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { DesmosProfile, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
@@ -6,7 +5,6 @@ import { Connections } from './components';
 import { useProfileDetails } from './hooks';
 
 const ProfileDetails = () => {
-    const { t } = useTranslation('profiles');
     const { state } = useProfileDetails();
 
     return (

@@ -1,12 +1,14 @@
-import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@configs';
-import { readValidator, useValidatorsStore } from '@zustand/validators';
 import { ACCOUNT_DETAILS, BLOCK_DETAILS, PROFILE_DETAILS, TRANSACTION_DETAILS, VALIDATOR_DETAILS } from '@utils/go_to_page';
+import { readValidator, useValidatorsStore } from '@zustand/validators';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
-export const useSearchBar = (t) => {
-    const router = useRouter();
+export const useSearchBar = () => {
+    const navigate = useNavigate();
+    const { t } = useTranslation('common');
 
     const handleOnSubmit = async (value: string, clear?: () => void) => {
         const consensusRegex = `^(${chainConfig.prefix.consensus})`;
@@ -17,14 +19,14 @@ export const useSearchBar = (t) => {
         if (new RegExp(consensusRegex).test(parsedValue)) {
             const validatorAddress = readValidator(parsedValue)(useValidatorsStore.getState());
             if (validatorAddress) {
-                router.push(VALIDATOR_DETAILS(validatorAddress.validator));
+                navigate(VALIDATOR_DETAILS(validatorAddress.validator));
             } else {
                 toast(t('common:useValidatorAddress'));
             }
         } else if (new RegExp(validatorRegex).test(parsedValue)) {
-            router.push(VALIDATOR_DETAILS(parsedValue));
+            navigate(VALIDATOR_DETAILS(parsedValue));
         } else if (new RegExp(userRegex).test(parsedValue)) {
-            router.push(ACCOUNT_DETAILS(parsedValue));
+            navigate(ACCOUNT_DETAILS(parsedValue));
         } else if (/^@/.test(parsedValue)) {
             const configProfile = chainConfig.extra.profile;
             if (!configProfile) {
@@ -32,12 +34,12 @@ export const useSearchBar = (t) => {
             } else if (parsedValue === '@') {
                 toast(t('common:insertValidDtag'));
             } else {
-                router.push(PROFILE_DETAILS(parsedValue));
+                navigate(PROFILE_DETAILS(parsedValue));
             }
         } else if (/^-?\d+$/.test(numeral(parsedValue).value())) {
-            router.push(BLOCK_DETAILS(numeral(parsedValue).value()));
+            navigate(BLOCK_DETAILS(numeral(parsedValue).value()));
         } else {
-            router.push(TRANSACTION_DETAILS(parsedValue));
+            navigate(TRANSACTION_DETAILS(parsedValue));
         }
 
         if (clear) {

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@/configs';
 import { useDesmosProfile } from '@hooks';
 import { formatToken } from '@utils/format_token';
 import { getDenom } from '@utils/get_denom';
 import Big from 'big.js';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { AccountDetailState } from './types';
 import {
@@ -48,7 +48,8 @@ const initialState: AccountDetailState = {
 };
 
 export const useAccountDetails = () => {
-    const router = useRouter();
+    const { address } = useParams();
+
     const [state, setState] = useState<AccountDetailState>(initialState);
 
     const handleSetState = (stateChange: any) => {
@@ -69,30 +70,30 @@ export const useAccountDetails = () => {
     useEffect(() => {
         handleSetState(initialState);
         if (chainConfig.extra.profile) {
-            fetchDesmosProfile(router.query.address as string);
+            fetchDesmosProfile(address as string);
         }
-    }, [router.query.address]);
+    }, [address]);
 
     useEffect(() => {
         fetchWithdrawalAddress();
         fetchBalance();
-    }, [router.query.address]);
+    }, [address]);
 
     // ==========================
     // Fetch Data
     // ==========================
     const fetchWithdrawalAddress = async () => {
-        const data = await fetchAccountWithdrawalAddress(router.query.address as string);
+        const data = await fetchAccountWithdrawalAddress(address as string);
         handleSetState({
             overview: {
-                address: router.query.address,
+                address,
                 withdrawalAddress: R.pathOr('', ['withdrawalAddress', 'address'], data)
             }
         });
     };
 
     const fetchBalance = async () => {
-        const address = router.query.address as string;
+        if (!address) return;
         const promises = [
             fetchCommission(address),
             fetchAvailableBalances(address),

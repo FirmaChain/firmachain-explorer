@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { ProposalDetailsQuery, useProposalDetailsQuery } from '@graphql/types';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { ProposalState } from './types';
 
 export const useProposalDetails = () => {
-    const router = useRouter();
+    const { id } = useParams();
 
     const [state, setState] = useState<ProposalState>({
         loading: true,
@@ -39,7 +39,7 @@ export const useProposalDetails = () => {
     // ==========================
     useProposalDetailsQuery({
         variables: {
-            proposalId: R.pathOr('', ['query', 'id'], router)
+            proposalId: Number(id)
         },
         onCompleted: (data) => {
             handleSetState(formatProposalQuery(data));

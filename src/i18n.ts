@@ -36,4 +36,9 @@ if (!i18n.isInitialized) {
         });
 }
 
+const locale = i18n.language || '';
+const locales = i18n.languages?.length ? i18n.languages : ['en'];
+
+export { locale, locales };
+
 export default i18n;

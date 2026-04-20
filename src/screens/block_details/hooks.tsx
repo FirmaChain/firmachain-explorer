@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { BlockDetailsQuery, useBlockDetailsQuery } from '@graphql/types';
 import { convertMsgsToModels } from '@msg';
 import numeral from 'numeral';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { BlockDetailState } from './types';
 
 export const useBlockDetails = () => {
-    const router = useRouter();
+    const { height } = useParams();
+
     const [state, setState] = useState<BlockDetailState>({
         loading: true,
         exists: true,
@@ -32,15 +33,15 @@ export const useBlockDetails = () => {
             loading: true,
             exists: true
         });
-    }, [router.query.height]);
+    }, [height]);
 
     // ==========================
     // Fetch Data
     // ==========================
     useBlockDetailsQuery({
         variables: {
-            height: numeral(router.query.height).value(),
-            signatureHeight: numeral(router.query.height).value() + 1
+            height: numeral(height).value(),
+            signatureHeight: numeral(height).value() + 1
         },
         onCompleted: (data) => {
             handleSetState(formatRaws(data));

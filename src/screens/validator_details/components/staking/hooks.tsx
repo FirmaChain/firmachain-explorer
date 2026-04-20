@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@configs';
 import { ENV } from '@configs/env';
 import {
@@ -12,6 +11,7 @@ import { getDenom } from '@utils/get_denom';
 import axios from 'axios';
 import Big from 'big.js';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { StakingState } from './types';
 
@@ -25,7 +25,8 @@ const LIMIT = 100;
 const PAGE_LIMIT = 10;
 
 export const useStaking = () => {
-    const router = useRouter();
+    const { address } = useParams();
+
     const [state, setState] = useState<StakingState>({
         tab: 0,
         delegations: stakingDefault,
@@ -37,7 +38,7 @@ export const useStaking = () => {
         getDelegations();
         getRedelegations();
         getUnbondings();
-    }, [router.query.address]);
+    }, [address]);
 
     const handleSetState = (stateChange: any) => {
         setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
@@ -65,7 +66,7 @@ export const useStaking = () => {
     const getStakeByPage = async (page: number, query: string) => {
         const { data } = await axios.post(ENV.GRAPHQL_URL, {
             variables: {
-                validatorAddress: R.pathOr('', ['query', 'address'], router),
+                validatorAddress: address,
                 offset: page * LIMIT,
                 limit: LIMIT,
                 pagination: false
@@ -82,7 +83,7 @@ export const useStaking = () => {
         try {
             const { data } = await axios.post(ENV.GRAPHQL_URL, {
                 variables: {
-                    validatorAddress: R.pathOr('', ['query', 'address'], router),
+                    validatorAddress: address,
                     limit: LIMIT
                 },
                 query: ValidatorDelegationsDocument
@@ -143,7 +144,7 @@ export const useStaking = () => {
         try {
             const { data } = await axios.post(ENV.GRAPHQL_URL, {
                 variables: {
-                    validatorAddress: R.pathOr('', ['query', 'address'], router),
+                    validatorAddress: address,
                     limit: LIMIT
                 },
                 query: ValidatorRedelegationsDocument
@@ -211,7 +212,7 @@ export const useStaking = () => {
         try {
             const { data } = await axios.post(ENV.GRAPHQL_URL, {
                 variables: {
-                    validatorAddress: R.pathOr('', ['query', 'address'], router),
+                    validatorAddress: address,
                     limit: LIMIT
                 },
                 query: ValidatorUndelegationsDocument

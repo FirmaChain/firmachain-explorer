@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@configs';
 import { ProposalDetailsDepositsQuery, useProposalDetailsDepositsQuery } from '@graphql/types';
 import { formatToken } from '@utils/format_token';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { DepositState } from './types';
 
 export const useDeposits = () => {
-    const router = useRouter();
+    const { id } = useParams();
+
     const [state, setState] = useState<DepositState>({
         data: []
     });
@@ -19,7 +20,7 @@ export const useDeposits = () => {
 
     useProposalDetailsDepositsQuery({
         variables: {
-            proposalId: R.pathOr('', ['query', 'id'], router)
+            proposalId: Number(id)
         },
         onCompleted: (data) => {
             handleSetState(foramtProposalDeposits(data));

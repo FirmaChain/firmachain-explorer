@@ -7,7 +7,7 @@ import { useSearchBar } from './hooks';
 
 const SearchBar: React.FC<{ className?: string }> = ({ className }) => {
     const { t } = useTranslation('common');
-    const { handleOnSubmit } = useSearchBar(t);
+    const { handleOnSubmit } = useSearchBar();
 
     let placeholderText;
     if (chainConfig.extra.profile) {

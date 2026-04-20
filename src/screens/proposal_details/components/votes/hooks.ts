@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { ProposalDetailsVotesQuery, useProposalDetailsVotesQuery } from '@graphql/types';
 import { toValidatorAddress } from '@utils/prefix_convert';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { VoteState } from './types';
 
 export const useVotes = (resetPagination: any) => {
-    const router = useRouter();
+    const { id } = useParams();
+
     const [state, setState] = useState<VoteState>({
         data: [],
         validatorsNotVoted: [],
@@ -36,7 +37,7 @@ export const useVotes = (resetPagination: any) => {
 
     useProposalDetailsVotesQuery({
         variables: {
-            proposalId: R.pathOr('', ['query', 'id'], router)
+            proposalId: Number(id)
         },
         onCompleted: (data) => {
             handleSetState(formatVotes(data));

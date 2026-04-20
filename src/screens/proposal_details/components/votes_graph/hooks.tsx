@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@configs';
 import { ProposalDetailsTallyQuery, useProposalDetailsTallyQuery } from '@graphql/types';
 import { formatToken } from '@utils/format_token';
 import Big from 'big.js';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { VotesGraphState } from './types';
 
@@ -16,7 +16,7 @@ const defaultTokenUnit: TokenUnit = {
 };
 
 export const useVotesGraph = () => {
-    const router = useRouter();
+    const { id } = useParams();
     const [state, setState] = useState<VotesGraphState>({
         votes: {
             yes: defaultTokenUnit,
@@ -34,7 +34,7 @@ export const useVotesGraph = () => {
 
     useProposalDetailsTallyQuery({
         variables: {
-            proposalId: R.pathOr('', ['query', 'id'], router)
+            proposalId: Number(id)
         },
         onCompleted: (data) => {
             handleSetState(foramtProposalTally(data));

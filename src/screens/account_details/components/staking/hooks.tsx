@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import {
     AccountDelegationsDocument,
     AccountRedelegationsDocument,
@@ -12,6 +11,7 @@ import { getDenom } from '@utils/get_denom';
 import axios from 'axios';
 import Big from 'big.js';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { RewardsType } from '../../types';
 import { StakingState } from './types';
@@ -26,7 +26,7 @@ const LIMIT = 100;
 const PAGE_LIMIT = 10;
 
 export const useStaking = (rewards: RewardsType) => {
-    const router = useRouter();
+    const { address } = useParams();
     const [state, setState] = useState<StakingState>({
         tab: 0,
         delegations: stakingDefault,
@@ -38,7 +38,7 @@ export const useStaking = (rewards: RewardsType) => {
         getDelegations();
         getRedelegations();
         getUnbondings();
-    }, [router.query.address]);
+    }, [address]);
 
     const handleSetState = (stateChange: any) => {
         setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
@@ -66,7 +66,7 @@ export const useStaking = (rewards: RewardsType) => {
     const getStakeByPage = async (page: number, query: string) => {
         const { data } = await axios.post(ENV.GRAPHQL_URL, {
             variables: {
-                address: R.pathOr('', ['query', 'address'], router),
+                address,
                 offset: page * LIMIT,
                 limit: LIMIT,
                 pagination: false
@@ -83,7 +83,7 @@ export const useStaking = (rewards: RewardsType) => {
         try {
             const { data } = await axios.post(ENV.GRAPHQL_URL, {
                 variables: {
-                    address: R.pathOr('', ['query', 'address'], router),
+                    address,
                     limit: LIMIT
                 },
                 query: AccountDelegationsDocument
@@ -145,7 +145,7 @@ export const useStaking = (rewards: RewardsType) => {
         try {
             const { data } = await axios.post(ENV.GRAPHQL_URL, {
                 variables: {
-                    address: R.pathOr('', ['query', 'address'], router),
+                    address,
                     limit: LIMIT
                 },
                 query: AccountRedelegationsDocument
@@ -214,7 +214,7 @@ export const useStaking = (rewards: RewardsType) => {
         try {
             const { data } = await axios.post(ENV.GRAPHQL_URL, {
                 variables: {
-                    address: R.pathOr('', ['query', 'address'], router),
+                    address,
                     limit: LIMIT
                 },
                 query: AccountUndelegationsDocument

@@ -84,6 +84,7 @@ const Overview: React.FC<{
                 sx={(theme) => ({
                     [theme.breakpoints.up('md')]: { display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' },
                     '& .item': {
+                        borderBottom: 'none !important',
                         p: theme.spacing(2, 0),
                         color: theme.palette.custom.fonts.fontTwo,
                         '&:first-child': { pt: 0 },

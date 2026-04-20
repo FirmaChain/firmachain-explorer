@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { chainConfig } from '@/configs';
 import { useDesmosProfile } from '@hooks';
 import * as R from 'ramda';
+import { useNavigate, useParams } from 'react-router';
 
 import { ProfileDetailState } from './types';
 
@@ -13,7 +13,8 @@ const initialState: ProfileDetailState = {
 };
 
 export const useProfileDetails = () => {
-    const router = useRouter();
+    const { dtag } = useParams();
+    const navigate = useNavigate();
     const [state, setState] = useState<ProfileDetailState>(initialState);
     const handleSetState = (stateChange: any) => {
         setState((prevState) => R.mergeDeepLeft(stateChange, prevState));
@@ -46,30 +47,31 @@ export const useProfileDetails = () => {
 
     useEffect(() => {
         const regex = /^@/;
-        const profileDtag = router.query.dtag as string;
+        const profileDtag = dtag as string;
         const regexCheck = regex.test(profileDtag);
         const configProfile = chainConfig.extra.profile;
         handleSetState(initialState);
 
         if (!regexCheck || !configProfile) {
-            router.replace('/');
+            navigate('/', { replace: true });
         }
         if (configProfile) {
-            fetchDesmosProfile(R.pathOr('', ['query', 'dtag'], router));
+            fetchDesmosProfile(dtag);
         }
-    }, [R.pathOr('', ['query', 'dtag'], router)]);
+    }, [dtag]);
 
     useEffect(() => {
         if (state.desmosProfile) {
             const showProfile = shouldShowProfile();
 
             if (showProfile) {
-                const dtagInput = router.query.dtag as string;
+                const dtagInput = dtag as string;
                 if (
                     `@${state.desmosProfile.dtag}` !== dtagInput &&
                     `@${state.desmosProfile.dtag.toUpperCase()}` === dtagInput.toUpperCase()
                 ) {
-                    router.push({ pathname: `/@${state.desmosProfile.dtag}` }, `/@${state.desmosProfile.dtag}`, { shallow: true });
+                    navigate(`/@${state.desmosProfile.dtag}`);
+                    // push({ pathname: `/@${state.desmosProfile.dtag}` }, `/@${state.desmosProfile.dtag}`);
                 }
             } else {
                 handleSetState({

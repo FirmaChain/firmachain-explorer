@@ -1,4 +1,3 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, LoadAndExist, NoData } from '@components';
 import { useScreenSize } from '@hooks';
@@ -11,7 +10,6 @@ const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
 const Blocks = () => {
-    const { t } = useTranslation('blocks');
     const { isDesktop } = useScreenSize();
     const { state, loadMoreItems, itemCount, isItemLoaded } = useBlocks();
 

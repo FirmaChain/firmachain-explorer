@@ -1,134 +1,134 @@
-import i18n from '@/i18n';
-import { useLocation, useNavigate, useParams } from 'react-router';
+export {};
 
-type QueryPrimitive = string | number | boolean | null | undefined;
-type QueryValue = QueryPrimitive | QueryPrimitive[];
+// import i18n from '@/i18n';
+// import { useLocation, useNavigate, useParams } from 'react-router';
 
-type UrlObject = {
-    pathname?: string;
-    query?: Record<string, QueryValue>;
-};
+// type QueryPrimitive = string | number | boolean | null | undefined;
+// type QueryValue = QueryPrimitive | QueryPrimitive[];
 
-type NavigateOptions = {
-    replace?: boolean;
-};
+// type UrlObject = {
+//     pathname?: string;
+//     query?: Record<string, QueryValue>;
+// };
 
-const isExternal = (url: string) => /^https?:\/\//.test(url);
+// type NavigateOptions = {
+//     replace?: boolean;
+// };
 
-const appendSearchParams = (searchParams: URLSearchParams, key: string, value: QueryValue) => {
-    if (value === undefined || value === null) return;
+// const isExternal = (url: string) => /^https?:\/\//.test(url);
 
-    if (Array.isArray(value)) {
-        value.forEach((item) => {
-            if (item !== undefined && item !== null) {
-                searchParams.append(key, String(item));
-            }
-        });
-        return;
-    }
+// const appendSearchParams = (searchParams: URLSearchParams, key: string, value: QueryValue) => {
+//     if (value === undefined || value === null) return;
 
-    searchParams.append(key, String(value));
-};
+//     if (Array.isArray(value)) {
+//         value.forEach((item) => {
+//             if (item !== undefined && item !== null) {
+//                 searchParams.append(key, String(item));
+//             }
+//         });
+//         return;
+//     }
 
-const buildPath = (pathname: string, query?: Record<string, QueryValue>) => {
-    if (!query) return pathname;
+//     searchParams.append(key, String(value));
+// };
 
-    let path = pathname;
-    const remainingEntries = new Map(Object.entries(query));
+// const buildPath = (pathname: string, query?: Record<string, QueryValue>) => {
+//     if (!query) return pathname;
 
-    Object.entries(query).forEach(([key, value]) => {
-        const token = `[${key}]`;
+//     let path = pathname;
+//     const remainingEntries = new Map(Object.entries(query));
 
-        if (!path.includes(token)) return;
-        if (value === undefined || value === null || Array.isArray(value)) return;
+//     Object.entries(query).forEach(([key, value]) => {
+//         const token = `[${key}]`;
 
-        path = path.replace(token, encodeURIComponent(String(value)));
-        remainingEntries.delete(key);
-    });
+//         if (!path.includes(token)) return;
+//         if (value === undefined || value === null || Array.isArray(value)) return;
 
-    const searchParams = new URLSearchParams();
+//         path = path.replace(token, encodeURIComponent(String(value)));
+//         remainingEntries.delete(key);
+//     });
 
-    remainingEntries.forEach((value, key) => {
-        appendSearchParams(searchParams, key, value);
-    });
+//     const searchParams = new URLSearchParams();
 
-    const search = searchParams.toString();
-    return search ? `${path}?${search}` : path;
-};
+//     remainingEntries.forEach((value, key) => {
+//         appendSearchParams(searchParams, key, value);
+//     });
 
-const toHref = (url: string | UrlObject) => {
-    if (typeof url === 'string') return url;
-    return buildPath(url.pathname || '/', url.query);
-};
+//     const search = searchParams.toString();
+//     return search ? `${path}?${search}` : path;
+// };
 
-const parseSearchParams = (search: string) => {
-    const params = new URLSearchParams(search);
-    const result: Record<string, string | string[]> = {};
+// const toHref = (url: string | UrlObject) => {
+//     if (typeof url === 'string') return url;
+//     return buildPath(url.pathname || '/', url.query);
+// };
 
-    params.forEach((value, key) => {
-        const current = result[key];
+// const parseSearchParams = (search: string) => {
+//     const params = new URLSearchParams(search);
+//     const result: Record<string, string | string[]> = {};
 
-        if (current === undefined) {
-            result[key] = value;
-            return;
-        }
+//     params.forEach((value, key) => {
+//         const current = result[key];
 
-        if (Array.isArray(current)) {
-            result[key] = [...current, value];
-            return;
-        }
+//         if (current === undefined) {
+//             result[key] = value;
+//             return;
+//         }
 
-        result[key] = [current, value];
-    });
+//         if (Array.isArray(current)) {
+//             result[key] = [...current, value];
+//             return;
+//         }
 
-    return result;
-};
+//         result[key] = [current, value];
+//     });
 
-export const useRouter = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const params = useParams<Record<string, string | undefined>>();
-    const searchParams = parseSearchParams(location.search);
+//     return result;
+// };
 
-    const push = (url: string | UrlObject, _as?: string, _options?: NavigateOptions) => {
-        const href = toHref(url);
+// export const useRouter = () => {
+//     const location = useLocation();
+//     const navigate = useNavigate();
+//     const params = useParams<Record<string, string | undefined>>();
+//     const searchParams = parseSearchParams(location.search);
 
-        if (isExternal(href)) {
-            window.location.assign(href);
-            return;
-        }
+//     const push = (url: string | UrlObject, _as?: string, _options?: NavigateOptions) => {
+//         const href = toHref(url);
 
-        navigate(href);
-    };
+//         if (isExternal(href)) {
+//             window.location.assign(href);
+//             return;
+//         }
 
-    const replace = (url: string | UrlObject, _as?: string, _options?: NavigateOptions) => {
-        const href = toHref(url);
+//         navigate(href);
+//     };
 
-        if (isExternal(href)) {
-            window.location.replace(href);
-            return;
-        }
+//     const replace = (url: string | UrlObject, _as?: string, _options?: NavigateOptions) => {
+//         const href = toHref(url);
 
-        navigate(href, { replace: true });
-    };
+//         if (isExternal(href)) {
+//             window.location.replace(href);
+//             return;
+//         }
 
-    return {
-        push,
-        replace,
+//         navigate(href, { replace: true });
+//     };
 
-        // Compatibility field for legacy Next-style usage
-        query: {
-            ...searchParams,
-            ...params
-        },
+//     return {
+//         push,
+//         replace,
 
-        // Explicit fields for safer usage
-        params,
-        searchParams,
+//         // Compatibility field for legacy Next-style usage
+//         query: {
+//             ...searchParams,
+//             ...params
+//         },
 
-        pathname: location.pathname,
-        asPath: `${location.pathname}${location.search}`,
-        locale: i18n.language,
-        locales: i18n.languages?.length ? i18n.languages : ['en']
-    };
-};
+//         // Explicit fields for safer usage
+//         params,
+//         searchParams,
+
+//         pathname: location.pathname,
+//         asPath: `${location.pathname}${location.search}`
+//     };
+// };

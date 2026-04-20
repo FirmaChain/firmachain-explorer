@@ -1,4 +1,3 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { DesmosProfile, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
 
@@ -6,7 +5,6 @@ import { Balance, OtherTokens, Overview, Staking, Transactions } from './compone
 import { useAccountDetails } from './hooks';
 
 const AccountDetails = () => {
-    const { t } = useTranslation('accounts');
     const { state } = useAccountDetails();
 
     return (

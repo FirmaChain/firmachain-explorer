@@ -1,12 +1,10 @@
-import React from 'react';
 import useTranslation from '@/adapters/i18n/useTranslation';
-import Link from '@/adapters/routing/link';
-import { useRouter } from '@/adapters/routing/router';
+import i18n, { locale, locales } from '@/i18n';
 import Language from '@assets/icon-language.svg?react';
 import ThemeIcon from '@assets/icon-theme.svg?react';
+import { ExpandMoreOutlined } from '@mui/icons-material';
 import { Box, Drawer, MenuItem, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { ExpandMoreOutlined } from '@mui/icons-material';
 import { THEME_LIST } from '@zustand/settings';
 import classnames from 'classnames';
 
@@ -15,7 +13,6 @@ import { useLanguageDrawer, useThemeDrawer } from './hooks';
 import { MenuProps } from './types';
 
 const Menu = (props: MenuProps) => {
-    const router = useRouter();
     const { t, lang } = useTranslation('common');
 
     const { toggleNavMenus, className } = props;
@@ -39,23 +36,12 @@ const Menu = (props: MenuProps) => {
                 })}
             >
                 <div className={classnames('content')}>
-                    {router.locales
+                    {[...locales, 'kr']
                         .filter((l) => l !== lang)
                         .map((l) => (
-                            <div key={l}>
-                                <Link
-                                    href={{
-                                        pathname: router.pathname,
-                                        query: router.query
-                                    }}
-                                    locale={l}
-                                    passHref
-                                >
-                                    <MenuItem component="a">
-                                        {t(l)}
-                                    </MenuItem>
-                                </Link>
-                            </div>
+                            <MenuItem key={l} component="button" onClick={() => i18n.changeLanguage(l)}>
+                                {t(l)}
+                            </MenuItem>
                         ))}
                 </div>
             </Drawer>
@@ -131,7 +117,7 @@ const Menu = (props: MenuProps) => {
                 <div className="footerActions">
                     <div className="language" role="button" onClick={languageOptions.toggleDrawer}>
                         <Language />
-                        <Typography variant="caption">{t(router.locale)}</Typography>
+                        <Typography variant="caption">{t(locale)}</Typography>
                         <ExpandMoreOutlined fontSize="small" />
                     </div>
                     <div className="theme" role="button" onClick={themeOptions.toggleDrawer}>

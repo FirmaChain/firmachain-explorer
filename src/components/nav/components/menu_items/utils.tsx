@@ -16,7 +16,8 @@ export const getMenuItems = () => {
         {
             key: 'overview',
             url: HOME,
-            icon: <HomeIcon {...iconProps} />
+            icon: <HomeIcon {...iconProps} />,
+            exact: true
         },
         {
             key: 'blocks',

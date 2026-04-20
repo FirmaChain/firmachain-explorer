@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { TransactionDetailsQuery, useTransactionDetailsQuery } from '@graphql/types';
 import { convertDefaultRaw, convertMsgsToModels } from '@msg';
 import { formatToken } from '@utils/format_token';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { TransactionState } from './types';
 
 export const useTransactionDetails = () => {
-    const router = useRouter();
+    const { tx } = useParams();
+
     const [state, setState] = useState<TransactionState>({
         exists: true,
         loading: true,
@@ -47,14 +48,14 @@ export const useTransactionDetails = () => {
             loading: true,
             exists: true
         });
-    }, [router.query.tx]);
+    }, [tx]);
 
     // ===============================
     // Fetch data
     // ===============================
     useTransactionDetailsQuery({
         variables: {
-            hash: (router.query.tx as string).toUpperCase()
+            hash: (tx as string).toUpperCase()
         },
         onCompleted: (data) => {
             console.log('data', data);

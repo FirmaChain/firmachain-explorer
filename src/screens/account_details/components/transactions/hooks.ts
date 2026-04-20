@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { useRouter } from '@/adapters/routing/router';
 import { GetMessagesByAddressQuery, useGetMessagesByAddressQuery } from '@graphql/types';
 import { convertMsgsToModels } from '@msg';
 import * as R from 'ramda';
+import { useParams } from 'react-router';
 
 import { TransactionState } from './types';
 
 const LIMIT = 50;
 
 export const useTransactions = () => {
-    const router = useRouter();
+    const { address } = useParams();
+
     const [state, setState] = useState<TransactionState>({
         data: [],
         hasNextPage: false,
@@ -25,7 +26,7 @@ export const useTransactions = () => {
         variables: {
             limit: LIMIT + 1, // to check if more exist
             offset: 0,
-            address: `{${R.pathOr('', ['query', 'address'], router)}}`
+            address: `{${address}}`
         },
         onCompleted: (data) => {
             const itemsLength = data.messagesByAddress.length;
