@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { chainConfig } from '@configs';
 import { Box, Typography } from '@mui/material';
-import { useMarketStore,  readMarket  } from '@zustand/market';
-import { useSettingsStore,  readTheme  } from '@zustand/settings';
+import { readMarket, useMarketStore } from '@zustand/market';
+import { readTheme, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
 import * as R from 'ramda';
+import { useTranslation } from 'react-i18next';
 
 import { formatMarket } from './utils';
 

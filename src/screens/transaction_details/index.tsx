@@ -1,6 +1,6 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { LoadAndExist } from '@components';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { Logs, Messages, Overview } from './components';
 import { useTransactionDetails } from './hooks';

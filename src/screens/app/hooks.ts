@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import * as jdenticon from 'jdenticon';
+import { useTranslation } from 'react-i18next';
 
 export const useApp = () => {
     // ==========================

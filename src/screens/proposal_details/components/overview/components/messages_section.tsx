@@ -1,6 +1,6 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import type { MessageGroup } from '../utils';
 import CollapsibleMessageItem from './collapsible_message_item';

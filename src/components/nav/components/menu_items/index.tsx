@@ -1,7 +1,7 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { lighten } from '@/utils/color';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 
 import { getMenuItems } from './utils';

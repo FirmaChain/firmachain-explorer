@@ -1,11 +1,10 @@
 // /* eslint-disable */
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { generalConfig } from '@configs';
 import { Box, Typography } from '@mui/material';
 import { HOME } from '@utils/go_to_page';
+import { Trans, useTranslation } from 'react-i18next';
 
 const Error = () => {
     const { t } = useTranslation();

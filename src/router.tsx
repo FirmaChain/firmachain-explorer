@@ -1,5 +1,4 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Layout } from '@components';
 import NotFound from '@screens/404';
 import AccountDetails from '@screens/account_details';
@@ -15,6 +14,7 @@ import TransactionDetails from '@screens/transaction_details';
 import Transactions from '@screens/transactions';
 import ValidatorDetails from '@screens/validator_details';
 import Validators from '@screens/validators';
+import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router';
 
 function RoutedComponent({ Component }: { Component: React.ComponentType<any> }) {

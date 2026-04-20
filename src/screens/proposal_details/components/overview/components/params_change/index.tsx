@@ -1,6 +1,6 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const ParamsChange: React.FC<{
     className?: string;

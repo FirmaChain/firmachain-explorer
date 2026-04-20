@@ -1,14 +1,14 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { BoxDetails, Result } from '@components';
 import { Box, Typography } from '@mui/material';
-import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { formatNumber } from '@utils/format_token';
 import { ACCOUNT_DETAILS, BLOCK_DETAILS } from '@utils/go_to_page';
+import { readDate, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 import { OverviewType } from '../../types';
 

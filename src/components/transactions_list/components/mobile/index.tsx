@@ -1,5 +1,4 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Loading, Result, SingleTransactionMobile } from '@components';
 import { useList, useListRow } from '@hooks';
@@ -10,6 +9,7 @@ import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
 import { mergeRefs } from '@utils/merge_refs';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';

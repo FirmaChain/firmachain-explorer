@@ -1,5 +1,4 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Result } from '@components';
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
@@ -8,6 +7,7 @@ import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 import { getMessageByType } from '@/components/msg';
 

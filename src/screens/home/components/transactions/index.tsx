@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import Link from '@/adapters/routing/link';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
 import { TRANSACTIONS } from '@utils/go_to_page';
+import { useTranslation } from 'react-i18next';
 
 import { useTransactions } from './hooks';
 
@@ -70,11 +70,7 @@ const Transactions: React.FC<{
                 <NoData />
             ) : (
                 <>
-                    {isDesktop ? (
-                        <Desktop className="desktop" items={state.items} />
-                    ) : (
-                        <Mobile className="mobile" items={state.items} />
-                    )}
+                    {isDesktop ? <Desktop className="desktop" items={state.items} /> : <Mobile className="mobile" items={state.items} />}
                     <Divider className="mobile" />
                     <Link href={TRANSACTIONS} passHref>
                         <Typography variant="h4" component="a" className="seeMoreFooter mobile button">

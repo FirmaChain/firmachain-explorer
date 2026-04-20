@@ -1,9 +1,10 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
-import { tabsHeaderSx } from '@/styles/ui';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
+
+import { tabsHeaderSx } from '@/styles/ui';
 
 import { tabLabels } from './utils';
 

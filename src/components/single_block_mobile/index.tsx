@@ -1,6 +1,6 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const SingleBlockMobile: React.FC<{
     className?: string;

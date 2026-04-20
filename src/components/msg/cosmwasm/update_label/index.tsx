@@ -1,8 +1,8 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgCosmwasmUpdateLabel } from '@models';
+import { Typography } from '@mui/material';
+import { Trans } from 'react-i18next';
 
 const CosmwasmUpdateLabel = (props: { message: MsgCosmwasmUpdateLabel }) => {
     const { message } = props;

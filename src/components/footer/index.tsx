@@ -1,12 +1,11 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { chainConfig, generalConfig } from '@/configs';
 import FooterLogoLight from '@assets/big-dipper-red.svg?react';
 import FooterLogoDark from '@assets/big-dipper-white.svg?react';
 import { Box, Button, Divider, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { readTheme, useSettingsStore } from '@zustand/settings';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { SocialMedia } from './components';
 import { donateLink, footerLinks } from './utils';

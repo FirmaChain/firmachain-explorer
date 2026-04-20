@@ -1,7 +1,7 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Table, TableBody, TableCell, TableRow } from '@mui/material';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 const SoftwareUpgrade: React.FC<{
     className?: string;

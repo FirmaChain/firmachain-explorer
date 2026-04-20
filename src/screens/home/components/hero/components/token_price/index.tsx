@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { CustomToolTip } from '@components';
 import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
+import { readDate, useSettingsStore } from '@zustand/settings';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import { TokenPriceType } from '../../types';

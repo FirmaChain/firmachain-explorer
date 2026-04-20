@@ -1,8 +1,8 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgCosmwasmExecuteContract } from '@models';
+import { Typography } from '@mui/material';
+import { Trans } from 'react-i18next';
 
 const CosmwasmExecuteContract = (props: { message: MsgCosmwasmExecuteContract }) => {
     const { message } = props;

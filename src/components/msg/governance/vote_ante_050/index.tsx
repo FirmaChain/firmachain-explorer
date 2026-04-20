@@ -1,12 +1,11 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgVoteAnte050 } from '@models';
-import { useProfileRecoil } from '@zustand/profiles';
+import { Typography } from '@mui/material';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
+import { useProfileRecoil } from '@zustand/profiles';
+import { Trans, useTranslation } from 'react-i18next';
 
 const VoteAnte050 = (props: { message: MsgVoteAnte050 }) => {
     const { t } = useTranslation('transactions');

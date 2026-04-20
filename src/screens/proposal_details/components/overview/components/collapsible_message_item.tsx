@@ -1,9 +1,9 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Tag } from '@components';
-import { Collapse } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Collapse } from '@mui/material';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import type { OverviewType } from '../../../types';
 import { KNOWN_GOV_TYPES } from '../constants';

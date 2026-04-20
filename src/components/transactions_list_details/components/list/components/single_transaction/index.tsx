@@ -1,7 +1,7 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, Divider, Typography } from '@mui/material';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 const SingleTransaction: React.FC<{
     className?: string;

@@ -1,9 +1,9 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import NotFoundDark from '@assets/not-found-dark.svg?react';
 import NotFoundLight from '@assets/not-found-light.svg?react';
 import { Box, Typography } from '@mui/material';
-import { useSettingsStore,  readTheme  } from '@zustand/settings';
+import { readTheme, useSettingsStore } from '@zustand/settings';
+import { useTranslation } from 'react-i18next';
 
 const NotFound: React.FC<{
     className?: string;

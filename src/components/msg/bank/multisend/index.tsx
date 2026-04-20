@@ -1,12 +1,11 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Name } from '@components';
-import { Box, Typography } from '@mui/material';
 import { MsgMultiSend } from '@models';
-import { useProfileRecoil, useProfilesRecoil } from '@zustand/profiles';
+import { Box, Typography } from '@mui/material';
 import { formatNumber, formatToken } from '@utils/format_token';
+import { useProfileRecoil, useProfilesRecoil } from '@zustand/profiles';
 import * as R from 'ramda';
+import { Trans, useTranslation } from 'react-i18next';
 
 const Multisend = (props: { message: MsgMultiSend }) => {
     const { t } = useTranslation('transactions');
@@ -19,7 +18,9 @@ const Multisend = (props: { message: MsgMultiSend }) => {
             const amount = formatToken(x.amount, x.denom);
             return `${formatNumber(amount.value, amount.exponent)} ${amount.displayDenom.toUpperCase()}`;
         })
-        .reduce((text: string, value: string, i: number, array: string[]) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value);
+        .reduce(
+            (text: string, value: string, i: number, array: string[]) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value
+        );
 
     const userSend = useProfileRecoil(sender?.address);
     const validatorMoniker = userSend ? userSend?.name : sender?.address;
@@ -30,7 +31,9 @@ const Multisend = (props: { message: MsgMultiSend }) => {
                 const amount = formatToken(x.amount, x.denom);
                 return `${formatNumber(amount.value, amount.exponent)} ${amount.displayDenom.toUpperCase()}`;
             })
-            .reduce((text: string, value: string, i: number, array: string[]) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value);
+            .reduce(
+                (text: string, value: string, i: number, array: string[]) => text + (i < array.length - 1 ? ', ' : ` ${t('and')} `) + value
+            );
 
         return {
             address: output.address,

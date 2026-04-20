@@ -1,8 +1,8 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox, Typography } from '@mui/material';
-import { useSettingsStore,  readTx  } from '@zustand/settings';
+import { readTx, useSettingsStore } from '@zustand/settings';
+import { useTranslation } from 'react-i18next';
 
 const Transactions: React.FC<
     ComponentDefault & {

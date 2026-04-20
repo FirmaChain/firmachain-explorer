@@ -1,10 +1,10 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Markdown, Name } from '@components';
 import { Typography } from '@mui/material';
-import { useProfileRecoil } from '@zustand/profiles';
-import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
+import { useProfileRecoil } from '@zustand/profiles';
+import { readDate, useSettingsStore } from '@zustand/settings';
+import { useTranslation } from 'react-i18next';
 
 import type { OverviewType } from '../../../types';
 import type { OverviewDisplayType } from '../utils';

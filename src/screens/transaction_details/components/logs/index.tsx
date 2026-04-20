@@ -1,8 +1,8 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 const Logs: React.FC<
     {

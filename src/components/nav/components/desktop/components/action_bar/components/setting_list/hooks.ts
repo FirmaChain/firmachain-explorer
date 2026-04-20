@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import setLanguage from '@/adapters/i18n/setLanguage';
+import i18n from '@/i18n';
 import { readDate, readTheme, readTx, THEME_DICTIONARY, useSettingsStore, writeDate, writeTheme, writeTx } from '@zustand/settings';
-import { Date, Theme, Tx } from '@zustand/settings/types';
+import { Theme } from '@zustand/settings/types';
 import * as R from 'ramda';
 
 export const useSettingList = ({ lang }) => {
@@ -64,7 +64,7 @@ export const useSettingList = ({ lang }) => {
         }
 
         if (state.lang !== lang) {
-            setLanguage(state.lang);
+            i18n.changeLanguage(state.lang);
         }
 
         if (state.dateFormat !== date) {

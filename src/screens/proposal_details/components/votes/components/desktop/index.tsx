@@ -1,8 +1,8 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName } from '@components';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { ItemType } from '../../types';
 import { getVoteKey } from '../../utils';

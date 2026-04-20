@@ -1,9 +1,9 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@mui/material';
-import { useMarketStore,  readMarket  } from '@zustand/market';
+import { readMarket, useMarketStore } from '@zustand/market';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 import { SingleBlock } from './components';
 import { useDataBlocks } from './hooks';

@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, Box, Result } from '@components';
 import { Box as MuiBox, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { useProfilesRecoil } from '@zustand/profiles';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 import { useBlocks } from './hooks';
 

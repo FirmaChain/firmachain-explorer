@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { useLatestBlockTimestampLazyQuery } from '@graphql/types';
 import dayjs from '@utils/dayjs';
 import * as R from 'ramda';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 export const useChainHealthCheck = () => {

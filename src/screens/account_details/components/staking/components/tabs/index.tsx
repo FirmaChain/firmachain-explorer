@@ -1,9 +1,9 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 const TabsHeader: React.FC<{
     className?: string;

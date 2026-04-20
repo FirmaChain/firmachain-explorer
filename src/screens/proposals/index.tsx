@@ -1,5 +1,5 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { List } from './components';
 import { useProposals } from './hooks';

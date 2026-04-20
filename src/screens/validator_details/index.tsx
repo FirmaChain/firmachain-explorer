@@ -1,6 +1,6 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { DesmosProfile, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { Blocks, Profile, Staking, Transactions, ValidatorOverview, VotingPower } from './components';
 import { useValidatorDetails } from './hooks';

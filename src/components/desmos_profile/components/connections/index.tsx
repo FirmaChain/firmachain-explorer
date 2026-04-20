@@ -1,10 +1,10 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import { Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
-import { Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
+import { Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
@@ -26,14 +26,23 @@ const Connections: React.FC<{
             open={open}
             sx={{ '& .MuiDialog-paper': { width: '1000px' } }}
         >
-            <DialogTitle disableTypography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& .MuiIconButton-root': { p: 0 } }}>
+            <DialogTitle
+                disableTypography
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& .MuiIconButton-root': { p: 0 } }}
+            >
                 <Typography variant="h2">{t('connectionsTitle')}</Typography>
                 <IconButton aria-label="close" onClick={handleClose}>
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
             <DialogContent dividers>
-                {isDesktop ? <div style={{ whiteSpace: 'nowrap' }}><Desktop items={items} /></div> : <Mobile items={items} />}
+                {isDesktop ? (
+                    <div style={{ whiteSpace: 'nowrap' }}>
+                        <Desktop items={items} />
+                    </div>
+                ) : (
+                    <Mobile items={items} />
+                )}
                 <div style={{ marginTop: '16px' }}>
                     <Pagination
                         total={data.length}

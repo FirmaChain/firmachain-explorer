@@ -1,7 +1,7 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
-import { Typography } from '@mui/material';
 import { MsgTokenUpdateURI } from '@models';
+import { Typography } from '@mui/material';
+import { Trans } from 'react-i18next';
 
 const TokenUpdateURI = (props: { message: MsgTokenUpdateURI }) => {
     const { message } = props;

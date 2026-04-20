@@ -1,8 +1,8 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, TransactionListDetails, TransactionsList } from '@components';
-import { Typography, Box as MuiBox } from '@mui/material';
-import { useSettingsStore,  readTx  } from '@zustand/settings';
+import { Box as MuiBox, Typography } from '@mui/material';
+import { readTx, useSettingsStore } from '@zustand/settings';
+import { useTranslation } from 'react-i18next';
 
 import { useTransactions } from './hooks';
 

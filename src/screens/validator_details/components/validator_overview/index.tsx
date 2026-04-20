@@ -1,5 +1,4 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import CopyIcon from '@assets/icon-copy.svg?react';
 import { Box, ConditionExplanation, InfoPopover, Tag } from '@components';
@@ -11,6 +10,7 @@ import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import Big from 'big.js';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 import { OverviewType, StatusType } from '../../types';
 import { useAddress } from './hooks';

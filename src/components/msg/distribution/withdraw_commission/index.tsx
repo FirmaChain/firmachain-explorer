@@ -1,10 +1,10 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgWithdrawValidatorCommission } from '@models';
-import { useProfileRecoil } from '@zustand/profiles';
+import { Typography } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
+import { useProfileRecoil } from '@zustand/profiles';
+import { Trans } from 'react-i18next';
 
 const WithdrawCommission = (props: { message: MsgWithdrawValidatorCommission }) => {
     const { message } = props;

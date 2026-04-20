@@ -1,13 +1,12 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import Link from '@/adapters/routing/link';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgDeposit } from '@models';
-import { useProfileRecoil } from '@zustand/profiles';
+import { Typography } from '@mui/material';
 import { formatNumber, formatToken } from '@utils/format_token';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
+import { useProfileRecoil } from '@zustand/profiles';
+import { Trans, useTranslation } from 'react-i18next';
 
 const DepositProposal = (props: { message: MsgDeposit }) => {
     const { t } = useTranslation('transactions');

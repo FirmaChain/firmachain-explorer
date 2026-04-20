@@ -1,7 +1,8 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Tag } from '@components';
 import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+
 import { getStatusInfo } from './utils';
 
 const SingleProposal: React.FC<{

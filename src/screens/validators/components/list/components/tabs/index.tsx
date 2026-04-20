@@ -1,10 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
-import { desktopSearchBarSx, tabsHeaderSx } from '@/styles/ui';
 import { Search } from '@components';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
+
+import { desktopSearchBarSx, tabsHeaderSx } from '@/styles/ui';
 
 import { tabLabels } from './utils';
 

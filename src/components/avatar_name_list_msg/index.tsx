@@ -1,6 +1,5 @@
-import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Name } from '@components';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Used for msg when you have to list multiple users

@@ -1,9 +1,9 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import type { Theme } from '@mui/material/styles';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 
 import { useOnlineVotingPower } from './hooks';
 

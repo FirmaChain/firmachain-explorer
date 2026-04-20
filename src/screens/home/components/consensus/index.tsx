@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { AvatarName, Box } from '@components';
 import { Typography } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import { useProfileRecoil } from '@zustand/profiles';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 import { PolarAngleAxis, RadialBar, RadialBarChart, Tooltip } from 'recharts';
 
 import { useConsensus } from './hooks';

@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, InfoPopover } from '@components';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Big from 'big.js';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 import { Cell, Pie, PieChart } from 'recharts';
 
 import { QuorumExplanation } from './components';

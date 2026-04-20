@@ -1,10 +1,10 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgEditValidator } from '@models';
-import { useProfileRecoil } from '@zustand/profiles';
+import { Typography } from '@mui/material';
 import { VALIDATOR_DETAILS } from '@utils/go_to_page';
+import { useProfileRecoil } from '@zustand/profiles';
+import { Trans } from 'react-i18next';
 
 const EditValidator = (props: { message: MsgEditValidator }) => {
     const { message } = props;

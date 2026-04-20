@@ -1,9 +1,9 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import MsgSubmitProposal from '@/models/msg/governance/msg_submit_proposal';
 import { Name } from '@components';
 import { Typography } from '@mui/material';
 import { useProfileRecoil } from '@zustand/profiles';
+import { Trans } from 'react-i18next';
 
 const SubmitProposalAnte050 = (props: { message: MsgSubmitProposal }) => {
     const { message } = props;

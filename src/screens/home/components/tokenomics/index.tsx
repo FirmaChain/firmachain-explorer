@@ -1,11 +1,11 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, CustomToolTip } from '@components';
 import { chainConfig } from '@configs';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import classnames from 'classnames';
 import numeral from 'numeral';
+import { useTranslation } from 'react-i18next';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 import { useTokenomics } from './hooks';

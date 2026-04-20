@@ -1,5 +1,4 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import CopyIcon from '@assets/icon-copy.svg?react';
 import ShareIcon from '@assets/icon-share.svg?react';
 import { Box } from '@components';
@@ -8,6 +7,7 @@ import { Dialog, Typography } from '@mui/material';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import classnames from 'classnames';
 import { QRCodeSVG } from 'qrcode.react';
+import { useTranslation } from 'react-i18next';
 import {
     EmailIcon,
     EmailShareButton,

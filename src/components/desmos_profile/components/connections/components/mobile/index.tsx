@@ -1,9 +1,9 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box, Divider, Typography } from '@mui/material';
-import { useSettingsStore,  readDate  } from '@zustand/settings';
 import dayjs, { formatDayJs } from '@utils/dayjs';
+import { readDate, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 const Mobile: React.FC<{
     className?: string;

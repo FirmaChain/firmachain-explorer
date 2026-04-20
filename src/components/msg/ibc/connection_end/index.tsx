@@ -1,9 +1,9 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgConnectionEnd } from '@models';
+import { Typography } from '@mui/material';
 import { useProfileRecoil } from '@zustand/profiles';
+import { Trans } from 'react-i18next';
 
 const ConnectionEnd = (props: { message: MsgConnectionEnd }) => {
     const { message } = props;

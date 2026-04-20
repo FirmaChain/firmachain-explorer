@@ -1,9 +1,9 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import { Name } from '@components';
-import { Typography } from '@mui/material';
 import { MsgUpgradeClient } from '@models';
+import { Typography } from '@mui/material';
 import { useProfileRecoil } from '@zustand/profiles';
+import { Trans } from 'react-i18next';
 
 const UpgradeClient = (props: { message: MsgUpgradeClient }) => {
     const { message } = props;

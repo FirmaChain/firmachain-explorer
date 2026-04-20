@@ -1,15 +1,15 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { Box } from '@components';
 import { chainConfig } from '@configs';
 import { Divider, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useMarketStore,  readMarket  } from '@zustand/market';
 import { formatNumber } from '@utils/format_token';
+import { readMarket, useMarketStore } from '@zustand/market';
 import Big from 'big.js';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import * as R from 'ramda';
+import { useTranslation } from 'react-i18next';
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 
 import { formatBalanceData } from './utils';

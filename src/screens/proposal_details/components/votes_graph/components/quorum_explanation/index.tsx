@@ -1,6 +1,6 @@
 import React from 'react';
-import Trans from '@/adapters/i18n/Trans';
 import { Box, Typography } from '@mui/material';
+import { Trans } from 'react-i18next';
 
 const QuorumExplanation = (props: { quorum: number }) => {
     return (

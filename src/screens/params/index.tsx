@@ -1,6 +1,6 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import { BoxDetails, LoadAndExist } from '@components';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { useParams } from './hooks';
 import { formatDistribution, formatGov, formatMinting, formatSlashing, formatStaking } from './utils';

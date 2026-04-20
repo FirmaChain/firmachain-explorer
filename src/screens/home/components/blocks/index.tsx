@@ -1,12 +1,12 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import Link from '@/adapters/routing/link';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
-import { useProfilesRecoil } from '@zustand/profiles';
 import { BLOCKS } from '@utils/go_to_page';
+import { useProfilesRecoil } from '@zustand/profiles';
+import { useTranslation } from 'react-i18next';
 
 import { useBlocks } from './hooks';
 

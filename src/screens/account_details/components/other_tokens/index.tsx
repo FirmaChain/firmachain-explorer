@@ -1,11 +1,10 @@
 import React from 'react';
-import useTranslation from '@/adapters/i18n/useTranslation';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, Pagination } from '@components';
-import { Box as MuiBox } from '@mui/material';
 import { usePagination, useScreenSize } from '@hooks';
-import { Typography } from '@mui/material';
+import { Box as MuiBox, Typography } from '@mui/material';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { OtherTokenType } from '../../types';
 

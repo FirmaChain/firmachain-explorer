@@ -1,4 +1,3 @@
-import useTranslation from '@/adapters/i18n/useTranslation';
 import i18n, { locale, locales } from '@/i18n';
 import Language from '@assets/icon-language.svg?react';
 import ThemeIcon from '@assets/icon-theme.svg?react';
@@ -7,6 +6,7 @@ import { Box, Drawer, MenuItem, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { THEME_LIST } from '@zustand/settings';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { MenuItems } from '../../..';
 import { useLanguageDrawer, useThemeDrawer } from './hooks';
