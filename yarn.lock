@@ -3305,6 +3305,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/numeral@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@types/numeral@npm:2.0.5"
+  checksum: 10c0/b18766cc97e79b5c59130ce1d5d5ad8b9287e1efd5ecac402e8a64e45c50aea8c8940c9974358983036d1abbed365a08f7f4d11b8af16874a5d4d0edce9aa4d4
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.2
   resolution: "@types/parse-json@npm:4.0.2"
@@ -3976,6 +3983,7 @@ __metadata:
     "@mui/styled-engine-sc": "npm:7.3.9"
     "@types/big.js": "npm:^6.1.2"
     "@types/node": "npm:^20.17.30"
+    "@types/numeral": "npm:^2.0.5"
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
     "@vitejs/plugin-react": "npm:^4.3.4"

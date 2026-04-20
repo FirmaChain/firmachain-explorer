@@ -61,6 +61,7 @@
         "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
         "@types/big.js": "^6.1.2",
         "@types/node": "^20.17.30",
+        "@types/numeral": "^2.0.5",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^4.3.4",
