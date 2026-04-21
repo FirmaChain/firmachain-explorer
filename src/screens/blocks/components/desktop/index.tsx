@@ -1,7 +1,6 @@
 import React from 'react';
-import { mergeRefs } from '@/utils/merge_refs';
 import { AvatarName, Loading } from '@components';
-import { useGrid } from '@hooks';
+import { useGrid, useList, useListRow } from '@hooks';
 import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
@@ -10,25 +9,108 @@ import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { VariableSizeGrid as Grid } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
+import { List, type RowComponentProps } from 'react-window';
+import { useInfiniteLoader } from 'react-window-infinite-loader';
 
 import { ItemType } from '../../types';
 import { columns } from './utils';
 
-const Desktop: React.FC<{
+type DesktopProps = {
     className?: string;
     items: ItemType[];
     itemCount: number;
-    loadMoreItems: (any) => void;
+    loadMoreItems: (params: { startIndex: number; stopIndex: number }) => Promise<void> | void;
     isItemLoaded?: (index: number) => boolean;
-}> = ({ className, items, itemCount, loadMoreItems, isItemLoaded }) => {
-    const { t } = useTranslation('blocks');
-    const { gridRef, columnRef, onResize, getColumnWidth, getRowHeight } = useGrid(columns);
+};
 
-    const formattedItems = items.map((x) => {
-        return {
+type FormattedItem = {
+    height: React.ReactNode;
+    txs: string;
+    time: string;
+    proposer: React.ReactNode;
+    hash: string;
+};
+
+type RowProps = {
+    items: FormattedItem[];
+    itemCount: number;
+    isRowLoaded: (index: number) => boolean;
+    setRowHeight: (index: number, size: number) => void;
+    templateColumns: string;
+};
+
+function useElementSize<T extends HTMLElement>() {
+    const ref = React.useRef<T | null>(null);
+    const [size, setSize] = React.useState({ width: 0, height: 0 });
+
+    React.useEffect(() => {
+        const element = ref.current;
+        if (!element) return;
+
+        const observer = new ResizeObserver(([entry]) => {
+            setSize({
+                width: entry.contentRect.width,
+                height: entry.contentRect.height
+            });
+        });
+
+        observer.observe(element);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    return { ref, size };
+}
+
+const TableRow = ({ index, style, items, itemCount, isRowLoaded, setRowHeight, templateColumns }: RowComponentProps<RowProps>) => {
+    const { rowRef } = useListRow(index, setRowHeight);
+
+    if (!isRowLoaded(index)) {
+        return (
+            <div style={style}>
+                <div ref={rowRef}>
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+
+    const item = items[index];
+
+    return (
+        <div style={style}>
+            <div ref={rowRef}>
+                <Box
+                    sx={(theme) => ({
+                        display: 'grid',
+                        gridTemplateColumns: templateColumns,
+                        ...theme.mixins.tableCell,
+                        color: theme.palette.custom.fonts.fontTwo
+                    })}
+                >
+                    {columns.map(({ key, align }) => (
+                        <Typography key={key} variant="body1" align={align} component="div">
+                            {item[key as keyof FormattedItem]}
+                        </Typography>
+                    ))}
+                </Box>
+            </div>
+        </div>
+    );
+};
+
+const DEFAULT_ROW_HEIGHT = 50;
+
+const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMoreItems, isItemLoaded }) => {
+    const { t } = useTranslation('blocks');
+    const { getColumnWidth } = useGrid(columns);
+    const { listRef, setRowHeight } = useList();
+    const { ref, size } = useElementSize<HTMLDivElement>();
+
+    const formattedItems = React.useMemo<FormattedItem[]>(() => {
+        return items.map((x) => ({
             height: (
                 <Link to={BLOCK_DETAILS(x.height)}>
                     <Typography variant="body1" className="value" component="a">
@@ -43,115 +125,89 @@ const Desktop: React.FC<{
                 beginning: 13,
                 ending: 15
             })
-        };
+        }));
+    }, [items]);
+
+    const isRowLoaded = React.useCallback(
+        (index: number) => {
+            return isItemLoaded?.(index) ?? false;
+        },
+        [isItemLoaded]
+    );
+
+    const loadMoreRows = React.useCallback(
+        async (startIndex: number, stopIndex: number): Promise<void> => {
+            await Promise.resolve(loadMoreItems({ startIndex, stopIndex }));
+        },
+        [loadMoreItems]
+    );
+
+    const onRowsRendered = useInfiniteLoader({
+        isRowLoaded,
+        loadMoreRows,
+        rowCount: itemCount,
+        threshold: 15,
+        minimumBatchSize: 10
     });
 
+    const templateColumns = React.useMemo(() => {
+        if (size.width === 0) return '';
+
+        return columns.map((_, index) => `${Math.floor(getColumnWidth(size.width, index))}px`).join(' ');
+    }, [getColumnWidth, size.width]);
+
     return (
-        <Box className={classnames(className)} sx={{ height: '100%' }}>
-            <AutoSizer onResize={onResize}>
-                {({ height, width }) => {
-                    return (
-                        <>
-                            {/* ======================================= */}
-                            {/* Table Header */}
-                            {/* ======================================= */}
-                            <Grid
-                                ref={columnRef}
-                                columnCount={columns.length}
-                                columnWidth={(index) => getColumnWidth(width, index)}
-                                height={50}
-                                rowCount={1}
-                                rowHeight={() => 50}
-                                width={width}
-                            >
-                                {({ columnIndex, style }) => {
-                                    const { key, align } = columns[columnIndex];
+        <Box
+            ref={ref}
+            className={classnames(className)}
+            sx={{
+                height: '100%',
+                minHeight: 0,
+                display: 'flex',
+                flexDirection: 'column'
+            }}
+        >
+            {size.width > 0 && size.height > 0 ? (
+                <>
+                    <Box
+                        sx={(theme) => ({
+                            height: 50,
+                            flex: '0 0 auto',
+                            display: 'grid',
+                            gridTemplateColumns: templateColumns,
+                            ...theme.mixins.tableCell
+                        })}
+                    >
+                        {columns.map(({ key, align }) => (
+                            <Typography key={key} variant="h4" align={align}>
+                                {t(key)}
+                            </Typography>
+                        ))}
+                    </Box>
 
-                                    return (
-                                        <Box
-                                            style={style}
-                                            sx={(theme: any) => ({
-                                                ...theme.mixins.tableCell
-                                            })}
-                                        >
-                                            <Typography variant="h4" align={align}>
-                                                {t(key)}
-                                            </Typography>
-                                        </Box>
-                                    );
-                                }}
-                            </Grid>
-                            {/* ======================================= */}
-                            {/* Table Body */}
-                            {/* ======================================= */}
-                            <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemCount} loadMoreItems={loadMoreItems}>
-                                {({ onItemsRendered, ref }) => {
-                                    return (
-                                        <Grid
-                                            onItemsRendered={({
-                                                visibleRowStartIndex,
-                                                visibleRowStopIndex,
-                                                overscanRowStopIndex,
-                                                overscanRowStartIndex
-                                            }) => {
-                                                onItemsRendered({
-                                                    overscanStartIndex: overscanRowStartIndex,
-                                                    overscanStopIndex: overscanRowStopIndex,
-                                                    visibleStartIndex: visibleRowStartIndex,
-                                                    visibleStopIndex: visibleRowStopIndex
-                                                });
-                                            }}
-                                            ref={mergeRefs(gridRef, ref)}
-                                            columnCount={columns.length}
-                                            columnWidth={(index) => getColumnWidth(width, index)}
-                                            height={height - 50}
-                                            rowCount={itemCount}
-                                            rowHeight={getRowHeight}
-                                            width={width}
-                                            className="scrollbar"
-                                        >
-                                            {({ columnIndex, rowIndex, style }) => {
-                                                if (!isItemLoaded(rowIndex) && columnIndex === 0) {
-                                                    return (
-                                                        <div
-                                                            style={{
-                                                                ...style,
-                                                                width
-                                                            }}
-                                                        >
-                                                            <Loading />
-                                                        </div>
-                                                    );
-                                                }
-
-                                                if (!isItemLoaded(rowIndex)) {
-                                                    return null;
-                                                }
-
-                                                const { key, align } = columns[columnIndex];
-                                                const item = formattedItems[rowIndex][key];
-                                                return (
-                                                    <Box
-                                                        style={style}
-                                                        sx={(theme: any) => ({
-                                                            ...theme.mixins.tableCell,
-                                                            color: theme.palette.custom.fonts.fontTwo
-                                                        })}
-                                                    >
-                                                        <Typography variant="body1" align={align} component="div">
-                                                            {item}
-                                                        </Typography>
-                                                    </Box>
-                                                );
-                                            }}
-                                        </Grid>
-                                    );
-                                }}
-                            </InfiniteLoader>
-                        </>
-                    );
-                }}
-            </AutoSizer>
+                    <Box sx={{ flex: '1 1 auto', minHeight: 0 }}>
+                        <List<RowProps>
+                            className="scrollbar"
+                            listRef={listRef}
+                            rowComponent={TableRow}
+                            rowCount={itemCount}
+                            rowHeight={DEFAULT_ROW_HEIGHT}
+                            rowProps={{
+                                items: formattedItems,
+                                itemCount,
+                                isRowLoaded,
+                                setRowHeight,
+                                templateColumns
+                            }}
+                            onRowsRendered={onRowsRendered}
+                            style={{
+                                width: size.width,
+                                height: size.height - 50
+                            }}
+                        />
+                    </Box>
+                </>
+            ) : null}
         </Box>
     );
 };

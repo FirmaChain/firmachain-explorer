@@ -5,50 +5,96 @@ import { getMessageByType } from '@msg';
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { VariableSizeList as List } from 'react-window';
+import { List, type RowComponentProps } from 'react-window';
 
-const MessageRow: React.FC<{
-    index: number;
-    style: React.CSSProperties;
+type MessageItem = {
+    type: React.ReactNode;
+    message: React.ReactNode;
+};
+
+type RowProps = {
+    items: MessageItem[];
     setRowHeight: (_index: number, _size: number) => void;
-    item: {
-        type: React.ReactNode;
-        message: React.ReactNode;
-    };
-    isLast: boolean;
-}> = ({ index, style, setRowHeight, item, isLast }) => {
+};
+
+type MessagesProps = {
+    className?: string;
+    messages: any[];
+    viewRaw: boolean;
+    toggleMessageDisplay: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onMessageFilterCallback: (value: string) => void;
+};
+
+function useElementSize<T extends HTMLElement>() {
+    const ref = React.useRef<T | null>(null);
+    const [size, setSize] = React.useState({ width: 0, height: 0 });
+
+    React.useLayoutEffect(() => {
+        const element = ref.current;
+        if (!element) return;
+
+        const updateSize = () => {
+            const rect = element.getBoundingClientRect();
+
+            setSize((prev) => {
+                const next = {
+                    width: Math.ceil(rect.width),
+                    height: Math.ceil(rect.height)
+                };
+
+                if (prev.width === next.width && prev.height === next.height) {
+                    return prev;
+                }
+
+                return next;
+            });
+        };
+
+        updateSize();
+
+        const observer = new ResizeObserver(() => {
+            updateSize();
+        });
+
+        observer.observe(element);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    return { ref, size };
+}
+
+const MessageRow = ({ index, style, items, setRowHeight }: RowComponentProps<RowProps>) => {
     const { rowRef } = useListRow(index, setRowHeight);
+    const item = items[index];
+    const isLast = index === items.length - 1;
 
     return (
         <div style={style}>
             <div ref={rowRef}>
-                <div className="item">
+                <Box className="item" sx={{ py: 2 }}>
                     <div className="tags">{item.type}</div>
                     <span className="msg">{item.message}</span>
-                </div>
+                </Box>
                 {!isLast && <Divider />}
             </div>
         </div>
     );
 };
 
-const Messages: React.FC<{
-    className?: string;
-    messages: any[];
-    viewRaw: boolean;
-    toggleMessageDisplay: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    onMessageFilterCallback: (value: string) => void;
-}> = ({ className, ...props }) => {
+const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
     const { t } = useTranslation('transactions');
     const hasMessages = props.messages.length > 0;
     const useVirtualizedList = props.messages.length > 20;
 
     const { listRef, getRowHeight, setRowHeight } = useList();
+    const { ref, size } = useElementSize<HTMLDivElement>();
 
-    const formattedItems = props.messages.map((x) => {
-        return getMessageByType(x, props.viewRaw, t);
-    });
+    const formattedItems = React.useMemo<MessageItem[]>(() => {
+        return props.messages.map((x) => getMessageByType(x, props.viewRaw, t));
+    }, [props.messages, props.viewRaw, t]);
 
     return (
         <Box
@@ -106,7 +152,6 @@ const Messages: React.FC<{
                     minHeight: 0
                 },
                 '& .item': {
-                    margin: theme.spacing(2, 0),
                     [theme.breakpoints.up('lg')]: {
                         display: 'flex',
                         padding: theme.spacing(0, 2),
@@ -142,46 +187,39 @@ const Messages: React.FC<{
                     <TransactionMessagesFilter className="filter" callback={props.onMessageFilterCallback} />
                 </div>
             </div>
+
             <Divider />
+
             {hasMessages && useVirtualizedList && (
-                <div className="list">
-                    <AutoSizer>
-                        {({ height, width }) => {
-                            return (
-                                <List
-                                    className="List"
-                                    height={height}
-                                    itemCount={props.messages.length}
-                                    itemSize={getRowHeight}
-                                    ref={listRef}
-                                    width={width}
-                                >
-                                    {({ index, style }) => {
-                                        const selectedItem = formattedItems[index];
-                                        return (
-                                            <MessageRow
-                                                index={index}
-                                                style={style}
-                                                setRowHeight={setRowHeight}
-                                                item={selectedItem}
-                                                isLast={index === props.messages.length - 1}
-                                            />
-                                        );
-                                    }}
-                                </List>
-                            );
-                        }}
-                    </AutoSizer>
+                <div className="list" ref={ref}>
+                    {size.width > 0 && size.height > 0 ? (
+                        <List<RowProps>
+                            className="List"
+                            listRef={listRef}
+                            rowCount={formattedItems.length}
+                            rowHeight={getRowHeight}
+                            rowComponent={MessageRow}
+                            rowProps={{
+                                items: formattedItems,
+                                setRowHeight
+                            }}
+                            style={{
+                                width: size.width,
+                                height: size.height
+                            }}
+                        />
+                    ) : null}
                 </div>
             )}
+
             {hasMessages && !useVirtualizedList && (
                 <div className="list" style={{ height: 'auto', flex: '0 0 auto' }}>
                     {formattedItems.map((selectedItem, index) => (
                         <div key={`msg-row-${index}`}>
-                            <div className="item">
+                            <Box className="item" sx={{ py: 2 }}>
                                 <div className="tags">{selectedItem.type}</div>
                                 <span className="msg">{selectedItem.message}</span>
-                            </div>
+                            </Box>
                             {index !== formattedItems.length - 1 && <Divider />}
                         </div>
                     ))}

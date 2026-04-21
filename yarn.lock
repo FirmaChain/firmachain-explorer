@@ -4014,9 +4014,8 @@ __metadata:
     react-router: "npm:^7.13.2"
     react-share: "npm:^4.4.0"
     react-toastify: "npm:^7.0.3"
-    react-virtualized-auto-sizer: "npm:^1.0.4"
-    react-window: "npm:^1.8.6"
-    react-window-infinite-loader: "npm:^1.0.7"
+    react-window: "npm:^2.2.7"
+    react-window-infinite-loader: "npm:^2.0.1"
     recharts: "npm:^2.0.8"
     styled-components: "npm:6.1.15"
     subscriptions-transport-ws: "npm:^0.10.0"
@@ -6843,13 +6842,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memoize-one@npm:>=3.1.1 <6":
-  version: 5.1.1
-  resolution: "memoize-one@npm:5.1.1"
-  checksum: 10c0/df6b4319d402a069ef7f274729dc2390a623f444abb15f5324b558afff253b7d407015a02f69d24f133fd413c029652a9ed2645d0387c90b7419d61b32f9fb4f
-  languageName: node
-  linkType: hard
-
 "merge2@npm:^1.3.0, merge2@npm:^1.4.1":
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
@@ -7824,36 +7816,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-virtualized-auto-sizer@npm:^1.0.4":
-  version: 1.0.26
-  resolution: "react-virtualized-auto-sizer@npm:1.0.26"
+"react-window-infinite-loader@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "react-window-infinite-loader@npm:2.0.1"
   peerDependencies:
-    react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0 || ^19.0.0
-    react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/788b438c9cb55f94a0561ef07e6bb6e5051ad3d5ececd9b2131014324ffe773b507ac7060f965e44c84bd8d6aa85c686754ac944384878c97f7304c0473a7754
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  checksum: 10c0/da6f355e418337595ee9520edbd303ba3a5110326f38d8a49414bcb050b52b062c915d5c97207694d4d022349825cb8821b160c95c7820724777e8578526c84c
   languageName: node
   linkType: hard
 
-"react-window-infinite-loader@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "react-window-infinite-loader@npm:1.0.7"
+"react-window@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "react-window@npm:2.2.7"
   peerDependencies:
-    react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0
-    react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0
-  checksum: 10c0/e403fb1dcac9df0b9c4a5f8553bdbb844bff64df3a9336f5ea401e8a9c6a33db500e2a355870e167a84af8676c75c8beca2afd6a052c8d51795cd3c97044a0eb
-  languageName: node
-  linkType: hard
-
-"react-window@npm:^1.8.6":
-  version: 1.8.6
-  resolution: "react-window@npm:1.8.6"
-  dependencies:
-    "@babel/runtime": "npm:^7.0.0"
-    memoize-one: "npm:>=3.1.1 <6"
-  peerDependencies:
-    react: ^15.0.0 || ^16.0.0 || ^17.0.0
-    react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0
-  checksum: 10c0/590dd58ced06fbfcce06d11135f0c6dd50ad778b90ce1af6340b7e5b9063ab2e05a4a4c964bbf855087b6f5c437790d01c41f27cee7b46045721be86bfe03820
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  checksum: 10c0/4eba3bce2083fa53ac674513078fb23d4dc3ad7dfd12ea5733863b583ea1472294df791947a2b58f27bab45138cedf7a63fdc19b0420823bf19749aa10455b81
   languageName: node
   linkType: hard
 

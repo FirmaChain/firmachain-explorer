@@ -104,12 +104,14 @@ export const useProposals = () => {
                 }
             })
             .then(({ data }) => {
+                const filteredTotal = data.total.aggregate.count - ignoredProposals.length;
                 const newItems = R.uniq([...state.items, ...formatProposals(data)]);
+
                 handleSetState({
                     items: newItems,
                     isNextPageLoading: false,
-                    hasNextPage: newItems.length < data.total.aggregate.count,
-                    rawDataTotal: data.total.aggregate.count
+                    hasNextPage: newItems.length < filteredTotal,
+                    rawDataTotal: filteredTotal
                 });
             });
     };

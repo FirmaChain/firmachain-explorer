@@ -1,12 +1,10 @@
 import { Box } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 
 import { List } from './components';
 import { useProposals } from './hooks';
 
 const Proposals = () => {
-    const { t } = useTranslation('proposals');
-    const { state, loadMoreItems, itemCount, isItemLoaded } = useProposals();
+    const { state, loadMoreItems } = useProposals();
 
     return (
         <Box
@@ -17,13 +15,7 @@ const Proposals = () => {
                 }
             })}
         >
-            <List
-                items={state.items}
-                rawDataTotal={state.rawDataTotal}
-                isItemLoaded={isItemLoaded}
-                itemCount={itemCount}
-                loadMoreItems={loadMoreItems}
-            />
+            <List items={state.items} rawDataTotal={state.rawDataTotal} hasNextPage={state.hasNextPage} loadMoreItems={loadMoreItems} />
         </Box>
     );
 };
