@@ -1,10 +1,10 @@
-import copy from 'copy-to-clipboard';
+import { copyText } from '@utils/copy';
 import { toast } from 'react-toastify';
 
 export const useAddress = (t) => {
-    const handleCopyToClipboard = (value: string) => {
-        copy(value);
-        toast(t('common:copied'));
+    const handleCopyToClipboard = async (value: string) => {
+        const success = await copyText(value);
+        if (success) toast(t('common:copied'));
     };
 
     return {

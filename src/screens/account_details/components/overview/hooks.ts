@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import copy from 'copy-to-clipboard';
+import { copyText } from '@utils/copy';
 import { toast } from 'react-toastify';
 
 export const useOverview = (t) => {
@@ -13,9 +13,9 @@ export const useOverview = (t) => {
         setOpen(true);
     };
 
-    const handleCopyToClipboard = (value: string) => {
-        copy(value);
-        toast(t('common:copied'));
+    const handleCopyToClipboard = async (value: string) => {
+        const success = await copyText(value);
+        if (success) toast(t('common:copied'));
     };
 
     return {

@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
-import { ApolloClient, ApolloLink, concat, HttpLink, InMemoryCache, split } from '@apollo/client';
-import { WebSocketLink } from '@apollo/client/link/ws';
+import { ApolloClient, ApolloLink, concat, DefaultOptions, HttpLink, InMemoryCache, NormalizedCacheObject, split } from '@apollo/client';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { ENV } from '@configs/env';
+import { createClient } from 'graphql-ws';
 
-const defaultOptions: any = {
+const defaultOptions: DefaultOptions = {
     watchQuery: {
         fetchPolicy: 'no-cache',
         errorPolicy: 'all'
@@ -15,30 +16,32 @@ const defaultOptions: any = {
     }
 };
 
-let apolloClient;
+let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
 const httpLink = new HttpLink({
     uri: ENV.GRAPHQL_URL
 });
 
-const wsLink = ENV.GRAPHQL_WS
-    ? new WebSocketLink({
-          uri: ENV.GRAPHQL_WS,
-          options: {
-              reconnect: true,
-              inactivityTimeout: 30000,
-              lazy: true
-          },
-          webSocketImpl: WebSocket
-      })
-    : null;
+const wsLink =
+    typeof window !== 'undefined' && ENV.GRAPHQL_WS
+        ? new GraphQLWsLink(
+              createClient({
+                  url: ENV.GRAPHQL_WS,
+                  lazy: true,
+                  retryAttempts: Infinity,
+                  shouldRetry: () => true,
+                  webSocketImpl: WebSocket
+              })
+          )
+        : null;
 
 const link =
     typeof window !== 'undefined' && wsLink
         ? split(
               ({ query }) => {
-                  const { kind, operation }: any = getMainDefinition(query);
-                  return kind === 'OperationDefinition' && operation === 'subscription';
+                  const definition = getMainDefinition(query);
+
+                  return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
               },
               wsLink,
               httpLink
@@ -46,9 +49,11 @@ const link =
         : httpLink;
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-    operation.setContext({
-        headers: {}
-    });
+    operation.setContext(({ headers = {} }) => ({
+        headers: {
+            ...headers
+        }
+    }));
 
     return forward(operation);
 });
@@ -57,39 +62,38 @@ function createApolloClient() {
     const client = new ApolloClient({
         ssrMode: typeof window === 'undefined',
         link: concat(authMiddleware, link),
-        cache: new InMemoryCache({})
+        cache: new InMemoryCache({}),
+        defaultOptions
     });
-
-    client.defaultOptions = defaultOptions;
 
     return client;
 }
 
-export function initializeApollo(initialState = null) {
-    // eslint-disable-next-line
-    const _apolloClient = apolloClient ?? createApolloClient();
+export function initializeApollo(initialState: NormalizedCacheObject | null = null) {
+    const client = apolloClient ?? createApolloClient();
 
-    // If your page has Next.js data fetching methods that use Apollo Client, the initial state
-    // gets hydrated here
     if (initialState) {
-        // Get existing cache, loaded during client side data fetching
-        const existingCache = _apolloClient.extract();
-        // Restore the cache using the data passed from getStaticProps/getServerSideProps
-        // combined with the existing cached data
-        _apolloClient.cache.restore({
+        const existingCache = client.extract();
+
+        client.cache.restore({
             ...existingCache,
             ...initialState
         });
     }
-    // For SSG and SSR always create a new Apollo Client
-    if (typeof window === 'undefined') return _apolloClient;
-    // Create the Apollo Client once in the client
-    if (!apolloClient) apolloClient = _apolloClient;
 
-    return _apolloClient;
+    if (typeof window === 'undefined') {
+        return client;
+    }
+
+    if (!apolloClient) {
+        apolloClient = client;
+    }
+
+    return client;
 }
 
-export function useApollo(initialState) {
+export function useApollo(initialState: NormalizedCacheObject | null) {
     const store = useMemo(() => initializeApollo(initialState), [initialState]);
+
     return store;
 }
