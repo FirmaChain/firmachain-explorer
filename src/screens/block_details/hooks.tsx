@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { BlockDetailsQuery, useBlockDetailsQuery } from '@graphql/types';
-import { convertMsgsToModels } from '@msg';
 import numeral from 'numeral';
 import * as R from 'ramda';
 import { useParams } from 'react-router';
+
+import { convertMsgsToModels } from '@/components/msg/utils';
 
 import { BlockDetailState } from './types';
 

@@ -5,8 +5,9 @@ import {
     useTransactionsListenerSubscription,
     useTransactionsQuery
 } from '@graphql/types';
-import { convertMsgsToModels } from '@msg';
 import * as R from 'ramda';
+
+import { convertMsgsToModels } from '@/components/msg/utils';
 
 import { TransactionsState } from './types';
 

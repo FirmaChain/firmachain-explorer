@@ -1,7 +1,6 @@
 import React from 'react';
 import { Loading, Result } from '@components';
 import { useList, useListRow, useScreenSize } from '@hooks';
-import { getMessageByType } from '@msg';
 import { Box, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
@@ -13,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { List, type RowComponentProps } from 'react-window';
 import { useInfiniteLoader } from 'react-window-infinite-loader';
+
+import { getMessageByType } from '@/components/msg/utils';
 
 import { TransactionsListDetailsState } from '../../types';
 import { SingleTransaction } from './components';

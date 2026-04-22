@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { GetMessagesByAddressQuery, useGetMessagesByAddressQuery } from '@graphql/types';
-import { convertMsgsToModels } from '@msg';
 import * as R from 'ramda';
 import { useParams } from 'react-router';
+
+import { convertMsgsToModels } from '@/components/msg/utils';
 
 import { TransactionState } from './types';
 

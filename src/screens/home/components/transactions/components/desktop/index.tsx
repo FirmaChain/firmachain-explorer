@@ -9,7 +9,7 @@ import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { getMessageByType } from '@/components/msg';
+import { getMessageByType } from '@/components/msg/utils';
 
 import { TransactionType } from '../../types';
 import { columns } from './utils';

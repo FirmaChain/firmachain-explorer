@@ -82,11 +82,8 @@ import TokenCreate from './token/create';
 import TokenMint from './token/mint';
 import TokenUpdateURI from './token/updateURI';
 import Unknown from './unknown';
-import { convertDefaultRaw, convertMsgsToModels, getMessageByType, getMessageModelByType } from './utils';
 import CreatePeriodicVestingAccount from './vesting/create_periodic_vesting_account';
 import CreateVestingAccount from './vesting/create_vesting_account';
-
-export { getMessageModelByType, getMessageByType, convertMsgsToModels, convertDefaultRaw };
 
 export {
     Delegate,

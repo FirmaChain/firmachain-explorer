@@ -11,7 +11,7 @@ import { Link } from 'react-router';
 import { List, useDynamicRowHeight } from 'react-window';
 import { useInfiniteLoader } from 'react-window-infinite-loader';
 
-import { getMessageByType } from '@/components/msg';
+import { getMessageByType } from '@/components/msg/utils';
 
 import type { TransactionsListState } from '../../types';
 

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { TransactionDetailsQuery, useTransactionDetailsQuery } from '@graphql/types';
-import { convertDefaultRaw, convertMsgsToModels } from '@msg';
 import { formatToken } from '@utils/format_token';
 import * as R from 'ramda';
 import { useParams } from 'react-router';
+
+import { convertDefaultRaw, convertMsgsToModels } from '@/components/msg/utils';
 
 import { TransactionState } from './types';
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box, TransactionMessagesFilter } from '@components';
 import { useList, useListRow } from '@hooks';
-import { getMessageByType } from '@msg';
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { List, type RowComponentProps } from 'react-window';
+
+import { getMessageByType } from '@/components/msg/utils';
 
 type MessageItem = {
     type: React.ReactNode;
