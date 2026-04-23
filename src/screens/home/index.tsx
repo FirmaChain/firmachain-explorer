@@ -5,7 +5,7 @@ import { Blocks, Consensus, DataBlocks, Hero, Tokenomics, Transactions } from '.
 const Home = () => {
     return (
         <Box
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 ...theme.mixins.layout,
                 display: 'grid',
                 gap: theme.spacing(1),

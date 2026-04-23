@@ -9,7 +9,7 @@ const AvatarName: React.FC<AvatarName> = ({ className, address, name, imageUrl, 
         <Link to={href(address)}>
             <Box
                 className={className}
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',

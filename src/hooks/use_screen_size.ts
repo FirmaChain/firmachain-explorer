@@ -16,7 +16,7 @@ export const useScreenSize = () => {
     const [isTablet, setIsTablet] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(true);
 
-    const theme: any = useTheme();
+    const theme = useTheme();
 
     useEffect((): any => {
         if (!isClient) {

@@ -65,7 +65,7 @@ const HeaderCell = ({ columnIndex, style, t }: CellComponentProps<HeaderCellProp
     const { key, align } = columns[columnIndex];
 
     return (
-        <Box style={style} sx={(theme: any) => ({ ...theme.mixins.tableCell })}>
+        <Box style={style} sx={(theme) => ({ ...theme.mixins.tableCell })}>
             <Typography variant="h4" align={align}>
                 {t(key)}
             </Typography>
@@ -80,7 +80,7 @@ const BodyCell = ({ columnIndex, rowIndex, style, rows }: CellComponentProps<Bod
     return (
         <Box
             style={style}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 ...theme.mixins.tableCell,
                 color: theme.palette.custom.fonts.fontTwo,
                 py: 2

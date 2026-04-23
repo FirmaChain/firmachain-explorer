@@ -7,7 +7,7 @@ const Condition: React.FC<{
     return (
         <Box
             className={className}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 width: '10px',
                 height: '10px',
                 background: theme.palette.custom.condition.zero,

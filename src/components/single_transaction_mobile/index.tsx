@@ -12,7 +12,7 @@ const SingleTransactionMobile: React.FC<{
     result?: React.ReactNode;
 }> = ({ className, block, hash, time, messages, type, result }) => {
     const { t } = useTranslation('transactions');
-    const itemSx = (theme: any) => ({
+    const itemSx = (theme) => ({
         mb: 2,
         '& .label': {
             mb: 1,

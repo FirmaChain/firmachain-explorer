@@ -24,7 +24,7 @@ const Avatar: React.FC<{
     return (
         <Box
             className={className}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 width: '28px',
                 height: '28px',
                 minWidth: '28px',

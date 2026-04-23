@@ -16,7 +16,7 @@ const SingleBlockMobile: React.FC<{
     return (
         <Box className={className} sx={{ my: 2 }}>
             <Box
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     mb: 2,
                     '& .label': {
                         mb: 1,
@@ -36,7 +36,7 @@ const SingleBlockMobile: React.FC<{
                 {height}
             </Box>
             <Box
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     mb: 2,
                     '& .label': {
                         mb: 1,
@@ -56,7 +56,7 @@ const SingleBlockMobile: React.FC<{
                 {proposer}
             </Box>
             <Box
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     mb: 2,
                     '& .label': {
                         mb: 1,
@@ -79,7 +79,7 @@ const SingleBlockMobile: React.FC<{
             </Box>
             {parentHash && (
                 <Box
-                    sx={(theme: any) => ({
+                    sx={(theme) => ({
                         mb: 2,
                         '& .label': {
                             mb: 1,
@@ -103,7 +103,7 @@ const SingleBlockMobile: React.FC<{
             )}
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', '& > div': { width: '50%' } }}>
                 <Box
-                    sx={(theme: any) => ({
+                    sx={(theme) => ({
                         mb: 2,
                         '& .label': {
                             mb: 1,
@@ -125,7 +125,7 @@ const SingleBlockMobile: React.FC<{
                     </Typography>
                 </Box>
                 <Box
-                    sx={(theme: any) => ({
+                    sx={(theme) => ({
                         mb: 2,
                         '& .label': {
                             mb: 1,

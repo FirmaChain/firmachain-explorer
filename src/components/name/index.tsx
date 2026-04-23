@@ -24,7 +24,7 @@ const Name: React.FC<{
                 className={className}
                 component="a"
                 target={explorerUrl ? '_blank' : ''}
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     color: theme.palette.custom.fonts.highlight,
                     wordBreak: 'break-all',
                     '&:hover': {

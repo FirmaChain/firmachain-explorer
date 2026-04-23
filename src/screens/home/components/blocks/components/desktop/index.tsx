@@ -40,7 +40,7 @@ const Desktop: React.FC<{
     return (
         <Box
             className={classnames(className)}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 overflow: 'auto',
                 '& a': {
                     color: theme.palette.custom.fonts.highlight

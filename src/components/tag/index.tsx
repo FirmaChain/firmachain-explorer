@@ -12,7 +12,7 @@ const Tag: React.FC<{
     return (
         <Box
             className={className}
-            sx={(muiTheme: any) => {
+            sx={(muiTheme) => {
                 const tagColor = muiTheme.palette.custom.tags[tagTheme] || muiTheme.palette.custom.tags.zero;
                 return {
                     borderRadius: `${muiTheme.shape.borderRadius}px`,

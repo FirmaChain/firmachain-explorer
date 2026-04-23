@@ -47,7 +47,7 @@ const Params = () => {
     return (
         <LoadAndExist loading={state.loading} exists={state.exists}>
             <Box
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     ...theme.mixins.layout,
                     display: 'grid',
                     gridTemplateRows: 'auto',

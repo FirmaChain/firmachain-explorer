@@ -9,7 +9,7 @@ const Error = () => {
 
     return (
         <Box
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

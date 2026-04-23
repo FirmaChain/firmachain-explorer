@@ -106,7 +106,7 @@ const Row = ({ index, style, items, isRowLoaded, width, setRowHeight }: RowCompo
         <div style={style}>
             <div ref={rowRef}>
                 <Box
-                    sx={(theme: any) => ({
+                    sx={(theme) => ({
                         display: 'grid',
                         gridTemplateColumns: templateColumns,
                         alignItems: 'center',
@@ -207,7 +207,7 @@ const Desktop: React.FC<TransactionsListState> = ({ className, itemCount = 0, lo
             }}
         >
             <Box
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     height: 50,
                     display: 'grid',
                     gridTemplateColumns: templateColumns,

@@ -15,7 +15,7 @@ const Search: React.FC<{
             component="form"
             className={className}
             onSubmit={handleOnSubmit}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 '& .MuiInputBase-root': {
                     width: '100%',
                     background: theme.palette.background.paper,

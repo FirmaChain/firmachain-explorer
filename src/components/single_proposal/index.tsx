@@ -18,7 +18,7 @@ const SingleProposal: React.FC<{
     return (
         <Box
             className={className}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 my: 2,
                 [theme.breakpoints.up('lg')]: {
                     display: 'grid',
@@ -28,7 +28,7 @@ const SingleProposal: React.FC<{
             })}
         >
             <Box
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
@@ -39,7 +39,7 @@ const SingleProposal: React.FC<{
                     }
                 })}
             >
-                <Typography variant="h4" sx={(theme: any) => ({ color: theme.palette.custom.fonts.fontThree })}>
+                <Typography variant="h4" sx={(theme) => ({ color: theme.palette.custom.fonts.fontThree })}>
                     {id}
                 </Typography>
                 <Box component="span" sx={{ display: { lg: 'none' } }}>

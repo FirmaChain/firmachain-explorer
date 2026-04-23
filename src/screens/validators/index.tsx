@@ -5,7 +5,7 @@ import { List } from './components';
 const Validators = () => {
     return (
         <Box
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 ...theme.mixins.layout,
                 '& a': {
                     color: theme.palette.custom.fonts.highlight

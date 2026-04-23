@@ -16,14 +16,14 @@ const Result: React.FC<{
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'flex-start',
-                color: (theme: any) => theme.palette.custom.fonts.fontTwo,
+                color: (theme) => theme.palette.custom.fonts.fontTwo,
                 '& svg': {
                     width: '16px',
                     height: '16px',
                     mr: 0.5
                 },
                 '& .MuiSvgIcon-root': {
-                    fill: (theme: any) => (success ? theme.palette.custom.results.pass : theme.palette.custom.results.fail)
+                    fill: (theme) => (success ? theme.palette.custom.results.pass : theme.palette.custom.results.fail)
                 }
             }}
         >

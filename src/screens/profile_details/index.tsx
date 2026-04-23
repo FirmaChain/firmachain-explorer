@@ -11,7 +11,7 @@ const ProfileDetails = () => {
         <LoadAndExist loading={state.loading} exists={state.exists}>
             {!!state.desmosProfile && (
                 <Box
-                    sx={(theme: any) => ({
+                    sx={(theme) => ({
                         ...theme.mixins.layout,
                         display: 'grid',
                         gridTemplateRows: 'auto',

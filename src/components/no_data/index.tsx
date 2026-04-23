@@ -32,7 +32,7 @@ const NoData: React.FC<{
                 }}
             >
                 {theme === 'light' ? <NotFoundLight /> : <NotFoundDark />}
-                <Typography variant="body1" sx={{ mt: 2, color: (muiTheme: any) => muiTheme.palette.custom.fonts.fontFour }}>
+                <Typography variant="body1" sx={{ mt: 2, color: (muiTheme) => muiTheme.palette.custom.fonts.fontFour }}>
                     {t('nothingToShow')}
                 </Typography>
             </Box>

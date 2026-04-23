@@ -14,7 +14,7 @@ const ProposalDetails = () => {
     return (
         <LoadAndExist exists={state.exists} loading={state.loading}>
             <Box
-                sx={(theme: any) => ({
+                sx={(theme) => ({
                     ...theme.mixins.layout,
                     display: 'grid',
                     gridTemplateColumns: '1fr',

@@ -13,7 +13,7 @@ const Transactions = () => {
 
     return (
         <MuiBox
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 ...theme.mixins.layout,
                 '& a': {
                     color: theme.palette.custom.fonts.highlight

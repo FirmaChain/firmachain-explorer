@@ -10,7 +10,7 @@ const SortArrows: React.FC<{
     return (
         <Box
             className={className}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',

@@ -78,7 +78,7 @@ const Overview: React.FC<{
     return (
         <Box
             className={classnames(className)}
-            sx={(theme: any) => ({
+            sx={(theme) => ({
                 '& .memo': {
                     alignItems: 'flex-start',
                     '& .label': {

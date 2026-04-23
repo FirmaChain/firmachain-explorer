@@ -34,7 +34,7 @@ const ConditionExplanation = () => {
                                 sx={{
                                     width: '7px',
                                     height: '7px',
-                                    background: (theme: any) => {
+                                    background: (theme) => {
                                         if (x.className === 'green') return theme.palette.custom.condition.one;
                                         if (x.className === 'yellow') return theme.palette.custom.condition.two;
                                         if (x.className === 'red') return theme.palette.custom.condition.three;
