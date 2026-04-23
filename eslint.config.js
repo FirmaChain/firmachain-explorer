@@ -1,11 +1,11 @@
 import js from '@eslint/js';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
-    // Note: .eslintignore is merged in config.
+export default defineConfig(
     {
         ignores: [
             'node_modules',
@@ -18,11 +18,12 @@ export default tseslint.config(
         ]
     },
     {
-        extends: [js.configs.recommended, ...tseslint.configs.recommended],
         files: ['**/*.{ts,tsx}'],
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
         languageOptions: {
-            ecmaVersion: 2020,
-            globals: Object.fromEntries(Object.entries(globals.browser).map(([k, v]) => [k.trim(), v]))
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            globals: globals.browser
         },
         plugins: {
             'react-hooks': reactHooks,
@@ -30,11 +31,11 @@ export default tseslint.config(
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
-            'react-refresh/only-export-components': ['warn', { allowConstantExport: true }], // Warns when anonymous component exported
-            '@typescript-eslint/no-explicit-any': 'warn', // Warns when type 'any' used
-            '@typescript-eslint/no-unused-vars': 'warn', // Warns when defined variable is not used
-            '@typescript-eslint/no-unused-expressions': 'warn', // Warns when defined expression is not used
-            'no-extra-boolean-cast': 'off' // Warns when !!<var> is used. (Not always useful)
+            'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+            '@typescript-eslint/no-explicit-any': 'warn',
+            '@typescript-eslint/no-unused-vars': 'warn',
+            '@typescript-eslint/no-unused-expressions': 'warn',
+            'no-extra-boolean-cast': 'off'
         }
     }
 );
