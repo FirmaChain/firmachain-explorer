@@ -217,7 +217,7 @@ const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
                 <div className="list" style={{ height: 'auto', flex: '0 0 auto' }}>
                     {formattedItems.map((selectedItem, index) => (
                         <div key={`msg-row-${index}`}>
-                            <Box className="item" sx={{ py: 2 }}>
+                            <Box className="item" sx={{ py: 2, minHeight: 48, mt: 2 }}>
                                 <div className="tags">{selectedItem.type}</div>
                                 <span className="msg">{selectedItem.message}</span>
                             </Box>
