@@ -1,12 +1,14 @@
 @font-face {
     font-family: 'Hind Madurai';
-    src: url('/fonts/HindMadurai-Regular.ttf');
+    src: url('/fonts/HindMadurai-Regular.woff2') format('woff2');
+    font-display: swap;
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'Hind Madurai';
-    src: url('/fonts/HindMadurai-Regular.ttf');
+    src: url('/fonts/HindMadurai-Regular.woff2') format('woff2');
+    font-display: swap;
     font-weight: 500;
 }
 

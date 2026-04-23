@@ -1,8 +1,8 @@
 import { DATE_KEY, getItem, setItem, THEME_KEY, TX_KEY } from '@utils/localstorage';
 import { create } from 'zustand';
 
-import { THEME_DICTIONARY } from './utils';
 import { AtomState, Date, SettingsStoreState, Theme, Tx } from './types';
+import { THEME_DICTIONARY } from './utils';
 
 export const initialState: AtomState = {
     theme: 'dark',
@@ -42,13 +42,6 @@ export const useSettingsStore = create<SettingsStoreState>((set, get) => ({
     initialized: false,
     initialize: () => {
         if (get().initialized) {
-            return;
-        }
-
-        const isClient = typeof window === 'object';
-
-        if (!isClient) {
-            set({ initialized: true });
             return;
         }
 

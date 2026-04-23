@@ -1,4 +1,4 @@
-import i18n, { locale, locales } from '@/i18n';
+import { locale, locales } from '@/i18n';
 import Language from '@assets/icon-language.svg?react';
 import ThemeIcon from '@assets/icon-theme.svg?react';
 import { ExpandMoreOutlined } from '@mui/icons-material';
@@ -13,10 +13,10 @@ import { useLanguageDrawer, useThemeDrawer } from './hooks';
 import { MenuProps } from './types';
 
 const Menu = (props: MenuProps) => {
-    const { t, lang } = useTranslation('common');
+    const { t, i18n } = useTranslation('common');
 
     const { toggleNavMenus, className } = props;
-    const languageOptions = useLanguageDrawer(lang, toggleNavMenus);
+    const languageOptions = useLanguageDrawer(i18n.language, toggleNavMenus);
 
     const themeOptions = useThemeDrawer(toggleNavMenus);
     return (
@@ -37,7 +37,7 @@ const Menu = (props: MenuProps) => {
             >
                 <div className={classnames('content')}>
                     {[...locales, 'kr']
-                        .filter((l) => l !== lang)
+                        .filter((l) => l !== i18n.language)
                         .map((l) => (
                             <MenuItem key={l} component="button" onClick={() => i18n.changeLanguage(l)}>
                                 {t(l)}

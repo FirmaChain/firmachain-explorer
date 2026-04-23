@@ -1,13 +1,7 @@
 import { useEffect } from 'react';
 import * as jdenticon from 'jdenticon';
-import { useTranslation } from 'react-i18next';
 
 export const useApp = () => {
-    // ==========================
-    // language
-    // ==========================
-    const { lang } = useTranslation();
-
     useEffect(() => {
         // jdenticon theme
         jdenticon.configure({
@@ -22,20 +16,5 @@ export const useApp = () => {
             },
             backColor: '#2a4766'
         });
-    }, []);
-
-    useEffect(() => {
-        document.cookie = `LOCALE=${lang}`;
-    }, [lang]);
-
-    // ==========================
-    // css
-    // ==========================
-    useEffect(() => {
-        // Remove the server-side injected CSS.
-        const jssStyles = document.querySelector('#jss-server-side');
-        if (jssStyles) {
-            jssStyles.parentElement.removeChild(jssStyles);
-        }
     }, []);
 };

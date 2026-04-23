@@ -1,14 +1,15 @@
 import React from 'react';
 import { AvatarName, Box } from '@components';
 import { Typography } from '@mui/material';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { useProfileRecoil } from '@zustand/profiles';
 import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
-import { PolarAngleAxis, RadialBar, RadialBarChart, Tooltip } from 'recharts';
 
+import { ConsensusRing } from './consensusRing';
 import { useConsensus } from './hooks';
+import { useWrappedProgress } from './useWrappedProgress';
 
 const Consensus: React.FC<{
     className?: string;
@@ -17,15 +18,13 @@ const Consensus: React.FC<{
     const { state } = useConsensus();
     const { t } = useTranslation('home');
 
-    const data = [
-        {
-            value: state.roundCompletion,
-            fill: theme.palette.primary.main
-        }
-    ];
-
     const circleSize = 200;
+    const ringWidth = 10;
     const proposerProfile = useProfileRecoil(state.proposer);
+
+    const displayRoundCompletion = useWrappedProgress(state.roundCompletion, {
+        wrapDelay: 120
+    });
 
     return (
         <Box
@@ -42,9 +41,6 @@ const Consensus: React.FC<{
                     alignItems: 'center',
                     justifyContent: 'space-around',
                     flexDirection: 'column'
-                },
-                '& .chart .recharts-radial-bar-background-sector': {
-                    fill: alpha(theme.palette.primary.main, 0.4)
                 },
                 '& .info': {
                     display: 'flex',
@@ -67,17 +63,34 @@ const Consensus: React.FC<{
             <Typography variant="h2" sx={{ mb: 2 }}>
                 {t('consensus')}
             </Typography>
+
             <div className="info">
                 <div>
-                    <Typography variant="caption" component="div" sx={{ color: theme.palette.custom.fonts.fontThree, mb: 0.5 }}>
+                    <Typography
+                        variant="caption"
+                        component="div"
+                        sx={{
+                            color: theme.palette.custom.fonts.fontThree,
+                            mb: 0.5
+                        }}
+                    >
                         {t('height')}
                     </Typography>
-                    <Typography variant="caption" component="div" sx={{ color: theme.palette.custom.fonts.fontThree, mb: 0.5 }}>
+                    <Typography
+                        variant="caption"
+                        component="div"
+                        sx={{
+                            color: theme.palette.custom.fonts.fontThree,
+                            mb: 0.5
+                        }}
+                    >
                         {t('proposer')}
                     </Typography>
                 </div>
+
                 <div>
                     <Typography variant="h4">{numeral(state.height).format('0,0')}</Typography>
+
                     {state.proposer ? (
                         <AvatarName address={proposerProfile.address} imageUrl={proposerProfile.imageUrl} name={proposerProfile.name} />
                     ) : (
@@ -85,38 +98,36 @@ const Consensus: React.FC<{
                     )}
                 </div>
             </div>
+
             <div className="content">
-                <RadialBarChart
-                    className="chart"
-                    width={circleSize}
-                    height={circleSize}
-                    cx={circleSize / 2}
-                    cy={circleSize / 2}
-                    innerRadius={90}
-                    outerRadius={90}
-                    barSize={10}
-                    data={data}
-                    startAngle={90}
-                    endAngle={-270}
-                >
-                    <PolarAngleAxis type="number" domain={[0, 100]} angleAxisId={0} tick={false} />
-                    <RadialBar background dataKey="value" cornerRadius={circleSize / 2} />
-                    <Tooltip />
-                    <text x={circleSize / 2} y={circleSize / 2} textAnchor="middle" dominantBaseline="middle" className="progress-label">
-                        <tspan style={{ fontSize: '2rem', fill: theme.palette.custom.fonts.fontOne }}>
-                            {t('step', {
-                                step: numeral(state.step).format('0,0')
-                            })}
-                        </tspan>
-                    </text>
-                    <text x={circleSize / 2 - 32} y={circleSize / 2 + 35} style={{ fill: theme.palette.custom.fonts.fontTwo }}>
-                        <tspan style={{ fontSize: '1rem', color: theme.palette.custom.fonts.fontOne }}>
-                            {t('round', {
-                                round: numeral(state.round).format('0,0')
-                            })}
-                        </tspan>
-                    </text>
-                </RadialBarChart>
+                <ConsensusRing size={circleSize} strokeWidth={ringWidth} value={displayRoundCompletion}>
+                    <Typography
+                        component="div"
+                        sx={{
+                            fontSize: '2rem',
+                            color: theme.palette.custom.fonts.fontOne,
+                            lineHeight: 1.2
+                        }}
+                    >
+                        {t('step', {
+                            step: numeral(state.step).format('0,0')
+                        })}
+                    </Typography>
+
+                    <Typography
+                        component="div"
+                        sx={{
+                            mt: 1,
+                            fontSize: '1rem',
+                            color: theme.palette.custom.fonts.fontTwo,
+                            lineHeight: 1.2
+                        }}
+                    >
+                        {t('round', {
+                            round: numeral(state.round).format('0,0')
+                        })}
+                    </Typography>
+                </ConsensusRing>
             </div>
         </Box>
     );
