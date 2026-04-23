@@ -2773,7 +2773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.59.0, @typescript-eslint/utils@npm:^8.8.1":
+"@typescript-eslint/utils@npm:8.59.0":
   version: 8.59.0
   resolution: "@typescript-eslint/utils@npm:8.59.0"
   dependencies:
@@ -3258,7 +3258,6 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-react-hooks: "npm:^5.0.0"
     eslint-plugin-react-refresh: "npm:^0.4.14"
-    eslint-plugin-storybook: "npm:^9.1.2"
     graphql: "npm:^15.5.0"
     graphql-ws: "npm:^6.0.8"
     i18next: "npm:^24.2.3"
@@ -4486,18 +4485,6 @@ __metadata:
   peerDependencies:
     eslint: ">=8.40"
   checksum: 10c0/11c2b25b7a7025e621b02970c4cf3815b0b77486027df9f8bb731cc52972156804fd163b0f99404b33e36a3c60cd1a1be8199ba64c66b5276da3173bbb5ab6e7
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-storybook@npm:^9.1.2":
-  version: 9.1.20
-  resolution: "eslint-plugin-storybook@npm:9.1.20"
-  dependencies:
-    "@typescript-eslint/utils": "npm:^8.8.1"
-  peerDependencies:
-    eslint: ">=8"
-    storybook: ^9.1.20
-  checksum: 10c0/5fa57e3953c6394ce329450af26e618a6a327e2a3a895c7cf2d0d78a50a01c46a6289295369cd28efa4941d7a30d746533a241716915c12de81e34541d044e85
   languageName: node
   linkType: hard
 
