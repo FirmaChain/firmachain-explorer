@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 
-import { Connections } from './components';
+import Connections from './connections';
 import { useDesmosProfile } from './hooks';
 
 const DesmosProfile: React.FC<

@@ -1,5 +1,8 @@
 import React from 'react';
-import { GithubIcon, MediumIcon, TelegramIcon, TwitterIcon } from '@icons';
+import GithubIcon from '@/assets/icon-github.svg?react';
+import MediumIcon from '@/assets/icon-medium.svg?react';
+import TelegramIcon from '@/assets/icon-telegram.svg?react';
+import TwitterIcon from '@/assets/icon-twitter-x.svg?react';
 
 export const socialMediaLinks: {
     component: React.ReactNode;

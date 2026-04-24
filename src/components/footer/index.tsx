@@ -6,7 +6,7 @@ import { alpha } from '@mui/material/styles';
 import { readTheme, useSettingsStore } from '@zustand/settings';
 import { Trans, useTranslation } from 'react-i18next';
 
-import { SocialMedia } from './components';
+import SocialMedia from './social_media';
 import { footerLinks } from './utils';
 
 const Footer: React.FC<{ className?: string }> = ({ className }) => {

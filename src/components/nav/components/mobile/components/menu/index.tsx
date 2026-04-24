@@ -36,8 +36,8 @@ const Menu = (props: MenuProps) => {
                 })}
             >
                 <div className={classnames('content')}>
-                    {[...locales, 'kr']
-                        .filter((l) => l !== i18n.language)
+                    {locales
+                        ?.filter((l) => l !== i18n.language)
                         .map((l) => (
                             <MenuItem key={l} component="button" onClick={() => i18n.changeLanguage(l)}>
                                 {t(l)}
