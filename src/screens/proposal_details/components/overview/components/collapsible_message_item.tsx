@@ -1,6 +1,6 @@
 import React from 'react';
+import ExpandMoreIcon from '@assets/icon-expand-more.svg?react';
 import { Tag } from '@components';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Collapse } from '@mui/material';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';

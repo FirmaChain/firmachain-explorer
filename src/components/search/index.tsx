@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search as SearchIcon } from '@mui/icons-material';
+import SearchIcon from '@assets/icon-search.svg?react';
 import { Box, InputAdornment, InputBase } from '@mui/material';
 
 import { useSearch } from './hooks';
@@ -40,7 +40,7 @@ const Search: React.FC<{
                 }}
                 startAdornment={
                     <InputAdornment position="start">
-                        <SearchIcon fontSize="small" />
+                        <SearchIcon style={{ width: '20px' }} />
                     </InputAdornment>
                 }
             />

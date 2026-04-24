@@ -1,6 +1,6 @@
 import React from 'react';
+import HelpOutlineIcon from '@assets/icon-help-outline.svg?react';
 import { Box, Popover } from '@mui/material';
-import { HelpOutline } from '@mui/icons-material';
 import classnames from 'classnames';
 
 import { useInfoPopover } from './hooks';
@@ -22,7 +22,12 @@ const InfoPopover: React.FC<{
                 onMouseLeave={handlePopoverClose}
                 sx={{ display: 'flex', alignItems: 'center' }}
             >
-                {display || <HelpOutline className={classnames(className)} sx={{ display: 'inline-block', fontSize: '1rem', mx: 0.5 }} />}
+                {display || (
+                    <HelpOutlineIcon
+                        className={classnames(className)}
+                        style={{ display: 'inline-block', width: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}
+                    />
+                )}
             </Box>
             <Popover
                 id="mouse-over-popover"

@@ -15,7 +15,6 @@
     },
     "dependencies": {
         "@apollo/client": "3.14.1",
-        "@mui/icons-material": "7.3.9",
         "@mui/material": "7.3.9",
         "@mui/styled-engine-sc": "7.3.9",
         "axios": "^1.14.0",

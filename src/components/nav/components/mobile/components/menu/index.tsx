@@ -1,7 +1,7 @@
 import { locale, locales } from '@/i18n';
+import ExpandMoreIcon from '@assets/icon-expand-more.svg?react';
 import Language from '@assets/icon-language.svg?react';
 import ThemeIcon from '@assets/icon-theme.svg?react';
-import { ExpandMoreOutlined } from '@mui/icons-material';
 import { Box, Drawer, MenuItem, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { THEME_LIST } from '@zustand/settings';
@@ -118,7 +118,7 @@ const Menu = (props: MenuProps) => {
                     <div className="language" role="button" onClick={languageOptions.toggleDrawer}>
                         <Language />
                         <Typography variant="caption">{t(locale)}</Typography>
-                        <ExpandMoreOutlined fontSize="small" />
+                        <ExpandMoreIcon style={{ width: '20px' }} />
                     </div>
                     <div className="theme" role="button" onClick={themeOptions.toggleDrawer}>
                         <span role="button">

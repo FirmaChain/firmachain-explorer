@@ -1,6 +1,5 @@
 import React from 'react';
 import FilterIcon from '@assets/icon-filter.svg?react';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, InputBase, MenuItem, Select, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -22,7 +21,6 @@ const TransactionMessagesFilter: React.FC<{
 
     return (
         <Select
-            IconComponent={ExpandMoreIcon}
             className={className}
             sx={(theme) => ({
                 borderRadius: `${theme.shape.borderRadius}px`,

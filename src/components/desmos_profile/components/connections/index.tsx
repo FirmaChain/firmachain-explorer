@@ -1,8 +1,8 @@
 import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
+import CloseIcon from '@assets/icon-close.svg?react';
 import { Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
-import { Close as CloseIcon } from '@mui/icons-material';
 import { Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
