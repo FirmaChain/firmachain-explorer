@@ -1,7 +1,7 @@
 import React from 'react';
 import HelpOutlineIcon from '@assets/icon-help-outline.svg?react';
 import { Box, Popover } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { useInfoPopover } from './hooks';
 
@@ -24,7 +24,7 @@ const InfoPopover: React.FC<{
             >
                 {display || (
                     <HelpOutlineIcon
-                        className={classnames(className)}
+                        className={clsx(className)}
                         style={{ display: 'inline-block', width: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}
                     />
                 )}

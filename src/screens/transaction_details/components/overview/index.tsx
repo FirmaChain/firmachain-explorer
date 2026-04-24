@@ -5,7 +5,7 @@ import dayjs, { formatDayJs } from '@utils/dayjs';
 import { formatNumber } from '@utils/format_token';
 import { ACCOUNT_DETAILS, BLOCK_DETAILS } from '@utils/go_to_page';
 import { readDate, useSettingsStore } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -77,7 +77,7 @@ const Overview: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 '& .memo': {
                     alignItems: 'flex-start',

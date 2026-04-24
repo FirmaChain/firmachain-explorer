@@ -3,7 +3,7 @@ import { AvatarName, Box } from '@components';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useProfileRecoil } from '@zustand/profiles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 
@@ -28,7 +28,7 @@ const Consensus: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={{
                 height: '100%',
                 display: 'flex',

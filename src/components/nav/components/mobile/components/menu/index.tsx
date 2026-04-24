@@ -5,7 +5,7 @@ import ThemeIcon from '@assets/icon-theme.svg?react';
 import { Box, Drawer, MenuItem, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { THEME_LIST } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import MenuItems from '../../../menu_items';
@@ -28,14 +28,14 @@ const Menu = (props: MenuProps) => {
                 anchor="bottom"
                 open={languageOptions.drawerOpen}
                 onClose={languageOptions.toggleDrawer}
-                className={classnames('lang-drawer')}
+                className={clsx('lang-drawer')}
                 sx={(theme) => ({
                     '& .MuiDrawer-paper': {
                         background: alpha(theme.palette.background.paper, 0.5)
                     }
                 })}
             >
-                <div className={classnames('content')}>
+                <div className={clsx('content')}>
                     {locales
                         ?.filter((l) => l !== i18n.language)
                         .map((l) => (
@@ -58,7 +58,7 @@ const Menu = (props: MenuProps) => {
                     }
                 })}
             >
-                <div className={classnames('content')}>
+                <div className={clsx('content')}>
                     {THEME_LIST.filter((l) => l !== themeOptions.theme).map((l) => (
                         <div key={l}>
                             <MenuItem component="a" onClick={() => themeOptions.handleChangeTheme(l)}>
@@ -72,7 +72,7 @@ const Menu = (props: MenuProps) => {
             {/* Main Content */}
             {/* ================================== */}
             <Box
-                className={classnames(className)}
+                className={clsx(className)}
                 sx={(theme) => ({
                     background: theme?.palette?.background.paper,
                     display: 'flex',

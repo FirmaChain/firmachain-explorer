@@ -4,7 +4,7 @@ import { AvatarName } from '@components';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { readDate, useSettingsStore } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { ItemType } from '../../types';
@@ -25,7 +25,7 @@ const Desktop: React.FC<{
     });
 
     return (
-        <div className={classnames(className)}>
+        <div className={clsx(className)}>
             <Table>
                 <TableHead>
                     <TableRow>

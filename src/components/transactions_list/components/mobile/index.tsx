@@ -4,7 +4,7 @@ import { Box, Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -165,7 +165,7 @@ const Mobile: React.FC<TransactionsListState> = ({ className, itemCount, loadMor
     return (
         <Box
             ref={containerRef}
-            className={classnames(className)}
+            className={clsx(className)}
             sx={{
                 height: '100%',
                 width: '100%',

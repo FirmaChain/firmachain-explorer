@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 
@@ -21,7 +21,7 @@ const TabsHeader: React.FC<{
     const { t } = useTranslation('accounts');
 
     return (
-        <Box className={classnames(className)} sx={tabsHeaderSx}>
+        <Box className={clsx(className)} sx={tabsHeaderSx}>
             <Tabs
                 variant="scrollable"
                 scrollButtons={false}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 const VotingPower: React.FC<{
     className?: string;
@@ -13,7 +13,7 @@ const VotingPower: React.FC<{
     const topVotingPower = true;
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 '& .MuiTypography-body1': {
                     color: topVotingPower ? theme.palette.custom.fonts.fontFour : theme.palette.custom.fonts.fontTwo

@@ -7,7 +7,7 @@ import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import Big from 'big.js';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -76,14 +76,14 @@ const ValidatorOverview: React.FC<
                                 </>
                             }
                             display={
-                                <Typography variant="body1" className={classnames('value', condition)}>
+                                <Typography variant="body1" className={clsx('value', condition)}>
                                     {t(condition)}
                                 </Typography>
                             }
                         />
                     </div>
                 ) : (
-                    <Typography variant="body1" className={classnames('value', 'condition', condition)}>
+                    <Typography variant="body1" className={clsx('value', 'condition', condition)}>
                         {t(condition)}
                     </Typography>
                 )
@@ -105,7 +105,7 @@ const ValidatorOverview: React.FC<
     return (
         <>
             <Box
-                className={classnames(className)}
+                className={clsx(className)}
                 sx={(theme) => ({
                     '& .addressRoot': {
                         [theme.breakpoints.up('md')]: { display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' }
@@ -166,7 +166,7 @@ const ValidatorOverview: React.FC<
                 })}
             >
                 <div className="addressRoot">
-                    <div className={classnames('copyText', 'item')}>
+                    <div className={clsx('copyText', 'item')}>
                         <Typography variant="body1" className="label">
                             {t('operatorAddress')}
                         </Typography>
@@ -183,7 +183,7 @@ const ValidatorOverview: React.FC<
                         </div>
                     </div>
 
-                    <div className={classnames('copyText', 'item')}>
+                    <div className={clsx('copyText', 'item')}>
                         <Typography variant="body1" className="label">
                             {t('selfDelegateAddress')}
                         </Typography>

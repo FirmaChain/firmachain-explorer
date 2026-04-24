@@ -1,7 +1,7 @@
 import React from 'react';
 import FirmachainLogo from '@assets/firma_chain_title.svg?react';
 import { Box, ClickAwayListener, Drawer } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import MenuItems from '../menu_items';
 import TitleBar from '../title_bar';
@@ -47,7 +47,7 @@ export const DesktopSidebar: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={{
                 '& .MuiDrawer-paperAnchorDockedLeft': {
                     border: 'none'
@@ -56,7 +56,7 @@ export const DesktopSidebar: React.FC<{
         >
             <Drawer
                 variant="permanent"
-                className={classnames({ open: isMenu, closed: !isMenu })}
+                className={clsx({ open: isMenu, closed: !isMenu })}
                 sx={(theme) => ({
                     width: isMenu ? OPEN_DRAWER_WIDTH : CLOSED_DRAWER_WIDTH,
                     flexShrink: 0,
@@ -105,7 +105,7 @@ const Desktop: React.FC<{
 
     return (
         <ClickAwayListener onClickAway={turnOffAll}>
-            <Box className={classnames(className)}>
+            <Box className={clsx(className)}>
                 <DesktopHeader title={title} />
                 <DesktopSidebar controls={controls} />
             </Box>

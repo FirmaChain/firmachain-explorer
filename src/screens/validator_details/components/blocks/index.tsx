@@ -3,7 +3,7 @@ import { AvatarName, Box, Result } from '@components';
 import { Box as MuiBox, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { useProfilesRecoil } from '@zustand/profiles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,7 @@ const Blocks: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 height: '100%',
                 '& .MuiTypography-h2': {
@@ -158,7 +158,7 @@ const Blocks: React.FC<{
                         >
                             <div
                                 key={i}
-                                className={classnames('singleBlock', {
+                                className={clsx('singleBlock', {
                                     signed: state[i].signed
                                 })}
                             />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 const SingleValidator: React.FC<{
@@ -17,7 +17,7 @@ const SingleValidator: React.FC<{
     const { t } = useTranslation('validators');
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 my: 2,
                 '& .item': {
@@ -68,7 +68,7 @@ const SingleValidator: React.FC<{
                     <Typography variant="h4" className="label">
                         {t('status')}
                     </Typography>
-                    <Typography variant="body1" className={classnames('value', 'status', status.theme)}>
+                    <Typography variant="body1" className={clsx('value', 'status', status.theme)}>
                         {t(status.status)}
                     </Typography>
                 </div>

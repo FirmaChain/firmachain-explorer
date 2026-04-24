@@ -2,7 +2,7 @@ import React from 'react';
 import { chainConfig } from '@configs';
 import { ENV } from '@configs/env';
 import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 const Network: React.FC<{
     className?: string;
@@ -33,7 +33,7 @@ const Network: React.FC<{
     };
 
     return (
-        <FormControl className={classnames(className)} size="small">
+        <FormControl className={clsx(className)} size="small">
             <Select
                 value={currentNetwork.url}
                 onChange={handleChange}

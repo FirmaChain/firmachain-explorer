@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 const Total: React.FC<{
@@ -9,7 +9,7 @@ const Total: React.FC<{
 }> = ({ className, total }) => {
     const { t } = useTranslation('proposals');
     return (
-        <Typography variant="body1" className={classnames(className)}>
+        <Typography variant="body1" className={clsx(className)}>
             {t('totalProposals', {
                 amount: total
             })}

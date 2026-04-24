@@ -4,8 +4,8 @@ import { Loading } from '@components';
 import { chainConfig } from '@configs';
 import { useInterval } from '@hooks';
 import { Box, Typography } from '@mui/material';
-import { useSettingsStore,  readTheme  } from '@zustand/settings';
 import dayjs from '@utils/dayjs';
+import { readTheme, useSettingsStore } from '@zustand/settings';
 import * as R from 'ramda';
 
 const Countdown: React.FC<{

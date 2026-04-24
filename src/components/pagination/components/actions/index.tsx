@@ -2,7 +2,7 @@ import React from 'react';
 import NextFastIcon from '@assets/icon-next-fast.svg?react';
 import NextIcon from '@assets/icon-next.svg?react';
 import { Box, FormControl, IconButton, InputBase, MenuItem, Select, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { useTablePaginationActions } from './hooks';
 
@@ -36,7 +36,7 @@ const Actions: React.FC<{
     return (
         <Box
             component="ul"
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 display: 'flex',
                 alignItems: 'center',
@@ -144,7 +144,7 @@ const Actions: React.FC<{
                     variant="body2"
                     key={x}
                     onClick={() => onPageChange(null, x)}
-                    className={classnames('action-button', 'page-button', {
+                    className={clsx('action-button', 'page-button', {
                         selected: page === x
                     })}
                 >

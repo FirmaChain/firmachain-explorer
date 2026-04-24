@@ -4,7 +4,7 @@ import { Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 
@@ -15,7 +15,7 @@ const Mobile: React.FC<{
     items: ItemType[];
 }> = ({ className, items }) => {
     return (
-        <div className={classnames(className)}>
+        <div className={clsx(className)}>
             {items.map((x, i) => {
                 return (
                     <React.Fragment key={`${x.height}-${i}`}>

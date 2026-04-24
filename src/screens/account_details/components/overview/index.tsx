@@ -5,7 +5,7 @@ import { Box } from '@components';
 import { useScreenSize, useWindowOrigin } from '@hooks';
 import { Dialog, Typography } from '@mui/material';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { QRCodeSVG } from 'qrcode.react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -80,7 +80,7 @@ const Overview: React.FC<{
                 </Box>
             </Dialog>
             <Box
-                className={classnames(className)}
+                className={clsx(className)}
                 sx={(theme) => ({
                     [theme.breakpoints.up('md')]: { display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' },
                     '& .item': {
@@ -107,7 +107,7 @@ const Overview: React.FC<{
                     '& .actionIcon:hover': { cursor: 'pointer' }
                 })}
             >
-                <div className={classnames('copyText', 'item')}>
+                <div className={clsx('copyText', 'item')}>
                     <Typography variant="body1" className="label">
                         {t('address')}
                     </Typography>
@@ -125,7 +125,7 @@ const Overview: React.FC<{
                     </div>
                 </div>
 
-                <div className={classnames('copyText', 'item')}>
+                <div className={clsx('copyText', 'item')}>
                     <Typography variant="body1" className="label">
                         {t('rewardAddress')}
                     </Typography>

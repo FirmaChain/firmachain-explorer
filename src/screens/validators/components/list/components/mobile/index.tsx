@@ -4,7 +4,7 @@ import { useList, useListRow } from '@hooks';
 import { Box, Divider } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { getValidatorStatus } from '@utils/get_validator_status';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { List, type RowComponentProps } from 'react-window';
 
@@ -120,7 +120,7 @@ const Mobile: React.FC<MobileProps> = ({ className, items }) => {
     }, [items]);
 
     return (
-        <Box ref={ref} className={classnames(className)} sx={{ height: '100%', minHeight: 0 }}>
+        <Box ref={ref} className={clsx(className)} sx={{ height: '100%', minHeight: 0 }}>
             {size.width > 0 && size.height > 0 ? (
                 <List<RowProps>
                     className="List"

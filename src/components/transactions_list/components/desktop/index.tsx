@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -198,7 +198,7 @@ const Desktop: React.FC<TransactionsListState> = ({ className, itemCount = 0, lo
     return (
         <Box
             ref={ref}
-            className={classnames(className)}
+            className={clsx(className)}
             sx={{
                 height: '100%',
                 display: 'flex',

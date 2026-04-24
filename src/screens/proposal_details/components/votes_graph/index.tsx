@@ -3,7 +3,7 @@ import { Box, InfoPopover } from '@components';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Big from 'big.js';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Cell, Pie, PieChart } from 'recharts';
@@ -35,7 +35,7 @@ const VotesGraph: React.FC<ComponentDefault> = (props) => {
 
     return (
         <Box
-            className={classnames(props.className)}
+            className={clsx(props.className)}
             sx={(theme) => ({
                 position: 'relative',
                 [theme.breakpoints.up('lg')]: {
@@ -114,7 +114,7 @@ const VotesGraph: React.FC<ComponentDefault> = (props) => {
                     .filter((x) => x.name !== 'empty')
                     .map((x) => {
                         return (
-                            <div key={x.name} className={classnames('voteItem', x.name)}>
+                            <div key={x.name} className={clsx('voteItem', x.name)}>
                                 <Typography variant="caption">
                                     {t(x.name)} ({x.percentage})
                                 </Typography>

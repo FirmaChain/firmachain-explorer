@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, TransactionMessagesFilter } from '@components';
 import { useList, useListRow } from '@hooks';
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { List, type RowComponentProps } from 'react-window';
 
@@ -99,7 +99,7 @@ const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 display: 'flex',
                 flexDirection: 'column',

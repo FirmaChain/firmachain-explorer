@@ -4,7 +4,7 @@ import { useGrid, useList, useListRow } from '@hooks';
 import { Box, Typography } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { getValidatorStatus } from '@utils/get_validator_status';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { List, type RowComponentProps } from 'react-window';
@@ -86,7 +86,7 @@ const ValidatorRow = ({ index, style, items, columns, templateColumns, setRowHei
         <div style={style}>
             <div ref={rowRef}>
                 <Box
-                    className={classnames('cell', 'body', {
+                    className={clsx('cell', 'body', {
                         odd: !(index % 2)
                     })}
                     sx={{ py: 2 }}
@@ -136,7 +136,7 @@ const Desktop: React.FC<DesktopProps> = (props) => {
                     />
                 ),
                 status: (
-                    <Typography variant="body1" className={classnames('status', status.theme)}>
+                    <Typography variant="body1" className={clsx('status', status.theme)}>
                         {t(status.status)}
                     </Typography>
                 )
@@ -153,7 +153,7 @@ const Desktop: React.FC<DesktopProps> = (props) => {
     return (
         <Box
             ref={ref}
-            className={classnames(props.className)}
+            className={clsx(props.className)}
             sx={(theme) => ({
                 height: '100%',
                 minHeight: 0,
@@ -210,7 +210,7 @@ const Desktop: React.FC<DesktopProps> = (props) => {
                             return (
                                 <div
                                     key={key}
-                                    className={classnames('cell', {
+                                    className={clsx('cell', {
                                         flexCells: component || sort,
                                         [align]: sort || component,
                                         sort

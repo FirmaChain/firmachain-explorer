@@ -4,7 +4,7 @@ import { Box, Divider, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import { readDate, useSettingsStore } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
@@ -16,7 +16,7 @@ const Mobile: React.FC<{
     const { t } = useTranslation('accounts');
 
     return (
-        <Box className={classnames(className)}>
+        <Box className={clsx(className)}>
             {items.map((x, i) => {
                 const checkIdentifier = new RegExp(`^(${chainConfig.prefix.account})`).test(x.identifier);
                 return (

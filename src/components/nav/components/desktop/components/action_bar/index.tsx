@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import SearchBar from '../../../seach_bar';
 import Network from './components/network';
@@ -11,7 +11,7 @@ const ActionBar: React.FC<{
 }> = ({ className }) => {
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 width: '100%',
                 background: theme.palette.background.default,

@@ -3,7 +3,7 @@ import { Box } from '@components';
 import { Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -22,7 +22,7 @@ const VotingPower: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 height: '100%',
                 '& .MuiTypography-h2': { mb: 2 },

@@ -1,10 +1,10 @@
 import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Loading, NoData, Pagination } from '@components';
-import { Box } from '@mui/material';
 import { usePagination, useScreenSize } from '@hooks';
+import { Box } from '@mui/material';
 import { useProfilesRecoil } from '@zustand/profiles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import * as R from 'ramda';
 
 import { DelegationsType } from '../../types';
@@ -46,7 +46,7 @@ const Delegations: React.FC<
     }
 
     return (
-        <div className={classnames(props.className)}>
+        <div className={clsx(props.className)}>
             {component}
             <Box sx={{ mt: 3 }}>
                 <Pagination

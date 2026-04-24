@@ -1,9 +1,8 @@
 import { useState } from 'react';
-
 import { chainConfig } from '@configs';
 import { createTheme as createMuiTheme } from '@mui/material/styles';
-import { useSettingsStore,  getThemeTemplate, readTheme  } from '@zustand/settings';
 import dayjs from '@utils/dayjs';
+import { getThemeTemplate, readTheme, useSettingsStore } from '@zustand/settings';
 
 export const useTheme = () => {
     const theme = useSettingsStore(readTheme);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { tabsHeaderSx } from '@/styles/ui';
@@ -23,7 +23,7 @@ const TabsHeader: React.FC<{
     const { t } = useTranslation('proposals');
 
     return (
-        <Box className={classnames(className)} sx={tabsHeaderSx}>
+        <Box className={clsx(className)} sx={tabsHeaderSx}>
             <Tabs variant="scrollable" scrollButtons={false} textColor="inherit" value={tab} onChange={handleTabChange}>
                 {tabLabels(data).map((x, i) => (
                     <Tab key={x.key} label={`${t(x.key)} (${x.num})`} {...a11yProps(i)} />

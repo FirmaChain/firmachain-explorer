@@ -4,7 +4,7 @@ import { Box, Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { List, useListRef, type RowComponentProps } from 'react-window';
@@ -146,7 +146,7 @@ const Mobile: React.FC<MobileProps> = ({ className, items, itemCount, loadMoreIt
     });
 
     return (
-        <Box ref={ref} className={classnames(className)} sx={{ height: '100%', minHeight: 0 }}>
+        <Box ref={ref} className={clsx(className)} sx={{ height: '100%', minHeight: 0 }}>
             {size.width > 0 && size.height > 0 ? (
                 <List<RowProps>
                     className="List"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 const SingleTransaction: React.FC<{
@@ -16,7 +16,7 @@ const SingleTransaction: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 mb: 2,
                 mt: 2,
@@ -78,13 +78,13 @@ const SingleTransaction: React.FC<{
             </div>
             <div className="itemContainer">
                 <div className="itemPrimaryDetailsContainer">
-                    <div className={classnames('item', 'block')}>
+                    <div className={clsx('item', 'block')}>
                         <Typography variant="h4" className="label">
                             {t('block')}
                         </Typography>
                         {block}
                     </div>
-                    <div className={classnames('item', 'time')}>
+                    <div className={clsx('item', 'time')}>
                         <Typography variant="h4" className="label">
                             {t('time')}
                         </Typography>
@@ -92,7 +92,7 @@ const SingleTransaction: React.FC<{
                             {time}
                         </Typography>
                     </div>
-                    <div className={classnames('item', 'messages')}>
+                    <div className={clsx('item', 'messages')}>
                         <Typography variant="h4" className="label">
                             {t('messages')}
                         </Typography>
@@ -100,7 +100,7 @@ const SingleTransaction: React.FC<{
                             {messageCount}
                         </Typography>
                     </div>
-                    <div className={classnames('item', 'result')}>
+                    <div className={clsx('item', 'result')}>
                         <Typography variant="h4" className="label">
                             {t('result')}
                         </Typography>

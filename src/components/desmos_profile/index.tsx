@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Box, Markdown } from '@components';
 import { Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +19,7 @@ const DesmosProfile: React.FC<
     return (
         <>
             <Box
-                className={classnames(props.className)}
+                className={clsx(props.className)}
                 sx={(theme) => ({
                     overflow: 'hidden',
                     '& .cover-wrapper': {

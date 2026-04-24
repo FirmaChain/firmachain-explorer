@@ -3,7 +3,7 @@ import { chainConfig } from '@configs';
 import { Box, Typography } from '@mui/material';
 import { readMarket, useMarketStore } from '@zustand/market';
 import { readTheme, useSettingsStore } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import * as R from 'ramda';
 import { useTranslation } from 'react-i18next';
 
@@ -23,7 +23,7 @@ const TitleBar: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 p: theme.spacing(1, 2),
                 display: 'flex',

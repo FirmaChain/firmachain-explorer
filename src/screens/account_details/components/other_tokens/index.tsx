@@ -3,7 +3,7 @@ import dynamic from '@/adapters/routing/dynamic';
 import { Box, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { Box as MuiBox, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { OtherTokenType } from '../../types';
@@ -31,7 +31,7 @@ export const OtherTokens: React.FC<{
     const items = sliceItems(data);
 
     return (
-        <Box className={classnames(className)}>
+        <Box className={clsx(className)}>
             <Typography variant="h2">{t('otherTokens')}</Typography>
 
             {isDesktop ? (

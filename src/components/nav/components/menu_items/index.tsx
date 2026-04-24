@@ -1,6 +1,6 @@
 import { lighten } from '@/utils/color';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -20,7 +20,7 @@ const MenuItems = () => {
                 return (
                     <ListItemButton
                         key={x.key}
-                        className={classnames({ active: isActive })}
+                        className={clsx({ active: isActive })}
                         onClick={() => navigate(x.url)}
                         sx={(theme) => ({
                             p: theme.spacing(2, 2.5),

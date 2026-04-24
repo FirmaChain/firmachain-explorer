@@ -72,13 +72,7 @@ const Votes: React.FC<ComponentDefault> = (props) => {
             />
             <div className="list">
                 {items.length ? (
-                    <>
-                        {isDesktop ? (
-                            <Desktop className="desktop" items={items} />
-                        ) : (
-                            <Mobile className="mobile" items={items} />
-                        )}
-                    </>
+                    <>{isDesktop ? <Desktop className="desktop" items={items} /> : <Mobile className="mobile" items={items} />}</>
                 ) : (
                     <NoData />
                 )}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Search } from '@components';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { desktopSearchBarSx, tabsHeaderSx } from '@/styles/ui';
@@ -19,7 +19,7 @@ const TabsHeader: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 ...tabsHeaderSx,
                 '& .searchBar': {

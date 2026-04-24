@@ -27,7 +27,7 @@ export const readProfileExist =
     (state: ProfilesStoreState): ProfileAtomState => {
         touchValidatorsVersion(state);
         const delegatorAddress = resolveDelegatorAddress(address);
-        return delegatorAddress ? state.profiles[delegatorAddress] ?? null : null;
+        return delegatorAddress ? (state.profiles[delegatorAddress] ?? null) : null;
     };
 
 export const readProfilesExist =
@@ -36,7 +36,7 @@ export const readProfilesExist =
         touchValidatorsVersion(state);
         return addresses.map((address) => {
             const delegatorAddress = resolveDelegatorAddress(address);
-            return delegatorAddress ? state.profiles[delegatorAddress] ?? null : null;
+            return delegatorAddress ? (state.profiles[delegatorAddress] ?? null) : null;
         });
     };
 

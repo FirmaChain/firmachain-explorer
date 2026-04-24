@@ -3,7 +3,7 @@ import dynamic from '@/adapters/routing/dynamic';
 import { Box, LoadAndExist, NoData } from '@components';
 import { Box as MuiBox } from '@mui/material';
 import { useProfilesRecoil } from '@zustand/profiles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { Tabs } from './components';
 import { useValidators } from './hooks';
@@ -26,7 +26,7 @@ const List: React.FC<{
 
     return (
         <LoadAndExist loading={state.loading} exists={state.exists}>
-            <Box className={classnames(className)}>
+            <Box className={clsx(className)}>
                 <Tabs tab={state.tab} handleTabChange={handleTabChange} handleSearch={handleSearch} />
                 <MuiBox
                     sx={(theme) => ({

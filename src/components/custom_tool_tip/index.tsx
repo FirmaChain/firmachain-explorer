@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import clsx from 'clsx';
+
 import { defaultTooltipSx } from '@/styles/ui';
-import classnames from 'classnames';
 
 /**
  * Custom tooltips for recharts
@@ -18,10 +19,7 @@ const CustomToolTip: React.FC<{
 
     if (data && active) {
         return (
-            <Box
-                className={classnames(className)}
-                sx={(theme) => defaultTooltipSx(theme)}
-            >
+            <Box className={clsx(className)} sx={(theme) => defaultTooltipSx(theme)}>
                 {children(data)}
             </Box>
         );

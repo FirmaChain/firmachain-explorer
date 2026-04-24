@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGrid } from '@hooks';
 import { Box, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Grid, useGridRef, type CellComponentProps } from 'react-window';
 
@@ -109,13 +109,13 @@ const Desktop: React.FC<DesktopProps> = ({ className, signatures }) => {
     };
 
     if (size.width === 0 || size.height === 0) {
-        return <Box ref={ref} className={classnames(className)} sx={{ height: '100%' }} />;
+        return <Box ref={ref} className={clsx(className)} sx={{ height: '100%' }} />;
     }
 
     return (
         <Box
             ref={ref}
-            className={classnames(className)}
+            className={clsx(className)}
             sx={{
                 height: '100%',
                 display: 'flex',

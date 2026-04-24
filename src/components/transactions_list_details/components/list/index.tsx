@@ -6,7 +6,7 @@ import dayjs, { formatDayJs } from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
 import { readDate, useSettingsStore } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -168,7 +168,7 @@ const TransactionList: React.FC<TransactionsListDetailsState> = ({
     });
 
     return (
-        <Box ref={ref} className={classnames(className)} sx={{ height: '100%', minHeight: 0 }}>
+        <Box ref={ref} className={clsx(className)} sx={{ height: '100%', minHeight: 0 }}>
             {size.width > 0 && size.height > 0 ? (
                 <List<RowProps>
                     className="List"

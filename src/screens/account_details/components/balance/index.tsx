@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import { formatNumber } from '@utils/format_token';
 import { readMarket, useMarketStore } from '@zustand/market';
 import Big from 'big.js';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import * as R from 'ramda';
 import { useTranslation } from 'react-i18next';
@@ -64,7 +64,7 @@ const Balance: React.FC<{
 
     return (
         <Box
-            className={classnames(props.className)}
+            className={clsx(props.className)}
             sx={(theme) => ({
                 '& .MuiTypography-h2': { mb: 2 },
                 [theme.breakpoints.up('lg')]: { display: 'flex', flexDirection: 'column' },

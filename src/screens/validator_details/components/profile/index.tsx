@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Box, Markdown } from '@components';
 import { Divider, Typography } from '@mui/material';
 import { useProfileRecoil } from '@zustand/profiles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { OverviewType } from '../../types';
@@ -28,7 +28,7 @@ const Profile: React.FC<{ profile: OverviewType } & ComponentDefault> = ({ class
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 '& .bio': {
                     display: 'flex',
@@ -90,18 +90,14 @@ const Profile: React.FC<{ profile: OverviewType } & ComponentDefault> = ({ class
             })}
         >
             <div className="bio">
-                <Avatar address={profile.operatorAddress} imageUrl={validator.imageUrl} className={classnames('avatar', 'desktopAvatar')} />
+                <Avatar address={profile.operatorAddress} imageUrl={validator.imageUrl} className={clsx('avatar', 'desktopAvatar')} />
                 <div>
                     <div className="bio__header">
                         {/* ======================== */}
                         {/* mobile header */}
                         {/* ======================== */}
                         <div className="header">
-                            <Avatar
-                                address={profile.operatorAddress}
-                                imageUrl={validator.imageUrl}
-                                className={classnames('avatar', 'mobile')}
-                            />
+                            <Avatar address={profile.operatorAddress} imageUrl={validator.imageUrl} className={clsx('avatar', 'mobile')} />
                             <div className="header__content">
                                 <Typography variant="h2">{validator.name}</Typography>
                             </div>

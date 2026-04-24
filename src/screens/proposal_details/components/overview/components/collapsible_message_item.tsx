@@ -2,7 +2,7 @@ import React from 'react';
 import ExpandMoreIcon from '@assets/icon-expand-more.svg?react';
 import { Tag } from '@components';
 import { Collapse } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import type { OverviewType } from '../../../types';
@@ -69,7 +69,7 @@ const CollapsibleMessageItem: React.FC<Props> = ({ items, displayType, isOpen, o
                 )}
                 {!isMsgExec && isGov && <Tag value={label} theme="seven" className={classes.messagePillTag} />}
                 {!isMsgExec && !isGov && <span className={classes.messagePill}>{label}</span>}
-                <ExpandMoreIcon className={classnames(classes.messageChevron, isOpen && classes.messageChevronOpen)} />
+                <ExpandMoreIcon className={clsx(classes.messageChevron, isOpen && classes.messageChevronOpen)} />
             </div>
             <Collapse in={isOpen}>
                 {single ? (

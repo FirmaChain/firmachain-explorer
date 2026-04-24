@@ -2,7 +2,7 @@ import React from 'react';
 import { AvatarName } from '@components';
 import { useList, useListRow } from '@hooks';
 import { Box, Divider, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { List, type RowComponentProps } from 'react-window';
 
@@ -101,7 +101,7 @@ const Mobile: React.FC<MobileProps> = ({ className, signatures }) => {
     const items = React.useMemo(() => signatures ?? [], [signatures]);
 
     return (
-        <Box ref={ref} className={classnames(className)} sx={{ height: '100%', minHeight: 0 }}>
+        <Box ref={ref} className={clsx(className)} sx={{ height: '100%', minHeight: 0 }}>
             {size.width > 0 && size.height > 0 ? (
                 <List<RowProps>
                     className="List"

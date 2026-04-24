@@ -1,7 +1,7 @@
 import React from 'react';
 import { AvatarName } from '@components';
 import { Box, Divider, Typography } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { ItemType } from '../../types';
@@ -21,7 +21,7 @@ const Mobile: React.FC<{
     });
 
     return (
-        <Box className={classnames(className)}>
+        <Box className={clsx(className)}>
             {formattedItems.map((x, i) => {
                 return (
                     <React.Fragment key={`votes-mobile-${i}`}>

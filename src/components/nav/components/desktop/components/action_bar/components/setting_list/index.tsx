@@ -5,7 +5,7 @@ import SettingIcon from '@assets/icon-setting.svg?react';
 import { generalConfig } from '@configs';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, Select, Typography } from '@mui/material';
 import { DATE_LIST, THEME_LIST, TX_LIST } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { useSettingList } from './hooks';
@@ -22,7 +22,7 @@ const Settings: React.FC<{
             <Box
                 onClick={handleOpen}
                 role="button"
-                className={classnames(props.className)}
+                className={clsx(props.className)}
                 sx={(theme) => ({
                     display: 'flex',
                     alignItems: 'center',

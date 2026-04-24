@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Loading } from '@components';
 import { Divider, Typography } from '@mui/material';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { List, useDynamicRowHeight } from 'react-window';
@@ -171,7 +171,7 @@ const ProposalsList: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 minHeight: '500px',
                 height: '50vh',

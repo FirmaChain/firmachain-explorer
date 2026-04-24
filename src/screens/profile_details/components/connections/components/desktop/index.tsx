@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@m
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import { readDate, useSettingsStore } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
@@ -37,7 +37,7 @@ const Desktop: React.FC<{
     });
 
     return (
-        <div className={classnames(className)}>
+        <div className={clsx(className)}>
             <Table>
                 <TableHead>
                     <TableRow>

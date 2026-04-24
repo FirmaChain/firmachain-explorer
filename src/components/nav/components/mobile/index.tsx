@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGetComponentDimension } from '@hooks';
 import { Box } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import TitleBar from '../title_bar';
 import { Menu, Navbar, SearchBar } from './components';
@@ -56,13 +56,13 @@ const Mobile: React.FC<{
             >
                 <Menu
                     toggleNavMenus={toggleNavMenus}
-                    className={classnames('screens', {
+                    className={clsx('screens', {
                         open: isMenu,
                         menu: isMenu
                     })}
                 />
                 {/* <span
-                    className={classnames('screens', {
+                    className={clsx('screens', {
                         open: isNetwork,
                         network: isNetwork
                     })}

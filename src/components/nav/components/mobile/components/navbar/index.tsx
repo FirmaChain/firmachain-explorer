@@ -2,7 +2,7 @@ import FirmachainTitle from '@assets/firma_chain_title.svg?react';
 import { Box } from '@mui/material';
 import { HOME } from '@utils/go_to_page';
 import { readTheme, useSettingsStore } from '@zustand/settings';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { Link } from 'react-router';
 
 import Network from '../../../desktop/components/action_bar/components/network';
@@ -94,7 +94,7 @@ const Navbar = (props: NavbarProps) => {
                 <div
                     role="button"
                     onClick={toggleNavMenus}
-                    className={classnames('hamburger', {
+                    className={clsx('hamburger', {
                         active: isOpen
                     })}
                 >

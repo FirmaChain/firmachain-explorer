@@ -4,7 +4,7 @@ import { Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -53,7 +53,7 @@ const Mobile: React.FC<{
     });
 
     return (
-        <div className={classnames(className)}>
+        <div className={clsx(className)}>
             {formattedData.map((x, i) => {
                 return (
                     <React.Fragment key={`${x.block}-${i}`}>

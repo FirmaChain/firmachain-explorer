@@ -4,7 +4,7 @@ import { OtherTokenType } from '@/screens/account_details/types';
 import { Box, Divider, Typography } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 const Mobile: React.FC<{
@@ -13,7 +13,7 @@ const Mobile: React.FC<{
 }> = ({ className, items }) => {
     const { t } = useTranslation('accounts');
     return (
-        <Box className={classnames(className)}>
+        <Box className={clsx(className)}>
             {items.map((x, i) => {
                 let availables = {
                     value: x.available.value,

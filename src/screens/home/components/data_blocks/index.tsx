@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { readMarket, useMarketStore } from '@zustand/market';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 
@@ -48,7 +48,7 @@ const DataBlocks: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 display: 'grid',
                 gap: theme.spacing(1),

@@ -4,7 +4,7 @@ import { ibcConfig, tokenConfig } from '@configs';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { columns } from './utils';
@@ -40,7 +40,7 @@ const Desktop: React.FC<{
     });
 
     return (
-        <div className={classnames(className)} style={{ width: '100%' }}>
+        <div className={clsx(className)} style={{ width: '100%' }}>
             <Table sx={{ width: '100%' }}>
                 <TableHead>
                     <TableRow>

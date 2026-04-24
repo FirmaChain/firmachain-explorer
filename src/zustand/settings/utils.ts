@@ -2,11 +2,7 @@ import { darkTemplate, deuteranopiaTemplate, lightTemplate, tritanopiaTemplate }
 
 import { Theme } from './types';
 
-export const THEME_LIST: Theme[] = [
-    'dark',
-    'deuteranopia',
-    'tritanopia'
-];
+export const THEME_LIST: Theme[] = ['dark', 'deuteranopia', 'tritanopia'];
 
 export const THEME_DICTIONARY = {
     dark: darkTemplate,

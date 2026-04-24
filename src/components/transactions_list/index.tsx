@@ -1,8 +1,8 @@
 import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { NoData } from '@components';
-import { Box } from '@mui/material';
 import { useScreenSize } from '@hooks';
+import { Box } from '@mui/material';
 
 import { TransactionsListState } from './types';
 

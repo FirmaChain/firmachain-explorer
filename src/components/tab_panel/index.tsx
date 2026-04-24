@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 const TabPanel: React.FC<{
     children?: React.ReactNode;
@@ -9,7 +9,7 @@ const TabPanel: React.FC<{
 }> = (props) => {
     const { children, value, index, className } = props;
     return (
-        <div className={classnames(className)} role="tabpanel" hidden={value !== index}>
+        <div className={clsx(className)} role="tabpanel" hidden={value !== index}>
             {value === index && <>{children}</>}
         </div>
     );

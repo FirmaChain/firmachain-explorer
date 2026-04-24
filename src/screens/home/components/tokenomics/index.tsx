@@ -3,7 +3,7 @@ import { Box, CustomToolTip } from '@components';
 import { chainConfig } from '@configs';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
@@ -45,7 +45,7 @@ const Tokenomics: React.FC<{
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={{
                 height: '100%',
                 display: 'flex',

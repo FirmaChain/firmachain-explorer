@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, SingleProposal } from '@components';
 import { Divider } from '@mui/material';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import numeral from 'numeral';
 
 import type { OverviewType } from '../../types';
@@ -30,7 +30,7 @@ const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({ cla
 
     return (
         <Box
-            className={classnames(className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 '& .label': { color: theme.palette.custom.fonts.fontThree },
                 '& .overview-content': {
