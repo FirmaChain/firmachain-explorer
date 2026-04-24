@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DesmosProfileQuery } from '@graphql/desmos_profile';
 import { DesmosProfileDocument, DesmosProfileDtagDocument, DesmosProfileLinkDocument } from '@graphql/desmos_profile_graphql';
-import axios from 'axios';
 
 type Options = {
     address?: string;
@@ -21,12 +20,17 @@ export const useDesmosProfile = (options: Options) => {
 
     const fetchDesmos = async (address: string) => {
         try {
-            const { data } = await axios.post(PROFILE_API, {
-                variables: {
-                    address
-                },
-                query: DesmosProfileDocument
+            const response = await fetch(PROFILE_API, {
+                method: 'POST',
+                body: JSON.stringify({
+                    variables: {
+                        address
+                    },
+                    query: DesmosProfileDocument
+                })
             });
+            const data = await response.json();
+
             return data.data;
         } catch (error) {
             return null;
@@ -35,12 +39,17 @@ export const useDesmosProfile = (options: Options) => {
 
     const fetchLink = async (address: string) => {
         try {
-            const { data } = await axios.post(PROFILE_API, {
-                variables: {
-                    address
-                },
-                query: DesmosProfileLinkDocument
+            const response = await fetch(PROFILE_API, {
+                method: 'POST',
+                body: JSON.stringify({
+                    variables: {
+                        address
+                    },
+                    query: DesmosProfileLinkDocument
+                })
             });
+            const data = await response.json();
+
             return data.data;
         } catch (error) {
             return null;
@@ -49,12 +58,16 @@ export const useDesmosProfile = (options: Options) => {
 
     const fetchDtag = async (dtag: string) => {
         try {
-            const { data } = await axios.post(PROFILE_API, {
-                variables: {
-                    dtag
-                },
-                query: DesmosProfileDtagDocument
+            const response = await fetch(PROFILE_API, {
+                method: 'POST',
+                body: JSON.stringify({
+                    variables: {
+                        dtag
+                    },
+                    query: DesmosProfileDtagDocument
+                })
             });
+            const data = await response.json();
 
             return data.data;
         } catch (error) {

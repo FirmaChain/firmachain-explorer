@@ -7,7 +7,6 @@ import { SlashingParams } from '@models';
 import { formatToken } from '@utils/format_token';
 import { getValidatorCondition } from '@utils/get_validator_condition';
 import { validatorToDelegatorAddress } from '@zustand/profiles';
-import axios from 'axios';
 import * as R from 'ramda';
 import { useParams } from 'react-router';
 
@@ -86,15 +85,15 @@ export const useValidatorDetails = () => {
     useValidatorDetailsQuery({
         variables: { address },
         onCompleted: (data) => {
-            axios
-                .get(
-                    `${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`
-                )
-                .then((response) => {
-                    const commissionRate = response.data.validator.commission.commission_rates.rate;
+            fetch(
+                `${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${R.pathOr('', ['validator', 0, 'validatorInfo', 'operatorAddress'], data)}`
+            )
+                .then((response) => response.json())
+                .then(({ data }) => {
+                    const commissionRate = data.validator.commission.commission_rates.rate;
                     handleSetState(formatAccountQuery(data, commissionRate));
                 })
-                .catch((error) => {
+                .catch(() => {
                     handleSetState(formatAccountQuery(data));
                 });
         }

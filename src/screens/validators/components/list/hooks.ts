@@ -5,7 +5,6 @@ import { useValidatorsQuery, ValidatorsQuery } from '@graphql/types';
 import { SlashingParams } from '@models';
 import { formatToken } from '@utils/format_token';
 import { getValidatorCondition } from '@utils/get_validator_condition';
-import axios from 'axios';
 import Big from 'big.js';
 import numeral from 'numeral';
 import * as R from 'ramda';
@@ -65,10 +64,12 @@ export const useValidators = () => {
 
                 let commission = null;
                 try {
-                    const response = await axios.get(
+                    const response = await fetch(
                         `${ENV.REST_CHAIN_URL}/cosmos/staking/v1beta1/validators/${x.validatorInfo.operatorAddress}`
                     );
-                    const commissionRate = response.data.validator.commission.commission_rates.rate;
+                    const data = await response.json();
+
+                    const commissionRate = data.validator.commission.commission_rates.rate;
                     commission = Number(commissionRate) * 100;
                 } catch (error) {
                     // eslint-disable-next-line no-console

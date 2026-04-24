@@ -1,6 +1,5 @@
 import { chainConfig } from '@configs';
 import { BigDipperNetwork } from '@models';
-import axios from 'axios';
 import { create } from 'zustand';
 
 import { AtomState, BigDipperNetworksState, Networks, Selected } from './types';
@@ -38,7 +37,9 @@ export const useBigDipperNetworksStore = create<BigDipperNetworksState>((set, ge
         let data: unknown[] = [];
 
         try {
-            const results = await axios.get(NETWORK_LIST_API);
+            const response = await fetch(NETWORK_LIST_API);
+            const results = await response.json();
+
             data = Array.isArray(results?.data) ? results.data : [];
         } catch (error) {
             console.error(error);

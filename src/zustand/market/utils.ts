@@ -3,42 +3,51 @@ import { ENV } from '@configs/env';
 import { MarketDataQuery } from '@graphql/types';
 import { formatToken } from '@utils/format_token';
 import { getDenom } from '@utils/get_denom';
-import Axios from 'axios';
 import Big from 'big.js';
 import * as R from 'ramda';
 
 import { AtomState } from './types';
 
+// Note: refactored to use fetch instead of axios
 export const getChainVersion = async () => {
+    const controller = new AbortController();
+
+    const timeoutId = window.setTimeout(() => {
+        controller.abort();
+    }, 15000);
+
     try {
-        const axios = Axios.create({
-            baseURL: ENV.REST_CHAIN_URL,
-            headers: { Accept: 'application/json' },
-            timeout: 15000
+        const path = '/cosmos/base/tendermint/v1beta1/node_info';
+
+        const response = await fetch(`${ENV.REST_CHAIN_URL}${path}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json'
+            },
+            signal: controller.signal
         });
 
-        const path = '/cosmos/base/tendermint/v1beta1/node_info';
-        const result = await axios.get(path);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch chain version: ${response.status}`);
+        }
 
-        const nodeInfo = result.data.default_node_info;
-        const appInfo = result.data.application_version;
+        const data = await response.json();
+
+        const nodeInfo = data.default_node_info;
+        const appInfo = data.application_version;
 
         const chainId: string = nodeInfo.network;
-        const appVersion: string = 'v' + appInfo.version;
-        let cosmosVersion = '';
+        const appVersion: string = `v${appInfo.version}`;
 
-        for (let i = 0; i < appInfo.build_deps.length; i += 1) {
-            const dep = appInfo.build_deps[i];
+        const cosmosSdk = appInfo.build_deps.find((dep: { path: string; version: string }) => dep.path === 'github.com/cosmos/cosmos-sdk');
 
-            if (dep.path === 'github.com/cosmos/cosmos-sdk') {
-                cosmosVersion = dep.version;
-                break;
-            }
-        }
+        const cosmosVersion = cosmosSdk?.version ?? '';
 
         return { chainId, appVersion, cosmosVersion };
     } catch (error) {
         return null;
+    } finally {
+        window.clearTimeout(timeoutId);
     }
 };
 

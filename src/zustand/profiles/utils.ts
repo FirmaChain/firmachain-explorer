@@ -2,7 +2,6 @@ import { chainConfig } from '@configs';
 import { DesmosProfileQuery } from '@graphql/desmos_profile';
 import { DesmosProfileDocument, DesmosProfileLinkDocument } from '@graphql/desmos_profile_graphql';
 import { bech32 } from 'bech32';
-import axios from 'axios';
 
 import { useValidatorsStore } from '../validators/store';
 import { AtomState, ValidatorsIdentityList } from './types';
@@ -103,23 +102,31 @@ export const toProfileAtomState = (profile: DesmosProfile | null, fallbackAddres
 };
 
 const fetchDesmos = async (address: string) => {
-    const { data } = await axios.post(PROFILE_API, {
-        variables: {
-            address
-        },
-        query: DesmosProfileDocument
+    const response = await fetch(PROFILE_API, {
+        method: 'POST',
+        body: JSON.stringify({
+            variables: {
+                address
+            },
+            query: DesmosProfileDocument
+        })
     });
+    const data = await response.json();
 
     return data.data;
 };
 
 const fetchLink = async (address: string) => {
-    const { data } = await axios.post(PROFILE_API, {
-        variables: {
-            address
-        },
-        query: DesmosProfileLinkDocument
+    const response = await fetch(PROFILE_API, {
+        method: 'POST',
+        body: JSON.stringify({
+            variables: {
+                address
+            },
+            query: DesmosProfileLinkDocument
+        })
     });
+    const data = await response.json();
 
     return data.data;
 };

@@ -8,7 +8,6 @@ import {
 } from '@/graphql/account_details_documents';
 import { ENV } from '@configs/env';
 import { toValidatorAddress } from '@utils/prefix_convert';
-import axios from 'axios';
 import * as R from 'ramda';
 
 export const fetchCommission = async (address: string) => {
@@ -18,12 +17,17 @@ export const fetchCommission = async (address: string) => {
         }
     };
     try {
-        const { data } = await axios.post(ENV.GRAPHQL_URL, {
-            variables: {
-                validatorAddress: toValidatorAddress(address)
-            },
-            query: AccountCommissionDocument
+        const response = await fetch(ENV.GRAPHQL_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                variables: {
+                    validatorAddress: toValidatorAddress(address)
+                },
+                query: AccountCommissionDocument
+            })
         });
+        const data = await response.json();
+
         return R.pathOr(defaultReturnValue, ['data'], data);
     } catch (error) {
         return defaultReturnValue;
@@ -37,12 +41,17 @@ export const fetchAccountWithdrawalAddress = async (address: string) => {
         }
     };
     try {
-        const { data } = await axios.post(ENV.GRAPHQL_URL, {
-            variables: {
-                address
-            },
-            query: AccountWithdrawalAddressDocument
+        const response = await fetch(ENV.GRAPHQL_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                variables: {
+                    address
+                },
+                query: AccountWithdrawalAddressDocument
+            })
         });
+        const data = await response.json();
+
         return R.pathOr(defaultReturnValue, ['data'], data);
     } catch (error) {
         return defaultReturnValue;
@@ -56,12 +65,17 @@ export const fetchAvailableBalances = async (address: string) => {
         }
     };
     try {
-        const { data } = await axios.post(ENV.GRAPHQL_URL, {
-            variables: {
-                address
-            },
-            query: AccountBalancesDocument
+        const response = await fetch(ENV.GRAPHQL_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                variables: {
+                    address
+                },
+                query: AccountBalancesDocument
+            })
         });
+        const data = await response.json();
+
         return R.pathOr(defaultReturnValue, ['data'], data);
     } catch (error) {
         return defaultReturnValue;
@@ -75,12 +89,17 @@ export const fetchDelegationBalance = async (address: string) => {
         }
     };
     try {
-        const { data } = await axios.post(ENV.GRAPHQL_URL, {
-            variables: {
-                address
-            },
-            query: AccountDelegationBalanceDocument
+        const response = await fetch(ENV.GRAPHQL_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                variables: {
+                    address
+                },
+                query: AccountDelegationBalanceDocument
+            })
         });
+        const data = await response.json();
+
         return R.pathOr(defaultReturnValue, ['data'], data);
     } catch (error) {
         return defaultReturnValue;
@@ -94,12 +113,17 @@ export const fetchUnbondingBalance = async (address: string) => {
         }
     };
     try {
-        const { data } = await axios.post(ENV.GRAPHQL_URL, {
-            variables: {
-                address
-            },
-            query: AccountUnbondingBalanceDocument
+        const response = await fetch(ENV.GRAPHQL_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                variables: {
+                    address
+                },
+                query: AccountUnbondingBalanceDocument
+            })
         });
+        const data = await response.json();
+
         return R.pathOr(defaultReturnValue, ['data'], data);
     } catch (error) {
         return defaultReturnValue;
@@ -111,12 +135,17 @@ export const fetchRewards = async (address: string) => {
         delegationRewards: []
     };
     try {
-        const { data } = await axios.post(ENV.GRAPHQL_URL, {
-            variables: {
-                address
-            },
-            query: AccountDelegationRewardsDocument
+        const response = await fetch(ENV.GRAPHQL_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                variables: {
+                    address
+                },
+                query: AccountDelegationRewardsDocument
+            })
         });
+        const data = await response.json();
+
         return R.pathOr(defaultReturnValue, ['data'], data);
     } catch (error) {
         return defaultReturnValue;
