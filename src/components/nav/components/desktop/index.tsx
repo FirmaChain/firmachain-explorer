@@ -11,17 +11,13 @@ import { useDesktop } from './hooks';
 
 type DesktopNavControls = {
     isMenu: boolean;
-    isNetwork: boolean;
     toggleMenu: () => void;
-    toggleNetwork: () => void;
 };
 
 const OPEN_DRAWER_WIDTH = 230;
 const CLOSED_DRAWER_WIDTH = 59;
 
-export const DesktopHeader = ({ title, controls }: { title: string; controls: DesktopNavControls }) => {
-    const { toggleNetwork, isNetwork } = controls;
-
+export const DesktopHeader = ({ title }: { title: string }) => {
     return (
         <Box
             sx={(theme) => ({
@@ -38,7 +34,7 @@ export const DesktopHeader = ({ title, controls }: { title: string; controls: De
                 paddingBottom: '12px'
             })}
         >
-            <ActionBar toggleNetwork={toggleNetwork} isNetwork={isNetwork} />
+            <ActionBar />
             <TitleBar title={title} />
         </Box>
     );
@@ -94,7 +90,7 @@ export const DesktopSidebar: React.FC<{
                         ...firmachainTitleLogoSx
                     }}
                 >
-                    <FirmachainLogo />
+                    <FirmachainLogo style={{ fill: 'white' }} />
                 </Box>
                 <MenuItems />
             </Drawer>
@@ -106,13 +102,13 @@ const Desktop: React.FC<{
     className?: string;
     title: string;
 }> = ({ className, title }) => {
-    const { isMenu, toggleMenu, turnOffAll, toggleNetwork, isNetwork } = useDesktop();
-    const controls = { isMenu, toggleMenu, toggleNetwork, isNetwork };
+    const { isMenu, toggleMenu, turnOffAll } = useDesktop();
+    const controls = { isMenu, toggleMenu };
 
     return (
         <ClickAwayListener onClickAway={turnOffAll}>
             <Box className={classnames(className)}>
-                <DesktopHeader title={title} controls={controls} />
+                <DesktopHeader title={title} />
                 <DesktopSidebar controls={controls} />
             </Box>
         </ClickAwayListener>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 
@@ -7,7 +6,7 @@ import { socialMediaLinks } from './utils';
 
 const SocialMedia = (props: Props) => {
     const { className = '' } = props;
-    const theme = useTheme<any>();
+    const theme = useTheme();
     const iconFill = theme.palette.mode === 'light' ? theme.palette.custom.fonts.fontTwo : theme.palette.custom.general.icon;
     return (
         <Box
@@ -31,9 +30,9 @@ const SocialMedia = (props: Props) => {
                 }
             }}
         >
-            {socialMediaLinks.map((x) => {
+            {socialMediaLinks.map((x, i) => {
                 return (
-                    <a key={x.className} href={x.url} target="_blank" rel="noreferrer" className={`media ${x.className}`}>
+                    <a key={i} href={x.url} target="_blank" rel="noreferrer" className={`media`}>
                         {x.component}
                     </a>
                 );

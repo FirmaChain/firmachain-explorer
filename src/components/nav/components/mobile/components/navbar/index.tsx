@@ -1,19 +1,17 @@
-import BigDipperLogoRed from '@assets/big-dipper-red.svg?react';
-import BigDipperLogoWhite from '@assets/big-dipper-white.svg?react';
-import { ExpandMore } from '@mui/icons-material';
+import FirmachainTitle from '@assets/firma_chain_title.svg?react';
 import { Box } from '@mui/material';
 import { HOME } from '@utils/go_to_page';
-import { readSelectedNetwork, useBigDipperNetworksStore } from '@zustand/big_dipper_networks';
 import { readTheme, useSettingsStore } from '@zustand/settings';
 import classnames from 'classnames';
 import { Link } from 'react-router';
 
+import Network from '../../../desktop/components/action_bar/components/network';
 import { NavbarProps } from './types';
 
 const Navbar = (props: NavbarProps) => {
     const theme = useSettingsStore(readTheme);
-    const selected = useBigDipperNetworksStore(readSelectedNetwork);
-    const { isOpen, openNetwork, toggleNavMenus } = props;
+
+    const { isOpen, toggleNavMenus } = props;
 
     return (
         <Box
@@ -83,16 +81,13 @@ const Navbar = (props: NavbarProps) => {
             })}
         >
             <Link to={HOME} className="logo-link">
-                {theme === 'light' ? <BigDipperLogoRed className="logo" /> : <BigDipperLogoWhite className="logo" />}
+                <FirmachainTitle style={{ fill: theme === 'light' ? 'black' : 'white', height: '24px' }} />
             </Link>
             <div className="actions">
                 {/* =================================== */}
                 {/* Network */}
                 {/* =================================== */}
-                <div className="network" onClick={openNetwork} role="button">
-                    <p className="text">{selected}</p>
-                    <ExpandMore fontSize="small" />
-                </div>
+                <Network />
                 {/* =================================== */}
                 {/* Hamburger */}
                 {/* =================================== */}

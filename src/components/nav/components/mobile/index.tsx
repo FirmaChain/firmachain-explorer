@@ -61,14 +61,14 @@ const Mobile: React.FC<{
                         menu: isMenu
                     })}
                 />
-                <span
+                {/* <span
                     className={classnames('screens', {
                         open: isNetwork,
                         network: isNetwork
                     })}
                 >
                     <Networks className="networks" />
-                </span>
+                </span> */}
                 <Navbar isOpen={isOpen} openNetwork={openNetwork} toggleNavMenus={toggleNavMenus} />
                 <SearchBar className="searchBar" />
             </Box>

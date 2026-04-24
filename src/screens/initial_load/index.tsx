@@ -3,9 +3,11 @@ import BigDipperLogoRed from '@assets/big-dipper-red.svg';
 import BigDipperLogoWhite from '@assets/big-dipper-white.svg';
 import FirmachainTitle from '@assets/firma_chain_title.svg?react';
 import { Box, LinearProgress } from '@mui/material';
-import { firmachainTitleLogoSx } from '@/styles/ui';
 // import { chainConfig } from '@configs';
-import { useSettingsStore,  readTheme  } from '@zustand/settings';
+import { readTheme, useSettingsStore } from '@zustand/settings';
+
+import { firmachainTitleLogoSx } from '@/styles/ui';
+
 // import * as R from 'ramda';
 
 const InitialLoad = () => {
@@ -37,9 +39,10 @@ const InitialLoad = () => {
                         width: '300px'
                     }
                 }
-            })}>
+            })}
+        >
             <Box className="content">
-                <FirmachainTitle className="title-logo" />
+                <FirmachainTitle className="title-logo" style={{ fill: 'white' }} />
                 {/* <img src={logoUrl} alt="logo" /> */}
                 <LinearProgress sx={{ my: 2, width: '100%' }} />
                 <img src={theme === 'light' ? BigDipperLogoRed : BigDipperLogoWhite} style={{ height: '40px' }} alt="big-dipper-logo" />

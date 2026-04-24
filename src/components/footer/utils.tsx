@@ -1,30 +1,29 @@
-const FORBOLE_URL = 'https://www.forbole.com';
 const BIG_DIPPER_URL = 'https://bigdipper.live';
 
-export const donateLink = {
-    key: 'donate',
-    url: `${BIG_DIPPER_URL}/donate`
-};
+const FIRMACHAIN_URL = 'https://firmachain.org';
+const STATION_URL = 'https://explorer.firmachain.dev';
+const MEDIUM_URL = 'https://medium.com/firmachain';
+const CONTACT_URL = 'mailto:contact@firmachain.org';
 
 export const footerLinks = [
     {
         key: 'company',
         links: [
             {
-                key: 'forbole',
-                url: FORBOLE_URL
+                key: 'firmachain',
+                url: FIRMACHAIN_URL
             },
             {
-                key: 'stakeNow',
-                url: `${FORBOLE_URL}/stake-now`
+                key: 'station',
+                url: STATION_URL
             },
             {
                 key: 'contact',
-                url: `${FORBOLE_URL}/contact`
+                url: CONTACT_URL
             },
             {
-                key: 'blog',
-                url: `${FORBOLE_URL}/blog`
+                key: 'medium',
+                url: MEDIUM_URL
             }
         ]
     },

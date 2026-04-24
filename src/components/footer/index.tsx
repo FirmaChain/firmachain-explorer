@@ -1,14 +1,13 @@
 import React from 'react';
 import { chainConfig, generalConfig } from '@/configs';
-import FooterLogoLight from '@assets/big-dipper-red.svg?react';
-import FooterLogoDark from '@assets/big-dipper-white.svg?react';
-import { Box, Button, Divider, Typography } from '@mui/material';
+import FirmachainTitle from '@assets/firma_chain_title.svg?react';
+import { Box, Divider, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { readTheme, useSettingsStore } from '@zustand/settings';
 import { Trans, useTranslation } from 'react-i18next';
 
 import { SocialMedia } from './components';
-import { donateLink, footerLinks } from './utils';
+import { footerLinks } from './utils';
 
 const Footer: React.FC<{ className?: string }> = ({ className }) => {
     const { t } = useTranslation();
@@ -22,7 +21,7 @@ const Footer: React.FC<{ className?: string }> = ({ className }) => {
     return (
         <Box
             className={className}
-            sx={(muiTheme: any) => ({
+            sx={(muiTheme) => ({
                 background: muiTheme.palette.background.paper,
                 padding: muiTheme.spacing(6, 3, 6),
                 color: muiTheme.palette.custom.fonts.fontOne,
@@ -136,7 +135,7 @@ const Footer: React.FC<{ className?: string }> = ({ className }) => {
                 {/* logo */}
                 {/* ============================= */}
                 <div className="footer__logo--container">
-                    {theme === 'light' ? <FooterLogoLight className="footer__logo" /> : <FooterLogoDark className="footer__logo" />}
+                    <FirmachainTitle style={{ fill: theme === 'light' ? 'black' : 'white', width: '180px' }} />
                     <p className="footer__slogan">{chainConfig.title}</p>
                 </div>
                 {/* ============================= */}
@@ -163,14 +162,6 @@ const Footer: React.FC<{ className?: string }> = ({ className }) => {
                     <div className="footer__social">
                         <h3>{t('common:community')}</h3>
                         <SocialMedia />
-                        <div>
-                            <p className="footer__donate--excerpt">{t('common:donateExcerpt')}</p>
-                            <a href={donateLink.url} target="_blank" rel="noreferrer">
-                                <Button className="footer__donate-button" variant="contained" color="primary">
-                                    {t('common:donate')}
-                                </Button>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -187,7 +178,6 @@ const Footer: React.FC<{ className?: string }> = ({ className }) => {
                     <Trans
                         i18nKey="common:copyright"
                         components={[
-                            // eslint-disable-next-line
                             <a
                                 target="_blank"
                                 rel="noreferrer"
@@ -203,10 +193,7 @@ const Footer: React.FC<{ className?: string }> = ({ className }) => {
                 <Typography className="footer__closing--text">
                     <Trans
                         i18nKey="common:maintainBy"
-                        components={[
-                            // eslint-disable-next-line
-                            <a target="_blank" rel="noreferrer" href={generalConfig.maintainer.url} />
-                        ]}
+                        components={[<a target="_blank" rel="noreferrer" href={generalConfig.maintainer.url} />]}
                         values={{
                             name: generalConfig.maintainer.name
                         }}
