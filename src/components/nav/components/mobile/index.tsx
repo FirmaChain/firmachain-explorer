@@ -3,7 +3,7 @@ import { useGetComponentDimension } from '@hooks';
 import { Box } from '@mui/material';
 import classnames from 'classnames';
 
-import { Networks, TitleBar } from '..';
+import TitleBar from '../title_bar';
 import { Menu, Navbar, SearchBar } from './components';
 import { useMobile } from './hooks';
 
@@ -12,7 +12,7 @@ const Mobile: React.FC<{
     title: string;
 }> = ({ className, title }) => {
     const { ref: heightRef, height } = useGetComponentDimension();
-    const { isMenu, isNetwork, isOpen, openNetwork, toggleNavMenus } = useMobile();
+    const { isMenu, isOpen, openNetwork, toggleNavMenus } = useMobile();
 
     return (
         <div className={className}>

@@ -2,8 +2,9 @@ import React from 'react';
 import { Box } from '@mui/material';
 import classnames from 'classnames';
 
-import { SearchBar } from '../../..';
-import { Network, SettingsList } from './components';
+import SearchBar from '../../../seach_bar';
+import Network from './components/network';
+import SettingsList from './components/setting_list';
 
 const ActionBar: React.FC<{
     className?: string;

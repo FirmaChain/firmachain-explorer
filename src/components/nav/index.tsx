@@ -1,7 +1,7 @@
 import { useScreenSize } from '@hooks';
 
-import { Mobile } from './components';
 import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 
 const Nav = ({ title }: { title?: string }) => {
     const { isDesktop } = useScreenSize();

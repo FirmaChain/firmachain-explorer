@@ -30,21 +30,3 @@ export const defaultTooltipSx = (theme: Theme) => ({
     p: 2,
     background: alpha(theme.palette.background.paper, 0.9)
 });
-
-export const firmachainTitleLogoSx = {
-    lineHeight: 0,
-    '& svg': {
-        width: '100%',
-        height: 'auto',
-        display: 'block'
-    },
-    '& svg .st0': {
-        fill: '#E6E6E6'
-    },
-    '& svg .st1': {
-        fill: '#E81F1F'
-    },
-    '& svg .st2': {
-        fill: '#FFFFFF'
-    }
-} as const;

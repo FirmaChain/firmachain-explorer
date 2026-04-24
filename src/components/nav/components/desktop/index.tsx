@@ -3,10 +3,9 @@ import FirmachainLogo from '@assets/firma_chain_title.svg?react';
 import { Box, ClickAwayListener, Drawer } from '@mui/material';
 import classnames from 'classnames';
 
-import { firmachainTitleLogoSx } from '@/styles/ui';
-
-import { MenuItems, TitleBar } from '..';
-import { ActionBar } from './components';
+import MenuItems from '../menu_items';
+import TitleBar from '../title_bar';
+import ActionBar from './components/action_bar';
 import { useDesktop } from './hooks';
 
 type DesktopNavControls = {
@@ -86,8 +85,7 @@ export const DesktopSidebar: React.FC<{
                         width: '216px',
                         ml: '2px',
                         p: '16px 14px 20px',
-                        cursor: 'pointer',
-                        ...firmachainTitleLogoSx
+                        cursor: 'pointer'
                     }}
                 >
                     <FirmachainLogo style={{ fill: 'white' }} />

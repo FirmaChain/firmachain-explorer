@@ -13,7 +13,8 @@ import { useSettingList } from './hooks';
 const Settings: React.FC<{
     className?: string;
 }> = (props) => {
-    const { t, lang } = useTranslation('common');
+    const { t, i18n } = useTranslation('common');
+    const lang = i18n.language;
     const { open, handleOpen, state, handleChange, handleFormSubmit, handleCancel } = useSettingList({ lang });
 
     return (

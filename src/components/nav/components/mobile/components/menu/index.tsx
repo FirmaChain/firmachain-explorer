@@ -8,7 +8,7 @@ import { THEME_LIST } from '@zustand/settings';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { MenuItems } from '../../..';
+import MenuItems from '../../../menu_items';
 import { useLanguageDrawer, useThemeDrawer } from './hooks';
 import { MenuProps } from './types';
 
