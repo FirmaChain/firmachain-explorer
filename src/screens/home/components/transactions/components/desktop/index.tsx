@@ -1,18 +1,18 @@
 import React from 'react';
-import { Result } from '@components';
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
-import dayjs from '@utils/dayjs';
-import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
-import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
+import { Result } from '@/components';
+import { getMiddleEllipsis } from '@/utils/get_middle_ellipsis';
+import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@/utils/go_to_page';
+import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import { DataTable, DataTableColumn } from '@/components/DataTable';
 import { getMessageByType } from '@/components/msg/utils';
 
 import { TransactionType } from '../../types';
-import { columns } from './utils';
 
 const Desktop: React.FC<{
     className?: string;
@@ -20,75 +20,71 @@ const Desktop: React.FC<{
 }> = ({ className, items }) => {
     const { t } = useTranslation('transactions');
 
-    const formattedData = items.map((x) => {
-        x.type[0].type = x.type[0]['@type'];
-        const tag = getMessageByType(x.type[0], true, t);
-
-        return {
-            block: (
-                <Link to={BLOCK_DETAILS(x.height)}>
-                    <Typography variant="body1" component="a">
-                        {numeral(x.height).format('0,0')}
+    const columns: DataTableColumn<TransactionType>[] = [
+        {
+            key: 'block',
+            header: t('block'),
+            minWidth: 120,
+            render: (row) => (
+                <Link to={BLOCK_DETAILS(row.height)}>
+                    <Typography variant="body1" component="span" noWrap>
+                        {numeral(row.height).format('0,0')}
                     </Typography>
                 </Link>
-            ),
-            hash: (
-                <Link to={TRANSACTION_DETAILS(x.hash)}>
-                    <Typography variant="body1" component="a">
-                        {getMiddleEllipsis(x.hash, {
+            )
+        },
+        {
+            key: 'type',
+            header: t('type'),
+            minWidth: 180,
+            render: (row) => {
+                const messageType = {
+                    ...row.type[0],
+                    type: row.type[0]['@type']
+                };
+                const tag = getMessageByType(messageType, true, t);
+
+                return (
+                    <Typography variant="body1" component="span" noWrap>
+                        {tag.type}
+                    </Typography>
+                );
+            }
+        },
+        {
+            key: 'hash',
+            header: t('hash'),
+            minWidth: 220,
+            render: (row) => (
+                <Link to={TRANSACTION_DETAILS(row.hash)}>
+                    <Typography variant="body1" component="span" noWrap>
+                        {getMiddleEllipsis(row.hash, {
                             beginning: 15,
                             ending: 5
                         })}
                     </Typography>
                 </Link>
-            ),
-            result: <Result success={x.success} />,
-            time: dayjs.utc(x.timestamp).fromNow(),
-            messages: numeral(x.messages).format('0,0'),
-            type: (
-                <Typography variant="body1" component="a">
-                    {tag.type}
-                </Typography>
             )
-        };
-    });
+        },
+        {
+            key: 'result',
+            header: t('result'),
+            width: 100,
+            align: 'right',
+            render: (row) => <Result success={row.success} />
+        },
+        {
+            key: 'time',
+            header: t('time'),
+            width: 120,
+            align: 'right',
+            render: (row) => dayjs.utc(row.timestamp).fromNow()
+        }
+    ];
 
     return (
-        <Box
-            className={clsx(className)}
-            sx={{
-                overflow: 'auto',
-                '& .MuiTableBody-root .MuiTableCell-root': {
-                    whiteSpace: 'nowrap'
-                }
-            }}
-        >
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {columns.map((column) => (
-                            <TableCell key={column.key} align={column.align} style={{ width: `${column.width}%` }}>
-                                {t(column.key)}
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {formattedData.map((row, i) => (
-                        <TableRow key={`row-${i}`}>
-                            {columns.map((column, index) => {
-                                const { key, align } = column;
-                                const item = row[key];
-                                return (
-                                    <TableCell style={{ width: `${column.width}%` }} align={align} key={`${key}-${index}`}>
-                                        {item}
-                                    </TableCell>
-                                );
-                            })}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+        <Box className={clsx(className)}>
+            <DataTable data={items} columns={columns} getRowId={(row) => row.hash} rowHeight={50} />
         </Box>
     );
 };

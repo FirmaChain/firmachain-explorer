@@ -1,17 +1,16 @@
 import React from 'react';
-import { AvatarName, InfoPopover, SortArrows } from '@components';
-import { useGrid, useList, useListRow } from '@hooks';
+import { AvatarName, ConditionExplanation } from '@components';
 import { Box, Typography } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
-import { List, type RowComponentProps } from 'react-window';
+
+import { DataTable, DataTableColumn } from '@/components/DataTable';
 
 import { Condition, VotingPower, VotingPowerExplanation } from '..';
 import { ItemType } from '../../types';
-import { fetchColumns } from './utils';
 
 type DesktopProps = {
     className?: string;
@@ -21,239 +20,123 @@ type DesktopProps = {
     items: ItemType[];
 };
 
-type FormattedItem = {
-    idx: string;
-    validator: React.ReactNode;
-    commission: string;
-    condition: React.ReactNode;
-    votingPower: React.ReactNode;
-    status: React.ReactNode;
-};
-
-type RowProps = {
-    items: FormattedItem[];
-    columns: ReturnType<typeof fetchColumns>;
-    templateColumns: string;
-    setRowHeight: (index: number, size: number) => void;
-};
-
-function useElementSize<T extends HTMLElement>() {
-    const ref = React.useRef<T | null>(null);
-    const [size, setSize] = React.useState({ width: 0, height: 0 });
-
-    React.useLayoutEffect(() => {
-        const element = ref.current;
-        if (!element) return;
-
-        const updateSize = () => {
-            const rect = element.getBoundingClientRect();
-
-            setSize((prev) => {
-                const next = {
-                    width: Math.ceil(rect.width),
-                    height: Math.ceil(rect.height)
-                };
-
-                if (prev.width === next.width && prev.height === next.height) {
-                    return prev;
-                }
-
-                return next;
-            });
-        };
-
-        updateSize();
-
-        const observer = new ResizeObserver(() => {
-            updateSize();
-        });
-
-        observer.observe(element);
-
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
-
-    return { ref, size };
-}
-
-const ValidatorRow = ({ index, style, items, columns, templateColumns, setRowHeight }: RowComponentProps<RowProps>) => {
-    const { rowRef } = useListRow(index, setRowHeight);
-    const item = items[index];
-
-    return (
-        <div style={style}>
-            <div ref={rowRef}>
-                <Box
-                    className={clsx('cell', 'body', {
-                        odd: !(index % 2)
-                    })}
-                    sx={{ py: 2 }}
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: templateColumns
-                    }}
-                >
-                    {columns.map(({ key, align }) => (
-                        <Typography key={key} variant="body1" align={align} component="div">
-                            {item[key as keyof FormattedItem]}
-                        </Typography>
-                    ))}
-                </Box>
-            </div>
-        </div>
-    );
-};
-
 const DEFAULT_ROW_HEIGHT = 50;
 
-const Desktop: React.FC<DesktopProps> = (props) => {
+const Desktop: React.FC<DesktopProps> = ({ className, sortDirection, sortKey, handleSort, items }) => {
     const { t } = useTranslation('validators');
-    const columns = React.useMemo(() => fetchColumns(t), [t]);
-    const { getColumnWidth } = useGrid(columns);
-    const { listRef, setRowHeight } = useList();
-    const { ref, size } = useElementSize<HTMLDivElement>();
+    const sortState = React.useMemo(
+        () =>
+            sortKey
+                ? {
+                      columnKey: sortKey,
+                      direction: sortDirection
+                  }
+                : null,
+        [sortDirection, sortKey]
+    );
 
-    const formattedItems = React.useMemo<FormattedItem[]>(() => {
-        return props.items.map((x, i) => {
-            const status = getValidatorStatus(x.status, x.jailed, x.tombstoned);
-            const condition = x.status === 3 ? getValidatorConditionClass(x.condition) : undefined;
-            const percentDisplay = x.status === 3 ? `${numeral(x.votingPowerPercent).format('0.[00]')}%` : '0%';
-            const votingPower = numeral(x.votingPower).format('0,0');
+    const handleSortStateChange = React.useCallback(
+        (next: { columnKey: string; direction: 'asc' | 'desc' } | null) => {
+            if (!next) return;
 
-            return {
-                idx: `#${i + 1}`,
-                validator: <AvatarName address={x.validator.address} imageUrl={x.validator.imageUrl} name={x.validator.name} />,
-                commission: x.commission === null ? 'N/A' : `${numeral(x.commission).format('0.[00]')}%`,
-                condition: <Condition className={condition} />,
-                votingPower: (
+            if (next.columnKey !== sortKey) {
+                handleSort(next.columnKey);
+                return;
+            }
+
+            if (next.direction !== sortDirection) {
+                handleSort(next.columnKey);
+            }
+        },
+        [handleSort, sortDirection, sortKey]
+    );
+
+    const cols: DataTableColumn<ItemType>[] = [
+        {
+            key: 'idx',
+            header: t('idx'),
+            width: 100,
+            render: (_row, context) => `#${context.rowIndex + 1}`
+        },
+        {
+            key: 'validator.name',
+            header: t('validator'),
+            sortable: true,
+            width: '25%',
+                render: (row) => <AvatarName address={row.validator.address} imageUrl={row.validator.imageUrl} name={row.validator.name} />
+        },
+        {
+            key: 'votingPower',
+            header: t('votingPower'),
+            tooltip: <VotingPowerExplanation />,
+            sortable: true,
+            render: (row) => {
+                const percentDisplay = row.status === 3 ? `${numeral(row.votingPowerPercent).format('0.[00]')}%` : '0%';
+                const votingPower = numeral(row.votingPower).format('0,0');
+
+                return (
                     <VotingPower
                         percentDisplay={percentDisplay}
-                        percentage={x.votingPowerPercent}
+                        percentage={row.votingPowerPercent}
                         content={votingPower}
-                        topVotingPower={x.topVotingPower}
+                        topVotingPower={row.topVotingPower}
                     />
-                ),
-                status: (
-                    <Typography variant="body1" className={clsx('status', status.theme)}>
-                        {t(status.status)}
-                    </Typography>
-                )
-            };
-        });
-    }, [props.items, t]);
-
-    const templateColumns = React.useMemo(() => {
-        if (size.width === 0) return '';
-
-        return columns.map((_, index) => `${Math.floor(getColumnWidth(size.width, index))}px`).join(' ');
-    }, [columns, getColumnWidth, size.width]);
+                );
+            }
+        },
+        {
+            key: 'commission',
+            header: t('commission'),
+            sortable: true,
+            align: 'right',
+            width: 150,
+            render: (row) => (row.commission === null ? 'N/A' : `${numeral(row.commission).format('0.[00]')}%`)
+        },
+        {
+            key: 'status',
+            header: t('status'),
+            tooltip: <ConditionExplanation />,
+            align: 'center',
+            width: 150,
+            render: (row) => {
+                const status = getValidatorStatus(row.status, row.jailed, row.tombstoned);
+                const condition = row.status === 3 ? getValidatorConditionClass(row.condition) : undefined;
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <Condition className={condition} />
+                        <Typography variant="body1" className={clsx('status', status.theme)}>
+                            {t(status.status)}
+                        </Typography>
+                    </div>
+                );
+            }
+        }
+    ];
 
     return (
         <Box
-            ref={ref}
-            className={clsx(props.className)}
+            className={clsx(className)}
             sx={(theme) => ({
                 height: '100%',
                 minHeight: 0,
-                display: 'flex',
-                flexDirection: 'column',
+                color: theme.palette.custom.fonts.fontTwo,
                 '& .status.one': { color: theme.palette.custom.tags.one },
                 '& .status.two': { color: theme.palette.custom.tags.two },
                 '& .status.three': { color: theme.palette.custom.tags.three },
-                '& .status.zero': { color: theme.palette.custom.tags.zero },
-                '& .cell': {
-                    ...theme.mixins.tableCell,
-                    '&.sort:hover': {
-                        cursor: 'pointer'
-                    }
-                },
-                '& .flexCells > *': {
-                    display: 'flex',
-                    alignItems: 'center'
-                },
-                '& .flexCells.right > *': {
-                    justifyContent: 'flex-end'
-                },
-                '& .flexCells.center > *': {
-                    justifyContent: 'center'
-                },
-                '& .body': {
-                    color: theme.palette.custom.fonts.fontTwo
-                }
+                '& .status.zero': { color: theme.palette.custom.tags.zero }
             })}
         >
-            {size.width > 0 && size.height > 0 ? (
-                <>
-                    <Box
-                        sx={{
-                            height: 50,
-                            flex: '0 0 auto',
-                            display: 'grid',
-                            gridTemplateColumns: templateColumns
-                        }}
-                    >
-                        {columns.map(({ key, align, component, sort, sortKey: sortingKey }) => {
-                            let formattedComponent = component;
-
-                            if (key === 'votingPower') {
-                                formattedComponent = (
-                                    <Typography variant="h4" className="label popover">
-                                        {t('votingPower')}
-                                        <InfoPopover content={<VotingPowerExplanation />} />
-                                        {!!sort && <SortArrows sort={props.sortKey === sortingKey ? props.sortDirection : undefined} />}
-                                    </Typography>
-                                );
-                            }
-
-                            return (
-                                <div
-                                    key={key}
-                                    className={clsx('cell', {
-                                        flexCells: component || sort,
-                                        [align]: sort || component,
-                                        sort
-                                    })}
-                                    onClick={() => {
-                                        if (sort && sortingKey) {
-                                            props.handleSort(sortingKey);
-                                        }
-                                    }}
-                                    role={sort ? 'button' : undefined}
-                                >
-                                    {formattedComponent || (
-                                        <Typography variant="h4" align={align}>
-                                            {t(key)}
-                                            {!!sort && <SortArrows sort={props.sortKey === sortingKey ? props.sortDirection : undefined} />}
-                                        </Typography>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </Box>
-
-                    <Box sx={{ flex: '1 1 auto', minHeight: 0 }}>
-                        <List<RowProps>
-                            className="scrollbar"
-                            listRef={listRef}
-                            rowComponent={ValidatorRow}
-                            rowCount={formattedItems.length}
-                            rowHeight={DEFAULT_ROW_HEIGHT}
-                            rowProps={{
-                                items: formattedItems,
-                                columns,
-                                templateColumns,
-                                setRowHeight
-                            }}
-                            style={{
-                                width: size.width,
-                                height: size.height - 50
-                            }}
-                        />
-                    </Box>
-                </>
-            ) : null}
+            <DataTable
+                data={items}
+                columns={cols}
+                getRowId={(row) => row.validator.address}
+                height="100%"
+                rowHeight={DEFAULT_ROW_HEIGHT}
+                sortState={sortState}
+                onSortStateChange={handleSortStateChange}
+                sortBehavior="toggle"
+                virtualization={{ enabled: true }}
+            />
         </Box>
     );
 };

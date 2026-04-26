@@ -11,10 +11,12 @@ const VotingPower: React.FC<{
     topVotingPower: boolean;
 }> = ({ className, percentage, content, percentDisplay }) => {
     const topVotingPower = true;
+
     return (
         <Box
             className={clsx(className)}
             sx={(theme) => ({
+                width: '100%',
                 '& .MuiTypography-body1': {
                     color: topVotingPower ? theme.palette.custom.fonts.fontFour : theme.palette.custom.fonts.fontTwo
                 },

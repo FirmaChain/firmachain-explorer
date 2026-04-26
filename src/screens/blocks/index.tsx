@@ -53,6 +53,7 @@ const Blocks = () => {
                                     itemCount={itemCount}
                                     loadMoreItems={loadMoreItems}
                                     isItemLoaded={isItemLoaded}
+                                    isNextPageLoading={state.isNextPageLoading}
                                 />
                             ) : (
                                 <Mobile

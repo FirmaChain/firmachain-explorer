@@ -1,6 +1,5 @@
 import React from 'react';
 import { AvatarName, Loading } from '@components';
-import { useGrid, useList, useListRow } from '@hooks';
 import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
@@ -9,11 +8,10 @@ import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import { List, type RowComponentProps } from 'react-window';
-import { useInfiniteLoader } from 'react-window-infinite-loader';
+
+import { DataTable, DataTableColumn } from '@/components/DataTable';
 
 import { ItemType } from '../../types';
-import { columns } from './utils';
 
 type DesktopProps = {
     className?: string;
@@ -21,22 +19,7 @@ type DesktopProps = {
     itemCount: number;
     loadMoreItems: (params: { startIndex: number; stopIndex: number }) => Promise<void> | void;
     isItemLoaded?: (index: number) => boolean;
-};
-
-type FormattedItem = {
-    height: React.ReactNode;
-    txs: string;
-    time: string;
-    proposer: React.ReactNode;
-    hash: string;
-};
-
-type RowProps = {
-    items: FormattedItem[];
-    itemCount: number;
-    isRowLoaded: (index: number) => boolean;
-    setRowHeight: (index: number, size: number) => void;
-    templateColumns: string;
+    isNextPageLoading?: boolean;
 };
 
 function useElementSize<T extends HTMLElement>() {
@@ -64,76 +47,12 @@ function useElementSize<T extends HTMLElement>() {
     return { ref, size };
 }
 
-const TableRow = ({ index, style, items, itemCount, isRowLoaded, setRowHeight, templateColumns }: RowComponentProps<RowProps>) => {
-    const { rowRef } = useListRow(index, setRowHeight);
-
-    if (!isRowLoaded(index)) {
-        return (
-            <div style={style}>
-                <div ref={rowRef}>
-                    <Loading />
-                </div>
-            </div>
-        );
-    }
-
-    const item = items[index];
-
-    return (
-        <div style={style}>
-            <div ref={rowRef}>
-                <Box
-                    sx={(theme) => ({
-                        display: 'grid',
-                        gridTemplateColumns: templateColumns,
-                        ...theme.mixins.tableCell,
-                        color: theme.palette.custom.fonts.fontTwo
-                    })}
-                >
-                    {columns.map(({ key, align }) => (
-                        <Typography key={key} variant="body1" align={align} component="div">
-                            {item[key as keyof FormattedItem]}
-                        </Typography>
-                    ))}
-                </Box>
-            </div>
-        </div>
-    );
-};
-
 const DEFAULT_ROW_HEIGHT = 50;
 
-const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMoreItems, isItemLoaded }) => {
+const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMoreItems, isItemLoaded, isNextPageLoading = false }) => {
     const { t } = useTranslation('blocks');
-    const { getColumnWidth } = useGrid(columns);
-    const { listRef, setRowHeight } = useList();
     const { ref, size } = useElementSize<HTMLDivElement>();
-
-    const formattedItems = React.useMemo<FormattedItem[]>(() => {
-        return items.map((x) => ({
-            height: (
-                <Link to={BLOCK_DETAILS(x.height)}>
-                    <Typography variant="body1" className="value" component="a">
-                        {numeral(x.height).format('0,0')}
-                    </Typography>
-                </Link>
-            ),
-            txs: numeral(x.txs).format('0,0'),
-            time: dayjs.utc(x.timestamp).fromNow(),
-            proposer: <AvatarName address={x.proposer.address} imageUrl={x.proposer.imageUrl} name={x.proposer.name} />,
-            hash: getMiddleEllipsis(x.hash, {
-                beginning: 13,
-                ending: 15
-            })
-        }));
-    }, [items]);
-
-    const isRowLoaded = React.useCallback(
-        (index: number) => {
-            return isItemLoaded?.(index) ?? false;
-        },
-        [isItemLoaded]
-    );
+    const hasMore = itemCount > items.length;
 
     const loadMoreRows = React.useCallback(
         async (startIndex: number, stopIndex: number): Promise<void> => {
@@ -142,19 +61,53 @@ const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMore
         [loadMoreItems]
     );
 
-    const onRowsRendered = useInfiniteLoader({
-        isRowLoaded,
-        loadMoreRows,
-        rowCount: itemCount,
-        threshold: 15,
-        minimumBatchSize: 10
-    });
+    const handleReachEnd = React.useCallback(() => {
+        void loadMoreRows(items.length, itemCount - 1);
+    }, [itemCount, items.length, loadMoreRows]);
 
-    const templateColumns = React.useMemo(() => {
-        if (size.width === 0) return '';
-
-        return columns.map((_, index) => `${Math.floor(getColumnWidth(size.width, index))}px`).join(' ');
-    }, [getColumnWidth, size.width]);
+    const cols: DataTableColumn<(typeof items)[number]>[] = [
+        {
+            key: 'height',
+            header: t('height'),
+            width: 150,
+            render: (x) => (
+                <Link to={BLOCK_DETAILS(x.height)}>
+                    <Typography variant="body1" className="value" component="a">
+                        {numeral(x.height).format('0,0')}
+                    </Typography>
+                </Link>
+            )
+        },
+        {
+            key: 'proposer',
+            header: t('proposer'),
+            minWidth: 150,
+            render: (x) => <AvatarName address={x?.proposer?.address} imageUrl={x.proposer.imageUrl} name={x.proposer.name} />
+        },
+        {
+            key: 'hash',
+            header: t('hash'),
+            grow: 2,
+            render: (x) =>
+                getMiddleEllipsis(x.hash, {
+                    beginning: 13,
+                    ending: 15
+                })
+        },
+        {
+            key: 'txs',
+            header: t('txs'),
+            width: 100,
+            render: (x) => numeral(x.txs).format('0,0')
+        },
+        {
+            key: 'time',
+            header: t('time'),
+            width: 150,
+            align: 'right',
+            render: (x) => dayjs.utc(x.timestamp).fromNow()
+        }
+    ];
 
     return (
         <Box
@@ -168,45 +121,18 @@ const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMore
             }}
         >
             {size.width > 0 && size.height > 0 ? (
-                <>
-                    <Box
-                        sx={(theme) => ({
-                            height: 50,
-                            flex: '0 0 auto',
-                            display: 'grid',
-                            gridTemplateColumns: templateColumns,
-                            ...theme.mixins.tableCell
-                        })}
-                    >
-                        {columns.map(({ key, align }) => (
-                            <Typography key={key} variant="h4" align={align}>
-                                {t(key)}
-                            </Typography>
-                        ))}
-                    </Box>
-
-                    <Box sx={{ flex: '1 1 auto', minHeight: 0 }}>
-                        <List<RowProps>
-                            className="scrollbar"
-                            listRef={listRef}
-                            rowComponent={TableRow}
-                            rowCount={itemCount}
-                            rowHeight={DEFAULT_ROW_HEIGHT}
-                            rowProps={{
-                                items: formattedItems,
-                                itemCount,
-                                isRowLoaded,
-                                setRowHeight,
-                                templateColumns
-                            }}
-                            onRowsRendered={onRowsRendered}
-                            style={{
-                                width: size.width,
-                                height: size.height - 50
-                            }}
-                        />
-                    </Box>
-                </>
+                <DataTable
+                    data={items}
+                    columns={cols}
+                    getRowId={(row) => row.height}
+                    height="100%"
+                    rowHeight={DEFAULT_ROW_HEIGHT}
+                    virtualization={{ enabled: true }}
+                    hasMore={hasMore}
+                    isFetchingMore={isNextPageLoading}
+                    onReachEnd={handleReachEnd}
+                    fetchMoreIndicator={<Loading />}
+                />
             ) : null}
         </Box>
     );
