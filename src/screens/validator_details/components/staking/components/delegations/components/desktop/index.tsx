@@ -1,59 +1,36 @@
 import React from 'react';
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { AvatarName } from '@components';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { ItemType } from '../../types';
-import { columns } from './utils';
 
 const Desktop: React.FC<{
     className?: string;
     items?: ItemType[];
-}> = ({ className, items }) => {
+}> = ({ className, items = [] }) => {
     const { t } = useTranslation('accounts');
-    const formattedItems = items.map((x) => {
-        return {
-            address: <AvatarName name={x.address.name} address={x.address.address} imageUrl={x.address.imageUrl} />,
-            amount: `${formatNumber(x.amount.value, x.amount.exponent)} ${x.amount.displayDenom.toUpperCase()}`
-        };
-    });
 
-    return (
-        <div className={clsx(className)}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {columns.map((column) => {
-                            return (
-                                <TableCell key={column.key} align={column.align} style={{ width: `${column.width}%` }}>
-                                    {t(column.key)}
-                                </TableCell>
-                            );
-                        })}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {formattedItems.map((row, i) => (
-                        <TableRow key={`holders-row-${i}`}>
-                            {columns.map((column) => {
-                                return (
-                                    <TableCell
-                                        key={`holders-row-${i}-${column.key}`}
-                                        align={column.align}
-                                        style={{ width: `${column.width}%` }}
-                                    >
-                                        {row[column.key]}
-                                    </TableCell>
-                                );
-                            })}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
-    );
+    const columns: DataTableColumn<ItemType>[] = [
+        {
+            key: 'address',
+            header: t('address'),
+            minWidth: 220,
+            grow: 2,
+            render: (row) => <AvatarName name={row.address.name} address={row.address.address} imageUrl={row.address.imageUrl} />
+        },
+        {
+            key: 'amount',
+            header: t('amount'),
+            minWidth: 180,
+            align: 'right',
+            render: (row) => `${formatNumber(row.amount.value, row.amount.exponent)} ${row.amount.displayDenom.toUpperCase()}`
+        }
+    ];
+
+    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => row.address.address} rowHeight={50} />;
 };
 
 export default Desktop;

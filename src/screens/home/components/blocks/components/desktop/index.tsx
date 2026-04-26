@@ -1,6 +1,5 @@
-import React from 'react';
 import { AvatarName } from '@components';
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
@@ -9,73 +8,65 @@ import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { ItemType } from '../../types';
-import { columns } from './utils';
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
-const Desktop: React.FC<{
-    className?: string;
-    items: ItemType[];
-}> = ({ className, items }) => {
+import { ItemType } from '../../types';
+
+const Desktop = ({ className, items }: { className?: string; items: ItemType[] }) => {
     const { t } = useTranslation('blocks');
 
-    const formattedData = items.map((x) => {
-        return {
-            height: (
-                <Link to={BLOCK_DETAILS(x.height)}>
-                    <Typography variant="body1" className="value" component="a">
-                        {numeral(x.height).format('0,0')}
+    const columns: DataTableColumn<ItemType>[] = [
+        {
+            key: 'height',
+            header: t('height'),
+            width: 150,
+            render: (row) => (
+                <Link to={BLOCK_DETAILS(row.height)}>
+                    <Typography variant="body1" className="value" component="span" noWrap>
+                        {numeral(row.height).format('0,0')}
                     </Typography>
                 </Link>
-            ),
-            txs: numeral(x.txs).format('0,0'),
-            time: dayjs.utc(x.timestamp).fromNow(),
-            proposer: <AvatarName address={x.proposer.address} imageUrl={x.proposer.imageUrl} name={x.proposer.name} />,
-            hash: getMiddleEllipsis(x.hash, {
-                beginning: 6,
-                ending: 5
-            })
-        };
-    });
+            )
+        },
+        {
+            key: 'proposer',
+            header: t('proposer'),
+            minWidth: 180,
+            render: (row) => <AvatarName address={row.proposer.address} imageUrl={row.proposer.imageUrl} name={row.proposer.name} />
+        },
+        {
+            key: 'hash',
+            header: t('hash'),
+            minWidth: 180,
+            grow: 2,
+            render: (row) => (
+                <Typography variant="body1" component="span" noWrap>
+                    {getMiddleEllipsis(row.hash, {
+                        beginning: 6,
+                        ending: 5
+                    })}
+                </Typography>
+            )
+        },
+        {
+            key: 'txs',
+            header: t('txs'),
+            width: 110,
+            align: 'right',
+            render: (row) => numeral(row.txs).format('0,0')
+        },
+        {
+            key: 'time',
+            header: t('time'),
+            width: 140,
+            align: 'right',
+            render: (row) => dayjs.utc(row.timestamp).fromNow()
+        }
+    ];
 
     return (
-        <Box
-            className={clsx(className)}
-            sx={(theme) => ({
-                overflow: 'auto',
-                '& a': {
-                    color: theme.palette.custom.fonts.highlight
-                },
-                '& .MuiTableBody-root .MuiTableCell-root': {
-                    whiteSpace: 'nowrap'
-                }
-            })}
-        >
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {columns.map((column) => (
-                            <TableCell key={column.key} align={column.align}>
-                                {t(column.key)}
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {formattedData.map((row, i) => (
-                        <TableRow key={`${items[i].height}`}>
-                            {columns.map((column, index) => {
-                                const { key, align } = column;
-                                const item = row[key];
-                                return (
-                                    <TableCell align={align} key={`${key}-${index}`}>
-                                        {item}
-                                    </TableCell>
-                                );
-                            })}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+        <Box className={clsx(className)}>
+            <DataTable data={items} columns={columns} getRowId={(row) => row.height} rowHeight={50} />
         </Box>
     );
 };

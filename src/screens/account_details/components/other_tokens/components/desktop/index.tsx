@@ -1,77 +1,73 @@
 import React from 'react';
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { OtherTokenType } from '@/screens/account_details/types';
 import { ibcConfig, tokenConfig } from '@configs';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Box } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { columns } from './utils';
-
 const Desktop: React.FC<{
     className?: string;
     items?: OtherTokenType[];
-}> = ({ className, items }) => {
+}> = ({ className, items = [] }) => {
     const { t } = useTranslation('accounts');
 
-    const formattedItems = items.map((x) => {
-        const available = {
-            value: x.available.value,
-            exponent: x.available.exponent
-        };
-        let token = x.denom.toUpperCase();
+    const columns: DataTableColumn<OtherTokenType>[] = [
+        {
+            key: 'token',
+            header: t('token'),
+            width: 180,
+            render: (row) => {
+                if (tokenConfig[row.denom]) {
+                    return tokenConfig[row.denom].display.toUpperCase();
+                }
 
-        if (tokenConfig[x.denom]) {
-            token = tokenConfig[x.denom].display.toUpperCase();
-            available.value = Big(x.available.value).toFixed(tokenConfig[x.denom].exponent);
-            available.exponent = tokenConfig[x.denom].exponent;
-        } else if (ibcConfig[x.denom]) {
-            token = ibcConfig[x.denom].display.toUpperCase();
-            available.value = Big(x.available.value).toFixed(ibcConfig[x.denom].exponent);
-            available.exponent = ibcConfig[x.denom].exponent;
+                if (ibcConfig[row.denom]) {
+                    return ibcConfig[row.denom].display.toUpperCase();
+                }
+
+                return row.denom.toUpperCase();
+            }
+        },
+        {
+            key: 'available',
+            header: t('available'),
+            minWidth: 180,
+            align: 'right',
+            render: (row) => {
+                if (tokenConfig[row.denom]) {
+                    return formatNumber(Big(row.available.value).toFixed(tokenConfig[row.denom].exponent), tokenConfig[row.denom].exponent);
+                }
+
+                if (ibcConfig[row.denom]) {
+                    return formatNumber(Big(row.available.value).toFixed(ibcConfig[row.denom].exponent), ibcConfig[row.denom].exponent);
+                }
+
+                return formatNumber(row.available.value, row.available.exponent);
+            }
+        },
+        {
+            key: 'reward',
+            header: t('reward'),
+            minWidth: 180,
+            align: 'right',
+            render: (row) => formatNumber(row.reward.value, row.reward.exponent)
+        },
+        {
+            key: 'commission',
+            header: t('commission'),
+            minWidth: 180,
+            align: 'right',
+            render: (row) => formatNumber(row.commission.value, row.commission.exponent)
         }
-        return {
-            token,
-            commission: formatNumber(x.commission.value, x.commission.exponent),
-            available: formatNumber(available.value, available.exponent),
-            reward: formatNumber(x.reward.value, x.reward.exponent)
-        };
-    });
+    ];
 
     return (
-        <div className={clsx(className)} style={{ width: '100%' }}>
-            <Table sx={{ width: '100%' }}>
-                <TableHead>
-                    <TableRow>
-                        {columns.map((column) => {
-                            return (
-                                <TableCell key={column.key} align={column.align} style={{ width: `${column.width}%` }}>
-                                    {t(column.key)}
-                                </TableCell>
-                            );
-                        })}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {formattedItems.map((row, i) => (
-                        <TableRow key={`holders-row-${i}`}>
-                            {columns.map((column) => {
-                                return (
-                                    <TableCell
-                                        key={`holders-row-${i}-${column.key}`}
-                                        align={column.align}
-                                        style={{ width: `${column.width}%` }}
-                                    >
-                                        {row[column.key]}
-                                    </TableCell>
-                                );
-                            })}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
+        <Box className={clsx(className)} sx={{ width: '100%' }}>
+            <DataTable data={items} columns={columns} getRowId={(row) => row.denom} rowHeight={50} />
+        </Box>
     );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { chainConfig } from '@configs';
-import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { ACCOUNT_DETAILS } from '@utils/go_to_page';
 import { readDate, useSettingsStore } from '@zustand/settings';
@@ -8,68 +9,53 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { columns } from './utils';
-
 const Desktop: React.FC<{
     className?: string;
     items?: ProfileConnectionType[];
-}> = ({ className, items }) => {
+}> = ({ className, items = [] }) => {
     const dateFormat = useSettingsStore(readDate);
     const { t } = useTranslation('accounts');
 
-    const formattedItems = items.map((x) => {
-        let identity: string | React.ReactNode = x.identifier;
-        if (new RegExp(`^(${chainConfig.prefix.account})`).test(x.identifier)) {
-            identity = (
-                <Link to={ACCOUNT_DETAILS(x.identifier)}>
-                    <Typography variant="body1" className="value" component="a">
-                        {x.identifier}
+    const columns: DataTableColumn<ProfileConnectionType>[] = [
+        {
+            key: 'network',
+            header: t('network'),
+            width: 140,
+            render: (row) => row.network.toUpperCase()
+        },
+        {
+            key: 'identifier',
+            header: t('identifier'),
+            minWidth: 240,
+            grow: 2,
+            render: (row) => {
+                if (new RegExp(`^(${chainConfig.prefix.account})`).test(row.identifier)) {
+                    return (
+                        <Link to={ACCOUNT_DETAILS(row.identifier)}>
+                            <Typography variant="body1" className="value" component="span" noWrap>
+                                {row.identifier}
+                            </Typography>
+                        </Link>
+                    );
+                }
+
+                return (
+                    <Typography variant="body1" component="span" noWrap>
+                        {row.identifier}
                     </Typography>
-                </Link>
-            );
+                );
+            }
+        },
+        {
+            key: 'creationTime',
+            header: t('creationTime'),
+            width: 220,
+            align: 'right',
+            render: (row) => formatDayJs(dayjs.utc(row.creationTime), dateFormat)
         }
+    ];
 
-        return {
-            network: x.network.toUpperCase(),
-            identifier: identity,
-            creationTime: formatDayJs(dayjs.utc(x.creationTime), dateFormat)
-        };
-    });
-
-    return (
-        <div className={clsx(className)}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {columns.map((column) => {
-                            return (
-                                <TableCell key={column.key} align={column.align} style={{ width: `${column.width}%` }}>
-                                    {t(column.key)}
-                                </TableCell>
-                            );
-                        })}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {formattedItems.map((row, i) => (
-                        <TableRow key={`holders-row-${i}`}>
-                            {columns.map((column) => {
-                                return (
-                                    <TableCell
-                                        key={`holders-row-${i}-${column.key}`}
-                                        align={column.align}
-                                        style={{ width: `${column.width}%` }}
-                                    >
-                                        {row[column.key]}
-                                    </TableCell>
-                                );
-                            })}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
-    );
+    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => `${row.network}-${row.identifier}`} rowHeight={50} />;
 };
 
 export default Desktop;

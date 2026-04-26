@@ -30,18 +30,9 @@ const Signatures: React.FC<
                 '& .wrapper': {
                     flex: 1
                 },
-                '& .title': {
-                    mb: 2
-                },
                 '& .mobile': {
                     [theme.breakpoints.up('lg')]: {
                         display: 'none'
-                    }
-                },
-                '& .desktop': {
-                    display: 'none',
-                    [theme.breakpoints.up('lg')]: {
-                        display: 'flex'
                     }
                 }
             })}

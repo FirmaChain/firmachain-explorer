@@ -54,18 +54,16 @@ const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMore
     const { ref, size } = useElementSize<HTMLDivElement>();
     const hasMore = itemCount > items.length;
 
-    const loadMoreRows = React.useCallback(
-        async (startIndex: number, stopIndex: number): Promise<void> => {
-            await Promise.resolve(loadMoreItems({ startIndex, stopIndex }));
-        },
-        [loadMoreItems]
-    );
-
     const handleReachEnd = React.useCallback(() => {
-        void loadMoreRows(items.length, itemCount - 1);
-    }, [itemCount, items.length, loadMoreRows]);
+        void Promise.resolve(
+            loadMoreItems({
+                startIndex: items.length,
+                stopIndex: itemCount - 1
+            })
+        );
+    }, [itemCount, items.length, loadMoreItems]);
 
-    const cols: DataTableColumn<(typeof items)[number]>[] = [
+    const columns: DataTableColumn<ItemType>[] = [
         {
             key: 'height',
             header: t('height'),
@@ -123,7 +121,7 @@ const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMore
             {size.width > 0 && size.height > 0 ? (
                 <DataTable
                     data={items}
-                    columns={cols}
+                    columns={columns}
                     getRowId={(row) => row.height}
                     height="100%"
                     rowHeight={DEFAULT_ROW_HEIGHT}

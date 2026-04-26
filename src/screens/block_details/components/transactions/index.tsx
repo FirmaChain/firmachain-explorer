@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransactionListDetails, TransactionsList } from '@components';
+import { Box, TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox, Typography } from '@mui/material';
 import { readTx, useSettingsStore } from '@zustand/settings';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ const Transactions: React.FC<
     const txListFormat = useSettingsStore(readTx);
     const { t } = useTranslation('transactions');
     return (
-        <MuiBox
+        <Box
             className={className}
             sx={{
                 minHeight: '500px',
@@ -54,7 +54,7 @@ const Transactions: React.FC<
                     isItemLoaded={() => true}
                 />
             )}
-        </MuiBox>
+        </Box>
     );
 };
 
