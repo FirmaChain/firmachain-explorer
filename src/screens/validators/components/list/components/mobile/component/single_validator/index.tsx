@@ -19,7 +19,7 @@ const SingleValidator: React.FC<{
         <Box
             className={clsx(className)}
             sx={(theme) => ({
-                my: 2,
+                width: '100%',
                 '& .item': {
                     mb: 2,
                     '& .label': {
@@ -64,7 +64,7 @@ const SingleValidator: React.FC<{
                 {votingPower}
             </div>
             <div className="flex">
-                <div className="item">
+                <div className="item" style={{ marginBottom: 0 }}>
                     <Typography variant="h4" className="label">
                         {t('status')}
                     </Typography>
@@ -72,7 +72,7 @@ const SingleValidator: React.FC<{
                         {t(status.status)}
                     </Typography>
                 </div>
-                <div className="item">
+                <div className="item" style={{ marginBottom: 0 }}>
                     <Typography variant="h4" className="label">
                         {t('commission')}
                     </Typography>

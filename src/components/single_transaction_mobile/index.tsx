@@ -32,7 +32,7 @@ const SingleTransactionMobile: React.FC<{
     });
 
     return (
-        <Box className={className} sx={{ mb: 2, mt: 2 }}>
+        <Box className={className} sx={{ width: '100%' }}>
             <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', '& > div': { width: '50%' } }}>
                 <Box sx={itemSx}>
                     <Typography variant="h4" className="label" component="span">

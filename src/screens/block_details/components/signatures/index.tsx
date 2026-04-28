@@ -22,15 +22,26 @@ const Signatures: React.FC<
         <Box
             className={className}
             sx={(theme) => ({
+                minHeight: '350px',
+                height: {
+                    xs: '50vh',
+                    lg: '450px'
+                },
                 display: 'flex',
                 flexDirection: 'column',
+                minWidth: 0,
                 '& .MuiTypography-h2': {
                     pb: 2
                 },
                 '& .wrapper': {
-                    flex: 1
+                    flex: 1,
+                    minHeight: 0,
+                    display: 'flex',
+                    flexDirection: 'column'
                 },
                 '& .mobile': {
+                    flex: 1,
+                    minHeight: 0,
                     [theme.breakpoints.up('lg')]: {
                         display: 'none'
                     }

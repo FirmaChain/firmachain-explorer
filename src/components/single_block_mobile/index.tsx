@@ -14,7 +14,7 @@ const SingleBlockMobile: React.FC<{
     const { t } = useTranslation('blocks');
 
     return (
-        <Box className={className} sx={{ my: 2 }}>
+        <Box className={className} sx={{ width: '100%' }}>
             <Box
                 sx={(theme) => ({
                     mb: 2,
@@ -104,7 +104,6 @@ const SingleBlockMobile: React.FC<{
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', '& > div': { width: '50%' } }}>
                 <Box
                     sx={(theme) => ({
-                        mb: 2,
                         '& .label': {
                             mb: 1,
                             color: theme.palette.custom.fonts.fontThree
@@ -126,7 +125,6 @@ const SingleBlockMobile: React.FC<{
                 </Box>
                 <Box
                     sx={(theme) => ({
-                        mb: 2,
                         '& .label': {
                             mb: 1,
                             color: theme.palette.custom.fonts.fontThree

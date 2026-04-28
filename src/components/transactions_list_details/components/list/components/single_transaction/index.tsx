@@ -18,8 +18,7 @@ const SingleTransaction: React.FC<{
         <Box
             className={clsx(className)}
             sx={(theme) => ({
-                mb: 2,
-                mt: 2,
+                width: '100%',
                 '& .timeContainer': {
                     background: theme.palette.custom.general.surfaceTwo,
                     p: theme.spacing(1, 2),

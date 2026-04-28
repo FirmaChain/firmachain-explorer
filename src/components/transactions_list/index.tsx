@@ -42,7 +42,8 @@ const TransactionsList: React.FC<TransactionsListState> = (props) => {
                 <Box
                     sx={{
                         display: { xs: 'none', lg: 'block' },
-                        height: '100%'
+                        height: '100%',
+                        minHeight: 0
                     }}
                 >
                     <Desktop {...formatProps} />
@@ -51,7 +52,9 @@ const TransactionsList: React.FC<TransactionsListState> = (props) => {
                 <Box
                     sx={{
                         display: { lg: 'none' },
-                        height: '100%'
+                        height: '100%',
+                        minHeight: 0,
+                        width: '100%'
                     }}
                 >
                     <Mobile {...formatProps} />

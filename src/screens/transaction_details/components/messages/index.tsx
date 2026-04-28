@@ -1,21 +1,16 @@
 import React from 'react';
 import { Box, TransactionMessagesFilter } from '@components';
-import { useList, useListRow } from '@hooks';
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { List, type RowComponentProps } from 'react-window';
 
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { getMessageByType } from '@/components/msg/utils';
 
 type MessageItem = {
+    id: string;
     type: React.ReactNode;
     message: React.ReactNode;
-};
-
-type RowProps = {
-    items: MessageItem[];
-    setRowHeight: (_index: number, _size: number) => void;
 };
 
 type MessagesProps = {
@@ -26,76 +21,28 @@ type MessagesProps = {
     onMessageFilterCallback: (value: string) => void;
 };
 
-function useElementSize<T extends HTMLElement>() {
-    const ref = React.useRef<T | null>(null);
-    const [size, setSize] = React.useState({ width: 0, height: 0 });
-
-    React.useLayoutEffect(() => {
-        const element = ref.current;
-        if (!element) return;
-
-        const updateSize = () => {
-            const rect = element.getBoundingClientRect();
-
-            setSize((prev) => {
-                const next = {
-                    width: Math.ceil(rect.width),
-                    height: Math.ceil(rect.height)
-                };
-
-                if (prev.width === next.width && prev.height === next.height) {
-                    return prev;
-                }
-
-                return next;
-            });
-        };
-
-        updateSize();
-
-        const observer = new ResizeObserver(() => {
-            updateSize();
-        });
-
-        observer.observe(element);
-
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
-
-    return { ref, size };
-}
-
-const MessageRow = ({ index, style, items, setRowHeight }: RowComponentProps<RowProps>) => {
-    const { rowRef } = useListRow(index, setRowHeight);
-    const item = items[index];
-    const isLast = index === items.length - 1;
-
-    return (
-        <div style={style}>
-            <div ref={rowRef}>
-                <Box className="item" sx={{ py: 2 }}>
-                    <div className="tags">{item.type}</div>
-                    <span className="msg">{item.message}</span>
-                </Box>
-                {!isLast && <Divider />}
-            </div>
-        </div>
-    );
-};
-
 const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
     const { t } = useTranslation('transactions');
     const hasMessages = props.messages.length > 0;
-    const useVirtualizedList = props.messages.length > 20;
-
-    const { listRef, getRowHeight, setRowHeight } = useList();
-    const { ref, size } = useElementSize<HTMLDivElement>();
-
-    const formattedItems = React.useMemo<MessageItem[]>(() => {
-        return props.messages.map((x) => getMessageByType(x, props.viewRaw, t));
-    }, [props.messages, props.viewRaw, t]);
+    const formattedItems: MessageItem[] = props.messages.map((x, index) => ({
+        id: `msg-row-${index}`,
+        ...getMessageByType(x, props.viewRaw, t)
+    }));
+    const columns: DataTableColumn<MessageItem>[] = [
+        {
+            key: 'type',
+            header: t('type'),
+            width: 200,
+            render: (row) => <div className="tags">{row.type}</div>
+        },
+        {
+            key: 'message',
+            header: t('messages'),
+            grow: 1,
+            minWidth: 0,
+            render: (row) => <span className="msg">{row.message}</span>
+        }
+    ];
 
     return (
         <Box
@@ -103,8 +50,8 @@ const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
             sx={(theme) => ({
                 display: 'flex',
                 flexDirection: 'column',
-                minHeight: useVirtualizedList ? { xs: '500px', lg: '650px' } : 'auto',
-                height: useVirtualizedList ? { xs: '50vh', lg: '40vh' } : 'auto',
+                minHeight: { xs: '500px', lg: '650px' },
+                height: { xs: '50vh', lg: '40vh' },
                 '& .desktopOptions': {
                     display: 'flex',
                     alignItems: 'center',
@@ -152,22 +99,27 @@ const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
                     flex: 1,
                     minHeight: 0
                 },
-                '& .item': {
-                    [theme.breakpoints.up('lg')]: {
-                        display: 'flex',
-                        padding: theme.spacing(0, 2),
-                        '& .msg': {
-                            mt: 0.5
-                        }
-                    }
+                '& [data-datatable-row="true"]': {
+                    height: 'auto',
+                    minHeight: '72px',
+                    alignItems: 'stretch',
+                    borderBottom: `1px solid ${theme.palette.divider}`
+                },
+                '& [data-datatable-row="true"] > div': {
+                    alignItems: 'flex-start',
+                    py: 2
                 },
                 '& .tags': {
-                    mb: 2,
                     [theme.breakpoints.up('lg')]: {
-                        minWidth: '200px',
-                        mb: 0,
-                        pr: 2,
-                        alignSelf: 'flex-start'
+                        pr: 2
+                    }
+                },
+                '& .msg': {
+                    display: 'block',
+                    whiteSpace: 'normal',
+                    wordBreak: 'break-word',
+                    [theme.breakpoints.up('lg')]: {
+                        mt: 0.5
                     }
                 }
             })}
@@ -191,39 +143,16 @@ const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
 
             <Divider />
 
-            {hasMessages && useVirtualizedList && (
-                <div className="list" ref={ref}>
-                    {size.width > 0 && size.height > 0 ? (
-                        <List<RowProps>
-                            className="List"
-                            listRef={listRef}
-                            rowCount={formattedItems.length}
-                            rowHeight={getRowHeight}
-                            rowComponent={MessageRow}
-                            rowProps={{
-                                items: formattedItems,
-                                setRowHeight
-                            }}
-                            style={{
-                                width: size.width,
-                                height: size.height
-                            }}
-                        />
-                    ) : null}
-                </div>
-            )}
-
-            {hasMessages && !useVirtualizedList && (
-                <div className="list" style={{ height: 'auto', flex: '0 0 auto' }}>
-                    {formattedItems.map((selectedItem, index) => (
-                        <div key={`msg-row-${index}`}>
-                            <Box className="item" sx={{ py: 2, minHeight: 48, mt: 2 }}>
-                                <div className="tags">{selectedItem.type}</div>
-                                <span className="msg">{selectedItem.message}</span>
-                            </Box>
-                            {index !== formattedItems.length - 1 && <Divider />}
-                        </div>
-                    ))}
+            {hasMessages && (
+                <div className="list">
+                    <DataTable
+                        data={formattedItems}
+                        columns={columns}
+                        getRowId={(row) => row.id}
+                        height="100%"
+                        hideHeader
+                        rowHeight={72}
+                    />
                 </div>
             )}
         </Box>

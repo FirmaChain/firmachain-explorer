@@ -44,6 +44,8 @@ export type DataTableProps<T> = {
     getRowId: (row: T) => React.Key;
 
     height?: number | string;
+    headerHeight?: number;
+    hideHeader?: boolean;
     rowHeight?: number;
     density?: DataTableDensity;
     inset?: DataTableInset;
@@ -204,6 +206,8 @@ export function DataTable<T>({
     columns,
     getRowId,
     height,
+    headerHeight = 50,
+    hideHeader = false,
     rowHeight = 44,
     density = 'default',
     inset = 'md',
@@ -361,9 +365,10 @@ export function DataTable<T>({
 
     const isVirtualized = Boolean(virtualization?.enabled) && data.length > 0;
     const overscan = virtualization?.overscan ?? 6;
-    const bodyViewportHeight = Math.max(0, viewportHeight - rowHeight);
+    const visibleHeaderHeight = hideHeader ? 0 : headerHeight;
+    const bodyViewportHeight = Math.max(0, viewportHeight - visibleHeaderHeight);
     const estimatedBodyViewportHeight = bodyViewportHeight > 0 ? bodyViewportHeight : rowHeight * 8;
-    const bodyScrollTop = Math.max(0, scrollTop - rowHeight);
+    const bodyScrollTop = Math.max(0, scrollTop - visibleHeaderHeight);
 
     const startIndex = isVirtualized ? Math.max(0, Math.floor(bodyScrollTop / rowHeight) - overscan) : 0;
 
@@ -512,82 +517,85 @@ export function DataTable<T>({
     return (
         <Root className={className} $height={rootHeight} role="grid">
             <Viewport ref={viewportRef} onScroll={handleScroll}>
-                <HeaderRow role="row" $rowHeight={rowHeight} style={{ gridTemplateColumns }}>
-                    {selectable && (
-                        <HeaderCell
-                            role="columnheader"
-                            $align="center"
-                            $paddingY={densityValue.paddingY}
-                            $paddingLeft={insetValue || densityValue.paddingX}
-                            $paddingRight={densityValue.paddingX}
-                        >
-                            <CellInner $align="center">
-                                {selectableRowIds.length > 0 ? (
-                                    <SelectionControl
-                                        onClick={stopRowEvent}
-                                        onMouseDown={stopRowEvent}
-                                        onDoubleClick={stopRowEvent}
-                                        onKeyDown={stopRowEvent}
-                                    >
-                                        <IndeterminateCheckbox
-                                            checked={isAllSelected}
-                                            indeterminate={isPartiallySelected}
-                                            ariaLabel="Select all loaded rows"
-                                            onChange={handleToggleAll}
-                                        />
-                                    </SelectionControl>
-                                ) : (
-                                    <SelectionPlaceholder aria-hidden="true" />
-                                )}
-                            </CellInner>
-                        </HeaderCell>
-                    )}
-
-                    {visibleColumns.map((column, columnIndex) => {
-                        const align = column.align ?? 'left';
-                        const isActiveSort = sortState?.columnKey === column.key;
-                        const sortDirection = isActiveSort ? sortState?.direction : null;
-                        const isSortable = Boolean(column.sortable && onSortStateChange);
-                        const isFirstDataColumn = columnIndex === 0;
-                        const isLastDataColumn = columnIndex === visibleColumns.length - 1;
-
-                        const paddingLeft = !selectable && isFirstDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
-
-                        const paddingRight = isLastDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
-
-                        return (
+                {!hideHeader && (
+                    <HeaderRow role="row" $headerHeight={headerHeight} style={{ gridTemplateColumns }}>
+                        {selectable && (
                             <HeaderCell
-                                key={column.key}
                                 role="columnheader"
-                                aria-sort={isActiveSort ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
-                                className={column.headerClassName}
-                                $align={align}
+                                $align="center"
                                 $paddingY={densityValue.paddingY}
-                                $paddingLeft={paddingLeft}
-                                $paddingRight={paddingRight}
+                                $paddingLeft={insetValue || densityValue.paddingX}
+                                $paddingRight={densityValue.paddingX}
                             >
-                                <CellInner $align={align}>
-                                    {isSortable ? (
-                                        <SortButton type="button" onClick={() => handleSort(column)}>
+                                <CellInner $align="center">
+                                    {selectableRowIds.length > 0 ? (
+                                        <SelectionControl
+                                            onClick={stopRowEvent}
+                                            onMouseDown={stopRowEvent}
+                                            onDoubleClick={stopRowEvent}
+                                            onKeyDown={stopRowEvent}
+                                        >
+                                            <IndeterminateCheckbox
+                                                checked={isAllSelected}
+                                                indeterminate={isPartiallySelected}
+                                                ariaLabel="Select all loaded rows"
+                                                onChange={handleToggleAll}
+                                            />
+                                        </SelectionControl>
+                                    ) : (
+                                        <SelectionPlaceholder aria-hidden="true" />
+                                    )}
+                                </CellInner>
+                            </HeaderCell>
+                        )}
+
+                        {visibleColumns.map((column, columnIndex) => {
+                            const align = column.align ?? 'left';
+                            const isActiveSort = sortState?.columnKey === column.key;
+                            const sortDirection = isActiveSort ? sortState?.direction : null;
+                            const isSortable = Boolean(column.sortable && onSortStateChange);
+                            const isFirstDataColumn = columnIndex === 0;
+                            const isLastDataColumn = columnIndex === visibleColumns.length - 1;
+
+                            const paddingLeft =
+                                !selectable && isFirstDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
+
+                            const paddingRight = isLastDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
+
+                            return (
+                                <HeaderCell
+                                    key={column.key}
+                                    role="columnheader"
+                                    aria-sort={isActiveSort ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
+                                    className={column.headerClassName}
+                                    $align={align}
+                                    $paddingY={densityValue.paddingY}
+                                    $paddingLeft={paddingLeft}
+                                    $paddingRight={paddingRight}
+                                >
+                                    <CellInner $align={align}>
+                                        {isSortable ? (
+                                            <SortButton type="button" onClick={() => handleSort(column)}>
+                                                <HeaderContent>
+                                                    <HeaderText>{column.header}</HeaderText>
+                                                    {column.tooltip ? <InfoPopover content={column.tooltip} /> : null}
+                                                </HeaderContent>
+                                                <SortMark aria-hidden="true">
+                                                    <SortArrows sort={sortDirection ?? undefined} />
+                                                </SortMark>
+                                            </SortButton>
+                                        ) : (
                                             <HeaderContent>
                                                 <HeaderText>{column.header}</HeaderText>
                                                 {column.tooltip ? <InfoPopover content={column.tooltip} /> : null}
                                             </HeaderContent>
-                                            <SortMark aria-hidden="true">
-                                                <SortArrows sort={sortDirection ?? undefined} />
-                                            </SortMark>
-                                        </SortButton>
-                                    ) : (
-                                        <HeaderContent>
-                                            <HeaderText>{column.header}</HeaderText>
-                                            {column.tooltip ? <InfoPopover content={column.tooltip} /> : null}
-                                        </HeaderContent>
-                                    )}
-                                </CellInner>
-                            </HeaderCell>
-                        );
-                    })}
-                </HeaderRow>
+                                        )}
+                                    </CellInner>
+                                </HeaderCell>
+                            );
+                        })}
+                    </HeaderRow>
+                )}
 
                 {data.length === 0 ? (
                     <EmptyState>{empty}</EmptyState>
@@ -634,13 +642,13 @@ const Viewport = styled.div`
     // scrollbar-gutter: stable both-edges;
 `;
 
-const HeaderRow = styled.div<{ $rowHeight: number }>`
+const HeaderRow = styled.div<{ $headerHeight: number }>`
     position: sticky;
     top: 0;
     z-index: 2;
     display: grid;
-    min-height: ${({ $rowHeight }) => $rowHeight}px;
-    height: ${({ $rowHeight }) => $rowHeight}px;
+    min-height: ${({ $headerHeight }) => $headerHeight}px;
+    height: ${({ $headerHeight }) => $headerHeight}px;
     background: ${({ theme }) => theme.palette.custom.general.surfaceOne};
 `;
 

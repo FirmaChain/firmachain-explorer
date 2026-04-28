@@ -7,165 +7,72 @@ import { BLOCK_DETAILS } from '@utils/go_to_page';
 import clsx from 'clsx';
 import numeral from 'numeral';
 import { Link } from 'react-router';
-import { List, useListRef, type RowComponentProps } from 'react-window';
-import { useInfiniteLoader } from 'react-window-infinite-loader';
+
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
 import { ItemType } from '../../types';
 
-const ROW_HEIGHT = 295;
+const ROW_HEIGHT = 280;
 
 type MobileProps = {
     className?: string;
     items: ItemType[];
     itemCount: number;
     loadMoreItems: (params: { startIndex: number; stopIndex: number }) => Promise<void> | void;
-    isItemLoaded?: (index: number) => boolean;
+    isNextPageLoading?: boolean;
 };
 
-type FormattedItem = {
-    height: React.ReactNode;
-    txs: string;
-    time: string;
-    proposer: React.ReactNode;
-    hash: string;
-};
+const Mobile: React.FC<MobileProps> = ({ className, items, itemCount, loadMoreItems, isNextPageLoading = false }) => {
+    const hasMore = itemCount > items.length;
 
-type RowProps = {
-    items: FormattedItem[];
-    itemCount: number;
-    isRowLoaded: (index: number) => boolean;
-};
-
-function useElementSize<T extends HTMLElement>() {
-    const ref = React.useRef<T | null>(null);
-    const [size, setSize] = React.useState({ width: 0, height: 0 });
-
-    React.useLayoutEffect(() => {
-        const element = ref.current;
-        if (!element) return;
-
-        const updateSize = () => {
-            const rect = element.getBoundingClientRect();
-
-            setSize((prev) => {
-                const next = {
-                    width: Math.ceil(rect.width),
-                    height: Math.ceil(rect.height)
-                };
-
-                if (prev.width === next.width && prev.height === next.height) {
-                    return prev;
-                }
-
-                return next;
-            });
-        };
-
-        updateSize();
-
-        const observer = new ResizeObserver(() => {
-            updateSize();
-        });
-
-        observer.observe(element);
-
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
-
-    return { ref, size };
-}
-
-const BlockRow = ({ index, style, items, itemCount, isRowLoaded }: RowComponentProps<RowProps>) => {
-    if (!isRowLoaded(index)) {
-        return (
-            <div style={style}>
-                <Box sx={{ height: '100%', px: 2, py: 2 }}>
-                    <Loading />
-                </Box>
-            </div>
-        );
-    }
-
-    const item = items[index];
-
-    return (
-        <div style={style}>
-            <Box sx={{ height: '100%', px: 2, py: 2, boxSizing: 'border-box' }}>
-                <SingleBlockMobile {...item} />
-                {index !== itemCount - 1 && <Divider />}
-            </Box>
-        </div>
-    );
-};
-
-const Mobile: React.FC<MobileProps> = ({ className, items, itemCount, loadMoreItems, isItemLoaded }) => {
-    const listRef = useListRef();
-    const { ref, size } = useElementSize<HTMLDivElement>();
-
-    const formattedItems = React.useMemo<FormattedItem[]>(() => {
-        return items.map((x) => ({
-            height: (
-                <Link to={BLOCK_DETAILS(x.height)}>
-                    <Typography variant="body1" className="value" component="a">
-                        {numeral(x.height).format('0,0')}
-                    </Typography>
-                </Link>
-            ),
-            txs: numeral(x.txs).format('0,0'),
-            time: dayjs.utc(x.timestamp).fromNow(),
-            proposer: <AvatarName address={x.proposer.address} imageUrl={x.proposer.imageUrl} name={x.proposer.name} />,
-            hash: getMiddleEllipsis(x.hash, {
-                beginning: 13,
-                ending: 10
+    const handleReachEnd = React.useCallback(() => {
+        void Promise.resolve(
+            loadMoreItems({
+                startIndex: items.length,
+                stopIndex: itemCount - 1
             })
-        }));
-    }, [items]);
+        );
+    }, [itemCount, items.length, loadMoreItems]);
 
-    const isRowLoaded = React.useCallback(
-        (index: number) => {
-            return isItemLoaded?.(index) ?? false;
-        },
-        [isItemLoaded]
-    );
-
-    const loadMoreRows = React.useCallback(
-        async (startIndex: number, stopIndex: number): Promise<void> => {
-            await Promise.resolve(loadMoreItems({ startIndex, stopIndex }));
-        },
-        [loadMoreItems]
-    );
-
-    const onRowsRendered = useInfiniteLoader({
-        isRowLoaded,
-        loadMoreRows,
-        rowCount: itemCount,
-        threshold: 15,
-        minimumBatchSize: 10
-    });
+    const columns: DataTableColumn<ItemType>[] = [
+        {
+            key: 'block',
+            header: '',
+            render: (row) => (
+                <SingleBlockMobile
+                    height={
+                        <Link to={BLOCK_DETAILS(row.height)}>
+                            <Typography variant="body1" className="value" component="a">
+                                {numeral(row.height).format('0,0')}
+                            </Typography>
+                        </Link>
+                    }
+                    txs={numeral(row.txs).format('0,0')}
+                    time={dayjs.utc(row.timestamp).fromNow()}
+                    proposer={<AvatarName address={row.proposer.address} imageUrl={row.proposer.imageUrl} name={row.proposer.name} />}
+                    hash={getMiddleEllipsis(row.hash, {
+                        beginning: 13,
+                        ending: 10
+                    })}
+                />
+            )
+        }
+    ];
 
     return (
-        <Box ref={ref} className={clsx(className)} sx={{ height: '100%', minHeight: 0 }}>
-            {size.width > 0 && size.height > 0 ? (
-                <List<RowProps>
-                    className="List"
-                    listRef={listRef}
-                    rowComponent={BlockRow}
-                    rowCount={itemCount}
-                    rowHeight={ROW_HEIGHT}
-                    rowProps={{
-                        items: formattedItems,
-                        itemCount,
-                        isRowLoaded
-                    }}
-                    onRowsRendered={onRowsRendered}
-                    style={{
-                        width: size.width,
-                        height: size.height
-                    }}
-                />
-            ) : null}
+        <Box className={clsx(className)} sx={{ height: '100%', minHeight: 0 }}>
+            <DataTable
+                data={items}
+                columns={columns}
+                getRowId={(row) => row.height}
+                height="100%"
+                hideHeader
+                rowHeight={ROW_HEIGHT}
+                hasMore={hasMore}
+                isFetchingMore={isNextPageLoading}
+                onReachEnd={handleReachEnd}
+                fetchMoreIndicator={<Loading />}
+            />
         </Box>
     );
 };

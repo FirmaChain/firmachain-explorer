@@ -3323,8 +3323,6 @@ __metadata:
     react-router: "npm:^7.13.2"
     react-share: "npm:^5.3.0"
     react-toastify: "npm:^7.0.3"
-    react-window: "npm:^2.2.7"
-    react-window-infinite-loader: "npm:^2.0.1"
     recharts: "npm:^3.8.1"
     styled-components: "npm:6.1.15"
     typescript: "npm:^5.7.3"
@@ -6815,26 +6813,6 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 10c0/2ba754ba748faefa15f87c96dfa700d5525054a0141de8c75763aae6734af0740e77e11261a1e8f4ffc08fd9ab78510122e05c21c2d79066c38bb6861a886c82
-  languageName: node
-  linkType: hard
-
-"react-window-infinite-loader@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "react-window-infinite-loader@npm:2.0.1"
-  peerDependencies:
-    react: ^18.0.0 || ^19.0.0
-    react-dom: ^18.0.0 || ^19.0.0
-  checksum: 10c0/da6f355e418337595ee9520edbd303ba3a5110326f38d8a49414bcb050b52b062c915d5c97207694d4d022349825cb8821b160c95c7820724777e8578526c84c
-  languageName: node
-  linkType: hard
-
-"react-window@npm:^2.2.7":
-  version: 2.2.7
-  resolution: "react-window@npm:2.2.7"
-  peerDependencies:
-    react: ^18.0.0 || ^19.0.0
-    react-dom: ^18.0.0 || ^19.0.0
-  checksum: 10c0/4eba3bce2083fa53ac674513078fb23d4dc3ad7dfd12ea5733863b583ea1472294df791947a2b58f27bab45138cedf7a63fdc19b0420823bf19749aa10455b81
   languageName: node
   linkType: hard
 

@@ -19,7 +19,7 @@ const SingleProposal: React.FC<{
         <Box
             className={className}
             sx={(theme) => ({
-                my: 2,
+                width: '100%',
                 [theme.breakpoints.up('lg')]: {
                     display: 'grid',
                     gridTemplateColumns: '50px auto min-content',
@@ -58,11 +58,7 @@ const SingleProposal: React.FC<{
                         </Typography>
                     )}
                 </Box>
-                {!!description && (
-                    <Typography variant="body2" sx={{ mb: 2 }}>
-                        {description}
-                    </Typography>
-                )}
+                {!!description && <Typography variant="body2">{description}</Typography>}
             </Box>
             {/* ================= */}
             {/* ================= */}

@@ -60,7 +60,7 @@ const Blocks = () => {
                                     items={mergedDataWithProfiles}
                                     itemCount={itemCount}
                                     loadMoreItems={loadMoreItems}
-                                    isItemLoaded={isItemLoaded}
+                                    isNextPageLoading={state.isNextPageLoading}
                                 />
                             )}
                         </>
