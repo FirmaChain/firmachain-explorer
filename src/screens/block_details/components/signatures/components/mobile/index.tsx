@@ -49,7 +49,7 @@ const Mobile: React.FC<MobileProps> = ({ className, signatures }) => {
 
     return (
         <Box className={clsx(className)} sx={{ height: '100%', minHeight: 0 }}>
-            <DataTable data={items} columns={columns} getRowId={(row) => row.address} height="100%" hideHeader rowHeight={ROW_HEIGHT} />
+            <DataTable data={items} columns={columns} getRowId={(row) => row.address} height="100%" hideHeader />
         </Box>
     );
 };

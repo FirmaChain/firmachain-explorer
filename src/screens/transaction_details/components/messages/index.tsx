@@ -99,12 +99,6 @@ const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
                     flex: 1,
                     minHeight: 0
                 },
-                '& [data-datatable-row="true"]': {
-                    height: 'auto',
-                    minHeight: '72px',
-                    alignItems: 'stretch',
-                    borderBottom: `1px solid ${theme.palette.divider}`
-                },
                 '& [data-datatable-row="true"] > div': {
                     alignItems: 'flex-start',
                     py: 2
@@ -145,14 +139,7 @@ const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
 
             {hasMessages && (
                 <div className="list">
-                    <DataTable
-                        data={formattedItems}
-                        columns={columns}
-                        getRowId={(row) => row.id}
-                        height="100%"
-                        hideHeader
-                        rowHeight={72}
-                    />
+                    <DataTable data={formattedItems} columns={columns} getRowId={(row) => row.id} height="100%" hideHeader />
                 </div>
             )}
         </Box>

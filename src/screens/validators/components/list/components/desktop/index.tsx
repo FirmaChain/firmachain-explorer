@@ -63,7 +63,7 @@ const Desktop: React.FC<DesktopProps> = ({ className, sortDirection, sortKey, ha
             header: t('validator'),
             sortable: true,
             width: '25%',
-                render: (row) => <AvatarName address={row.validator.address} imageUrl={row.validator.imageUrl} name={row.validator.name} />
+            render: (row) => <AvatarName address={row.validator.address} imageUrl={row.validator.imageUrl} name={row.validator.name} />
         },
         {
             key: 'votingPower',
@@ -131,7 +131,6 @@ const Desktop: React.FC<DesktopProps> = ({ className, sortDirection, sortKey, ha
                 columns={cols}
                 getRowId={(row) => row.validator.address}
                 height="100%"
-                rowHeight={DEFAULT_ROW_HEIGHT}
                 sortState={sortState}
                 onSortStateChange={handleSortStateChange}
                 sortBehavior="toggle"

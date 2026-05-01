@@ -64,14 +64,7 @@ const Mobile: React.FC<MobileProps> = ({ className, items }) => {
                 borderRadius: 0
             })}
         >
-            <DataTable
-                data={items}
-                columns={columns}
-                getRowId={(row) => row.validator.address}
-                height="100%"
-                hideHeader
-                rowHeight={DEFAULT_ROW_HEIGHT}
-            />
+            <DataTable data={items} columns={columns} getRowId={(row) => row.validator.address} height="100%" hideHeader />
         </Box>
     );
 };

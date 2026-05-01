@@ -20,7 +20,7 @@ const Desktop: React.FC<DesktopProps> = ({ className, signatures }) => {
         }
     ];
 
-    return <DataTable data={signatures} columns={columns} getRowId={(row) => row.address} height="450px" rowHeight={50} />;
+    return <DataTable data={signatures} columns={columns} getRowId={(row) => row.address} height="450px" />;
 };
 
 export default Desktop;

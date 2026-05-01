@@ -1,11 +1,12 @@
 import React from 'react';
-import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { AvatarName } from '@components';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { formatNumber } from '@utils/format_token';
 import { readDate, useSettingsStore } from '@zustand/settings';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
 import { ItemType } from '../../types';
 
@@ -41,7 +42,14 @@ const Desktop: React.FC<{
         }
     ];
 
-    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => `${row.user.address || 'unknown'}-${row.timestamp}`} rowHeight={50} />;
+    return (
+        <DataTable
+            className={clsx(className)}
+            data={items}
+            columns={columns}
+            getRowId={(row) => `${row.user.address || 'unknown'}-${row.timestamp}`}
+        />
+    );
 };
 
 export default Desktop;

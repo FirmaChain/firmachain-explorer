@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { Virtualizer } from 'virtua';
 
 import InfoPopover from '../info_popover';
 import SortArrows from '../sort_arrows';
@@ -39,14 +40,20 @@ export type DataTableColumn<T> = {
 };
 
 export type DataTableProps<T> = {
-    data: T[];
-    columns: DataTableColumn<T>[];
+    data?: T[];
+    columns?: DataTableColumn<T>[];
     getRowId: (row: T) => React.Key;
 
     height?: number | string;
     headerHeight?: number;
     hideHeader?: boolean;
+
+    /**
+     * Estimated row height for virtualization.
+     * Actual row height can be dynamic.
+     */
     rowHeight?: number;
+
     density?: DataTableDensity;
     inset?: DataTableInset;
 
@@ -78,7 +85,30 @@ export type DataTableProps<T> = {
     className?: string;
 };
 
-const densityMap: Record<DataTableDensity, { paddingX: number; paddingY: number }> = {
+type DensityValue = {
+    paddingX: number;
+    paddingY: number;
+};
+
+type DataRowItemProps<T> = {
+    row: T;
+    rowIndex: number;
+    rowId: React.Key;
+    visibleColumns: DataTableColumn<T>[];
+    gridTemplateColumns: string;
+    selectable: boolean;
+    selectionBehavior: RowSelectionBehavior;
+    isSelected: boolean;
+    selectedIdSet: Set<React.Key>;
+    densityValue: DensityValue;
+    insetValue: number;
+    rowHeight: number;
+    onRowClick?: (row: T, rowIndex: number) => void;
+    rowClassName?: (row: T, rowIndex: number) => string | undefined;
+    onToggleRow: (row: T, checked: boolean) => void;
+};
+
+const densityMap: Record<DataTableDensity, DensityValue> = {
     compact: { paddingX: 8, paddingY: 6 },
     default: { paddingX: 12, paddingY: 10 },
     comfortable: { paddingX: 16, paddingY: 14 }
@@ -129,17 +159,19 @@ function getNextSortState(current: SortState, columnKey: string, sortBehavior: S
     return null;
 }
 
-function useElementSize<T extends HTMLElement>(ref: React.RefObject<T>) {
-    const [size, setSize] = useState({ width: 0, height: 0 });
+function useElementWidth<T extends HTMLElement>(ref: React.RefObject<T>) {
+    const [width, setWidth] = useState(0);
 
     useEffect(() => {
         const element = ref.current;
         if (!element) return;
 
         const update = () => {
-            setSize({
-                width: element.clientWidth,
-                height: element.clientHeight
+            const nextWidth = element.clientWidth;
+
+            setWidth((prevWidth) => {
+                if (prevWidth === nextWidth) return prevWidth;
+                return nextWidth;
             });
         };
 
@@ -156,7 +188,7 @@ function useElementSize<T extends HTMLElement>(ref: React.RefObject<T>) {
         return () => observer.disconnect();
     }, [ref]);
 
-    return size;
+    return width;
 }
 
 function stopRowEvent(event: React.SyntheticEvent) {
@@ -189,6 +221,127 @@ function IndeterminateCheckbox({ checked, indeterminate = false, ariaLabel, onCh
     );
 }
 
+function DataRowItemInner<T>({
+    row,
+    rowIndex,
+    rowId,
+    visibleColumns,
+    gridTemplateColumns,
+    selectable,
+    selectionBehavior,
+    isSelected,
+    selectedIdSet,
+    densityValue,
+    insetValue,
+    rowHeight,
+    onRowClick,
+    rowClassName,
+    onToggleRow
+}: DataRowItemProps<T>) {
+    const rowClass = rowClassName?.(row, rowIndex);
+
+    const handleClick = useCallback(() => {
+        onRowClick?.(row, rowIndex);
+    }, [onRowClick, row, rowIndex]);
+
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLDivElement>) => {
+            if (!onRowClick) return;
+
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onRowClick(row, rowIndex);
+            }
+        },
+        [onRowClick, row, rowIndex]
+    );
+
+    const handleCheckboxChange = useCallback(
+        (checked: boolean) => {
+            onToggleRow(row, checked);
+        },
+        [onToggleRow, row]
+    );
+
+    return (
+        <DataRow
+            role="row"
+            data-datatable-row="true"
+            aria-selected={isSelected || undefined}
+            className={rowClass}
+            $minRowHeight={rowHeight}
+            $selected={isSelected}
+            $interactive={Boolean(onRowClick)}
+            $isOddRow={rowIndex % 2 === 0}
+            style={{ gridTemplateColumns }}
+            onClick={onRowClick ? handleClick : undefined}
+            onKeyDown={onRowClick ? handleKeyDown : undefined}
+            tabIndex={onRowClick ? 0 : undefined}
+        >
+            {selectable && (
+                <BodyCell
+                    role="gridcell"
+                    $align="center"
+                    $paddingY={densityValue.paddingY}
+                    $paddingLeft={insetValue || densityValue.paddingX}
+                    $paddingRight={densityValue.paddingX}
+                >
+                    <CellInner $align="center">
+                        {selectionBehavior === 'checkbox' ? (
+                            <SelectionControl
+                                onClick={stopRowEvent}
+                                onMouseDown={stopRowEvent}
+                                onDoubleClick={stopRowEvent}
+                                onKeyDown={stopRowEvent}
+                            >
+                                <IndeterminateCheckbox
+                                    checked={selectedIdSet.has(rowId)}
+                                    ariaLabel={`Select row ${String(rowId)}`}
+                                    onChange={handleCheckboxChange}
+                                />
+                            </SelectionControl>
+                        ) : (
+                            <SelectionPlaceholder aria-hidden="true" />
+                        )}
+                    </CellInner>
+                </BodyCell>
+            )}
+
+            {visibleColumns.map((column, columnIndex) => {
+                const align = column.align ?? 'left';
+                const isFirstDataColumn = columnIndex === 0;
+                const isLastDataColumn = columnIndex === visibleColumns.length - 1;
+
+                const paddingLeft = !selectable && isFirstDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
+                const paddingRight = isLastDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
+
+                return (
+                    <BodyCell
+                        key={column.key}
+                        role="gridcell"
+                        className={column.cellClassName}
+                        $align={align}
+                        $paddingY={densityValue.paddingY}
+                        $paddingLeft={paddingLeft}
+                        $paddingRight={paddingRight}
+                    >
+                        <CellInner $align={align}>
+                            {column.render(row, {
+                                rowId,
+                                rowIndex,
+                                isSelected,
+                                selectionBehavior
+                            })}
+                        </CellInner>
+                    </BodyCell>
+                );
+            })}
+        </DataRow>
+    );
+}
+
+const DataRowItem = React.memo(DataRowItemInner) as typeof DataRowItemInner;
+
 export const rowHoverVisible = css`
     opacity: 0;
     pointer-events: none;
@@ -202,13 +355,13 @@ export const rowHoverVisible = css`
 `;
 
 export function DataTable<T>({
-    data,
-    columns,
+    data = [],
+    columns = [],
     getRowId,
     height,
     headerHeight = 50,
     hideHeader = false,
-    rowHeight = 44,
+    rowHeight = 52,
     density = 'default',
     inset = 'md',
     selectable = false,
@@ -231,13 +384,15 @@ export function DataTable<T>({
     className
 }: DataTableProps<T>) {
     const viewportRef = useRef<HTMLDivElement>(null);
-    const { width: measuredWidth, height: viewportHeight } = useElementSize(viewportRef);
+    const measuredWidth = useElementWidth(viewportRef);
     const containerWidth = measuredWidth > 0 ? measuredWidth : null;
 
     const densityValue = densityMap[density];
     const insetValue = insetMap[inset];
 
     const visibleColumns = useMemo(() => {
+        if (columns.length === 0) return [];
+
         return columns.filter((column) => column.isVisible?.(containerWidth) ?? true);
     }, [columns, containerWidth]);
 
@@ -248,7 +403,9 @@ export function DataTable<T>({
             tracks.push(`${selectionColumnWidth}px`);
         }
 
-        tracks.push(...visibleColumns.map((column) => toGridTrack(column)));
+        for (const column of visibleColumns) {
+            tracks.push(toGridTrack(column));
+        }
 
         return tracks.join(' ');
     }, [selectable, selectionColumnWidth, visibleColumns]);
@@ -264,22 +421,35 @@ export function DataTable<T>({
     );
 
     const selectableRowIds = useMemo(() => {
-        if (!selectable) return [];
+        if (!selectable || data.length === 0) return [];
 
-        return data.flatMap((row) => {
-            if (getSelectionBehavior(row) !== 'checkbox') return [];
-            return [getRowId(row)];
-        });
+        const nextIds: React.Key[] = [];
+
+        for (const row of data) {
+            if (getSelectionBehavior(row) === 'checkbox') {
+                nextIds.push(getRowId(row));
+            }
+        }
+
+        return nextIds;
     }, [data, getRowId, getSelectionBehavior, selectable]);
 
     const selectedSelectableCount = useMemo(() => {
-        return selectableRowIds.reduce((count, rowId) => {
-            return +count + (selectedIdSet.has(rowId) ? 1 : 0);
-        }, 0);
+        if (selectableRowIds.length === 0 || selectedIdSet.size === 0) return 0;
+
+        let count = 0;
+
+        for (const rowId of selectableRowIds) {
+            if (selectedIdSet.has(rowId)) {
+                count += 1;
+            }
+        }
+
+        return count;
     }, [selectableRowIds, selectedIdSet]);
 
     const isAllSelected = selectableRowIds.length > 0 && selectedSelectableCount === selectableRowIds.length;
-    const isPartiallySelected = +selectedSelectableCount > 0 && +selectedSelectableCount < selectableRowIds.length;
+    const isPartiallySelected = selectedSelectableCount > 0 && selectedSelectableCount < selectableRowIds.length;
 
     const handleToggleAll = useCallback(
         (checked: boolean) => {
@@ -287,10 +457,12 @@ export function DataTable<T>({
 
             const next = new Set(selectedRowIds);
 
-            if (checked) {
-                selectableRowIds.forEach((rowId) => next.add(rowId));
-            } else {
-                selectableRowIds.forEach((rowId) => next.delete(rowId));
+            for (const rowId of selectableRowIds) {
+                if (checked) {
+                    next.add(rowId);
+                } else {
+                    next.delete(rowId);
+                }
             }
 
             onSelectedRowIdsChange(Array.from(next));
@@ -317,9 +489,9 @@ export function DataTable<T>({
         [getRowId, getSelectionBehavior, onSelectedRowIdsChange, selectable, selectedRowIds]
     );
 
-    const [scrollTop, setScrollTop] = useState(0);
     const reachEndLockedRef = useRef(false);
     const lastDataLengthRef = useRef(data.length);
+    const lastScrollTopRef = useRef(0);
 
     useEffect(() => {
         if (data.length !== lastDataLengthRef.current) {
@@ -328,64 +500,48 @@ export function DataTable<T>({
         }
     }, [data.length]);
 
-    const maybeTriggerReachEnd = useCallback(() => {
-        const viewport = viewportRef.current;
-        if (!viewport || !onReachEnd || !hasMore || isFetchingMore || reachEndLockedRef.current) {
-            return;
-        }
+    const triggerReachEnd = useCallback(() => {
+        if (!onReachEnd || !hasMore || isFetchingMore || reachEndLockedRef.current) return;
 
-        const distanceFromEnd = viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
+        reachEndLockedRef.current = true;
+        onReachEnd();
+    }, [hasMore, isFetchingMore, onReachEnd]);
 
-        if (distanceFromEnd <= reachEndOffset) {
-            reachEndLockedRef.current = true;
-            onReachEnd();
-        }
-    }, [hasMore, isFetchingMore, onReachEnd, reachEndOffset]);
+    const checkReachEnd = useCallback(
+        (offset?: number) => {
+            const viewport = viewportRef.current;
+            if (!viewport) return;
 
-    useEffect(() => {
-        maybeTriggerReachEnd();
-    }, [data.length, maybeTriggerReachEnd, viewportHeight]);
+            const scrollTop = offset ?? viewport.scrollTop;
+            const isScrollingDown = scrollTop >= lastScrollTopRef.current;
 
-    const handleScroll = useCallback(
-        (event: React.UIEvent<HTMLDivElement>) => {
-            const nextScrollTop = event.currentTarget.scrollTop;
-            setScrollTop(nextScrollTop);
+            lastScrollTopRef.current = scrollTop;
 
-            const distanceFromEnd = event.currentTarget.scrollHeight - event.currentTarget.scrollTop - event.currentTarget.clientHeight;
+            if (!isScrollingDown || scrollTop <= 0) return;
 
-            if (distanceFromEnd > reachEndOffset) {
-                reachEndLockedRef.current = false;
-                return;
+            const distanceFromEnd = viewport.scrollHeight - scrollTop - viewport.clientHeight;
+
+            if (distanceFromEnd <= reachEndOffset) {
+                triggerReachEnd();
             }
-
-            maybeTriggerReachEnd();
         },
-        [maybeTriggerReachEnd, reachEndOffset]
+        [reachEndOffset, triggerReachEnd]
     );
 
-    const isVirtualized = Boolean(virtualization?.enabled) && data.length > 0;
-    const overscan = virtualization?.overscan ?? 6;
-    const visibleHeaderHeight = hideHeader ? 0 : headerHeight;
-    const bodyViewportHeight = Math.max(0, viewportHeight - visibleHeaderHeight);
-    const estimatedBodyViewportHeight = bodyViewportHeight > 0 ? bodyViewportHeight : rowHeight * 8;
-    const bodyScrollTop = Math.max(0, scrollTop - visibleHeaderHeight);
+    const handleViewportScroll = useCallback(() => {
+        checkReachEnd();
+    }, [checkReachEnd]);
 
-    const startIndex = isVirtualized ? Math.max(0, Math.floor(bodyScrollTop / rowHeight) - overscan) : 0;
+    const handleVirtualizerScroll = useCallback(
+        (offset: number) => {
+            checkReachEnd(offset);
+        },
+        [checkReachEnd]
+    );
 
-    const endIndex = isVirtualized
-        ? Math.min(data.length - 1, Math.ceil((bodyScrollTop + estimatedBodyViewportHeight) / rowHeight) + overscan)
-        : data.length - 1;
-
-    const virtualItems = useMemo(() => {
-        if (!isVirtualized) return [];
-
-        return data.slice(startIndex, endIndex + 1).map((row, offset) => ({
-            row,
-            rowIndex: startIndex + offset
-        }));
-    }, [data, endIndex, isVirtualized, startIndex]);
-
-    const totalBodyHeight = data.length * rowHeight;
+    const handleVirtualizerScrollEnd = useCallback(() => {
+        checkReachEnd();
+    }, [checkReachEnd]);
 
     const handleSort = useCallback(
         (column: DataTableColumn<T>) => {
@@ -395,128 +551,59 @@ export function DataTable<T>({
         [onSortStateChange, sortBehavior, sortState]
     );
 
-    const renderSelectionCell = useCallback(
-        (row: T, rowIndex: number) => {
-            const behavior = getSelectionBehavior(row);
+    const rowItems = useMemo(() => {
+        if (data.length === 0) return null;
 
-            if (behavior === 'empty') {
-                return <SelectionPlaceholder aria-hidden="true" />;
-            }
-
-            const rowId = getRowId(row);
-
-            return (
-                <SelectionControl onClick={stopRowEvent} onMouseDown={stopRowEvent} onDoubleClick={stopRowEvent} onKeyDown={stopRowEvent}>
-                    <IndeterminateCheckbox
-                        checked={selectedIdSet.has(rowId)}
-                        ariaLabel={`Select row ${String(rowId)}`}
-                        onChange={(checked) => handleToggleRow(row, checked)}
-                    />
-                </SelectionControl>
-            );
-        },
-        [getRowId, getSelectionBehavior, handleToggleRow, selectedIdSet]
-    );
-
-    const renderRow = useCallback(
-        (row: T, rowIndex: number, style?: React.CSSProperties) => {
+        return data.map((row, rowIndex) => {
             const rowId = getRowId(row);
             const selectionBehavior = getSelectionBehavior(row);
             const isSelected = selectionBehavior === 'checkbox' ? selectedIdSet.has(rowId) : false;
-            const rowClass = rowClassName?.(row, rowIndex);
 
             return (
-                <DataRow
+                <DataRowItem
                     key={rowId}
-                    role="row"
-                    data-datatable-row="true"
-                    aria-selected={isSelected || undefined}
-                    className={rowClass}
-                    $rowHeight={rowHeight}
-                    $selected={isSelected}
-                    $interactive={Boolean(onRowClick)}
-                    $isOddRow={rowIndex % 2 === 0}
-                    style={{ ...style, gridTemplateColumns }}
-                    onClick={onRowClick ? () => onRowClick(row, rowIndex) : undefined}
-                    onKeyDown={
-                        onRowClick
-                            ? (event) => {
-                                  if (event.key === 'Enter' || event.key === ' ') {
-                                      event.preventDefault();
-                                      onRowClick(row, rowIndex);
-                                  }
-                              }
-                            : undefined
-                    }
-                    tabIndex={onRowClick ? 0 : undefined}
-                >
-                    {selectable && (
-                        <BodyCell
-                            role="gridcell"
-                            $align="center"
-                            $paddingY={densityValue.paddingY}
-                            $paddingLeft={insetValue || densityValue.paddingX}
-                            $paddingRight={densityValue.paddingX}
-                        >
-                            <CellInner $align="center">{renderSelectionCell(row, rowIndex)}</CellInner>
-                        </BodyCell>
-                    )}
-
-                    {visibleColumns.map((column, columnIndex) => {
-                        const align = column.align ?? 'left';
-                        const isFirstDataColumn = columnIndex === 0;
-                        const isLastDataColumn = columnIndex === visibleColumns.length - 1;
-
-                        const paddingLeft = !selectable && isFirstDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
-
-                        const paddingRight = isLastDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
-
-                        return (
-                            <BodyCell
-                                key={column.key}
-                                role="gridcell"
-                                className={column.cellClassName}
-                                $align={align}
-                                $paddingY={densityValue.paddingY}
-                                $paddingLeft={paddingLeft}
-                                $paddingRight={paddingRight}
-                            >
-                                <CellInner $align={align}>
-                                    {column.render(row, {
-                                        rowId,
-                                        rowIndex,
-                                        isSelected,
-                                        selectionBehavior
-                                    })}
-                                </CellInner>
-                            </BodyCell>
-                        );
-                    })}
-                </DataRow>
+                    row={row}
+                    rowIndex={rowIndex}
+                    rowId={rowId}
+                    visibleColumns={visibleColumns}
+                    gridTemplateColumns={gridTemplateColumns}
+                    selectable={selectable}
+                    selectionBehavior={selectionBehavior}
+                    isSelected={isSelected}
+                    selectedIdSet={selectedIdSet}
+                    densityValue={densityValue}
+                    insetValue={insetValue}
+                    rowHeight={rowHeight}
+                    onRowClick={onRowClick}
+                    rowClassName={rowClassName}
+                    onToggleRow={handleToggleRow}
+                />
             );
-        },
-        [
-            densityValue.paddingX,
-            densityValue.paddingY,
-            getRowId,
-            getSelectionBehavior,
-            gridTemplateColumns,
-            insetValue,
-            onRowClick,
-            renderSelectionCell,
-            rowClassName,
-            rowHeight,
-            selectable,
-            selectedIdSet,
-            visibleColumns
-        ]
-    );
+        });
+    }, [
+        data,
+        densityValue,
+        getRowId,
+        getSelectionBehavior,
+        gridTemplateColumns,
+        handleToggleRow,
+        insetValue,
+        onRowClick,
+        rowClassName,
+        rowHeight,
+        selectable,
+        selectedIdSet,
+        visibleColumns
+    ]);
 
     const rootHeight = toCssSize(height);
+    const isVirtualized = Boolean(virtualization?.enabled) && data.length > 0;
+    const bufferSize = (virtualization?.overscan ?? 6) * rowHeight;
+    const startMargin = hideHeader ? 0 : headerHeight;
 
     return (
         <Root className={className} $height={rootHeight} role="grid">
-            <Viewport ref={viewportRef} onScroll={handleScroll}>
+            <Viewport ref={viewportRef} onScroll={handleViewportScroll}>
                 {!hideHeader && (
                     <HeaderRow role="row" $headerHeight={headerHeight} style={{ gridTemplateColumns }}>
                         {selectable && (
@@ -559,7 +646,6 @@ export function DataTable<T>({
 
                             const paddingLeft =
                                 !selectable && isFirstDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
-
                             const paddingRight = isLastDataColumn ? insetValue || densityValue.paddingX : densityValue.paddingX;
 
                             return (
@@ -600,18 +686,19 @@ export function DataTable<T>({
                 {data.length === 0 ? (
                     <EmptyState>{empty}</EmptyState>
                 ) : isVirtualized ? (
-                    <VirtualRowsLayer style={{ height: totalBodyHeight }}>
-                        {virtualItems.map(({ row, rowIndex }) =>
-                            renderRow(row, rowIndex, {
-                                position: 'absolute',
-                                top: rowIndex * rowHeight,
-                                left: 0,
-                                right: 0
-                            })
-                        )}
-                    </VirtualRowsLayer>
+                    <Virtualizer
+                        scrollRef={viewportRef}
+                        startMargin={startMargin}
+                        itemSize={rowHeight}
+                        bufferSize={bufferSize}
+                        shift={false}
+                        onScroll={handleVirtualizerScroll}
+                        onScrollEnd={handleVirtualizerScrollEnd}
+                    >
+                        {rowItems}
+                    </Virtualizer>
                 ) : (
-                    <RowsFlow>{data.map((row, rowIndex) => renderRow(row, rowIndex))}</RowsFlow>
+                    <RowsFlow>{rowItems}</RowsFlow>
                 )}
 
                 {isFetchingMore && fetchMoreIndicator ? <FetchMoreIndicator>{fetchMoreIndicator}</FetchMoreIndicator> : null}
@@ -639,7 +726,6 @@ const Viewport = styled.div`
     flex: 1 1 auto;
     min-height: 0;
     overflow: auto;
-    // scrollbar-gutter: stable both-edges;
 `;
 
 const HeaderRow = styled.div<{ $headerHeight: number }>`
@@ -656,26 +742,25 @@ const RowsFlow = styled.div`
     position: relative;
 `;
 
-const VirtualRowsLayer = styled.div`
-    position: relative;
-
-    color: ${({ theme }) => theme.palette.custom.fonts.fontTwo};
-`;
-
 const DataRow = styled.div<{
-    $rowHeight: number;
+    $minRowHeight: number;
     $selected: boolean;
     $interactive: boolean;
     $isOddRow: boolean;
 }>`
     display: grid;
-    min-height: ${({ $rowHeight }) => $rowHeight}px;
-    height: ${({ $rowHeight }) => $rowHeight}px;
-
+    min-height: ${({ $minRowHeight }) => $minRowHeight}px;
+    height: auto;
     min-width: fit-content;
 
     background: ${({ $isOddRow, theme }) =>
         $isOddRow ? theme.palette.custom.general.surfaceTwo : theme.palette.custom.general.surfaceOne};
+
+    ${({ $interactive }) =>
+        $interactive &&
+        css`
+            cursor: pointer;
+        `}
 `;
 
 const HeaderCell = styled.div<{

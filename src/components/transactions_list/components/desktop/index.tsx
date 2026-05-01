@@ -165,7 +165,6 @@ const Desktop: React.FC<TransactionsListState> = ({
                     columns={columns}
                     getRowId={(row) => row.hash}
                     height="100%"
-                    rowHeight={DEFAULT_ROW_HEIGHT}
                     virtualization={{ enabled: true }}
                     hasMore={hasNextPage}
                     isFetchingMore={isNextPageLoading}

@@ -1,8 +1,9 @@
 import React from 'react';
-import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { AvatarName } from '@components';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
 import { ItemType } from '../../types';
 import { getVoteKey } from '../../utils';
@@ -30,7 +31,7 @@ const Desktop: React.FC<{
         }
     ];
 
-    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => row.user.address} rowHeight={50} />;
+    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => row.user.address} />;
 };
 
 export default Desktop;

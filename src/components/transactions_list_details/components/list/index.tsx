@@ -77,6 +77,8 @@ const TransactionList: React.FC<TransactionsListDetailsState> = ({
             className={clsx(className)}
             sx={{
                 height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
                 minHeight: 0,
                 '& [data-datatable-row="true"]': {
                     height: 'auto'
@@ -87,6 +89,7 @@ const TransactionList: React.FC<TransactionsListDetailsState> = ({
                 data={transactions}
                 columns={columns}
                 getRowId={(row) => row.hash}
+                height="100%"
                 hideHeader
                 hasMore={hasNextPage}
                 isFetchingMore={isNextPageLoading}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { chainConfig } from '@configs';
 import { Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -8,6 +7,8 @@ import { readDate, useSettingsStore } from '@zustand/settings';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
 const Desktop: React.FC<{
     className?: string;
@@ -55,7 +56,7 @@ const Desktop: React.FC<{
         }
     ];
 
-    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => `${row.network}-${row.identifier}`} rowHeight={50} />;
+    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => `${row.network}-${row.identifier}`} />;
 };
 
 export default Desktop;

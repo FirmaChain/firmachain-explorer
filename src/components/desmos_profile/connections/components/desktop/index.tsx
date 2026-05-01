@@ -41,7 +41,7 @@ const Desktop: React.FC<{
         }
     ];
 
-    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => `${row.network}-${row.identifier}`} rowHeight={50} />;
+    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => `${row.network}-${row.identifier}`} />;
 };
 
 export default Desktop;

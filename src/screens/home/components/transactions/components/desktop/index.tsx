@@ -84,7 +84,7 @@ const Desktop: React.FC<{
 
     return (
         <Box className={clsx(className)}>
-            <DataTable data={items} columns={columns} getRowId={(row) => row.hash} rowHeight={50} />
+            <DataTable data={items} columns={columns} getRowId={(row) => row.hash} />
         </Box>
     );
 };

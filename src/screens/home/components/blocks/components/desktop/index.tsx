@@ -66,7 +66,7 @@ const Desktop = ({ className, items }: { className?: string; items: ItemType[] }
 
     return (
         <Box className={clsx(className)}>
-            <DataTable data={items} columns={columns} getRowId={(row) => row.height} rowHeight={50} />
+            <DataTable data={items} columns={columns} getRowId={(row) => row.height} />
         </Box>
     );
 };

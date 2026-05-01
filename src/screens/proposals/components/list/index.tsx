@@ -79,9 +79,6 @@ const ProposalsList: React.FC<{
                         textAlign: 'left'
                     }
                 },
-                '& [data-datatable-row="true"]': {
-                    height: 'auto'
-                },
                 '& .singleProposal': {
                     width: '100%'
                 }
@@ -93,7 +90,6 @@ const ProposalsList: React.FC<{
                 columns={columns}
                 getRowId={(row) => row.id}
                 hideHeader
-                rowHeight={120}
                 hasMore={hasNextPage}
                 isFetchingMore={isFetchingMore}
                 onReachEnd={handleReachEnd}

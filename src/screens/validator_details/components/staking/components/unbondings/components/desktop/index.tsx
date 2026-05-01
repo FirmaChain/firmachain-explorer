@@ -37,7 +37,7 @@ const Desktop = ({ className, items }: { className?: string; items: ItemType[] }
         }
     ];
 
-    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => row.address.address} rowHeight={50} />;
+    return <DataTable className={clsx(className)} data={items} columns={columns} getRowId={(row) => row.address.address} />;
 };
 
 export default Desktop;

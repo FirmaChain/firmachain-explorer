@@ -97,7 +97,6 @@ const Mobile: React.FC<TransactionsListState> = ({
                 getRowId={(row) => row.hash}
                 height="100%"
                 hideHeader
-                rowHeight={ROW_HEIGHT}
                 hasMore={hasNextPage}
                 isFetchingMore={isNextPageLoading}
                 onReachEnd={handleReachEnd}

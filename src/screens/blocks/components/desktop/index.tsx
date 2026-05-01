@@ -124,8 +124,6 @@ const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMore
                     columns={columns}
                     getRowId={(row) => row.height}
                     height="100%"
-                    rowHeight={DEFAULT_ROW_HEIGHT}
-                    virtualization={{ enabled: true }}
                     hasMore={hasMore}
                     isFetchingMore={isNextPageLoading}
                     onReachEnd={handleReachEnd}

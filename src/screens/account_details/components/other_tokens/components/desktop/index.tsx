@@ -1,5 +1,4 @@
 import React from 'react';
-import { DataTable, type DataTableColumn } from '@/components/DataTable';
 import { OtherTokenType } from '@/screens/account_details/types';
 import { ibcConfig, tokenConfig } from '@configs';
 import { Box } from '@mui/material';
@@ -7,6 +6,8 @@ import { formatNumber } from '@utils/format_token';
 import Big from 'big.js';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+
+import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
 const Desktop: React.FC<{
     className?: string;
@@ -66,7 +67,7 @@ const Desktop: React.FC<{
 
     return (
         <Box className={clsx(className)} sx={{ width: '100%' }}>
-            <DataTable data={items} columns={columns} getRowId={(row) => row.denom} rowHeight={50} />
+            <DataTable data={items} columns={columns} getRowId={(row) => row.denom} />
         </Box>
     );
 };

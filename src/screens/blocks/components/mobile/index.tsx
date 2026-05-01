@@ -67,7 +67,6 @@ const Mobile: React.FC<MobileProps> = ({ className, items, itemCount, loadMoreIt
                 getRowId={(row) => row.height}
                 height="100%"
                 hideHeader
-                rowHeight={ROW_HEIGHT}
                 hasMore={hasMore}
                 isFetchingMore={isNextPageLoading}
                 onReachEnd={handleReachEnd}
