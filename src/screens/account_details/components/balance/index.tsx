@@ -10,7 +10,7 @@ import numeral from 'numeral';
 import * as R from 'ramda';
 import { useTranslation } from 'react-i18next';
 
-import ResponsivePieChart from '@/components/pieGraph/responsivePieChart';
+import PieChart from '@/components/pieGraph';
 
 import { formatBalanceData } from './utils';
 
@@ -48,12 +48,12 @@ const Balance = (props: Props) => {
     const formatData = formattedChartData.map((x, i) => ({
         ...x,
         value: numeral(x.value).value(),
-        background: backgrounds[i]
+        background: backgrounds[i],
+        name: i
     }));
 
     const notEmpty = formatData.some((x) => Big(x.value).gt(0));
 
-    // const dataCount = formatData.filter((x) => Big(x.value).gt(0)).length;
     const data = notEmpty ? formatData : [...formatData, empty];
     const totalAmount = `$${numeral(
         Big(market.price || 0)
@@ -122,8 +122,7 @@ const Balance = (props: Props) => {
             <Typography variant="h2">{t('balance')}</Typography>
             <div className="chartWrapper">
                 <div className="chart">
-                    <ResponsivePieChart data={data} innerRadius="90%" outerRadius="100%" cornerRadius={40} paddingAngle={10} />
-                    {/* <PieChart data={data} innerRadius="90%" outerRadius="100%" cornerRadius={40} paddingAngle={10} /> */}
+                    <PieChart data={data} innerRadius="90%" outerRadius="100%" cornerRadius={40} paddingAngle={10} />
                 </div>
                 <div className="legends">
                     {data.map((x) => {

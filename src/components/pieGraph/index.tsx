@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 export type PieDatum = {
@@ -13,7 +14,7 @@ export type PieGraphType = 'circle' | 'semi-circle';
 
 export type RadiusValue = number | `${number}%`;
 
-export type SvgPieChartProps = {
+export type PieChartProps = {
     data: PieDatum[];
     size?: number;
     type?: PieGraphType;
@@ -22,6 +23,23 @@ export type SvgPieChartProps = {
     cornerRadius?: number;
     paddingAngle?: number;
 };
+
+const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const SvgBox = styled.div<{
+    $width: number;
+    $height: number;
+}>`
+    width: ${({ $width }) => `${$width}px`};
+    height: ${({ $height }) => `${$height}px`};
+    flex: 0 0 auto;
+`;
 
 const Svg = styled.svg`
     display: block;
@@ -37,6 +55,46 @@ const Path = styled.path`
         opacity: 0.85;
     }
 `;
+
+const useElementSize = () => {
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [elementSize, setElementSize] = useState({ width: 0, height: 0 });
+
+    useLayoutEffect(() => {
+        const element = ref.current;
+
+        if (!element) return;
+
+        const updateSize = () => {
+            const rect = element.getBoundingClientRect();
+
+            setElementSize((prev) => {
+                if (prev.width === rect.width && prev.height === rect.height) {
+                    return prev;
+                }
+
+                return {
+                    width: rect.width,
+                    height: rect.height
+                };
+            });
+        };
+
+        updateSize();
+
+        const observer = new ResizeObserver(updateSize);
+
+        observer.observe(element);
+
+        return () => observer.disconnect();
+    }, []);
+
+    return {
+        ref,
+        width: elementSize.width,
+        height: elementSize.height
+    };
+};
 
 const polarToCartesian = (cx: number, cy: number, radius: number, angleInDegrees: number) => {
     const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180;
@@ -78,18 +136,18 @@ const createArcPath = ({
     return [`M ${start.x} ${start.y}`, `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`].join(' ');
 };
 
-const PieChart = ({
+const PieChartSvg = ({
     data,
-    size = 250,
-    type = 'circle',
-    innerRadius = 0,
-    outerRadius = '100%',
-    cornerRadius = 0,
-    paddingAngle = 0
-}: SvgPieChartProps) => {
-    const total = data.reduce((acc, item) => {
-        return acc + Math.max(item.value, 0);
-    }, 0);
+    size,
+    type,
+    innerRadius,
+    outerRadius,
+    cornerRadius,
+    paddingAngle
+}: Omit<PieChartProps, 'size'> & {
+    size: number;
+}) => {
+    const total = data.reduce((acc, item) => acc + Math.max(item.value, 0), 0);
 
     if (total <= 0) {
         return null;
@@ -105,11 +163,8 @@ const PieChart = ({
 
     const maxRadius = size / 2;
 
-    const resolvedOuterRadius = resolveRadius(outerRadius, maxRadius);
-    const resolvedInnerRadius = resolveRadius(innerRadius, maxRadius);
-
-    const safeOuterRadius = Math.min(Math.max(resolvedOuterRadius, 0), maxRadius);
-    const safeInnerRadius = Math.min(Math.max(resolvedInnerRadius, 0), safeOuterRadius);
+    const safeOuterRadius = Math.min(Math.max(resolveRadius(outerRadius ?? '100%', maxRadius), 0), maxRadius);
+    const safeInnerRadius = Math.min(Math.max(resolveRadius(innerRadius ?? 0, maxRadius), 0), safeOuterRadius);
 
     const strokeWidth = safeOuterRadius - safeInnerRadius;
     const radius = safeInnerRadius + strokeWidth / 2;
@@ -119,20 +174,19 @@ const PieChart = ({
 
     const visibleData = data.filter((item) => item.value > 0);
     const gapCount = visibleData.length > 1 ? visibleData.length : 0;
-    const totalPaddingAngle = gapCount * paddingAngle;
-    const availableAngle = Math.max(totalAngle - totalPaddingAngle, 0);
+    const availableAngle = Math.max(totalAngle - gapCount * (paddingAngle ?? 0), 0);
 
     let currentAngle = startBaseAngle;
 
     return (
-        <Svg width="100%" height="100%" viewBox={`0 0 ${width} ${height}`} role="img">
+        <Svg viewBox={`0 0 ${width} ${height}`} role="img">
             {visibleData.map((item) => {
                 const angle = (item.value / total) * availableAngle;
 
                 const startAngle = currentAngle;
                 const endAngle = currentAngle + angle;
 
-                currentAngle = endAngle + (visibleData.length > 1 ? paddingAngle : 0);
+                currentAngle = endAngle + (visibleData.length > 1 ? (paddingAngle ?? 0) : 0);
 
                 if (angle <= 0) {
                     return null;
@@ -151,11 +205,52 @@ const PieChart = ({
                         fill="none"
                         stroke={item.background ?? item.color}
                         strokeWidth={strokeWidth}
-                        strokeLinecap={cornerRadius > 0 ? 'round' : 'butt'}
+                        strokeLinecap={(cornerRadius ?? 0) > 0 ? 'round' : 'butt'}
                     />
                 );
             })}
         </Svg>
+    );
+};
+
+const PieChart = ({
+    data,
+    size,
+    type = 'circle',
+    innerRadius = 0,
+    outerRadius = '100%',
+    cornerRadius = 0,
+    paddingAngle = 0
+}: PieChartProps) => {
+    const { ref, width, height } = useElementSize();
+
+    const isSemiCircle = type === 'semi-circle';
+
+    const responsiveSize = isSemiCircle ? Math.min(width, height * 2) : Math.min(width, height);
+
+    const chartSize = size ?? responsiveSize;
+
+    if (chartSize <= 0) {
+        return <Wrapper ref={ref} />;
+    }
+
+    const chartWidth = chartSize;
+    const chartHeight = isSemiCircle ? chartSize / 2 : chartSize;
+
+    return (
+        <Wrapper ref={ref}>
+            <SvgBox $width={chartWidth} $height={chartHeight}>
+                <PieChartSvg
+                    data={data}
+                    size={chartSize}
+                    type={type}
+                    innerRadius={innerRadius}
+                    outerRadius={outerRadius}
+                    cornerRadius={cornerRadius}
+                    paddingAngle={paddingAngle}
+                />
+            </SvgBox>
+        </Wrapper>
     );
 };
 
