@@ -1,4 +1,3 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
@@ -6,10 +5,9 @@ import { TRANSACTIONS } from '@utils/go_to_page';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 import { useTransactions } from './hooks';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
 
 const Transactions = ({ className }: { className?: string }) => {
     const { isDesktop } = useScreenSize();

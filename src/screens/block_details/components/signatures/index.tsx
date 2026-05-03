@@ -1,12 +1,11 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Typography } from '@mui/material';
 import { useProfilesRecoil } from '@zustand/profiles';
 import { useTranslation } from 'react-i18next';
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 
 interface Props extends ComponentDefault {
     signatures: string[];

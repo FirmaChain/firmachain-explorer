@@ -1,14 +1,12 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { useProfilesRecoil } from '@zustand/profiles';
 
 import { Paginate, Tabs } from './components';
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 import { useVotes } from './hooks';
 import { filterDataByTab } from './utils';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
 
 const Votes = (props: ComponentDefault) => {
     const { isDesktop } = useScreenSize();

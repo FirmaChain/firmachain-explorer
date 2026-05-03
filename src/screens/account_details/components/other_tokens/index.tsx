@@ -1,4 +1,3 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { Box as MuiBox, Typography } from '@mui/material';
@@ -6,9 +5,8 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { OtherTokenType } from '../../types';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 
 interface Props {
     className?: string;

@@ -1,12 +1,10 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, TabPanel } from '@components';
 
 import { Tabs } from './components';
+import Delegations from './components/delegations';
+import Redelgations from './components/redelegations';
+import Unbondings from './components/unbondings';
 import { useStaking } from './hooks';
-
-const Delegations = dynamic(() => import('./components/delegations'));
-const Redelgations = dynamic(() => import('./components/redelegations'));
-const Unbondings = dynamic(() => import('./components/unbondings'));
 
 const Staking = (props: ComponentDefault) => {
     const { state, handleTabChange } = useStaking();

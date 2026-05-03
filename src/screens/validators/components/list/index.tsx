@@ -1,14 +1,12 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, LoadAndExist, NoData } from '@components';
 import { Box as MuiBox } from '@mui/material';
 import { useProfilesRecoil } from '@zustand/profiles';
 import clsx from 'clsx';
 
 import { Tabs } from './components';
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 import { useValidators } from './hooks';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
 
 interface Props {
     className?: string;

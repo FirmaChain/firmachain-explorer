@@ -1,4 +1,3 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Loading, NoData, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { Box } from '@mui/material';
@@ -7,9 +6,8 @@ import clsx from 'clsx';
 import * as R from 'ramda';
 
 import { RedelegationsType } from '../../types';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 
 interface Props extends ComponentDefault {
     redelegations: RedelegationsType;

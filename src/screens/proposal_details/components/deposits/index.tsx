@@ -1,4 +1,3 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box } from '@components';
 import { usePagination } from '@hooks';
 import { Typography } from '@mui/material';
@@ -6,10 +5,9 @@ import { useProfilesRecoil } from '@zustand/profiles';
 import { useTranslation } from 'react-i18next';
 
 import { Paginate } from './components';
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 import { useDeposits } from './hooks';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
 
 const Deposits = ({ className }: ComponentDefault) => {
     const { t } = useTranslation('proposals');

@@ -1,4 +1,3 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Divider, Typography } from '@mui/material';
@@ -7,10 +6,9 @@ import { useProfilesRecoil } from '@zustand/profiles';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 import { useBlocks } from './hooks';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
 
 const Blocks = ({ className }: { className?: string }) => {
     const { isDesktop } = useScreenSize();

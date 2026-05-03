@@ -1,12 +1,11 @@
-import dynamic from '@/adapters/routing/dynamic';
 import CloseIcon from '@assets/icon-close.svg?react';
 import { Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 
 interface Props {
     handleClose: () => void;

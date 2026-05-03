@@ -1,12 +1,10 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { NoData } from '@components';
 import { useScreenSize } from '@hooks';
 import { Box } from '@mui/material';
 
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 import { TransactionsListState } from './types';
-
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
 
 const TransactionsList = (props: TransactionsListState) => {
     const { isDesktop } = useScreenSize();

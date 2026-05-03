@@ -1,11 +1,10 @@
-import dynamic from '@/adapters/routing/dynamic';
 import { Box, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
 import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const Desktop = dynamic(() => import('./components/desktop'));
-const Mobile = dynamic(() => import('./components/mobile'));
+import Desktop from './components/desktop';
+import Mobile from './components/mobile';
 
 const Connections = ({ data }: { data: ProfileConnectionType[] }) => {
     const { isDesktop } = useScreenSize();
