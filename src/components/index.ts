@@ -4,7 +4,6 @@ import AvatarNameListMsg from './avatar_name_list_msg';
 import Box from './box';
 import BoxDetails from './box_details';
 import ConditionExplanation from './condition_explanation';
-import CustomToolTip from './custom_tool_tip';
 import DesmosProfile from './desmos_profile';
 import Footer from './footer';
 import InfoPopover from './info_popover';
@@ -52,7 +51,6 @@ export {
     SingleProposal,
     TabPanel,
     NoData,
-    CustomToolTip,
     NotFound,
     LinearLoading,
     Name,

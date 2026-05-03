@@ -6,7 +6,8 @@ import Big from 'big.js';
 import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
-import { Cell, Pie, PieChart } from 'recharts';
+
+import PieChart from '@/components/pieGraph';
 
 import { QuorumExplanation } from './components';
 import { useVotesGraph } from './hooks';
@@ -45,7 +46,8 @@ const VotesGraph: React.FC<ComponentDefault> = (props) => {
                 '& .pie': {
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    padding: '30px'
                 },
                 '& .legend': {
                     display: 'grid',
@@ -90,13 +92,7 @@ const VotesGraph: React.FC<ComponentDefault> = (props) => {
             })}
         >
             <div className="pie">
-                <PieChart width={250} height={250}>
-                    <Pie cx="50%" cy="50%" stroke="none" dataKey="value" data={formattedData} fill="#8884d8" isAnimationActive={false}>
-                        {formattedData.map((entry, index) => {
-                            return <Cell key={`cell-${index}`} fill={entry.color} stroke={entry.color} />;
-                        })}
-                    </Pie>
-                </PieChart>
+                <PieChart data={formattedData} size={192} />
             </div>
             <div className="legend">
                 <div className="total">

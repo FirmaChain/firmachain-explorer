@@ -1,23 +1,12 @@
 import React from 'react';
 import { Box } from '@components';
 
-import { OnlineVotingPower, TokenPrice } from './components';
-import { useHero } from './hooks';
+import { OnlineVotingPower } from './components';
 
 const Hero: React.FC<ComponentDefault> = (props) => {
-    const { state } = useHero();
-    let component = null;
-    if (!state.loading) {
-        if (state.tokenPriceHistory.length) {
-            component = <TokenPrice items={state.tokenPriceHistory} />;
-        } else {
-            component = <OnlineVotingPower />;
-        }
-    }
-
     return (
         <Box className={props.className} sx={{ height: '100%' }}>
-            {component}
+            <OnlineVotingPower />
         </Box>
     );
 };

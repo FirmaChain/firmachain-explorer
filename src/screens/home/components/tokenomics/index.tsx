@@ -1,12 +1,13 @@
 import React from 'react';
-import { Box, CustomToolTip } from '@components';
+import { Box } from '@components';
 import { chainConfig } from '@configs';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import clsx from 'clsx';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
-import { Cell, Pie, PieChart, Tooltip } from 'recharts';
+
+import PieChart from '@/components/pieGraph';
 
 import { useTokenomics } from './hooks';
 
@@ -19,27 +20,22 @@ const Tokenomics: React.FC<{
 
     const data = [
         {
-            legendKey: 'bonded',
-            percentKey: 'bondedPercent',
-            value: numeral(state.bonded).format('0,0'),
-            rawValue: state.bonded,
+            name: 'bonded',
+            value: state.bonded,
             percent: `${numeral((state.bonded * 100) / state.total).format('0.00')}%`,
-            fill: theme.palette.custom.tokenomics.one
+            color: theme.palette.custom.tokenomics.one
         },
         {
-            legendKey: 'unbonded',
-            percentKey: 'unbondedPercent',
-            value: numeral(state.unbonded).format('0,0'),
-            rawValue: state.unbonded,
+            name: 'unbonded',
+            value: state.unbonded,
             percent: `${numeral((state.unbonded * 100) / state.total).format('0.00')}%`,
-            fill: theme.palette.custom.tokenomics.two
+            color: theme.palette.custom.tokenomics.two
         },
         {
-            legendKey: 'unbonding',
-            value: numeral(state.unbonding).format('0,0'),
-            rawValue: state.unbonding,
+            name: 'unbonding',
+            value: state.unbonding,
             percent: `${numeral((state.unbonding * 100) / state.total).format('0.00')}%`,
-            fill: theme.palette.custom.tokenomics.three
+            color: theme.palette.custom.tokenomics.three
         }
     ];
 
@@ -113,63 +109,27 @@ const Tokenomics: React.FC<{
             </Typography>
             <div className="data">
                 {data.slice(0, 2).map((x) => (
-                    <div className="data__item" key={x.percentKey}>
+                    <div className="data__item" key={x.name}>
                         <Typography variant="h4">
-                            {x.value} {chainConfig.tokenUnits[state.denom]?.display?.toUpperCase()}
+                            {numeral(x.value).format('0,0')} {chainConfig.tokenUnits[state.denom]?.display?.toUpperCase()}
                         </Typography>
-                        <Typography variant="caption">
-                            {t(x.percentKey, {
-                                percent: x.percent
-                            })}
+                        <Typography variant="caption" component="p">
+                            {t(x.name)}
+                        </Typography>
+                        <Typography variant="caption" component="p">
+                            {x.percent}
                         </Typography>
                     </div>
                 ))}
             </div>
             <div className="content">
-                <PieChart width={200} height={100} cy={100}>
-                    <Pie
-                        stroke="none"
-                        // cornerRadius={40}
-                        cy={90}
-                        data={data}
-                        startAngle={180}
-                        endAngle={0}
-                        // innerRadius={79}
-                        outerRadius={90}
-                        fill="#8884d8"
-                        // paddingAngle={-10}
-                        dataKey="rawValue"
-                        // stroke={theme.palette.background.paper}
-                        // strokeWidth={3}
-                        isAnimationActive={false}
-                    >
-                        {data.map((entry) => {
-                            return <Cell key={entry.legendKey} fill={entry.fill} />;
-                        })}
-                    </Pie>
-                    <Tooltip
-                        content={
-                            <CustomToolTip>
-                                {(x) => {
-                                    return (
-                                        <>
-                                            <Typography variant="caption">{t(x.legendKey)}</Typography>
-                                            <Typography variant="body1">
-                                                {x.value} ({x.percent})
-                                            </Typography>
-                                        </>
-                                    );
-                                }}
-                            </CustomToolTip>
-                        }
-                    />
-                </PieChart>
+                <PieChart data={data} type="semi-circle" size={200} />
 
                 <div className="legends">
                     {data.map((x) => {
                         return (
-                            <div className="legends__item" key={x.legendKey}>
-                                <Typography variant="caption">{t(x.legendKey)}</Typography>
+                            <div className="legends__item" key={x.name}>
+                                <Typography variant="caption">{t(x.name)}</Typography>
                             </div>
                         );
                     })}

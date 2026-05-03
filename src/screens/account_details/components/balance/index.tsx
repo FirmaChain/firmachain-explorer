@@ -10,7 +10,8 @@ import clsx from 'clsx';
 import numeral from 'numeral';
 import * as R from 'ramda';
 import { useTranslation } from 'react-i18next';
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+
+import ResponsivePieChart from '@/components/pieGraph/responsivePieChart';
 
 import { formatBalanceData } from './utils';
 
@@ -51,7 +52,7 @@ const Balance: React.FC<{
 
     const notEmpty = formatData.some((x) => Big(x.value).gt(0));
 
-    const dataCount = formatData.filter((x) => Big(x.value).gt(0)).length;
+    // const dataCount = formatData.filter((x) => Big(x.value).gt(0)).length;
     const data = notEmpty ? formatData : [...formatData, empty];
     const totalAmount = `$${numeral(
         Big(market.price || 0)
@@ -120,25 +121,8 @@ const Balance: React.FC<{
             <Typography variant="h2">{t('balance')}</Typography>
             <div className="chartWrapper">
                 <div className="chart">
-                    <ResponsiveContainer width="99%">
-                        <PieChart>
-                            <Pie
-                                dataKey="value"
-                                data={data}
-                                isAnimationActive={false}
-                                innerRadius="90%"
-                                outerRadius="100%"
-                                cornerRadius={40}
-                                paddingAngle={dataCount > 1 ? 5 : 0}
-                                fill="#82ca9d"
-                                stroke="none"
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.background} stroke={entry.background} />
-                                ))}
-                            </Pie>
-                        </PieChart>
-                    </ResponsiveContainer>
+                    <ResponsivePieChart data={data} innerRadius="90%" outerRadius="100%" cornerRadius={40} paddingAngle={10} />
+                    {/* <PieChart data={data} innerRadius="90%" outerRadius="100%" cornerRadius={40} paddingAngle={10} /> */}
                 </div>
                 <div className="legends">
                     {data.map((x) => {
