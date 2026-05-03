@@ -1,18 +1,20 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 import { TablePagination } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { Actions } from './components';
 
-const Pagination: React.FC<{
+interface Props {
     className?: string;
     total: number;
     rowsPerPage: number;
     rowsPerPageOptions?: number[];
     page: number;
-    handleChangePage: (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => void;
+    handleChangePage: (_event: MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
     handleChangeRowsPerPage: (selectedRowsPerPage: number) => void;
-}> = ({ className, total, rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, rowsPerPageOptions }) => {
+}
+
+const Pagination = ({ className, total, rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, rowsPerPageOptions }: Props) => {
     const { t } = useTranslation('common');
 
     // hides pagination if the total items is less than

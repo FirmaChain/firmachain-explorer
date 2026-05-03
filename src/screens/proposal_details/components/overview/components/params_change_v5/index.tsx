@@ -1,17 +1,18 @@
-import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { extractModuleName, safeToString } from './utlities';
 
-const ParamsChangeV5: React.FC<{
+interface Props {
     className?: string;
     content: {
         '@type': string;
         authority: string;
         params: Record<string, any>;
     };
-}> = ({ content }) => {
+}
+
+const ParamsChangeV5 = ({ content }: Props) => {
     const { t } = useTranslation('proposals');
 
     const moduleName = extractModuleName(content['@type']);

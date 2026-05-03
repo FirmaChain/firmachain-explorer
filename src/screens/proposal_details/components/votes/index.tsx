@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
@@ -11,7 +10,7 @@ import { filterDataByTab } from './utils';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Votes: React.FC<ComponentDefault> = (props) => {
+const Votes = (props: ComponentDefault) => {
     const { isDesktop } = useScreenSize();
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems, resetPagination } = usePagination({});
     const { state, handleTabChange } = useVotes(resetPagination);

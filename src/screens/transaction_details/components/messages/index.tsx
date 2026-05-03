@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 import { Box, TransactionMessagesFilter } from '@components';
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
 import clsx from 'clsx';
@@ -9,19 +9,19 @@ import { getMessageByType } from '@/components/msg/utils';
 
 type MessageItem = {
     id: string;
-    type: React.ReactNode;
-    message: React.ReactNode;
+    type: ReactNode;
+    message: ReactNode;
 };
 
 type MessagesProps = {
     className?: string;
     messages: any[];
     viewRaw: boolean;
-    toggleMessageDisplay: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    toggleMessageDisplay: (event: ChangeEvent<HTMLInputElement>) => void;
     onMessageFilterCallback: (value: string) => void;
 };
 
-const Messages: React.FC<MessagesProps> = ({ className, ...props }) => {
+const Messages = ({ className, ...props }: MessagesProps) => {
     const { t } = useTranslation('transactions');
     const hasMessages = props.messages.length > 0;
     const formattedItems: MessageItem[] = props.messages.map((x, index) => ({

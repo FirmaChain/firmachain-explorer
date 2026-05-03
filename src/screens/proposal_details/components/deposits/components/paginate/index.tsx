@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 import { Pagination } from '@components';
 import { Box } from '@mui/material';
 
@@ -6,7 +6,7 @@ type Props = {
     total: number;
     page: number;
     rowsPerPage: number;
-    handleChangePage: (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, selectedRowsPerPage: number) => void;
+    handleChangePage: (_event: MouseEvent<HTMLButtonElement> | null, selectedRowsPerPage: number) => void;
     handleChangeRowsPerPage: (rowsPerPage: number) => void;
 };
 

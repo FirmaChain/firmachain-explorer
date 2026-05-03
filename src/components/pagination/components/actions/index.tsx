@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 import NextFastIcon from '@assets/icon-next-fast.svg?react';
 import NextIcon from '@assets/icon-next.svg?react';
 import { Box, FormControl, IconButton, InputBase, MenuItem, Select, Typography } from '@mui/material';
@@ -9,22 +9,20 @@ import { useTablePaginationActions } from './hooks';
 const ACTION_BUTTON_SIZE = '30px';
 const MENU_ITEM_BG = 'rgba(255, 255, 255, 0.16)';
 
-/**
- * custom pagination buttons
- * @param props
- */
-const Actions: React.FC<{
+interface Props {
     className?: string;
     backIconButtonProps?: any;
     count: number;
     nextIconButtonProps?: any;
-    onPageChange: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
+    onPageChange: (event: MouseEvent<HTMLButtonElement> | null, page: number) => void;
     handleChangeRowsPerPage: (selectedRowsPerPage: number) => void;
     page: number;
     rowsPerPage: number;
     pageNeighbors?: 1 | 2;
     rowsPerPageOptions?: number[];
-}> = (props) => {
+}
+
+const Actions = (props: Props) => {
     const { count, page, rowsPerPage, onPageChange, className, rowsPerPageOptions } = props;
 
     const { handleFirstPage, handleNextPage, handlePreviousPage, handleLastPage, availablePages, handleRowOptionChange } =

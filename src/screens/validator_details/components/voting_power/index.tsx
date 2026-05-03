@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
@@ -10,11 +9,13 @@ import { Link } from 'react-router';
 
 import { VotingPowerType } from '../../types';
 
-const VotingPower: React.FC<{
+interface Props {
     className?: string;
     data: VotingPowerType;
     status: number;
-}> = ({ className, data, status }) => {
+}
+
+const VotingPower = ({ className, data, status }: Props) => {
     const { t } = useTranslation('validators');
     const votingPowerPercent = status === 3 ? numeral((data.self / 10 ** 6 / numeral(data.overall.value).value()) * 100) : numeral(0);
     const percentage = votingPowerPercent.format(0, Math.floor);

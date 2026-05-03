@@ -1,7 +1,7 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { LinearLoading, NotFound } from '@components';
 
-const LoadAndExist = (props: { loading: boolean; exists: boolean; children: React.ReactNode }) => {
+const LoadAndExist = (props: { loading: boolean; exists: boolean; children: ReactNode }) => {
     const { loading, exists, children } = props;
 
     if (loading) {

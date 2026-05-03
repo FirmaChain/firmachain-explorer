@@ -1,4 +1,3 @@
-import React from 'react';
 import { AvatarName } from '@components';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +8,7 @@ type DesktopProps = {
     signatures: AvatarName[];
 };
 
-const Desktop: React.FC<DesktopProps> = ({ className, signatures }) => {
+const Desktop = ({ className, signatures }: DesktopProps) => {
     const { t } = useTranslation('blocks');
 
     const columns: DataTableColumn<AvatarName>[] = [

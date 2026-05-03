@@ -1,4 +1,3 @@
-import React from 'react';
 import CopyIcon from '@assets/icon-copy.svg?react';
 import { Box, ConditionExplanation, InfoPopover, Tag } from '@components';
 import { useScreenSize } from '@hooks';
@@ -16,12 +15,12 @@ import { OverviewType, StatusType } from '../../types';
 import { useAddress } from './hooks';
 import { getCondition } from './utils';
 
-const ValidatorOverview: React.FC<
-    {
-        status: StatusType;
-        overview: OverviewType;
-    } & ComponentDefault
-> = ({ status, overview, className }) => {
+interface Props extends ComponentDefault {
+    status: StatusType;
+    overview: OverviewType;
+}
+
+const ValidatorOverview = ({ status, overview, className }: Props) => {
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('validators');
     const { handleCopyToClipboard } = useAddress(t);

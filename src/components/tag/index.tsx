@@ -1,12 +1,13 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
-const Tag: React.FC<{
+interface Props {
     className?: string;
     value: string;
     theme?: TagTheme;
-}> = ({ className, value, theme }) => {
+}
+
+const Tag = ({ className, value, theme }: Props) => {
     const tagTheme = theme || 'zero';
 
     return (

@@ -1,4 +1,3 @@
-import React from 'react';
 import { locales } from '@/i18n';
 import CloseIcon from '@assets/icon-close.svg?react';
 import SettingIcon from '@assets/icon-setting.svg?react';
@@ -10,9 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useSettingList } from './hooks';
 
-const Settings: React.FC<{
-    className?: string;
-}> = (props) => {
+const Settings = ({ className }: { className?: string }) => {
     const { t, i18n } = useTranslation('common');
     const lang = i18n.language;
     const { open, handleOpen, state, handleChange, handleFormSubmit, handleCancel } = useSettingList({ lang });
@@ -22,7 +19,7 @@ const Settings: React.FC<{
             <Box
                 onClick={handleOpen}
                 role="button"
-                className={clsx(props.className)}
+                className={clsx(className)}
                 sx={(theme) => ({
                     display: 'flex',
                     alignItems: 'center',

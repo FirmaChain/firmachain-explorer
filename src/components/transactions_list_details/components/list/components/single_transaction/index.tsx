@@ -1,17 +1,19 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-const SingleTransaction: React.FC<{
+interface Props {
     className?: string;
-    block: React.ReactNode;
-    hash: React.ReactNode;
+    block: ReactNode;
+    hash: ReactNode;
     time: string;
     messageCount: string;
     messages: any[];
-    result?: React.ReactNode;
-}> = ({ className, block, hash, time, messages, result, messageCount }) => {
+    result?: ReactNode;
+}
+
+const SingleTransaction = ({ className, block, hash, time, messages, result, messageCount }: Props) => {
     const { t } = useTranslation('transactions');
 
     return (

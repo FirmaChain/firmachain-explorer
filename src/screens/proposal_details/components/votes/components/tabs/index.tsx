@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
 import clsx from 'clsx';
@@ -8,7 +7,7 @@ import { tabsHeaderSx } from '@/styles/ui';
 
 import { tabLabels } from './utils';
 
-const TabsHeader: React.FC<{
+interface Props {
     className?: string;
     tab: number;
     handleTabChange: (_event: any, newValue: number) => void;
@@ -19,7 +18,9 @@ const TabsHeader: React.FC<{
         veto: number;
         notVoted: number;
     };
-}> = ({ className, tab, handleTabChange, data }) => {
+}
+
+const TabsHeader = ({ className, tab, handleTabChange, data }: Props) => {
     const { t } = useTranslation('proposals');
 
     return (

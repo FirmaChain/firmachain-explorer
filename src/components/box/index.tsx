@@ -1,12 +1,14 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box as MuiBox } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
 
-const Box: React.FC<{
+interface Props {
     className?: string;
-    children: React.ReactNode;
+    children: ReactNode;
     sx?: SxProps<Theme>;
-}> = ({ className, children, sx }) => {
+}
+
+const Box = ({ className, children, sx }: Props) => {
     return (
         <MuiBox
             className={className}

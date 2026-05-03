@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { chainConfig } from '@/configs';
 import { Box, Divider, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -8,19 +8,16 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-const Mobile: React.FC<{
-    className?: string;
-    items?: ProfileConnectionType[];
-}> = ({ className, items }) => {
+const Mobile = ({ className, items }: { className?: string; items?: ProfileConnectionType[] }) => {
     const dateFormat = useSettingsStore(readDate);
     const { t } = useTranslation('accounts');
 
     return (
         <Box className={clsx(className)}>
-            {items.map((x, i) => {
+            {items?.map((x, i, arr) => {
                 const checkIdentifier = new RegExp(`^(${chainConfig.prefix.account})`).test(x.identifier);
                 return (
-                    <React.Fragment key={`votes-mobile-${i}`}>
+                    <Fragment key={`votes-mobile-${i}`}>
                         <Box sx={{ my: 2 }}>
                             <Box
                                 sx={(theme) => ({
@@ -99,8 +96,8 @@ const Mobile: React.FC<{
                                 </Typography>
                             </Box>
                         </Box>
-                        {i !== items.length - 1 && <Divider />}
-                    </React.Fragment>
+                        {i !== arr.length - 1 && <Divider />}
+                    </Fragment>
                 );
             })}
         </Box>

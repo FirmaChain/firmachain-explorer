@@ -1,9 +1,11 @@
+import { MouseEvent } from 'react';
+
 export const useTablePaginationActions = (props: {
     className?: string;
     backIconButtonProps?: any;
     count: number;
     nextIconButtonProps?: any;
-    onPageChange: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
+    onPageChange: (event: MouseEvent<HTMLButtonElement> | null, page: number) => void;
     handleChangeRowsPerPage: (selectedRowsPerPage: number) => void;
     page: number;
     rowsPerPage: number;

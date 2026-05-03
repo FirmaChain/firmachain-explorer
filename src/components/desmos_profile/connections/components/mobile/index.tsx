@@ -1,22 +1,24 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { readDate, useSettingsStore } from '@zustand/settings';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-const Mobile: React.FC<{
+interface Props {
     className?: string;
     items?: ProfileConnectionType[];
-}> = ({ className, items }) => {
+}
+
+const Mobile = ({ className, items }: Props) => {
     const dateFormat = useSettingsStore(readDate);
     const { t } = useTranslation('accounts');
 
     return (
         <Box className={clsx(className)}>
-            {items.map((x, i) => {
+            {items?.map((x, i) => {
                 return (
-                    <React.Fragment key={`votes-mobile-${i}`}>
+                    <Fragment key={`votes-mobile-${i}`}>
                         <Box sx={{ my: 2 }}>
                             <Box
                                 sx={(theme) => ({
@@ -89,7 +91,7 @@ const Mobile: React.FC<{
                             </Box>
                         </Box>
                         {i !== items.length - 1 && <Divider />}
-                    </React.Fragment>
+                    </Fragment>
                 );
             })}
         </Box>

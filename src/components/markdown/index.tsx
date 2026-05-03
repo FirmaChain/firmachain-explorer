@@ -1,19 +1,8 @@
-import React from 'react';
-import {
-    Typography
-    // Link,
-} from '@mui/material';
+import { Typography } from '@mui/material';
 import DOMPurify from 'dompurify';
 import ReactMarkdown from 'markdown-to-jsx';
 
-// const styles = (theme) => ({
-//   listItem: {
-//     marginTop: theme.spacing(1),
-//   },
-// });
-
 const options = {
-    // disableParsingRawHTML: true,
     forceBlock: true,
     overrides: {
         h1: {
@@ -71,21 +60,11 @@ const options = {
                 variant: 'body1'
             }
         }
-        // li: {
-        //   component: withStyles(styles)(({
-        //     classes, ...props
-        //   }: any) => (
-        //     <li className={classes.listItem}>
-        //       <Typography component="span" {...props} />
-        //     </li>
-        //   )),
-        // },
     }
 };
 
 export default function Markdown(props: { markdown: string }) {
     const clean = DOMPurify.sanitize(props.markdown.replace(/\\n\s?/g, '<br/>'));
-    // clean = clean.replace(/\\n\s?/g, '\n'); // this will also work
 
     return <ReactMarkdown options={options}>{clean}</ReactMarkdown>;
 }

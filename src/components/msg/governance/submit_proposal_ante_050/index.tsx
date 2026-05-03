@@ -1,4 +1,3 @@
-import React from 'react';
 import MsgSubmitProposal from '@/models/msg/governance/msg_submit_proposal';
 import { Name } from '@components';
 import { Typography } from '@mui/material';

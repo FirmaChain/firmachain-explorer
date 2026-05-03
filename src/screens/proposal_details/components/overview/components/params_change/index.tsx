@@ -1,15 +1,16 @@
-import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const ParamsChange: React.FC<{
+interface Props {
     className?: string;
     changes: {
         subspace: string;
         key: string;
         value: string;
     }[];
-}> = ({ changes }) => {
+}
+
+const ParamsChange = ({ changes }: Props) => {
     const { t } = useTranslation('proposals');
     const colWidth = {
         first: '20%',

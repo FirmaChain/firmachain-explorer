@@ -1,4 +1,3 @@
-import React from 'react';
 import { MsgTokenUpdateURI } from '@models';
 import { Typography } from '@mui/material';
 import { Trans } from 'react-i18next';

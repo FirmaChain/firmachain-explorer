@@ -1,14 +1,15 @@
-import React from 'react';
 import { Table, TableBody, TableCell, TableRow } from '@mui/material';
 import numeral from 'numeral';
 import { useTranslation } from 'react-i18next';
 
-const SoftwareUpgrade: React.FC<{
+interface Props {
     className?: string;
     height: string;
     info: string;
     name: string;
-}> = ({ height, info, name }) => {
+}
+
+const SoftwareUpgrade = ({ height, info, name }: Props) => {
     const { t } = useTranslation('proposals');
     return (
         <div

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box } from '@components';
 import { chainConfig } from '@configs';
 import { Typography } from '@mui/material';
@@ -11,9 +10,7 @@ import PieChart from '@/components/pieGraph';
 
 import { useTokenomics } from './hooks';
 
-const Tokenomics: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Tokenomics = ({ className }: { className?: string }) => {
     const { t } = useTranslation('home');
     const theme = useTheme();
     const { state } = useTokenomics();

@@ -1,6 +1,6 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { Loading, Result, SingleTransactionMobile } from '@components';
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@utils/go_to_page';
@@ -14,19 +14,17 @@ import { getMessageByType } from '@/components/msg/utils';
 
 import type { TransactionsListState } from '../../types';
 
-const ROW_HEIGHT = 300;
-
-const Mobile: React.FC<TransactionsListState> = ({
+const Mobile = ({
     className,
     itemCount = 0,
     hasNextPage = false,
     isNextPageLoading = false,
     loadMoreItems,
     transactions = []
-}) => {
+}: TransactionsListState) => {
     const { t } = useTranslation('transactions');
 
-    const handleReachEnd = React.useCallback(() => {
+    const handleReachEnd = useCallback(() => {
         void Promise.resolve(
             loadMoreItems?.({
                 startIndex: transactions.length,

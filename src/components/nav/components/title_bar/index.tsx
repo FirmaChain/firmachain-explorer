@@ -1,4 +1,3 @@
-import React from 'react';
 import { chainConfig } from '@configs';
 import { Box, Typography } from '@mui/material';
 import { readMarket, useMarketStore } from '@zustand/market';
@@ -9,10 +8,12 @@ import { useTranslation } from 'react-i18next';
 
 import { formatMarket } from './utils';
 
-const TitleBar: React.FC<{
+interface Props {
     className?: string;
     title: string;
-}> = ({ className, title }) => {
+}
+
+const TitleBar = ({ className, title }: Props) => {
     const theme = useSettingsStore(readTheme);
     const { t } = useTranslation('common');
     const marketState = useMarketStore(readMarket);

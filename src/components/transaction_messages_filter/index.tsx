@@ -1,4 +1,3 @@
-import React from 'react';
 import FilterIcon from '@assets/icon-filter.svg?react';
 import { Box, InputBase, MenuItem, Select, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -6,10 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useTransactionsFilter } from './hooks';
 import { getFilterLabels } from './utils';
 
-const TransactionMessagesFilter: React.FC<{
-    className?: string;
-    callback: (value: string) => void;
-}> = ({ className, callback }) => {
+const TransactionMessagesFilter = ({ className, callback }: { className?: string; callback: (value: string) => void }) => {
     const filterLabels = getFilterLabels();
     const { t } = useTranslation('transactions');
     const { handleSelect, selectedFilter } = useTransactionsFilter(callback);

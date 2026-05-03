@@ -1,4 +1,3 @@
-import React from 'react';
 import { Name } from '@components';
 import { MsgMultiSend } from '@models';
 import { Box, Typography } from '@mui/material';

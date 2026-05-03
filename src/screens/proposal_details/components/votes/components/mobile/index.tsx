@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { AvatarName } from '@components';
 import { Box, Divider, Typography } from '@mui/material';
 import clsx from 'clsx';
@@ -7,13 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { ItemType } from '../../types';
 import { getVoteKey } from '../../utils';
 
-const Mobile: React.FC<{
+interface Props {
     className?: string;
     items?: ItemType[];
-}> = ({ className, items }) => {
+}
+
+const Mobile = ({ className, items }: Props) => {
     const { t } = useTranslation('proposals');
 
-    const formattedItems = items.map((x) => {
+    const formattedItems = items?.map((x) => {
         return {
             voter: <AvatarName address={x.user.address} imageUrl={x.user.imageUrl} name={x.user.name} />,
             vote: t(getVoteKey(x.vote))
@@ -22,9 +24,9 @@ const Mobile: React.FC<{
 
     return (
         <Box className={clsx(className)}>
-            {formattedItems.map((x, i) => {
+            {formattedItems?.map((x, i, arr) => {
                 return (
-                    <React.Fragment key={`votes-mobile-${i}`}>
+                    <Fragment key={`votes-mobile-${i}`}>
                         <Box sx={{ my: 2 }}>
                             <Box
                                 sx={(theme) => ({
@@ -39,14 +41,6 @@ const Mobile: React.FC<{
                                 </Typography>
                                 {x.voter}
                             </Box>
-                            {/* <div className={classes.item}>
-                <Typography variant="h4" className="label">
-                  {t('votingPower')}
-                </Typography>
-                <Typography variant="body1" className="value">
-                  {x.votingPower}
-                </Typography>
-              </div> */}
                             <Box
                                 sx={(theme) => ({
                                     mb: 2,
@@ -63,8 +57,8 @@ const Mobile: React.FC<{
                                 </Typography>
                             </Box>
                         </Box>
-                        {i !== formattedItems.length - 1 && <Divider />}
-                    </React.Fragment>
+                        {i !== arr.length - 1 && <Divider />}
+                    </Fragment>
                 );
             })}
         </Box>

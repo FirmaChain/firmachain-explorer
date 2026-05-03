@@ -1,12 +1,13 @@
-import React from 'react';
 import { Typography } from '@mui/material';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-const Total: React.FC<{
+interface Props {
     className?: string;
     total: string;
-}> = ({ className, total }) => {
+}
+
+const Total = ({ className, total }: Props) => {
     const { t } = useTranslation('proposals');
     return (
         <Typography variant="body1" className={clsx(className)}>

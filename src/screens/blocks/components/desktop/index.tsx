@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AvatarName, Loading } from '@components';
 import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
@@ -23,10 +23,10 @@ type DesktopProps = {
 };
 
 function useElementSize<T extends HTMLElement>() {
-    const ref = React.useRef<T | null>(null);
-    const [size, setSize] = React.useState({ width: 0, height: 0 });
+    const ref = useRef<T | null>(null);
+    const [size, setSize] = useState({ width: 0, height: 0 });
 
-    React.useEffect(() => {
+    useEffect(() => {
         const element = ref.current;
         if (!element) return;
 
@@ -47,14 +47,12 @@ function useElementSize<T extends HTMLElement>() {
     return { ref, size };
 }
 
-const DEFAULT_ROW_HEIGHT = 50;
-
-const Desktop: React.FC<DesktopProps> = ({ className, items, itemCount, loadMoreItems, isItemLoaded, isNextPageLoading = false }) => {
+const Desktop = ({ className, items, itemCount, loadMoreItems, isItemLoaded, isNextPageLoading = false }: DesktopProps) => {
     const { t } = useTranslation('blocks');
     const { ref, size } = useElementSize<HTMLDivElement>();
     const hasMore = itemCount > items.length;
 
-    const handleReachEnd = React.useCallback(() => {
+    const handleReachEnd = useCallback(() => {
         void Promise.resolve(
             loadMoreItems({
                 startIndex: items.length,

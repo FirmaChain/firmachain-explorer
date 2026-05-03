@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { AvatarName, SingleBlockMobile } from '@components';
 import { Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
@@ -10,15 +10,12 @@ import { Link } from 'react-router';
 
 import { ItemType } from '../../types';
 
-const Mobile: React.FC<{
-    className?: string;
-    items: ItemType[];
-}> = ({ className, items }) => {
+const Mobile = ({ className, items }: { className?: string; items: ItemType[] }) => {
     return (
         <div className={clsx(className)}>
-            {items.map((x, i) => {
+            {items.map((x, i, arr) => {
                 return (
-                    <React.Fragment key={`${x.height}-${i}`}>
+                    <Fragment key={`${x.height}-${i}`}>
                         <SingleBlockMobile
                             height={
                                 <Link to={BLOCK_DETAILS(x.height)}>
@@ -35,8 +32,8 @@ const Mobile: React.FC<{
                                 ending: 10
                             })}
                         />
-                        {i !== items.length - 1 && <Divider />}
-                    </React.Fragment>
+                        {i !== arr.length - 1 && <Divider />}
+                    </Fragment>
                 );
             })}
         </div>

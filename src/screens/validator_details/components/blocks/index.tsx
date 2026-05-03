@@ -1,4 +1,3 @@
-import React from 'react';
 import { AvatarName, Box, Result } from '@components';
 import { Box as MuiBox, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
@@ -9,9 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useBlocks } from './hooks';
 
-const Blocks: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Blocks = ({ className }: { className?: string }) => {
     const { t } = useTranslation('validators');
     const { state } = useBlocks();
     const dataProfiles = useProfilesRecoil(state.map((x) => x.proposer));

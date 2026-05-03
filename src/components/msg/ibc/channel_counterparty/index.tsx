@@ -1,4 +1,3 @@
-import React from 'react';
 import { Name } from '@components';
 import { MsgCounterpartyChannel } from '@models';
 import { Typography } from '@mui/material';

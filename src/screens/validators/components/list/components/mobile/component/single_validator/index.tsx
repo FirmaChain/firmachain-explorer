@@ -1,19 +1,21 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-const SingleValidator: React.FC<{
+interface Props {
     className?: string;
     idx: string;
-    validator: React.ReactNode;
+    validator: ReactNode;
     commission: string;
-    votingPower: React.ReactNode;
+    votingPower: ReactNode;
     status: {
         status: string;
         theme: string;
     };
-}> = ({ className, validator, commission, votingPower, status }) => {
+}
+
+const SingleValidator = ({ className, validator, commission, votingPower, status }: Props) => {
     const { t } = useTranslation('validators');
     return (
         <Box

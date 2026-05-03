@@ -1,14 +1,15 @@
-import React from 'react';
 import SearchIcon from '@assets/icon-search.svg?react';
 import { Box, InputAdornment, InputBase } from '@mui/material';
 
 import { useSearch } from './hooks';
 
-const Search: React.FC<{
+interface Props {
     className?: string;
     placeholder: string;
     callback: (value: string) => void;
-}> = ({ className, placeholder, callback }) => {
+}
+
+const Search = ({ className, placeholder, callback }: Props) => {
     const { handleOnSubmit, handleOnChange, handleKeyDown, value } = useSearch(callback);
     return (
         <Box

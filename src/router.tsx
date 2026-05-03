@@ -1,4 +1,4 @@
-import React from 'react';
+import { ComponentType } from 'react';
 import { Layout } from '@components';
 import NotFound from '@screens/404';
 import AccountDetails from '@screens/account_details';
@@ -17,7 +17,7 @@ import Validators from '@screens/validators';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router';
 
-function RoutedComponent({ Component }: { Component: React.ComponentType<any> }) {
+function RoutedComponent({ Component }: { Component: ComponentType<unknown> }) {
     return <App Component={Component} pageProps={{}} />;
 }
 

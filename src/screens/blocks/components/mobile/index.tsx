@@ -1,6 +1,6 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { AvatarName, Loading, SingleBlockMobile } from '@components';
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
 import { getMiddleEllipsis } from '@utils/get_middle_ellipsis';
 import { BLOCK_DETAILS } from '@utils/go_to_page';
@@ -12,8 +12,6 @@ import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
 import { ItemType } from '../../types';
 
-const ROW_HEIGHT = 280;
-
 type MobileProps = {
     className?: string;
     items: ItemType[];
@@ -22,10 +20,10 @@ type MobileProps = {
     isNextPageLoading?: boolean;
 };
 
-const Mobile: React.FC<MobileProps> = ({ className, items, itemCount, loadMoreItems, isNextPageLoading = false }) => {
+const Mobile = ({ className, items, itemCount, loadMoreItems, isNextPageLoading = false }: MobileProps) => {
     const hasMore = itemCount > items.length;
 
-    const handleReachEnd = React.useCallback(() => {
+    const handleReachEnd = useCallback(() => {
         void Promise.resolve(
             loadMoreItems({
                 startIndex: items.length,

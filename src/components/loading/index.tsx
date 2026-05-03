@@ -1,9 +1,6 @@
-import React from 'react';
 import { Box, CircularProgress } from '@mui/material';
 
-const Loading: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Loading = ({ className }: { className?: string }) => {
     return (
         <Box className={className} sx={{ py: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <CircularProgress />

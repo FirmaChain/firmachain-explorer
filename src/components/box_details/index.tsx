@@ -1,17 +1,19 @@
-import React from 'react';
+import { isValidElement, ReactNode } from 'react';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
 
-const BoxDetails: React.FC<{
+interface Props {
     className?: string;
-    title?: string | React.ReactNode;
-    titleAction?: React.ReactNode;
+    title?: string | ReactNode;
+    titleAction?: ReactNode;
     details: {
-        label: string | number | React.ReactNode;
-        detail: string | number | React.ReactNode;
+        label: string | number | ReactNode;
+        detail: string | number | ReactNode;
         className?: string;
     }[];
-}> = ({ className, title, titleAction, details }) => {
+}
+
+const BoxDetails = ({ className, title, titleAction, details }: Props) => {
     return (
         <Box
             className={className}
@@ -50,14 +52,14 @@ const BoxDetails: React.FC<{
         >
             {!!title && (
                 <div className="header item">
-                    {React.isValidElement(title) ? title : <Typography variant="h2">{title}</Typography>}
+                    {isValidElement(title) ? title : <Typography variant="h2">{title}</Typography>}
                     {!!titleAction && titleAction}
                 </div>
             )}
             {details.map((x, i) => {
                 return (
                     <div className={`item ${x.className ?? ''}`.trim()} key={`box-detail__item--${i}`}>
-                        {React.isValidElement(x.label) ? (
+                        {isValidElement(x.label) ? (
                             <div className="label">{x.label}</div>
                         ) : (
                             <Typography variant="body1" className="label">
@@ -65,7 +67,7 @@ const BoxDetails: React.FC<{
                             </Typography>
                         )}
 
-                        {React.isValidElement(x.detail) ? (
+                        {isValidElement(x.detail) ? (
                             <div className="detail">{x.detail}</div>
                         ) : (
                             <Typography variant="body1" className="detail">

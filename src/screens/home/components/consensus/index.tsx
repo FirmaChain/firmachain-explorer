@@ -1,4 +1,3 @@
-import React from 'react';
 import { AvatarName, Box } from '@components';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -11,9 +10,7 @@ import { ConsensusRing } from './consensusRing';
 import { useConsensus } from './hooks';
 import { useWrappedProgress } from './useWrappedProgress';
 
-const Consensus: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Consensus = ({ className }: { className?: string }) => {
     const theme = useTheme();
     const { state } = useConsensus();
     const { t } = useTranslation('home');

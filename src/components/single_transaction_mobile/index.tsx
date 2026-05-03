@@ -1,18 +1,20 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { ReactNode } from 'react';
+import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const SingleTransactionMobile: React.FC<{
+interface Props {
     className?: string;
-    block: React.ReactNode;
-    hash: React.ReactNode;
+    block: ReactNode;
+    hash: ReactNode;
     time: string;
     messages: string;
     type: any;
-    result?: React.ReactNode;
-}> = ({ className, block, hash, time, messages, type, result }) => {
+    result?: ReactNode;
+}
+
+const SingleTransactionMobile = ({ className, block, hash, time, messages, type, result }: Props) => {
     const { t } = useTranslation('transactions');
-    const itemSx = (theme) => ({
+    const itemSx: SxProps<Theme> = (theme) => ({
         mb: 2,
         '& .label': {
             mb: 1,

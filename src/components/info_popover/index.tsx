@@ -1,15 +1,17 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import HelpOutlineIcon from '@assets/icon-help-outline.svg?react';
 import { Box, Popover } from '@mui/material';
 import clsx from 'clsx';
 
 import { useInfoPopover } from './hooks';
 
-const InfoPopover: React.FC<{
+interface Props {
     className?: string;
-    content?: string | React.ReactNode;
-    display?: string | React.ReactNode;
-}> = ({ className, content, display }) => {
+    content?: string | ReactNode;
+    display?: string | ReactNode;
+}
+
+const InfoPopover = ({ className, content, display }: Props) => {
     const { handlePopoverOpen, handlePopoverClose, anchorEl, open } = useInfoPopover();
 
     return (

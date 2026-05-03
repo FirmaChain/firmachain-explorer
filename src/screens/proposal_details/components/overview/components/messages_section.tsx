@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -12,7 +11,7 @@ type Props = {
     classes: Record<string, string>;
 };
 
-const MessagesSection: React.FC<Props> = ({ messageGroups, openStates, toggleOpen, classes }) => {
+const MessagesSection = ({ messageGroups, openStates, toggleOpen, classes }: Props) => {
     const { t } = useTranslation('proposals');
 
     return (

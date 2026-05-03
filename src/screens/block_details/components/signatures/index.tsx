@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
@@ -9,11 +8,11 @@ import { useTranslation } from 'react-i18next';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Signatures: React.FC<
-    ComponentDefault & {
-        signatures: string[];
-    }
-> = ({ className, signatures }) => {
+interface Props extends ComponentDefault {
+    signatures: string[];
+}
+
+const Signatures = ({ className, signatures }: Props) => {
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('blocks');
     const formattedSignatures = useProfilesRecoil(signatures);

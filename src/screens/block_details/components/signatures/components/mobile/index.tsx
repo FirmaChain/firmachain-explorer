@@ -1,6 +1,5 @@
-import React from 'react';
 import { AvatarName } from '@components';
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
@@ -13,9 +12,7 @@ type MobileProps = {
     signatures?: SignatureItem[];
 };
 
-const ROW_HEIGHT = 70;
-
-const Mobile: React.FC<MobileProps> = ({ className, signatures }) => {
+const Mobile = ({ className, signatures }: MobileProps) => {
     const { t } = useTranslation('blocks');
     const items = signatures ?? [];
 
@@ -23,7 +20,7 @@ const Mobile: React.FC<MobileProps> = ({ className, signatures }) => {
         {
             key: 'validator',
             header: '',
-            render: (row, context) => (
+            render: (row) => (
                 <Box
                     sx={(theme) => ({
                         '& .label': {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { OtherTokenType } from '@/screens/account_details/types';
 import { ibcConfig, tokenConfig } from '@configs';
 import { Box } from '@mui/material';
@@ -9,10 +8,12 @@ import { useTranslation } from 'react-i18next';
 
 import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
-const Desktop: React.FC<{
+interface Props {
     className?: string;
     items?: OtherTokenType[];
-}> = ({ className, items = [] }) => {
+}
+
+const Desktop = ({ className, items = [] }: Props) => {
     const { t } = useTranslation('accounts');
 
     const columns: DataTableColumn<OtherTokenType>[] = [

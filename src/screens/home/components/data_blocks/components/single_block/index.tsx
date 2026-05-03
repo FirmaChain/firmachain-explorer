@@ -1,13 +1,14 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
 
-const SingleBlock: React.FC<{
+interface Props {
     sx?: SxProps<Theme>;
     label: string;
     value: string;
     description?: string;
-}> = ({ sx, label, value, description }) => {
+}
+
+const SingleBlock = ({ sx, label, value, description }: Props) => {
     return (
         <Box
             sx={[

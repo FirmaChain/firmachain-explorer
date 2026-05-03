@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { useScreenSize } from '@/hooks';
 import { Loading, Result } from '@components';
 import { Box, Typography } from '@mui/material';
@@ -17,19 +17,19 @@ import { getMessageByType } from '@/components/msg/utils';
 import { TransactionsListDetailsState } from '../../types';
 import { SingleTransaction } from './components';
 
-const TransactionList: React.FC<TransactionsListDetailsState> = ({
+const TransactionList = ({
     className,
     itemCount = 0,
     hasNextPage = false,
     isNextPageLoading = false,
     loadMoreItems,
     transactions = []
-}) => {
+}: TransactionsListDetailsState) => {
     const { isMobile } = useScreenSize();
     const { t } = useTranslation('transactions');
     const dateFormat = useSettingsStore(readDate);
 
-    const handleReachEnd = React.useCallback(() => {
+    const handleReachEnd = useCallback(() => {
         void Promise.resolve(
             loadMoreItems?.({
                 startIndex: transactions.length,

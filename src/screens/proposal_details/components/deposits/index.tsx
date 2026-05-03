@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box } from '@components';
 import { usePagination } from '@hooks';
@@ -12,7 +11,7 @@ import { useDeposits } from './hooks';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Deposits: React.FC<ComponentDefault> = (props) => {
+const Deposits = ({ className }: ComponentDefault) => {
     const { t } = useTranslation('proposals');
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems } = usePagination({});
     const { state } = useDeposits();
@@ -29,7 +28,7 @@ const Deposits: React.FC<ComponentDefault> = (props) => {
 
     return (
         <Box
-            className={props.className}
+            className={className}
             sx={(theme) => ({
                 overflow: 'hidden',
                 '& .title': {

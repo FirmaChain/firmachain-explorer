@@ -1,13 +1,14 @@
-import React from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
 /**
  * Helper hook to handle values that may need to be story throughout multiple sessions
  * @param key key value that exist in localstorage
  * @param initialValue initial value to be set if none is found
  */
-export const usePersistedState = <P>(key: string, initialValue: P): [P, React.Dispatch<React.SetStateAction<P>>] => {
-    const [value, setValue] = React.useState(initialValue);
-    const retrievePersistedValue = React.useCallback(() => {
+export const usePersistedState = <P>(key: string, initialValue: P): [P, Dispatch<SetStateAction<P>>] => {
+    const [value, setValue] = useState(initialValue);
+
+    const retrievePersistedValue = useCallback(() => {
         try {
             const persistedString = localStorage.getItem(key);
             if (persistedString === null) {
@@ -20,11 +21,11 @@ export const usePersistedState = <P>(key: string, initialValue: P): [P, React.Di
         }
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         retrievePersistedValue();
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         localStorage.setItem(key, JSON.stringify(value));
     }, [value]);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { AvatarName } from '@components';
 import { Box, Divider, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -9,10 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ItemType } from '../../types';
 
-const Mobile: React.FC<{
-    className?: string;
-    items: ItemType[];
-}> = ({ className, items }) => {
+const Mobile = ({ className, items }: { className?: string; items: ItemType[] }) => {
     const { t } = useTranslation('accounts');
     const dateFormat = useSettingsStore(readDate);
     const formattedItems = items.map((x) => {
@@ -25,9 +22,9 @@ const Mobile: React.FC<{
 
     return (
         <Box className={clsx(className)}>
-            {formattedItems.map((x, i) => {
+            {formattedItems.map((x, i, arr) => {
                 return (
-                    <React.Fragment key={`votes-mobile-${i}`}>
+                    <Fragment key={`votes-mobile-${i}`}>
                         <Box sx={{ my: 2 }}>
                             <Box
                                 sx={(theme) => ({
@@ -69,8 +66,8 @@ const Mobile: React.FC<{
                                 {x.amount}
                             </Box>
                         </Box>
-                        {i !== items.length - 1 && <Divider />}
-                    </React.Fragment>
+                        {i !== arr.length - 1 && <Divider />}
+                    </Fragment>
                 );
             })}
         </Box>

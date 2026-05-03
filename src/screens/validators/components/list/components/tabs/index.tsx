@@ -1,4 +1,3 @@
-import React from 'react';
 import { Search } from '@components';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
@@ -9,12 +8,14 @@ import { desktopSearchBarSx, tabsHeaderSx } from '@/styles/ui';
 
 import { tabLabels } from './utils';
 
-const TabsHeader: React.FC<{
+interface Props {
     className?: string;
     tab: number;
     handleTabChange: (event: any, newvalue: number) => void;
     handleSearch: (value: string) => void;
-}> = ({ className, tab, handleTabChange, handleSearch }) => {
+}
+
+const TabsHeader = ({ className, tab, handleTabChange, handleSearch }: Props) => {
     const { t } = useTranslation('validators');
 
     return (

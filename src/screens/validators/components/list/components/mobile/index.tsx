@@ -1,4 +1,3 @@
-import React from 'react';
 import { AvatarName, Box } from '@components';
 import { getValidatorStatus } from '@utils/get_validator_status';
 import clsx from 'clsx';
@@ -15,9 +14,7 @@ type MobileProps = {
     items: ItemType[];
 };
 
-const DEFAULT_ROW_HEIGHT = 240;
-
-const Mobile: React.FC<MobileProps> = ({ className, items }) => {
+const Mobile = ({ className, items }: MobileProps) => {
     const columns: DataTableColumn<ItemType>[] = [
         {
             key: 'validator',

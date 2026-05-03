@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { Markdown, Name } from '@components';
 import { Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -19,7 +19,7 @@ const DATE_FIELDS: {
     key: 'submitTime' | 'depositEndTime' | 'votingStartTime' | 'votingEndTime';
 }[] = [{ key: 'submitTime' }, { key: 'depositEndTime' }, { key: 'votingStartTime' }, { key: 'votingEndTime' }];
 
-const MetadataSection: React.FC<Props> = ({ overview, overviewType, classes }) => {
+const MetadataSection = ({ overview, overviewType, classes }: Props) => {
     const { t } = useTranslation('proposals');
     const dateFormat = useSettingsStore(readDate);
     const proposer = useProfileRecoil(overview.proposer);
@@ -40,14 +40,14 @@ const MetadataSection: React.FC<Props> = ({ overview, overviewType, classes }) =
             {DATE_FIELDS.map(
                 ({ key }) =>
                     overview[key] && (
-                        <React.Fragment key={key}>
+                        <Fragment key={key}>
                             <Typography variant="body1" className="label">
                                 {t(key)}
                             </Typography>
                             <Typography variant="body1" className="value">
                                 {formatDayJs(dayjs.utc(overview[key]), dateFormat)}
                             </Typography>
-                        </React.Fragment>
+                        </Fragment>
                     )
             )}
             <Typography variant="body1" className="label">

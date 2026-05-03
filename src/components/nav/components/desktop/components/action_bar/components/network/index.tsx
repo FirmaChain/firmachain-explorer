@@ -1,12 +1,9 @@
-import React from 'react';
 import { chainConfig } from '@configs';
 import { ENV } from '@configs/env';
 import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material';
 import clsx from 'clsx';
 
-const Network: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Network = ({ className }: { className?: string }) => {
     const chainStatus = ENV.CHAIN_TYPE || ENV.CHAIN_STATUS;
     const isMainnet = chainStatus === 'mainnet';
 

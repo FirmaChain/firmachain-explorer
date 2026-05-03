@@ -1,15 +1,14 @@
-import React from 'react';
 import { Box } from '@components';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
-const Logs: React.FC<
-    {
-        datas: null | any[];
-        isEvents: boolean;
-    } & ComponentDefault
-> = ({ datas, isEvents = false }) => {
+interface Props extends ComponentDefault {
+    datas: null | any[];
+    isEvents: boolean;
+}
+
+const Logs = ({ datas, isEvents = false }: Props) => {
     const theme = useTheme();
     const { t } = useTranslation('transactions');
     return (

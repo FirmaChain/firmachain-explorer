@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback, useMemo } from 'react';
 import { AvatarName, ConditionExplanation } from '@components';
 import { Box, Typography } from '@mui/material';
 import { getValidatorConditionClass } from '@utils/get_validator_condition';
@@ -20,11 +20,9 @@ type DesktopProps = {
     items: ItemType[];
 };
 
-const DEFAULT_ROW_HEIGHT = 50;
-
-const Desktop: React.FC<DesktopProps> = ({ className, sortDirection, sortKey, handleSort, items }) => {
+const Desktop = ({ className, sortDirection, sortKey, handleSort, items }: DesktopProps) => {
     const { t } = useTranslation('validators');
-    const sortState = React.useMemo(
+    const sortState = useMemo(
         () =>
             sortKey
                 ? {
@@ -35,7 +33,7 @@ const Desktop: React.FC<DesktopProps> = ({ className, sortDirection, sortKey, ha
         [sortDirection, sortKey]
     );
 
-    const handleSortStateChange = React.useCallback(
+    const handleSortStateChange = useCallback(
         (next: { columnKey: string; direction: 'asc' | 'desc' } | null) => {
             if (!next) return;
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGetComponentDimension } from '@hooks';
 import { Box } from '@mui/material';
 import clsx from 'clsx';
@@ -7,10 +6,12 @@ import TitleBar from '../title_bar';
 import { Menu, Navbar, SearchBar } from './components';
 import { useMobile } from './hooks';
 
-const Mobile: React.FC<{
+interface Props {
     className?: string;
     title: string;
-}> = ({ className, title }) => {
+}
+
+const Mobile = ({ className, title }: Props) => {
     const { ref: heightRef, height } = useGetComponentDimension();
     const { isMenu, isOpen, openNetwork, toggleNavMenus } = useMobile();
 

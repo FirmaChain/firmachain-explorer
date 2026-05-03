@@ -1,4 +1,3 @@
-import React from 'react';
 import { BoxDetails, Result } from '@components';
 import { Box, Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -12,10 +11,11 @@ import { Link } from 'react-router';
 
 import { OverviewType } from '../../types';
 
-const Overview: React.FC<{
-    className?: string;
+interface Props extends ComponentDefault {
     data: OverviewType;
-}> = ({ className, data }) => {
+}
+
+const Overview = ({ className, data }: Props) => {
     const { t } = useTranslation('transactions');
     const dateFormat = useSettingsStore(readDate);
 

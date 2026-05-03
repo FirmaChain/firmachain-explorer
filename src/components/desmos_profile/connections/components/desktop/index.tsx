@@ -1,16 +1,17 @@
-import React from 'react';
+import { Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { readDate, useSettingsStore } from '@zustand/settings';
 import clsx from 'clsx';
-import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
-const Desktop: React.FC<{
+interface Props {
     className?: string;
     items?: ProfileConnectionType[];
-}> = ({ className, items = [] }) => {
+}
+
+const Desktop = ({ className, items = [] }: Props) => {
     const dateFormat = useSettingsStore(readDate);
     const { t } = useTranslation('accounts');
 

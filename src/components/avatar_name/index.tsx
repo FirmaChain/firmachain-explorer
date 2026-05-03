@@ -1,10 +1,9 @@
-import React from 'react';
 import { Avatar } from '@components';
 import { Box, Typography } from '@mui/material';
 import { ADDRESS_DETAILS } from '@utils/go_to_page';
 import { Link } from 'react-router';
 
-const AvatarName: React.FC<AvatarName> = ({ className, address, name, imageUrl, href = ADDRESS_DETAILS }) => {
+const AvatarName = ({ className, address, name, imageUrl, href = ADDRESS_DETAILS }: AvatarName) => {
     return (
         <Link to={href(address)}>
             <Box

@@ -1,14 +1,13 @@
-import React from 'react';
 import { Box, TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox, Typography } from '@mui/material';
 import { readTx, useSettingsStore } from '@zustand/settings';
 import { useTranslation } from 'react-i18next';
 
-const Transactions: React.FC<
-    ComponentDefault & {
-        transactions: Transactions[];
-    }
-> = ({ className, transactions }) => {
+interface Props extends ComponentDefault {
+    transactions: Transactions[];
+}
+
+const Transactions = ({ className, transactions }: Props) => {
     const txListFormat = useSettingsStore(readTx);
     const { t } = useTranslation('transactions');
     return (

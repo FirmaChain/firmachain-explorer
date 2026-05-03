@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox, Typography } from '@mui/material';
 import { readTx, useSettingsStore } from '@zustand/settings';
@@ -6,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useTransactions } from './hooks';
 
-const Transactions: React.FC<ComponentDefault> = (props) => {
+const Transactions = ({ className }: ComponentDefault) => {
     const txListFormat = useSettingsStore(readTx);
     const { t } = useTranslation('validators');
 
@@ -17,7 +16,7 @@ const Transactions: React.FC<ComponentDefault> = (props) => {
     const itemCount = state.hasNextPage ? state.data.length + 1 : state.data.length;
 
     return (
-        <Box className={props.className}>
+        <Box className={className}>
             <Typography variant="h2" sx={{ mb: 2 }}>
                 {t('transactions')}
             </Typography>

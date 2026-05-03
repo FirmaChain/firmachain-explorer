@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, TabPanel } from '@components';
 
@@ -10,7 +9,11 @@ const Delegations = dynamic(() => import('./components/delegations'));
 const Redelgations = dynamic(() => import('./components/redelegations'));
 const Unbondings = dynamic(() => import('./components/unbondings'));
 
-const Staking: React.FC<{ rewards: RewardsType } & ComponentDefault> = (props) => {
+interface Props extends ComponentDefault {
+    rewards: RewardsType;
+}
+
+const Staking = (props: Props) => {
     const { state, handleTabChange } = useStaking(props.rewards);
 
     const tabs = [

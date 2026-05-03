@@ -1,4 +1,3 @@
-import React from 'react';
 import { NotFound as NotFoundLogo } from '@components';
 import { Box } from '@mui/material';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar, Box, Markdown } from '@components';
 import { Typography } from '@mui/material';
 import clsx from 'clsx';
@@ -8,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 import Connections from './connections';
 import { useDesmosProfile } from './hooks';
 
-const DesmosProfile: React.FC<
-    {
-        className?: string;
-    } & DesmosProfile
-> = (props) => {
+interface Props extends DesmosProfile {
+    className?: string;
+}
+
+const DesmosProfile = (props: Props) => {
     const { t } = useTranslation('accounts');
     const { connectionsOpen, handleConnectionsClose, handleConnectionsOpen } = useDesmosProfile();
 

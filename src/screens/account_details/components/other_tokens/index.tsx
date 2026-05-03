@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
@@ -11,13 +10,15 @@ import { OtherTokenType } from '../../types';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-export const OtherTokens: React.FC<{
+interface Props {
     className?: string;
     otherTokens: {
         data: OtherTokenType[];
         count: number;
     };
-}> = ({ className, otherTokens }) => {
+}
+
+export const OtherTokens = ({ className, otherTokens }: Props) => {
     const { t } = useTranslation('accounts');
     const { isDesktop } = useScreenSize();
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems } = usePagination({});

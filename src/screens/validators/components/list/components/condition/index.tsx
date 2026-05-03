@@ -1,9 +1,10 @@
-import React from 'react';
 import { Box } from '@mui/material';
 
-const Condition: React.FC<{
+interface Props {
     className?: string;
-}> = ({ className }) => {
+}
+
+const Condition = ({ className }: Props) => {
     return (
         <Box
             className={className}

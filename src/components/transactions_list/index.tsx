@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { NoData } from '@components';
 import { useScreenSize } from '@hooks';
@@ -9,7 +8,7 @@ import { TransactionsListState } from './types';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const TransactionsList: React.FC<TransactionsListState> = (props) => {
+const TransactionsList = (props: TransactionsListState) => {
     const { isDesktop } = useScreenSize();
     // setting fallback values
     const {

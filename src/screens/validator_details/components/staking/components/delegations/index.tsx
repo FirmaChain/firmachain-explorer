@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Loading, NoData, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
@@ -12,11 +11,11 @@ import { DelegationsType } from '../../types';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Delegations: React.FC<
-    {
-        delegations: DelegationsType;
-    } & ComponentDefault
-> = (props) => {
+interface Props extends ComponentDefault {
+    delegations: DelegationsType;
+}
+
+const Delegations = (props: Props) => {
     const { isDesktop } = useScreenSize();
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = usePagination({});
 

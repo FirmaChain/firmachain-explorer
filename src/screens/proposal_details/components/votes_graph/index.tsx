@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, InfoPopover } from '@components';
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -13,7 +12,7 @@ import { QuorumExplanation } from './components';
 import { useVotesGraph } from './hooks';
 import { formatGraphData } from './utils';
 
-const VotesGraph: React.FC<ComponentDefault> = (props) => {
+const VotesGraph = (props: ComponentDefault) => {
     const theme = useTheme();
     const { t } = useTranslation('proposals');
     const { state } = useVotesGraph();

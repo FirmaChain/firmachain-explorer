@@ -1,15 +1,16 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import clsx from 'clsx';
 
-const VotingPower: React.FC<{
+interface Props {
     className?: string;
     percentage: number;
     percentDisplay: string;
     content: string;
     topVotingPower: boolean;
-}> = ({ className, percentage, content, percentDisplay }) => {
+}
+
+const VotingPower = ({ className, percentage, content, percentDisplay }: Props) => {
     const topVotingPower = true;
 
     return (

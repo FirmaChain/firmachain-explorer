@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { Result, SingleTransactionMobile } from '@components';
 import { Divider, Typography } from '@mui/material';
 import dayjs from '@utils/dayjs';
@@ -13,10 +13,7 @@ import { getMessageByType } from '@/components/msg/utils';
 
 import { TransactionType } from '../../types';
 
-const Mobile: React.FC<{
-    className?: string;
-    items: TransactionType[];
-}> = ({ className, items }) => {
+const Mobile = ({ className, items }: { className?: string; items: TransactionType[] }) => {
     const { t } = useTranslation('transactions');
 
     const formattedData = items.map((x) => {
@@ -56,10 +53,10 @@ const Mobile: React.FC<{
         <div className={clsx(className)}>
             {formattedData.map((x, i) => {
                 return (
-                    <React.Fragment key={`${x.block}-${i}`}>
+                    <Fragment key={`${x.block}-${i}`}>
                         <SingleTransactionMobile {...x} />
                         {i !== formattedData.length - 1 && <Divider />}
-                    </React.Fragment>
+                    </Fragment>
                 );
             })}
         </div>

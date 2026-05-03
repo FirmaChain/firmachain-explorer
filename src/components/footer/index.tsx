@@ -1,4 +1,3 @@
-import React from 'react';
 import { chainConfig, generalConfig } from '@/configs';
 import FirmachainTitle from '@assets/firma_chain_title.svg?react';
 import { Box, Divider, Typography } from '@mui/material';
@@ -9,7 +8,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import SocialMedia from './social_media';
 import { footerLinks } from './utils';
 
-const Footer: React.FC<{ className?: string }> = ({ className }) => {
+const Footer = ({ className }: { className?: string }) => {
     const { t } = useTranslation();
     const theme = useSettingsStore(readTheme);
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box } from '@components';
 import { chainConfig } from '@configs';
 import { Divider, Typography } from '@mui/material';
@@ -15,7 +14,7 @@ import ResponsivePieChart from '@/components/pieGraph/responsivePieChart';
 
 import { formatBalanceData } from './utils';
 
-const Balance: React.FC<{
+interface Props {
     className?: string;
     available: TokenUnit;
     delegate: TokenUnit;
@@ -23,7 +22,9 @@ const Balance: React.FC<{
     reward: TokenUnit;
     commission?: TokenUnit;
     total: TokenUnit;
-}> = (props) => {
+}
+
+const Balance = (props: Props) => {
     const { t } = useTranslation('accounts');
     const theme = useTheme();
     const market = useMarketStore(readMarket);

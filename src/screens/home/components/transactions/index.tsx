@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
@@ -12,9 +11,7 @@ import { useTransactions } from './hooks';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Transactions: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Transactions = ({ className }: { className?: string }) => {
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('home');
     const { state } = useTransactions();

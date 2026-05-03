@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { Box, Loading } from '@components';
 import { Typography } from '@mui/material';
 import { PROPOSAL_DETAILS } from '@utils/go_to_page';
@@ -15,18 +15,20 @@ type FormattedProposalItem = {
     description: string;
     status: ProposalType['status'];
     types: ProposalType['types'];
-    title: React.ReactNode;
+    title: ReactNode;
     id: string;
 };
 
-const ProposalsList: React.FC<{
+interface Props {
     className?: string;
     items: ProposalType[];
     rawDataTotal: number;
     hasNextPage: boolean;
     loadMoreItems: () => void;
-}> = ({ className, items, rawDataTotal, hasNextPage, loadMoreItems }) => {
-    const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+}
+
+const ProposalsList = ({ className, items, rawDataTotal, hasNextPage, loadMoreItems }: Props) => {
+    const [isFetchingMore, setIsFetchingMore] = useState(false);
     const formattedItems: FormattedProposalItem[] = items.map((item) => ({
         description: item.description.length > 200 ? `${item.description.slice(0, 200)}...` : item.description,
         status: item.status,
@@ -49,7 +51,7 @@ const ProposalsList: React.FC<{
         }
     ];
 
-    const handleReachEnd = React.useCallback(async () => {
+    const handleReachEnd = useCallback(async () => {
         if (!hasNextPage || isFetchingMore) return;
 
         setIsFetchingMore(true);

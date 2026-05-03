@@ -1,16 +1,18 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const SingleBlockMobile: React.FC<{
+interface Props {
     className?: string;
-    height: React.ReactNode;
+    height: ReactNode;
     hash: string;
     parentHash?: string;
     txs: string;
     time: string;
-    proposer: React.ReactNode;
-}> = ({ className, height, hash, parentHash, txs, time, proposer }) => {
+    proposer: ReactNode;
+}
+
+const SingleBlockMobile = ({ className, height, hash, parentHash, txs, time, proposer }: Props) => {
     const { t } = useTranslation('blocks');
 
     return (

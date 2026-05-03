@@ -1,4 +1,3 @@
-import React from 'react';
 import { Name } from '@components';
 import { MsgCreateContractFile } from '@models';
 import { useTheme } from '@mui/material/styles';

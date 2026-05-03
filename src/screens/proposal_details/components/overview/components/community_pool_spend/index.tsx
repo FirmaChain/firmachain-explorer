@@ -1,4 +1,3 @@
-import React from 'react';
 import { formatNumber, formatTokenByExponent } from '@/utils/format_token';
 import { Name } from '@components';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
@@ -10,10 +9,12 @@ type Recipient = {
     amount: string;
 };
 
-const CommunityPoolSpend: React.FC<{
+interface Props {
     className?: string;
     recipients: Recipient[];
-}> = ({ recipients }) => {
+}
+
+const CommunityPoolSpend = ({ recipients }: Props) => {
     const { t } = useTranslation('proposals');
     const profiles = useProfilesRecoil(recipients.map((r) => r.address));
 

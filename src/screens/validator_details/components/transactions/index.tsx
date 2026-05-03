@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, TransactionListDetails, TransactionsList } from '@components';
 import { Box as MuiBox, Typography } from '@mui/material';
 import { readTx, useSettingsStore } from '@zustand/settings';
@@ -6,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useTransactions } from './hooks';
 
-const Transactions: React.FC<ComponentDefault> = (props) => {
+const Transactions = (props: ComponentDefault) => {
     const txListFormat = useSettingsStore(readTx);
     const { t } = useTranslation('validators');
 

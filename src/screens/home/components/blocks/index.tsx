@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, NoData } from '@components';
 import { useScreenSize } from '@hooks';
@@ -13,9 +12,7 @@ import { useBlocks } from './hooks';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Blocks: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Blocks = ({ className }: { className?: string }) => {
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('home');
     const { state } = useBlocks();

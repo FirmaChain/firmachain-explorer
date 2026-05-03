@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar, Box, Markdown } from '@components';
 import { Divider, Typography } from '@mui/material';
 import { useProfileRecoil } from '@zustand/profiles';
@@ -7,7 +6,11 @@ import { useTranslation } from 'react-i18next';
 
 import { OverviewType } from '../../types';
 
-const Profile: React.FC<{ profile: OverviewType } & ComponentDefault> = ({ className, profile }) => {
+interface Props extends ComponentDefault {
+    profile: OverviewType;
+}
+
+const Profile = ({ className, profile }: Props) => {
     const { t } = useTranslation('validators');
     const validator = useProfileRecoil(profile.validator);
 

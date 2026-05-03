@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box } from '@mui/material';
 import clsx from 'clsx';
 
@@ -6,9 +5,7 @@ import SearchBar from '../../../seach_bar';
 import Network from './components/network';
 import SettingsList from './components/setting_list';
 
-const ActionBar: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const ActionBar = ({ className }: { className?: string }) => {
     return (
         <Box
             className={clsx(className)}

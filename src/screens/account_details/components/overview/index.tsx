@@ -1,4 +1,3 @@
-import React from 'react';
 import CopyIcon from '@assets/icon-copy.svg?react';
 import ShareIcon from '@assets/icon-share.svg?react';
 import { Box } from '@components';
@@ -23,11 +22,13 @@ import {
 
 import { useOverview } from './hooks';
 
-const Overview: React.FC<{
+interface Props {
     className?: string;
     withdrawalAddress: string;
     address: string;
-}> = ({ className, address, withdrawalAddress }) => {
+}
+
+const Overview = ({ className, address, withdrawalAddress }: Props) => {
     const { isDesktop } = useScreenSize();
     const { location } = useWindowOrigin();
     const { t } = useTranslation('accounts');

@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import CloseIcon from '@assets/icon-close.svg?react';
 import { Pagination } from '@components';
@@ -9,11 +8,13 @@ import { useTranslation } from 'react-i18next';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Connections: React.FC<{
+interface Props {
     handleClose: () => void;
     open: boolean;
     data: ProfileConnectionType[];
-}> = ({ handleClose, open, data }) => {
+}
+
+const Connections = ({ handleClose, open, data }: Props) => {
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('accounts');
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems } = usePagination({});

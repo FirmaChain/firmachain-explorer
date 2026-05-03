@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { a11yProps } from '@utils/allyProps';
 import clsx from 'clsx';
@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { tabsHeaderSx } from '@/styles/ui';
 
-const TabsHeader: React.FC<{
+interface Props {
     className?: string;
     tab: number;
     handleTabChange: (_event: any, newValue: number) => void;
@@ -15,9 +15,11 @@ const TabsHeader: React.FC<{
         id: number;
         key: string;
         count: number;
-        component?: React.ReactNode;
+        component?: ReactNode;
     }[];
-}> = ({ className, tab, handleTabChange, tabs }) => {
+}
+
+const TabsHeader = ({ className, tab, handleTabChange, tabs }: Props) => {
     const { t } = useTranslation('accounts');
 
     return (

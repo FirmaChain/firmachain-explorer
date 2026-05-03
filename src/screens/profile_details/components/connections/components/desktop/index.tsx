@@ -1,4 +1,3 @@
-import React from 'react';
 import { chainConfig } from '@configs';
 import { Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -10,10 +9,7 @@ import { Link } from 'react-router';
 
 import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
-const Desktop: React.FC<{
-    className?: string;
-    items?: ProfileConnectionType[];
-}> = ({ className, items = [] }) => {
+const Desktop = ({ className, items = [] }: { className?: string; items?: ProfileConnectionType[] }) => {
     const dateFormat = useSettingsStore(readDate);
     const { t } = useTranslation('accounts');
 

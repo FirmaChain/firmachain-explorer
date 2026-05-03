@@ -1,13 +1,10 @@
-import React from 'react';
 import NotFoundDark from '@assets/not-found-dark.svg?react';
 import NotFoundLight from '@assets/not-found-light.svg?react';
 import { Box, Typography } from '@mui/material';
 import { readTheme, useSettingsStore } from '@zustand/settings';
 import { useTranslation } from 'react-i18next';
 
-const NoData: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const NoData = ({ className }: { className?: string }) => {
     const { t } = useTranslation('common');
     const theme = useSettingsStore(readTheme);
 

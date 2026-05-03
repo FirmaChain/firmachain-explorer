@@ -1,4 +1,3 @@
-import React from 'react';
 import { AvatarName, BoxDetails } from '@components';
 import { Typography } from '@mui/material';
 import dayjs, { formatDayJs } from '@utils/dayjs';
@@ -9,14 +8,16 @@ import { useTranslation } from 'react-i18next';
 
 import { OverviewType } from '../../types';
 
-const Overview: React.FC<OverviewType & ComponentDefault> = (props, { className }) => {
+interface Props extends OverviewType, ComponentDefault {}
+
+const Overview = (props: Props) => {
     const proposer = useProfileRecoil(props.proposer);
     const { t } = useTranslation('blocks');
     const dateFormat = useSettingsStore(readDate);
 
     return (
         <BoxDetails
-            className={className}
+            className={props.className}
             title={t('overview')}
             details={[
                 {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import * as R from 'ramda';
 
 type Options = {
@@ -17,7 +17,7 @@ export const usePagination = (options?: Options) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(rowsPage ?? 10);
 
-    const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
+    const handleChangePage = (_event: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
         setPage(newPage);
         if (pageChangeCallback) {
             pageChangeCallback(newPage, rowsPerPage);

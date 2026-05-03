@@ -1,4 +1,3 @@
-import React from 'react';
 import { Result } from '@/components';
 import { getMiddleEllipsis } from '@/utils/get_middle_ellipsis';
 import { BLOCK_DETAILS, TRANSACTION_DETAILS } from '@/utils/go_to_page';
@@ -14,10 +13,7 @@ import { getMessageByType } from '@/components/msg/utils';
 
 import { TransactionType } from '../../types';
 
-const Desktop: React.FC<{
-    className?: string;
-    items: TransactionType[];
-}> = ({ className, items }) => {
+const Desktop = ({ className, items }: { className?: string; items: TransactionType[] }) => {
     const { t } = useTranslation('transactions');
 
     const columns: DataTableColumn<TransactionType>[] = [

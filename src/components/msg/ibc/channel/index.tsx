@@ -1,4 +1,3 @@
-import React from 'react';
 import { Name } from '@components';
 import { MsgChannel } from '@models';
 import { Typography } from '@mui/material';

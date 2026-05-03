@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import { readMarket, useMarketStore } from '@zustand/market';
 import clsx from 'clsx';
 import numeral from 'numeral';
@@ -8,9 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { SingleBlock } from './components';
 import { useDataBlocks } from './hooks';
 
-const DataBlocks: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const DataBlocks = ({ className }: { className?: string }) => {
     const { t } = useTranslation('home');
     const { state } = useDataBlocks();
     const marketState = useMarketStore(readMarket);
@@ -19,12 +16,12 @@ const DataBlocks: React.FC<{
         {
             key: t('latestBlock'),
             value: numeral(state.blockHeight).format('0,0'),
-            sx: (theme) => ({ background: theme.palette.custom.primaryData.one })
+            sx: (theme: Theme) => ({ background: theme.palette.custom.primaryData.one })
         },
         {
             key: t('averageBlockTime'),
             value: `${numeral(state.blockTime).format('0.00')} s`,
-            sx: (theme) => ({ background: theme.palette.custom.primaryData.two })
+            sx: (theme: Theme) => ({ background: theme.palette.custom.primaryData.two })
         },
         // {
         //   key: t('price'),
@@ -34,7 +31,7 @@ const DataBlocks: React.FC<{
         {
             key: t('inflationRate'),
             value: `${numeral(Number(marketState.inflation) * 100).format('0.00')} %`,
-            sx: (theme) => ({ background: theme.palette.custom.primaryData.three })
+            sx: (theme: Theme) => ({ background: theme.palette.custom.primaryData.three })
         },
         {
             key: t('activeValidators'),
@@ -42,7 +39,7 @@ const DataBlocks: React.FC<{
             description: t('outOfValidators', {
                 count: numeral(state.validators.total).format('0,0')
             }),
-            sx: (theme) => ({ background: theme.palette.custom.primaryData.four })
+            sx: (theme: Theme) => ({ background: theme.palette.custom.primaryData.four })
         }
     ];
 

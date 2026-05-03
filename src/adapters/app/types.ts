@@ -1,7 +1,7 @@
-import React from 'react';
+import { ComponentType } from 'react';
 
 export type AppProps = {
-    Component: React.ComponentType<any>;
+    Component: ComponentType<unknown>;
     pageProps: any;
     router?: any;
 };

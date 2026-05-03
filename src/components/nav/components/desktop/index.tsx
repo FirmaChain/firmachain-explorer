@@ -1,4 +1,3 @@
-import React from 'react';
 import FirmachainLogo from '@assets/firma_chain_title.svg?react';
 import { Box, ClickAwayListener, Drawer } from '@mui/material';
 import clsx from 'clsx';
@@ -39,10 +38,12 @@ export const DesktopHeader = ({ title }: { title: string }) => {
     );
 };
 
-export const DesktopSidebar: React.FC<{
+interface DesktopSidebarProps {
     className?: string;
     controls: DesktopNavControls;
-}> = ({ className, controls }) => {
+}
+
+export const DesktopSidebar = ({ className, controls }: DesktopSidebarProps) => {
     const { isMenu, toggleMenu } = controls;
 
     return (
@@ -96,10 +97,12 @@ export const DesktopSidebar: React.FC<{
     );
 };
 
-const Desktop: React.FC<{
+interface DesktopProps {
     className?: string;
     title: string;
-}> = ({ className, title }) => {
+}
+
+const Desktop = ({ className, title }: DesktopProps) => {
     const { isMenu, toggleMenu, turnOffAll } = useDesktop();
     const controls = { isMenu, toggleMenu };
 

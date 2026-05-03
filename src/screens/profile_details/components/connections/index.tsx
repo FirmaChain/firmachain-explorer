@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Box, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
@@ -8,9 +7,7 @@ import { useTranslation } from 'react-i18next';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Connections: React.FC<{
-    data: ProfileConnectionType[];
-}> = ({ data }) => {
+const Connections = ({ data }: { data: ProfileConnectionType[] }) => {
     const { isDesktop } = useScreenSize();
     const { t } = useTranslation('accounts');
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, sliceItems } = usePagination({});

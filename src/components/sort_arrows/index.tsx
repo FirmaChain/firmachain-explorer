@@ -1,12 +1,8 @@
-import React from 'react';
 import SortDownIcon from '@assets/icon-sort-down.svg?react';
 import { Box } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
-const SortArrows: React.FC<{
-    className?: string;
-    sort?: 'asc' | 'desc';
-}> = ({ className, sort }) => {
+const SortArrows = ({ className, sort }: { className?: string; sort?: 'asc' | 'desc' }) => {
     return (
         <Box
             className={className}

@@ -1,14 +1,14 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 
 type ConsensusRingProps = {
     size: number;
     strokeWidth: number;
     value: number;
-    children?: React.ReactNode;
+    children?: ReactNode;
 };
 
-export const ConsensusRing: React.FC<ConsensusRingProps> = ({ size, strokeWidth, value, children }) => {
+export const ConsensusRing = ({ size, strokeWidth, value, children }: ConsensusRingProps) => {
     const theme = useTheme();
 
     const normalizedValue = Math.max(0, Math.min(100, value));

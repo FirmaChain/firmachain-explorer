@@ -1,17 +1,19 @@
-import React from 'react';
+import { isValidElement, ReactNode } from 'react';
 import { Tag } from '@components';
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { getStatusInfo } from './utils';
 
-const SingleProposal: React.FC<{
+interface Props {
     className?: string;
     id: string;
-    title: string | React.ReactNode;
+    title: string | ReactNode;
     status: string;
     description?: string;
-}> = ({ className, id, title, status, description }) => {
+}
+
+const SingleProposal = ({ className, id, title, status, description }: Props) => {
     const { t } = useTranslation('proposals');
     const statusInfo = getStatusInfo(status, t);
 
@@ -50,7 +52,7 @@ const SingleProposal: React.FC<{
             {/* ================= */}
             <Box>
                 <Box sx={{ mb: 0.5 }}>
-                    {React.isValidElement(title) ? (
+                    {isValidElement(title) ? (
                         title
                     ) : (
                         <Typography variant="h3" className="value">

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, SingleProposal } from '@components';
 import { Divider } from '@mui/material';
 import clsx from 'clsx';
@@ -9,7 +8,11 @@ import MessagesSection from './components/messages_section';
 import MetadataSection from './components/metadata_section';
 import { useOverviewState } from './hooks/use_overview_state';
 
-const Overview: React.FC<{ overview: OverviewType } & ComponentDefault> = ({ className, overview }) => {
+interface Props extends ComponentDefault {
+    overview: OverviewType;
+}
+
+const Overview = ({ className, overview }: Props) => {
     const classes = {
         content: 'overview-content',
         messageList: 'message-list',

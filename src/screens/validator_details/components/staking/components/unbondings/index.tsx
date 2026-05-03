@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from '@/adapters/routing/dynamic';
 import { Loading, NoData, Pagination } from '@components';
 import { usePagination, useScreenSize } from '@hooks';
@@ -12,11 +11,11 @@ import { UnbondingsType } from '../../types';
 const Desktop = dynamic(() => import('./components/desktop'));
 const Mobile = dynamic(() => import('./components/mobile'));
 
-const Unbondings: React.FC<
-    {
-        unbondings: UnbondingsType;
-    } & ComponentDefault
-> = (props) => {
+interface Props extends ComponentDefault {
+    unbondings: UnbondingsType;
+}
+
+const Unbondings = (props: Props) => {
     const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = usePagination({});
     const { isDesktop } = useScreenSize();
 

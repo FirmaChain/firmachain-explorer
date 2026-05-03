@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { AvatarName } from '@components';
 import { Box, Divider, Typography } from '@mui/material';
 import { formatNumber } from '@utils/format_token';
@@ -7,17 +7,14 @@ import { useTranslation } from 'react-i18next';
 
 import { ItemType } from '../../types';
 
-const Mobile: React.FC<{
-    className?: string;
-    items?: ItemType[];
-}> = ({ className, items }) => {
+const Mobile = ({ className, items }: { className?: string; items?: ItemType[] }) => {
     const { t } = useTranslation('accounts');
 
     return (
         <Box className={clsx(className)}>
-            {items.map((x, i) => {
+            {items?.map((x, i, arr) => {
                 return (
-                    <React.Fragment key={`votes-mobile-${i}`}>
+                    <Fragment key={`votes-mobile-${i}`}>
                         <Box sx={{ my: 2 }}>
                             <Box
                                 sx={(theme) => ({
@@ -72,8 +69,8 @@ const Mobile: React.FC<{
                                 </Box>
                             </Box>
                         </Box>
-                        {i !== items.length - 1 && <Divider />}
-                    </React.Fragment>
+                        {i !== arr.length - 1 && <Divider />}
+                    </Fragment>
                 );
             })}
         </Box>

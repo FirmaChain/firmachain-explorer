@@ -1,4 +1,3 @@
-import React from 'react';
 import { AvatarName } from '@components';
 import dayjs, { formatDayJs } from '@utils/dayjs';
 import { formatNumber } from '@utils/format_token';
@@ -10,10 +9,12 @@ import { DataTable, type DataTableColumn } from '@/components/DataTable';
 
 import { ItemType } from '../../types';
 
-const Desktop: React.FC<{
+interface Props {
     className?: string;
-    items: ItemType[];
-}> = ({ className, items }) => {
+    items?: ItemType[];
+}
+
+const Desktop = ({ className, items }: Props) => {
     const { t } = useTranslation('accounts');
     const dateFormat = useSettingsStore(readDate);
 

@@ -1,13 +1,9 @@
-import React from 'react';
 import CancelCircleIcon from '@assets/icon-cancel-circle.svg?react';
 import CheckCircleIcon from '@assets/icon-check-circle.svg?react';
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const Result: React.FC<{
-    className?: string;
-    success?: boolean;
-}> = ({ className, success }) => {
+const Result = ({ className, success }: { className?: string; success?: boolean }) => {
     const { t } = useTranslation('common');
 
     return (

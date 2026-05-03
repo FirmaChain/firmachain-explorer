@@ -1,9 +1,10 @@
-import React from 'react';
 import { Box, LinearProgress } from '@mui/material';
 
-const LinearLoading: React.FC<{
+interface Props {
     className?: string;
-}> = ({ className }) => {
+}
+
+const LinearLoading = ({ className }: Props) => {
     return (
         <Box
             className={className}

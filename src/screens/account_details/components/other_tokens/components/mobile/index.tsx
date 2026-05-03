@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { ibcConfig, tokenConfig } from '@/configs';
 import { OtherTokenType } from '@/screens/account_details/types';
 import { Box, Divider, Typography } from '@mui/material';
@@ -7,22 +7,16 @@ import Big from 'big.js';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-const Mobile: React.FC<{
-    className?: string;
-    items?: OtherTokenType[];
-}> = ({ className, items }) => {
+const Mobile = ({ className, items }: { className?: string; items?: OtherTokenType[] }) => {
     const { t } = useTranslation('accounts');
     return (
         <Box className={clsx(className)}>
-            {items.map((x, i) => {
-                let availables = {
+            {items?.map((x, i, arr) => {
+                const availables = {
                     value: x.available.value,
                     exponent: x.available.exponent
                 };
                 let token = x.denom.toUpperCase();
-
-                console.log(token);
-                console.log(x);
 
                 if (tokenConfig[x.denom]) {
                     token = tokenConfig[x.denom].display.toUpperCase();
@@ -42,7 +36,7 @@ const Mobile: React.FC<{
                 const reward = formatNumber(x.reward.value, x.reward.exponent);
                 const commission = formatNumber(x.commission.value, x.commission.exponent);
                 return (
-                    <React.Fragment key={`votes-mobile-${i}`}>
+                    <Fragment key={`votes-mobile-${i}`}>
                         <Box sx={{ my: 2, width: '100%' }}>
                             <Box
                                 sx={(theme) => ({
@@ -105,8 +99,8 @@ const Mobile: React.FC<{
                                 </Typography>
                             </Box>
                         </Box>
-                        {i !== items.length - 1 && <Divider />}
-                    </React.Fragment>
+                        {i !== arr.length - 1 && <Divider />}
+                    </Fragment>
                 );
             })}
         </Box>

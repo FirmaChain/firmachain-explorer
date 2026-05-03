@@ -1,4 +1,3 @@
-import React from 'react';
 import ExpandMoreIcon from '@assets/icon-expand-more.svg?react';
 import { Tag } from '@components';
 import { Collapse } from '@mui/material';
@@ -19,7 +18,7 @@ type Props = {
     classes: Record<string, string>;
 };
 
-const CollapsibleMessageItem: React.FC<Props> = ({ items, displayType, isOpen, onToggle, classes }) => {
+const CollapsibleMessageItem = ({ items, displayType, isOpen, onToggle, classes }: Props) => {
     const { t } = useTranslation('proposals');
     const tMsg = useTranslation('message_labels').t;
     const isGov = (KNOWN_GOV_TYPES as readonly string[]).includes(displayType);

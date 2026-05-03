@@ -1,4 +1,3 @@
-import React from 'react';
 import { Name } from '@components';
 import { MsgAddContractLog } from '@models';
 import { useTheme } from '@mui/material/styles';

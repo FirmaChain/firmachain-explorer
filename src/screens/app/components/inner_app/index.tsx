@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppProps } from '@/adapters/app/types';
 
 import { useChainHealthCheck } from './hooks';

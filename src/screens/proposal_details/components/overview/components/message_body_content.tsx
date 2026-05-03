@@ -1,4 +1,3 @@
-import React from 'react';
 import { formatNumber, formatTokenByExponent } from '@/utils/format_token';
 import { Markdown, Name } from '@components';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
@@ -115,7 +114,7 @@ function ExecSendTable({ rows, tableWrapClassName }: { rows: ExecSendRow[]; tabl
     );
 }
 
-const MessageBodyContent: React.FC<Props> = (props) => {
+const MessageBodyContent = (props: Props) => {
     const items = props.items ?? (props.content ? [props.content] : []);
     const firstItem = items[0];
     const contentType = firstItem ? getProposalType(R.pathOr('', ['@type'], firstItem) as string) : '';

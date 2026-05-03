@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import type { Theme } from '@mui/material/styles';
@@ -7,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useOnlineVotingPower } from './hooks';
 
-const OnlineVotingPower: React.FC<ComponentDefault> = () => {
+const OnlineVotingPower = () => {
     const { t } = useTranslation('home');
     const { state } = useOnlineVotingPower();
 
