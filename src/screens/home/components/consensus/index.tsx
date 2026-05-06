@@ -110,20 +110,6 @@ const Consensus = ({ className }: { className?: string }) => {
                             step: numeral(state.step).format('0,0')
                         })}
                     </Typography>
-
-                    <Typography
-                        component="div"
-                        sx={{
-                            mt: 1,
-                            fontSize: '1rem',
-                            color: theme.palette.custom.fonts.fontTwo,
-                            lineHeight: 1.2
-                        }}
-                    >
-                        {t('round', {
-                            round: numeral(state.round).format('0,0')
-                        })}
-                    </Typography>
                 </ConsensusRing>
             </div>
         </Box>
