@@ -71,9 +71,8 @@ export const useValidators = () => {
 
                     const commissionRate = data.validator.commission.commission_rates.rate;
                     commission = Number(commissionRate) * 100;
-                } catch (error) {
-                    // eslint-disable-next-line no-console
-                    console.log(error);
+                } catch {
+                    commission = null;
                 }
 
                 return {

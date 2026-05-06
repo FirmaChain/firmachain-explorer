@@ -25,7 +25,8 @@ const SingleProposal = ({ className, id, title, status, description }: Props) =>
                 [theme.breakpoints.up('lg')]: {
                     display: 'grid',
                     gridTemplateColumns: '50px auto min-content',
-                    gridGap: theme.spacing(2)
+                    gridGap: theme.spacing(2),
+                    my: 2
                 }
             })}
         >

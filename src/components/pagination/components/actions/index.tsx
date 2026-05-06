@@ -80,7 +80,9 @@ const Actions = (props: Props) => {
                     transform: 'rotate(180deg)'
                 },
                 '& .rowSelection .MuiInputBase-input': {
-                    p: 0
+                    paddingLeft: theme.spacing(1),
+                    display: 'flex',
+                    alignItems: 'center'
                 },
                 '& .rowSelection .MuiTypography-body2': {
                     color: theme.palette.custom.fonts.fontThree
