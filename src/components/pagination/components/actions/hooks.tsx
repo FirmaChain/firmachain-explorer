@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { ChangeEvent, MouseEvent } from 'react';
 
 export const useTablePaginationActions = (props: {
     className?: string;
@@ -61,7 +61,7 @@ export const useTablePaginationActions = (props: {
         return availablePages;
     };
 
-    const handleRowOptionChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleRowOptionChange = (event: ChangeEvent<{ value: unknown }>) => {
         handleChangeRowsPerPage(Number(event.target.value) as number);
     };
 

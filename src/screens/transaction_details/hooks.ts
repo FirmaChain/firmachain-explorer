@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { TransactionDetailsQuery, useTransactionDetailsQuery } from '@graphql/types';
 import { formatToken } from '@utils/format_token';
 import * as R from 'ramda';
@@ -151,7 +151,7 @@ export const useTransactionDetails = () => {
         });
     };
 
-    const toggleMessageDisplay = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const toggleMessageDisplay = (event: ChangeEvent<HTMLInputElement>) => {
         handleSetState({
             messages: {
                 viewRaw: event.target.checked

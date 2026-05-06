@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Loading } from '@components';
 import { chainConfig } from '@configs';
 import { useInterval } from '@hooks';
@@ -8,9 +7,7 @@ import dayjs from '@utils/dayjs';
 import { readTheme, useSettingsStore } from '@zustand/settings';
 import * as R from 'ramda';
 
-const Countdown: React.FC<{
-    startGenesis: () => void;
-}> = ({ startGenesis }) => {
+const Countdown = ({ startGenesis }: { startGenesis: () => void }) => {
     const theme = useSettingsStore(readTheme);
     const [state, setState] = useState<{
         day: number;

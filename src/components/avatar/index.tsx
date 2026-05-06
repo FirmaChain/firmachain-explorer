@@ -1,14 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import * as jdenticon from 'jdenticon';
 
-const Avatar: React.FC<{
-    className?: string;
-    imageUrl?: string;
-    address: string;
-}> = ({ className, address, imageUrl }) => {
+const Avatar = ({ className, address, imageUrl }: { className?: string; imageUrl?: string; address: string }) => {
     const icon = useRef(null);
     const [error, setError] = useState<boolean>(false);
+
+    const handleError = () => {
+        setError(true);
+    };
+
     useEffect(() => {
         jdenticon.update(icon.current, address);
     }, [address, error, imageUrl]);
@@ -16,10 +17,6 @@ const Avatar: React.FC<{
     useEffect(() => {
         setError(false);
     }, [address]);
-
-    const handleError = () => {
-        setError(true);
-    };
 
     return (
         <Box

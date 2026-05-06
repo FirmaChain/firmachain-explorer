@@ -55,16 +55,14 @@ function useElementSize<T extends HTMLElement>() {
     return { ref, size };
 }
 
-const DEFAULT_ROW_HEIGHT = 50;
-
-const Desktop: React.FC<TransactionsListState> = ({
+const Desktop = ({
     className,
     itemCount = 0,
     hasNextPage = false,
     isNextPageLoading = false,
     loadMoreItems,
     transactions = []
-}) => {
+}: TransactionsListState) => {
     const { t } = useTranslation('transactions');
     const { ref, size } = useElementSize<HTMLDivElement>();
 

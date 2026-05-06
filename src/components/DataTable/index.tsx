@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Key, KeyboardEvent, memo, ReactNode, RefObject, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Virtualizer } from 'virtua';
 
@@ -18,7 +18,7 @@ export type SortState = {
 } | null;
 
 export type CellRenderContext = {
-    rowId: React.Key;
+    rowId: Key;
     rowIndex: number;
     isSelected: boolean;
     selectionBehavior: RowSelectionBehavior;
@@ -26,9 +26,9 @@ export type CellRenderContext = {
 
 export type DataTableColumn<T> = {
     key: string;
-    header: React.ReactNode;
-    tooltip?: React.ReactNode;
-    render: (row: T, context: CellRenderContext) => React.ReactNode;
+    header: ReactNode;
+    tooltip?: ReactNode;
+    render: (row: T, context: CellRenderContext) => ReactNode;
     width?: number | string;
     minWidth?: number;
     grow?: number;
@@ -42,7 +42,7 @@ export type DataTableColumn<T> = {
 export type DataTableProps<T> = {
     data?: T[];
     columns?: DataTableColumn<T>[];
-    getRowId: (row: T) => React.Key;
+    getRowId: (row: T) => Key;
 
     height?: number | string;
     headerHeight?: number;
@@ -58,8 +58,8 @@ export type DataTableProps<T> = {
     inset?: DataTableInset;
 
     selectable?: boolean;
-    selectedRowIds?: React.Key[];
-    onSelectedRowIdsChange?: (nextIds: React.Key[]) => void;
+    selectedRowIds?: Key[];
+    onSelectedRowIdsChange?: (nextIds: Key[]) => void;
     getRowSelectionBehavior?: (row: T) => RowSelectionBehavior;
     selectionColumnWidth?: number;
 
@@ -76,12 +76,12 @@ export type DataTableProps<T> = {
     isFetchingMore?: boolean;
     onReachEnd?: () => void;
     reachEndOffset?: number;
-    fetchMoreIndicator?: React.ReactNode;
+    fetchMoreIndicator?: ReactNode;
 
     onRowClick?: (row: T, rowIndex: number) => void;
     rowClassName?: (row: T, rowIndex: number) => string | undefined;
 
-    empty?: React.ReactNode;
+    empty?: ReactNode;
     className?: string;
 };
 
@@ -93,13 +93,13 @@ type DensityValue = {
 type DataRowItemProps<T> = {
     row: T;
     rowIndex: number;
-    rowId: React.Key;
+    rowId: Key;
     visibleColumns: DataTableColumn<T>[];
     gridTemplateColumns: string;
     selectable: boolean;
     selectionBehavior: RowSelectionBehavior;
     isSelected: boolean;
-    selectedIdSet: Set<React.Key>;
+    selectedIdSet: Set<Key>;
     densityValue: DensityValue;
     insetValue: number;
     rowHeight: number;
@@ -159,7 +159,7 @@ function getNextSortState(current: SortState, columnKey: string, sortBehavior: S
     return null;
 }
 
-function useElementWidth<T extends HTMLElement>(ref: React.RefObject<T>) {
+function useElementWidth<T extends HTMLElement>(ref: RefObject<T>) {
     const [width, setWidth] = useState(0);
 
     useEffect(() => {
@@ -191,7 +191,7 @@ function useElementWidth<T extends HTMLElement>(ref: React.RefObject<T>) {
     return width;
 }
 
-function stopRowEvent(event: React.SyntheticEvent) {
+function stopRowEvent(event: SyntheticEvent) {
     event.stopPropagation();
 }
 
@@ -245,7 +245,7 @@ function DataRowItemInner<T>({
     }, [onRowClick, row, rowIndex]);
 
     const handleKeyDown = useCallback(
-        (event: React.KeyboardEvent<HTMLDivElement>) => {
+        (event: KeyboardEvent<HTMLDivElement>) => {
             if (!onRowClick) return;
 
             if (event.key === 'Enter' || event.key === ' ') {
@@ -340,7 +340,7 @@ function DataRowItemInner<T>({
     );
 }
 
-const DataRowItem = React.memo(DataRowItemInner) as typeof DataRowItemInner;
+const DataRowItem = memo(DataRowItemInner) as typeof DataRowItemInner;
 
 export const rowHoverVisible = css`
     opacity: 0;
@@ -423,7 +423,7 @@ export function DataTable<T>({
     const selectableRowIds = useMemo(() => {
         if (!selectable || data.length === 0) return [];
 
-        const nextIds: React.Key[] = [];
+        const nextIds: Key[] = [];
 
         for (const row of data) {
             if (getSelectionBehavior(row) === 'checkbox') {
