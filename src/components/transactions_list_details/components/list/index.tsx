@@ -46,14 +46,12 @@ const TransactionList = ({
                 <SingleTransaction
                     block={
                         <Link to={BLOCK_DETAILS(transaction.height)}>
-                            <Typography variant="body1" component="a">
-                                {numeral(transaction.height).format('0,0')}
-                            </Typography>
+                            <Typography variant="body1">{numeral(transaction.height).format('0,0')}</Typography>
                         </Link>
                     }
                     hash={
                         <Link to={TRANSACTION_DETAILS(transaction.hash)}>
-                            <Typography variant="body1" component="a">
+                            <Typography variant="body1">
                                 {isMobile
                                     ? getMiddleEllipsis(transaction.hash, {
                                           beginning: 15,

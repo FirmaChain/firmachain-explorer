@@ -56,7 +56,7 @@ const Transactions = ({ className }: { className?: string }) => {
             <div className="label">
                 <Typography variant="h2">{t('latestTransactions')}</Typography>
                 <Link to={TRANSACTIONS}>
-                    <Typography variant="h4" className="button" component="a">
+                    <Typography variant="h4" className="button">
                         {t('seeMore')}
                     </Typography>
                 </Link>
@@ -68,7 +68,7 @@ const Transactions = ({ className }: { className?: string }) => {
                     {isDesktop ? <Desktop className="desktop" items={state.items} /> : <Mobile className="mobile" items={state.items} />}
                     <Divider className="mobile" />
                     <Link to={TRANSACTIONS}>
-                        <Typography variant="h4" component="a" className="seeMoreFooter mobile button">
+                        <Typography variant="h4" className="seeMoreFooter mobile button">
                             {t('seeMore')}
                         </Typography>
                     </Link>

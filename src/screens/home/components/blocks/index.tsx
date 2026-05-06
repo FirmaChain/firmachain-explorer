@@ -63,7 +63,7 @@ const Blocks = ({ className }: { className?: string }) => {
             <div className="label">
                 <Typography variant="h2">{t('latestBlocks')}</Typography>
                 <Link to={BLOCKS}>
-                    <Typography variant="h4" className="button" component="a">
+                    <Typography variant="h4" className="button">
                         {t('seeMore')}
                     </Typography>
                 </Link>
@@ -79,7 +79,7 @@ const Blocks = ({ className }: { className?: string }) => {
                     )}
                     <Divider className="mobile" />
                     <Link to={BLOCKS}>
-                        <Typography variant="h4" component="a" className="seeMoreFooter mobile button">
+                        <Typography variant="h4" className="seeMoreFooter mobile button">
                             {t('seeMore')}
                         </Typography>
                     </Link>

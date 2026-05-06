@@ -189,7 +189,7 @@ const ValidatorOverview = ({ status, overview, className }: Props) => {
                         <div className="detail">
                             <CopyIcon className="actionIcon" onClick={() => handleCopyToClipboard(overview.selfDelegateAddress)} />
                             <Link to={ACCOUNT_DETAILS(overview.selfDelegateAddress)}>
-                                <Typography variant="body1" className="value" component="a">
+                                <Typography variant="body1" className="value">
                                     {!isDesktop
                                         ? getMiddleEllipsis(overview.selfDelegateAddress, {
                                               beginning: 15,

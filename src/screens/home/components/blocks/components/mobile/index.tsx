@@ -19,7 +19,7 @@ const Mobile = ({ className, items }: { className?: string; items: ItemType[] })
                         <SingleBlockMobile
                             height={
                                 <Link to={BLOCK_DETAILS(x.height)}>
-                                    <Typography variant="body1" className="value" component="a">
+                                    <Typography variant="body1" className="value">
                                         {numeral(x.height).format('0,0')}
                                     </Typography>
                                 </Link>

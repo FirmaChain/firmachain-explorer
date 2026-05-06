@@ -42,7 +42,7 @@ const Error = () => {
                     />
                 </Typography>
                 <Link to={HOME}>
-                    <Typography component="a">{t('common:errorHome')}</Typography>
+                    <Typography>{t('common:errorHome')}</Typography>
                 </Link>
             </Box>
         </Box>

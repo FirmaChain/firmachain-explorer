@@ -40,7 +40,7 @@ const Mobile = ({ className, items, itemCount, loadMoreItems, isNextPageLoading 
                 <SingleBlockMobile
                     height={
                         <Link to={BLOCK_DETAILS(row.height)}>
-                            <Typography variant="body1" className="value" component="a">
+                            <Typography variant="body1" className="value">
                                 {numeral(row.height).format('0,0')}
                             </Typography>
                         </Link>

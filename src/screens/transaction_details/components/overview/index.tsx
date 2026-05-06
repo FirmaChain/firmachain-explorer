@@ -28,7 +28,7 @@ const Overview = ({ className, data }: Props) => {
             label: t('height'),
             detail: (
                 <Link to={BLOCK_DETAILS(data.height)}>
-                    <Typography variant="body1" className="value" component="a">
+                    <Typography variant="body1" className="value">
                         {numeral(data.height).format('0,0')}
                     </Typography>
                 </Link>
@@ -46,7 +46,7 @@ const Overview = ({ className, data }: Props) => {
             label: t('feegrant'),
             detail: (
                 <Link to={ACCOUNT_DETAILS(data.feeGrant)}>
-                    <Typography variant="body1" className="value" component="a">
+                    <Typography variant="body1" className="value">
                         {data.feeGrant}
                     </Typography>
                 </Link>

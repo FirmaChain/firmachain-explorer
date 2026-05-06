@@ -60,11 +60,9 @@ const Menu = (props: MenuProps) => {
             >
                 <div className={clsx('content')}>
                     {THEME_LIST.filter((l) => l !== themeOptions.theme).map((l) => (
-                        <div key={l}>
-                            <MenuItem component="a" onClick={() => themeOptions.handleChangeTheme(l)}>
-                                {t(l)}
-                            </MenuItem>
-                        </div>
+                        <MenuItem key={l} onClick={() => themeOptions.handleChangeTheme(l)}>
+                            {t(l)}
+                        </MenuItem>
                     ))}
                 </div>
             </Drawer>

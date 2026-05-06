@@ -1,5 +1,5 @@
 import { ibcConfig } from '@/configs';
-import { Typography } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import { ADDRESS_DETAILS } from '@utils/go_to_page';
 import { Link } from 'react-router';
 
@@ -18,21 +18,24 @@ const Name = ({ className, address, name, href = ADDRESS_DETAILS }: Props) => {
 
     const explorerUrl = getExplorerUrlForAddress(address);
 
-    return (
-        <Link to={explorerUrl ? `${explorerUrl}/${address}` : href(address)}>
-            <Typography
-                variant="body1"
-                className={className}
-                component="a"
-                target={explorerUrl ? '_blank' : ''}
-                sx={(theme) => ({
-                    color: theme.palette.custom.fonts.highlight,
-                    wordBreak: 'break-all',
-                    '&:hover': {
-                        cursor: 'pointer'
-                    }
-                })}
-            >
+    const typoProps = {
+        className,
+        sx: (theme: Theme) => ({
+            color: theme.palette.custom.fonts.highlight,
+            wordBreak: 'break-all',
+            '&:hover': {
+                cursor: 'pointer'
+            }
+        })
+    };
+
+    return explorerUrl ? (
+        <Typography variant="body1" component="a" target="_blank" rel="noreferrer" href={`${explorerUrl}/${address}`} {...typoProps}>
+            {name}
+        </Typography>
+    ) : (
+        <Link to={href(address)}>
+            <Typography variant="body1" {...typoProps}>
                 {name}
             </Typography>
         </Link>

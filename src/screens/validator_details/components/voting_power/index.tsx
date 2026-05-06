@@ -86,7 +86,7 @@ const VotingPower = ({ className, data, status }: Props) => {
                     {t('block')}
                 </Typography>
                 <Link to={BLOCK_DETAILS(data.height)}>
-                    <Typography variant="body1" className="value" component="a">
+                    <Typography variant="body1" className="value">
                         {numeral(data.height).format('0,0')}
                     </Typography>
                 </Link>

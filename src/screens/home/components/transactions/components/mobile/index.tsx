@@ -23,14 +23,12 @@ const Mobile = ({ className, items }: { className?: string; items: TransactionTy
         return {
             block: (
                 <Link to={BLOCK_DETAILS(x.height)}>
-                    <Typography variant="body1" component="a">
-                        {numeral(x.height).format('0,0')}
-                    </Typography>
+                    <Typography variant="body1">{numeral(x.height).format('0,0')}</Typography>
                 </Link>
             ),
             hash: (
                 <Link to={TRANSACTION_DETAILS(x.hash)}>
-                    <Typography variant="body1" component="a">
+                    <Typography variant="body1">
                         {getMiddleEllipsis(x.hash, {
                             beginning: 15,
                             ending: 5
@@ -41,11 +39,7 @@ const Mobile = ({ className, items }: { className?: string; items: TransactionTy
             result: <Result success={x.success} />,
             time: dayjs.utc(x.timestamp).fromNow(),
             messages: numeral(x.messages).format('0,0'),
-            type: (
-                <Typography variant="body1" component="a">
-                    {tag.type}
-                </Typography>
-            )
+            type: <Typography variant="body1">{tag.type}</Typography>
         };
     });
 

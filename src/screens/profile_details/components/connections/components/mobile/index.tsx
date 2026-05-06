@@ -64,7 +64,7 @@ const Mobile = ({ className, items }: { className?: string; items?: ProfileConne
                                 <Typography variant="body1" className="value">
                                     {checkIdentifier && (
                                         <Link to={ACCOUNT_DETAILS(x.identifier)}>
-                                            <Typography variant="body1" className="value" component="a">
+                                            <Typography variant="body1" className="value">
                                                 {x.identifier}
                                             </Typography>
                                         </Link>

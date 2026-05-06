@@ -68,7 +68,7 @@ const Desktop = ({ className, items, itemCount, loadMoreItems, isItemLoaded, isN
             width: 150,
             render: (x) => (
                 <Link to={BLOCK_DETAILS(x.height)}>
-                    <Typography variant="body1" className="value" component="a">
+                    <Typography variant="body1" className="value">
                         {numeral(x.height).format('0,0')}
                     </Typography>
                 </Link>

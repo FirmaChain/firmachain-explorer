@@ -17,7 +17,7 @@ const Vote = (props: { message: MsgVote }) => {
     const Proposal = () => {
         return (
             <Link to={PROPOSAL_DETAILS(message.proposalId)}>
-                <Typography component="a">#{message.proposalId}</Typography>
+                <Typography>#{message.proposalId}</Typography>
             </Link>
         );
     };
